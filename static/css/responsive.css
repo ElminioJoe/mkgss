@@ -1,0 +1,90 @@
+/*---------------------------------------- 991px x 768px ----------------------------------------*/
+
+@media (min-width: 1200px) and (max-width: 1342px) {
+    .text_img {
+        margin-right: 0px;
+    }
+}
+
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .text_img {
+        margin-right: 0px;
+    }
+    .text-bg h1 {
+        font-size: 43px;
+        line-height: 53px;
+        padding-bottom: 10px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    .banner_main {
+        min-height: 1065px;
+    }
+    .text_img {
+        margin-right: 0px;
+        margin-top: 30px;
+    }
+    .text_img figure h3 {
+        top: 19px;
+        left: -3px;
+    }
+    .text-bg p {
+        padding-bottom: 30px;
+    }
+}
+
+@media (max-width: 575px) {
+    .text_img {
+        margin-right: 0px;
+        margin-top: 30px;
+    }
+    .text-bg {
+        padding-right: 0;
+    }
+    .text_img figure h3 {
+        top: 19px;
+        left: 5px;
+    }
+    .text-bg p {
+        padding-bottom: 30px;
+    }
+    .text-bg h1 {
+        font-size: 47px;
+        line-height: 60px;
+        padding-bottom: 10px;
+    }
+    .carousel-inner {
+        margin-right: 0;
+    }
+}
+
+/*---------- Shapedivider ----------*/
+
+@media (min-width:768px){
+.shapedividers_com-2327::before{
+background-size: 174% 58px;
+background-position: 43% 0%;   
+}  
+}
+ 
+@media (min-width:1025px){
+.shapedividers_com-2327::before{ 
+bottom: -0.1vw;
+left: -0.1vw;
+right: -0.1vw;
+top: -0.1vw; 
+background-size: 136% 173px;
+background-position: 50% 0%;  
+}
+}
+@media (min-width:2100px){
+.shapedividers_com-2327::before{
+background-size: 136% calc(2vw + 173px);
+}
+}
+ 
+
+
+/*---------- Shapedivider ----------*/

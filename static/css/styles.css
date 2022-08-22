@@ -6,4 +6,209 @@
 .font{
     font-family: 'Poppins', sans-serif;
 }
+/** banner section **/
 
+.banner_main {
+     background-color: #0B032D;
+     min-height: 75vh;
+     display: flex;
+     justify-content: center;
+     align-content: center;
+     align-items: center;
+     position: relative;
+}
+
+.banner_main::before {
+     position: absolute;
+     bottom: -63px;
+     right: 17%;
+     content: "";
+     width: 159px;
+     z-index: 9999;
+     height: 159px;
+     cursor: pointer;
+}
+
+/*---------- Shapedivider ----------*/
+
+.shapedividers_com-2327{
+overflow:hidden;
+min-height: 15vh;
+position:relative;
+}
+.shapedividers_com-2327::before{
+content:'';
+font-family:'shape divider from ShapeDividers.com';
+position: absolute;
+bottom: -1px;
+left: -1px;
+right: -1px;
+top: -1px;
+z-index: 3;
+pointer-events: none;
+background-repeat: no-repeat; 
+background-size: 162% 60px;
+background-position: 50% 0%;    
+background-image: url('data:image/svg+xml;charset=utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35.28 2.17" preserveAspectRatio="none"><path d="M0 1c3.17.8 7.29-.38 10.04-.55 2.75-.17 9.25 1.47 12.67 1.3 3.43-.17 4.65-.84 7.05-.87 2.4-.02 5.52.88 5.52.88V0H0z" fill="%230b032d"/></svg>'); 
+}
+
+/*---------- Shapedivider ----------*/
+.banner_main .container{
+     margin: .5rem;
+}
+
+.text-bg {
+     text-align: left;
+     padding-right: 71px;
+}
+
+.text-bg h1 {
+     color: #fff;
+     font-size: 60px;
+     line-height: 73px;
+     padding-bottom: 30px;
+}
+
+.text-bg p {
+     line-height: 28px;
+     font-weight: 500;
+     padding-bottom: 70px;
+     display: block;
+}
+
+.text_img {
+     margin-right: -3px;
+}
+
+.text_img figure {
+     margin: 0;
+}
+
+.text_img figure h3 {
+     color: #fff;
+     font-size: 30px;
+     top: -18px;
+     background: #ffca56;
+     z-index: 999999;
+     width: 70px;
+     height: 70px;
+     border-radius: 50px;
+     position: absolute;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     line-height: 40px;
+     padding-top: 10px;
+     left: -20px;
+}
+
+.text_img figure img {
+     width: 100%;
+}
+
+.carousel-caption {
+     position: inherit;
+}
+
+/* .carousel-inner {
+     margin-right: 200px;
+} */
+
+#banner1 .carousel-indicators {
+     /* left: 6px; */
+     /* bottom: 40px; */
+     display: flex;
+     margin-left: 0;
+     /* right: inherit; */
+     top: 100%;
+     opacity: 35%;
+     cursor: pointer;
+}
+
+#banner1 .carousel-indicators li {
+     width: 20px;
+     height: 5px;
+     border-radius: 20px;
+     background: #f6f6f6;
+     margin: 7px 0;
+}
+
+#banner1 .carousel-indicators li.active {
+     background: #ffca56;
+     border: #fff solid 3px;
+     width: 20px;
+     height: 4px;
+     margin: 0 !important;
+     padding: 0 !important;
+}
+
+#banner1 a.carousel-control-next,
+#banner1 a.carousel-control-prev {
+     display: none;
+}
+
+.text-bg a {
+     font-size: 17px;
+     background-color: transparent;
+     border: #fff solid 2px;
+     color: #fff;
+     font-weight: 500;
+     padding: 14px 0px;
+     width: 100%;
+     max-width: 215px;
+     text-align: center;
+     display: inline-block;
+     transition: ease-in all 0.5s;
+     margin-right: 10px;
+}
+
+.text-bg a:hover {
+     background-color: #ffca56;
+     color: #fff;
+     transition: ease-in all 0.5s;
+}
+
+
+/** end banner section **/
+
+.titlepage {
+     text-align: center;
+     padding-bottom: 60px;
+}
+
+.titlepage h2 {
+     font-size: 40px;
+     color: #02246a;
+     line-height: 55px;
+     padding: 0;
+}
+
+.d_flex {
+     display: flex;
+     align-items: center;
+     flex-wrap: wrap;
+}
+
+.blu {
+     color: #0808ff;
+}
+
+.read_more {
+     font-size: 17px;
+     background-color: transparent;
+     border: #ffca56 solid 2px;
+     color: #ffca56 !important;
+     padding: 13px 0px;
+     width: 100%;
+     max-width: 190px;
+     text-align: center;
+     display: inline-block;
+     transition: ease-in all 0.5s;
+     font-weight: 500;
+}
+
+.read_more:hover {
+     background: #02246a;
+     color: #fff;
+     transition: ease-in all 0.5s;
+}
