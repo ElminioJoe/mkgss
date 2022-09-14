@@ -1,93 +1,248 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<section class="banner_main">
-    <div id="banner1" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#banner1" data-slide-to="0" class="active"></li>
-            <li data-target="#banner1" data-slide-to="1"></li>
-            <li data-target="#banner1" data-slide-to="2"></li>
-        </ol>
+<section class="slider_section">
+    <div id="myCarousel" class="carousel slide banner-main" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
+                <img class="first-slide img-responsive" src="{% static 'images/IMG_2993.JPG' %}" alt="First slide">
                 <div class="container">
-                    <div class="carousel-caption">
-                        <div class="row d_flex">
-                            <div class="col-md-6">
-                                <div class="text-bg">
-                                    <h1>Moi Kadzonzo Girls <br>High School</h1>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
-                                    <a href="#">About More </a>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="text_img">
-                                    <figure>
-                                       <img class="img-fluid" src="{% static 'images/IMG_2993.JPG' %}" alt="#"/>
-                                       <h3>01</h3>
-                                    </figure>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                   <div class="carousel-caption relative">
+                      <h1>Moi Kadzonzo Girls High School</h1>
+                      <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and </p>
+                      <a  href="Javascript:void(0)">Read More</a>
+                   </div>
                 </div>
             </div>
             <div class="carousel-item">
+               <img class="second-slide img-responsive" src="{% static 'images/IMG_3045.JPG' %}" alt="Second slide">
                <div class="container">
-                  <div class="carousel-caption">
-                     <div class="row d_flex">
-                        <div class="col-md-6">
-                           <div class="text-bg">
-                              <h1>Strategy And <br>Research</h1>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
-                              <a href="#">About More </a>
-                           </div>
-                        </div>
-                        <div class="col-md-6">
-                           <div class="text_img">
-                              <figure>
-                                 <img class="img-fluid" src="{% static 'images/IMG_3045.JPG' %}" alt="#"/>
-                                 <h3>01</h3>
-                              </figure>
-                           </div>
-                        </div>
-                     </div>
+                  <div class="carousel-caption relative">
+                     <h1>Moi Kadzonzo Girls High School</h1>
+                     <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and </p>
+                     <a  href="Javascript:void(0)">Read More</a>
                   </div>
                </div>
             </div>
             <div class="carousel-item">
+               <img class="third-slide img-responsive" src="{% static 'images/IMG_3046.JPG' %}" alt="Third slide">
                <div class="container">
-                  <div class="carousel-caption">
-                     <div class="row d_flex">
-                        <div class="col-md-6">
-                           <div class="text-bg">
-                              <h1>Strategy And <br>Research</h1>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
-                              <a href="#">About More </a>
-                           </div>
-                        </div>
-                        <div class="col-md-6">
-                           <div class="text_img">
-                              <figure>
-                                 <img class="img-fluid" src="{% static 'images/IMG_3046.JPG' %}" alt="#"/>
-                                 <h3>01</h3>
-                              </figure>
-                           </div>
-                        </div>
-                     </div>
+                  <div class="carousel-caption relative">
+                     <h1>Moi Kadzonzo Girls High School</h1>
+                     <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and </p>
+                     <a  href="Javascript:void(0)">Read More</a>
                   </div>
                </div>
             </div>
-        </div>
-        <a class="carousel-control-prev" href="#banner1" role="button" data-slide="prev">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        </a>
-        <a class="carousel-control-next" href="#banner1" role="button" data-slide="next">
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-        </a>
+            </div>
+            <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+            <i class='fa fa-angle-left'></i>
+            </a>
+            <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+            <i class='fa fa-angle-right'></i>
+            </a>
+            <a class="bottom_arrow_scroll" href="#about"><img src="{% static 'icon/errow.png' %}" /></a>
     </div>
 </section>
-<div class="shapedividers_com-2327"></div>
+
+<!-- about  -->
+<div id="about" class="about mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="titlepage">
+                    <h2>About</h2>
+                    <span>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, a </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row flexcss">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 center">
+                <div class="about-box">
+                    <h3>distracted by the readable </h3>
+                    <p class="text-justify">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, aIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, aIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of lettersdistracted by the readable distracted by the readable , a</p>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="about-img">
+                    <figure><img src="{% static 'images/IMG_3046.JPG' %}" alt="img"/></figure>
+                </div>
+            </div>
+        </div>
+        <a href="Javascript:void(0)">read more</a>
+    </div>
+</div>
+<!-- end abouts -->
+<!-- values --> 
+<div id="values" class="values">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="titlepage">
+                    <h2>Our Values </h2>
+                    <span>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of <br>using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</span>
+                </div>
+            </div>
+        </div>
+   </div>
+   <div class="container margin-r-l">
+        <div class="row">
+            <div class="col col-xl-4 col-lg-4 col-md-6 col-sm-12 thumb">
+                <div class="values-box">
+                    <span class="hoverle">
+                        <h3 class="text-uppercase ">Mission</h3>
+                    </span>  
+                    <p class="text-center mt-3 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt eos, quisquam veniam maiores in neque!</p>
+                </div>
+            </div>
+            <div class="col col-xl-4 col-lg-4 col-md-6 col-sm-12 thumb">
+                <div class="values-box">
+                    <span class="hoverle">
+                        <h3 class="text-uppercase ">Motto</h3>
+                    </span>
+                    <p class="text-center mt-3 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt eos, quisquam veniam maiores in neque!</p>
+                </div>
+            </div>
+            <div class="col col-xl-4 col-lg-4 col-md-6 offset-md-3 offset-lg-0 col-sm-12 thumb">
+                <div class="values-box">
+                    <span class="hoverle">
+                        <h3 class="text-uppercase ">Vision</h3>
+                    </span>
+                    <p class="text-center mt-3 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt eos, quisquam veniam maiores in neque!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end values -->
+<!-- our blog -->
+<div id="blog" class="blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="titlepage">
+                    <h2>Our Blog</h2>
+                    <span>Lorem Ipsum is that it has a more-or-less normal distribution of letters,</span> 
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="blog-box">
+                    <figure><img src="images/blog-image0.jpg" alt="#"/>
+                        <span>10 August 2019</span>
+                    </figure>
+                    <div class="travel">
+                        <span>Post  By :  Travel  Agency</span> 
+                        <p><strong class="Comment"> 06 </strong>  Comment</p>
+                        <p><strong class="like">05 </strong>Like</p>
+                    </div>
+                    <h3>London Amazing Tour</h3>
+                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web</p>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="blog-box">
+                    <figure><img src="images/blog-image.jpg" alt="#"/>
+                        <span>12 August 2019</span>
+                    </figure>
+                    <div class="travel">
+                        <span>Post  By :  Travel  Agency</span> 
+                        <p><strong class="Comment"> 06 </strong>  Comment</p>
+                        <p><strong class="like">05 </strong>Like</p>
+                    </div>
+                    <h3>London Amazing Tour</h3>
+                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web</p>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="blog-box">
+                    <figure><img src="images/blog-image.jpg" alt="#"/>
+                        <span>14 August 2019</span>
+                    </figure>
+                    <div class="travel">
+                        <span>Post  By :  Travel  Agency</span> 
+                        <p><strong class="Comment"> 06 </strong>  Comment</p>
+                        <p><strong class="like">05 </strong>Like</p>
+                    </div>
+                    <h3>London Amazing Tour</h3>
+                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web</p>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="blog-box">
+                    <figure><img src="images/blog-image0.jpg" alt="#"/>
+                        <span>15 August 2019</span>
+                    </figure>
+                    <div class="travel">
+                        <span>Post  By :  Travel  Agency</span> 
+                        <p><strong class="Comment"> 06 </strong>  Comment</p>
+                        <p><strong class="like">05 </strong>Like</p>
+                    </div>
+                    <h3>London Amazing Tour</h3>
+                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end our blog -->
+<!-- contact section -->
+<section id="contact" class="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="titlepage">
+                    <h2>Contact Us</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row flexcont">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="contact card">
+                    <form>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <input class="contactus" placeholder="Name" type="text" name="Name" required>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <input class="contactus" placeholder="Email" type="email" name="Email" required>
+                            </div>
+                            <div class="col-sm-12">
+                                <input class="contactus" placeholder="Subject" type="text" name="Email" required>
+                            </div>
+                            <div class="col-sm-12">
+                                <textarea class="textarea" placeholder="Message" type="text" name="Message" required rows="4"></textarea>
+                            </div>
+                            <div class="col-sm-12">
+                                <button class="send">SEND</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 p-override">
+                <div class="mapouter ">
+                    <div class="gmap_canvas">
+                        <iframe class="card" id="gmap_canvas" src="https://maps.google.com/maps?q=Moi%20Girls%20Kadzonzo,%20C107&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                        <!-- <a href="https://123movies-to.org">123 movies</a><br><style>.mapouter{position:relative;text-align:right;height:500px;width:600px;}</style><a href="https://www.embedgooglemap.net">map iframe</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:600px;}</style> -->
+                    </div>
+                </div>
+                <div class="address card">
+                    <ul class="">
+                        <li><i class="fa-sharp fa-solid fa-building-columns"></i><span>Moi Kadzonzo Girls HIgh School</span></li>
+                        <li><i class="fa-sharp fa-solid fa-location-dot"></i><span>P.O Box 43112, Mariakani</span></li>
+                        <li><i class="fa-sharp fa-solid fa-phone"></i><span>+254 729 764 360</span></li>
+                        <li><i class="fa-sharp fa-solid fa-envelope-open"></i><span>info@moikadzonzogirls.co.ke</span></li>
+                    </ul>
+                </div>
+            </div>
+       </div>
+    </div>
+</section>
+<!-- end contact section -->
 
 
 {% endblock %}

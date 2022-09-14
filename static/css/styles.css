@@ -16,6 +16,7 @@
      align-content: center;
      align-items: center;
      position: relative;
+     padding: auto 2rem;
 }
 
 .banner_main::before {
@@ -160,10 +161,11 @@ background-image: url('data:image/svg+xml;charset=utf8, <svg xmlns="http://www.w
      display: inline-block;
      transition: ease-in all 0.5s;
      margin-right: 10px;
+     text-decoration: none;
 }
 
 .text-bg a:hover {
-     background-color: #ffca56;
+     background-color: #563309;
      color: #fff;
      transition: ease-in all 0.5s;
 }
@@ -173,13 +175,13 @@ background-image: url('data:image/svg+xml;charset=utf8, <svg xmlns="http://www.w
 
 .titlepage {
      text-align: center;
-     padding-bottom: 60px;
 }
 
 .titlepage h2 {
      font-size: 40px;
      color: #02246a;
      line-height: 55px;
+     font-weight: bold;
      padding: 0;
 }
 
@@ -189,26 +191,76 @@ background-image: url('data:image/svg+xml;charset=utf8, <svg xmlns="http://www.w
      flex-wrap: wrap;
 }
 
-.blu {
+/* .blu {
      color: #0808ff;
-}
+} */
 
 .read_more {
      font-size: 17px;
      background-color: transparent;
-     border: #ffca56 solid 2px;
-     color: #ffca56 !important;
+     border: #0B032D solid 2px;
+     color: #0B032D !important;
      padding: 13px 0px;
+     margin-top: 20px;
      width: 100%;
      max-width: 190px;
      text-align: center;
      display: inline-block;
      transition: ease-in all 0.5s;
      font-weight: 500;
+     text-decoration: none;
 }
 
 .read_more:hover {
-     background: #02246a;
-     color: #fff;
+     background: #563309;
+     color: #fff !important;
+     border: #0B032D solid 2px;
      transition: ease-in all 0.5s;
 }
+
+/** about section **/
+
+.about {
+     border-bottom: #000 solid 1px;
+     padding: 130px 0 90px 0;
+}
+
+.about .about_img {
+     margin-left: -40px;
+}
+
+.about .titlepage::before {
+     position: absolute;
+     content: "";
+     width: 220px;
+     height: 411px;
+     right: -30px;
+     background: url(../images/about_right_cross.jpg);
+     background-repeat: no-repeat;
+     top: -27px;
+     z-index: -1;
+}
+
+.about .about_img figure {
+     margin: 0;
+}
+
+.about .titlepage {
+     border: #000 solid 1px;
+     padding: 40px 40px;
+     z-index: 10018;
+     background: #fff;
+     margin-right: 20px;
+}
+
+.about .titlepage p {
+     color: #2a2a2c;
+     font-size: 17px;
+     line-height: 35px;
+     font-weight: 400;
+     padding-top: 20px;
+}
+
+
+
+/** end about section **/
