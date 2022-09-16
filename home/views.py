@@ -7,3 +7,6 @@ def home(request):
 
 def gallery(request):
     return render(request, 'home/gallery.html',{})
+    
+def about(request):
+    return render(request, 'home/about.html',{})
