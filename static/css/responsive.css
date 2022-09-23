@@ -273,18 +273,23 @@
 	    height: 270px;
 	    margin-bottom: 5px;
     }
-    /*---------------------------------------------------------------------
-    about page css
-    ---------------------------------------------------------------------*/
-
-    .about_pg .side_bar .list-group .item_g{
-    	display: inline-flex;
-        /* width: 150px; */
+/*---------------------------------------------------------------------
+        about page css
+---------------------------------------------------------------------*/
+    .about_pg .side_bar {
+        margin-bottom: 1rem;
     }
-
-    /*---------------------------------------------------------------------
+    .about_pg .list-group-override{
+    	display: inline;
+    }
+    .about_pg .list-group-override .list-group-item-override{
+    	display: inline;
+        border: none;
+        border-radius: 10px 10px 0px 0px;
+    }
+/*---------------------------------------------------------------------
         end about page css
-    ---------------------------------------------------------------------*/
+---------------------------------------------------------------------*/
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
@@ -360,6 +365,25 @@
         width: 313px;
         margin: auto;
     }
+/*---------------------------------------------------------------------
+        about page css
+---------------------------------------------------------------------*/
+    .about_pg .side_bar {
+        margin-bottom: 1rem;
+    }
+    .about_pg .list-group-override{
+    	display: inline;
+    }
+    .about_pg .list-group-override .list-group-item-override{
+    	display: inline;
+        padding: 0.8rem 0.7rem;
+        margin: auto 0.2px;
+        border: none;
+        border-radius: 10px 10px 0px 0px;
+    }
+/*---------------------------------------------------------------------
+        end about page css
+---------------------------------------------------------------------*/
 }
 
 @media (max-width: 575px) {
@@ -489,4 +513,27 @@
         width: 313px;
         margin: auto;
     }
+/*---------------------------------------------------------------------
+        about page css
+---------------------------------------------------------------------*/
+    .about_pg .side_bar {
+        margin-bottom: 1rem;
+    }
+    .about_pg .list-group-override{
+    	display: inline;
+        /* justify-items: center; */
+    }
+    .about_pg .list-group-override .list-group-item-override{
+    	display: inline-table;
+        text-align: center;
+        overflow-wrap: break-word;
+        width: 1px;
+        padding: 0.5rem 0.4rem;
+        margin: 0.2px;
+        border: none;
+        border-radius: 10px 10px 0px 0px;
+    }
+/*---------------------------------------------------------------------
+        end about page css
+---------------------------------------------------------------------*/
 }
