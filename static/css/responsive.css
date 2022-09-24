@@ -524,12 +524,12 @@
         /* justify-items: center; */
     }
     .about_pg .list-group-override .list-group-item-override{
-    	display: inline-table;
+    	display: inline-block;
         text-align: center;
-        overflow-wrap: break-word;
-        width: 1px;
+        font-size: calc(3.2vw - (40vw / 70));
+        max-width: max-content;
         padding: 0.5rem 0.4rem;
-        margin: 0.2px;
+        margin: -0.3px;
         border: none;
         border-radius: 10px 10px 0px 0px;
     }

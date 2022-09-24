@@ -2237,8 +2237,14 @@ ul.contant_icon li img {
 .about_pg .side_bar {
 	display: inline;
 }
-
+/* .about_pg .list-group-override{
+	display: inline;
+    justify-items: center;
+} */
+.about_pg .list-group-override .list-group-item-override.active{
+	background-color: #563309;
+	border-color: #563309;
+}
 /*---------------------------------------------------------------------
-    end about page css
+        end about page css
 ---------------------------------------------------------------------*/
-
