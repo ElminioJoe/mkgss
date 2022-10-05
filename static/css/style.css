@@ -1379,7 +1379,7 @@ nav.main-menu {
 }
 
 
-.carousel-caption {	
+.banner-main .slider_section .carousel-caption {	
     /* border-radius: 185px; */
     padding: 2px 52px;
 	max-width: fit-content;
@@ -1491,12 +1491,12 @@ nav.main-menu {
 	margin-bottom: 20px;
 }
 
-.carousel-item {
+.slider_section .carousel-item {
 	text-align: center;
 	background-image: linear-gradient(rgba(0, 0, 0, 0.801),rgba(0, 0, 0, 0.685));
 }
 
-.carousel-item img{
+.slider_section .carousel-item img{
 	opacity: 0.5;
 	max-height: 100vh;
 	height: auto;
@@ -1512,34 +1512,10 @@ nav.main-menu {
 	left: inherit;
 }
 
-#myCarousel .carousel-control-prev,
-#myCarousel .carousel-control-next {
-	width: 55px;
-	height: 55px;
-	background: #000;
-	opacity: 1;
-	font-size: 30px;
-	color: #fff;
-}
-
-#myCarousel a.carousel-control-prev {
-	position: absolute;
-	left: 82px;
-	bottom: 10px;
-	top: inherit;
-}
-
-#myCarousel a.carousel-control-next {
-	position: absolute;
-	left: 10px;
-	top: inherit;
-	bottom: 10px;
-}
-
-#myCarousel .carousel-control-prev:hover,
-#myCarousel .carousel-control-next:hover,
-#myCarousel .carousel-control-prev:focus,
-#myCarousel .carousel-control-next:focus {
+.slider_section #myCarousel .carousel-control-prev:hover,
+.slider_section #myCarousel .carousel-control-next:hover,
+.slider_section #myCarousel .carousel-control-prev:focus,
+.slider_section #myCarousel .carousel-control-next:focus {
 	background: #563309 !important;
 	color: #fff;
 }
@@ -2230,9 +2206,7 @@ ul.contant_icon li img {
 	text-align: center;
 }
 
-/*---------------------------------------------------------------------
-    about page css
----------------------------------------------------------------------*/
+/*--------------- about page css ---------------*/
 
 .about_pg .side_bar {
 	display: inline;
@@ -2245,6 +2219,36 @@ ul.contant_icon li img {
 	background-color: #563309;
 	border-color: #563309;
 }
-/*---------------------------------------------------------------------
-        end about page css
----------------------------------------------------------------------*/
+/*--------------- end about page css ---------------*/
+
+/*--------------- gallery page css ---------------*/
+
+.gallery_pg .card .gallery-text{
+	/* display: none; */
+	position: absolute;
+	color: #000;
+	bottom: 3rem;
+
+}
+.gallery_pg .gallery-box img{
+	cursor: pointer;
+}
+.gallery_pg .gallery-box img:hover{
+	opacity: 0.5;
+	filter: grayscale(90%);
+}
+.gallery_pg .card:hover{
+	display: contents;
+	border-radius: 3em;
+	top: 40%;
+	border: 1px solid #3938382d;
+	
+}
+.gallery_pg a[data-fancybox] img {
+  cursor: zoom-in;
+}
+
+.gallery_pg a[data-caption]{
+	text-align: center;
+}
+/*--------------- end gallery page css ---------------*/
