@@ -1,0 +1,66 @@
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/footer.css' %}">
+{% endblock %}
+
+{% block content %}
+<footer class="mt-5">
+    <div class="container">
+        <div class="row mb-3 pb-3 no-gutters">
+            <div class="col-md-4 mb-md-0 mb-4 d-flex">
+                <div class="w-100 py-4 text-center">
+                    <div class="icon d-flex align-items-center justify-content-center">
+                        <i class="fa-sharp fa-solid fa-phone"></i>
+                    </div>
+                    <div class="text mt-2">
+                        <span>+254 729 764 360</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-md-0 mb-4 d-flex">
+                <div class="w-100 py-4 text-center">
+                    <div class="icon d-flex align-items-center justify-content-center">
+                        <i class="fa-sharp fa-solid fa-envelope"></i>
+                    </div>
+                    <div class="text mt-2">
+                        <span>info@moikadzonzogirls.co.ke</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-md-0 mb-4 d-flex">
+                <div class="w-100 py-4 text-center">
+                    <div class="icon d-flex align-items-center justify-content-center">
+                            <i class="fa-sharp fa-solid fa-location-dot"></i>
+                    </div>
+                    <div class="text mt-2">
+                        <span>Mariakani, Kaloleleni, <br>Kilifi County, Kenya</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    	<div class="row justify-content-center">
+    		<div class="col-md-12 d-flex flex-column text-center">
+                <h2 class="footer-heading"><a href="/" class="logo">Moi Kadzonzo Girls High School</a></h2>
+                <p class="menu">
+    				<a href="#">Home</a>
+    				<a href="#">Gallery</a>
+    				<a href="#">About</a>
+    				<a href="#">Alumni</a>
+    				<a href="#">Blog</a>
+    				<a href="#">Contact</a>
+    			</p>
+    			<ul class="footer-social p-0">
+                    <li><a href="https://shorturl.at/fimx7" target="_blank" data-toggle="tooltip" data-placement="top" title="Youtube"><i class="fa-brands fa-youtube"></i></a></li>
+                    <li><a href="https://shorturl.at/hJPV2" target="_blank" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa-brands fa-square-facebook"></i></a></li>
+                    <li><a href="https://shorturl.at/ehQT8" target="_blank" data-toggle="tooltip" data-placement="top" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a></li>
+                </ul>
+    		</div>
+    	</div>
+    </div>
+</footer>
+<div class="row ">
+    <div class="col-md-12 text-center">
+        <p class="copyright m-1">&copy; <script>document.write(new Date().getFullYear());</script> All rights reserved.</p>
+    </div>
+</div>
+{% endblock %}
