@@ -37,6 +37,8 @@
 ---------------------------------------------------------------------*/
 
 * {
+	padding: 0;
+    margin: 0;
 	box-sizing: border-box !important;
 }
 
@@ -110,6 +112,11 @@ h6 {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+}
+main{
+	min-height: 50vh;
+	height: auto !important;
+	height: 100%;
 }
 
 h1 a,
@@ -1908,32 +1915,20 @@ margin-top: 50px;
 /** end blog section **/
 
 
-
-
-
-
-
-
-
-.contact {
-	background: #563309;
-	padding: 60px 0px 70px 0px;
-}
-
 .contact .titlepage {
 	text-align: center;
 }
 
-.contact .titlepage h2 {
-	padding: 0px 0px 20px 0px;
+.contact .titlepage h3 {
+	padding: 0px 0px 10px 0px;
 	font-weight: bold;
-	color: #fff;
-	line-height: 46px;
-	border-bottom: #fff solid 1px;
-	font-size: 40px;
-    width: 229px;
+	/* color: #fff; */
+	line-height: 26px;
+	border-bottom: #000 solid 1px;
+	font-size: 20px;
+    width: 130px;
 	margin: 0 auto;
-	margin-bottom: 60px;
+	margin-bottom: 30px;
 }
 
 .contact .contact {
@@ -1949,6 +1944,7 @@ margin-top: 50px;
 	margin-bottom: 26px;
 	border-radius: inherit;
 	color: #000;
+	background-color: #f4f4f4;
 	width: 100%;
 }
 
@@ -1997,7 +1993,7 @@ margin-top: 50px;
 }
 .contact .gmap_canvas iframe{
 	width: 565px;
-	height: 350px;
+	height: 370px;
 	margin-bottom: 5px;
 }
 .contact .flexcont .card{
@@ -2031,22 +2027,10 @@ margin-top: 50px;
 	padding-right: 10px;
 }
 
-.form-control {
-	border: #b1b0b0 solid 2px;
-	margin-bottom: 30px;
-	border-radius: inherit;
-	padding: 16px 19px;
-	color: #cfcece;
-}
-
-.form-control:focus,
-.form-control:hover {
-	border: #b1b0b0 solid 2px !important;
-}
-
 .textarea {
 	margin-bottom: 30px;
 	padding: 71px 19px;
+	background-color: #f4f4f4;
 	color: #655f5f !important;
 	width: 100%;
 	border: #b1b0b0 solid 2px;

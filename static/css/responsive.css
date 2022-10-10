@@ -181,7 +181,7 @@
     }
     .contact .gmap_canvas iframe{
 	    width: 475px;
-	    height: 270px;
+	    height: 360px;
 	    margin-bottom: 5px;
     }
 }
@@ -270,7 +270,7 @@
     }
     .contact .gmap_canvas iframe{
 	    width: 342px;
-	    height: 270px;
+	    height: 360px;
 	    margin-bottom: 5px;
     }
 /*--------------- about page css ---------------*/
