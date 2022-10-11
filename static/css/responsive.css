@@ -275,13 +275,13 @@
     }
 /*--------------- about page css ---------------*/
 
-    .about_pg .side_bar {
+    .cst_pages .side_bar {
         margin-bottom: 1rem;
     }
-    .about_pg .list-group-override{
+    .cst_pages .list-group-override{
     	display: inline;
     }
-    .about_pg .list-group-override .list-group-item-override{
+    .cst_pages .list-group-override .list-group-item-override{
     	display: inline;
         border: none;
         border-radius: 10px 10px 0px 0px;
@@ -364,13 +364,13 @@
     }
 /*--------------- about page css ---------------*/
 
-    .about_pg .side_bar {
+    .cst_pages .side_bar {
         margin-bottom: 1rem;
     }
-    .about_pg .list-group-override{
+    .cst_pages .list-group-override{
     	display: inline;
     }
-    .about_pg .list-group-override .list-group-item-override{
+    .cst_pages .list-group-override .list-group-item-override{
     	display: inline;
         padding: 0.8rem 0.7rem;
         margin: auto 0.2px;
@@ -509,14 +509,14 @@
     }
 /*--------------- about page css ---------------*/
 
-    .about_pg .side_bar {
+    .cst_pages .side_bar {
         margin-bottom: 1rem;
     }
-    .about_pg .list-group-override{
+    .cst_pages .list-group-override{
     	display: inline;
         /* justify-items: center; */
     }
-    .about_pg .list-group-override .list-group-item-override{
+    .cst_pages .list-group-override .list-group-item-override{
     	display: inline-block;
         text-align: center;
         font-size: calc(3.2vw - (40vw / 70));

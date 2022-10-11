@@ -13,3 +13,6 @@ def about(request):
     
 def contact(request):
     return render(request, 'home/contact.html',{})
+def messages(request):
+    return render(request, 'home/message.html',{})
+    

@@ -1913,6 +1913,7 @@ margin-top: 50px;
 }
 
 /** end blog section **/
+/** contact section **/
 
 
 .contact .titlepage {
@@ -2037,79 +2038,6 @@ margin-top: 50px;
 	border-radius: inherit;
 }
 
-.send-btn {
-	margin-left: 15px;
-	font-size: 16px;
-	border: #000000 solid 2px;
-	padding: 16px 70px;
-	background-color: #000000;
-	color: #fff;
-}
-
-.send-btn:hover {
-	background-color: #ff0000;
-	border: #ff0000 solid 2px;
-	color: #fff;
-}
-
-ul.contant_icon {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	float: left;
-}
-
-ul.contant_icon li {
-	float: left;
-	text-align: center;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-wrap: wrap;
-	padding-right: 8px;
-}
-
-ul.contant_icon li img {
-	width: 32px;
-	height: 32px;
-}
-
-.footer .newsletter h3 {
-	color: #fff;
-	font-size: 17px;
-	line-height: 30px;
-	display: block;
-	padding-bottom: 25px;
-	text-transform: uppercase;
-}
-
-.footer .address .form-control {
-	padding: 10px 15px;
-	border: #ddd solid 1px;
-	margin-bottom: 20px;
-	box-shadow: inherit;
-}
-
-.form-control:focus,
-.form-control:hover {
-	border: #ddd solid 1px !important;
-}
-
-.footer .address .submit-btn {
-	padding: 4px 23px;
-	border: #000 solid 1px;
-	background: #000;
-	color: #fc4311;
-	font-weight: 500;
-	font-size: 17px;}
-
-.footer .address .submit-btn:hover {
-	background: #fff;
-    border: #fff solid 1px;
-    color: #fc4311;
-}
-
 .copyright {
 	background-color: #fff;
 	padding: 20px 0px;
@@ -2121,85 +2049,19 @@ ul.contant_icon li img {
 	font-size: 18px;
 	line-height: 22px;
 	text-align: center;
-	font-weight: 400;
-}
-
-.copyright a:hover {
-	color: #da4207
-}
-
-
-/*---------------------------------------------------------------------
-    ener page css
----------------------------------------------------------------------*/
-
-.about-bg {
-	background-color: #ad2100;
-	margin-bottom: 90px;
-}
-
-.about-bg .abouttitle h2 {
-	color: #fff;
-	text-transform: uppercase;
-	font-size: 40px;
-	line-height: 45px;
-	padding: 40px 0;
-	font-weight: 500;
-	text-align: center;
-}
-
-.Currency-bg {
-	background-color: #ad2100;
-}
-
-.Currency-bg .abouttitle h2 {
-	color: #fff;
-	text-transform: uppercase;
-	font-size: 40px;
-	line-height: 45px;
-	padding: 40px 0;
-	font-weight: 500;
-	text-align: center;
-}
-
-.Request-bg {
-	background-color: #ad2100;
-}
-
-.Request-bg .abouttitle h2 {
-	color: #fff;
-	text-transform: uppercase;
-	font-size: 40px;
-	line-height: 45px;
-	padding: 40px 0;
-	font-weight: 500;
-	text-align: center;
-}
-
-.Team-bg {
-	background-color: #ad2100;
-}
-
-.Team-bg .abouttitle h2 {
-	color: #fff;
-	text-transform: uppercase;
-	font-size: 40px;
-	line-height: 45px;
-	padding: 40px 0;
-	font-weight: 500;
-	text-align: center;
+	font-weight: 600;
 }
 
 /*--------------- about page css ---------------*/
 
-.about_pg .side_bar {
+.cst_pages .side_bar {
 	display: inline;
 }
-/* .about_pg .list-group-override{
+/* .cst_pages .list-group-override{
 	display: inline;
     justify-items: center;
 } */
-.about_pg .list-group-override .list-group-item-override.active{
+.cst_pages .list-group-override .list-group-item-override.active{
 	background-color: #563309;
 	border-color: #563309;
 }
