@@ -3,8 +3,8 @@ footer {
 	padding: 0 0 7em 0;
 	background: #563309;
 }
-footer .logo {
-	float: none;
+footer .text {
+	color: #f0f0f0;
 }
 .footer-social li {
 	list-style: none;
@@ -94,4 +94,18 @@ footer .mb-md-0.d-flex:last-child {
 }
 .footer-social li:last-child a:hover {
 	color: #25D366;
+}
+
+.copyright {
+	background-color: #fff;
+	padding: 20px 0px;
+	margin-top: 55px;
+}
+
+.copyright p {
+	color: #000;
+	font-size: 18px;
+	line-height: 22px;
+	text-align: center;
+	font-weight: 600;
 }
