@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+
 <section class="slider_section">
     <div id="myCarousel" class="carousel slide banner-main" data-ride="carousel">
         <div class="carousel-inner">
@@ -46,49 +47,75 @@
 </section>
 <div class="container mt-5">
     <div class="bg-light_silver p-2 text-center rounded">
-        <h2>Welcome to Moi Kadzonzo Girls Secondary School</h2>
+        <h2>{{welcome_post.post_title}}</h2>
+        <p class="px-4">{{welcome_post.post}}</p>
+        <a href="/about#_list-history">Read more </a>
+        <!-- <h2>Welcome to Moi Kadzonzo Girls Secondary School</h2>
         <p class="px-4">This website is designed for parents, students, Alumnis, staff, sponsors, friends of the school and prospective parents who may know little about us.</p>
+        <a href="/about#_list-history">Read more </a> -->
     </div>
     <div class="row my-4 info-cards">
         <div class="col-md-12 col-lg-3 p-4">
-            <h4>A Bright Shining Star of Academic Excellence</h4>
-            <p>Moi Kadzonzo Girls Secondary School is situated 4km from Mariakani town along the Mariakani-Kaloleni Road. It is in Mariakani Location, Mariakani Division of Kaloleni sub-county, Kilifi County.</p>
+            <h4>{{ about_post.post_title }}</h4>
+            <p>{{ about_post.post }}</p>
             <a href="/about#">Read more </a>
         </div>
         <div class="col-md-4 col-lg-3 p-4">
-            <img src="{% static 'images/IMG_3046.JPG' %}" class='img-fluid rounded' alt="img"/>
-            <h4>Admission</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium placeat, facilis aperiam saepe atque est aspernatur, quisquam quam officiis non, ad rerum?</p>
+            <div class="mb-1 info_img">
+                <img src="{{admission_post.post_image.url}}" class='img-fluid rounded' alt="{{admission_post.image_alt_text}}"/>
+            </div>
+            <h4 class="mt-2">{{ admission_post.post_title }}</h4>
+            <p>{{ admission_post.post|truncatechars:160 }}</p>
+            <a href="/about#">Read more </a>
         </div>
         <div class="col-md-4 col-lg-3 p-4">
-            <img src="{% static 'images/IMG_3046.JPG' %}" class='img-fluid rounded' alt="img"/>
-            <h4>Academics</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium placeat, facilis aperiam saepe atque est aspernatur, quisquam quam officiis non, ad rerum?</p>
+            <div class="mb-1 info_img">
+                <img src="{{academics_post.post_image.url}}" class='img-fluid rounded' alt="{{academics_post.image_alt_text}}"/>
+            </div>
+            <h4 class="mt-2">{{ academics_post.post_title }}</h4>
+            <p>{{ academics_post.post|truncatechars:160 }}</p>
+            <a href="/about#">Read more </a>
         </div>
         <div class="col-md-4 col-lg-3 p-4">
-            <img src="{% static 'images/IMG_3046.JPG' %}" class='img-fluid rounded' alt="img"/>
-            <h4>Staff</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium placeat, facilis aperiam saepe atque est aspernatur, quisquam quam officiis non, ad rerum?</p>
+            <div class="mb-1 info_img">
+                <img src="{{staff_post.post_image.url}}" class='img-fluid rounded' alt="{{staff_post.image_alt_text}}"/>
+            </div>
+            <h4 class="mt-2">{{ staff_post.post_title }}</h4>
+            <p>{{ staff_post.post|truncatechars:160 }}</p>
+            <a href="/about#">Read more </a>
         </div>
         <div class="col-md-4 col-lg-3 p-4">
-            <img src="{% static 'images/IMG_3046.JPG' %}" class='img-fluid rounded' alt="img"/>
-            <h4>Sports & Co-Curricular</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium placeat, facilis aperiam saepe atque est aspernatur, quisquam quam officiis non, ad rerum?</p>
+            <div class="mb-1 info_img">
+                <img src="{{sports_post.post_image.url}}" class='img-fluid rounded' alt="{{sports_post.image_alt_text}}"/>
+            </div>
+            <h4 class="mt-2">{{ sports_post.post_title }}</h4>
+            <p>{{ sports_post.post|truncatechars:160 }}</p>
+            <a href="/about#">Read more </a>
+            <!-- <h4 class="mt-2">Sports & Co-Curricular</h4> -->
         </div>
         <div class="col-md-4 col-lg-3 p-4">
-            <img src="{% static 'images/IMG_3046.JPG' %}" class='img-fluid rounded' alt="img"/>
-            <h4>Library</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium placeat, facilis aperiam saepe atque est aspernatur, quisquam quam officiis non, ad rerum?</p>
+            <div class="mb-1 info_img">
+                <img src="{{library_post.post_image.url}}" class='img-fluid rounded' alt="{{library_post.image_alt_text}}"/>
+            </div>
+            <h4 class="mt-2">{{ library_post.post_title }}</h4>
+            <p>{{ library_post.post|truncatechars:160 }}</p>
+            <a href="/about#">Read more </a>
+            <!-- <h4 class="mt-2">Library</h4> -->
         </div>
         <div class="col-md-4 col-lg-3 p-4">
-            <img src="{% static 'images/IMG_3046.JPG' %}" class='img-fluid rounded' alt="img"/>
-            <h4>Alumnis</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium placeat, facilis aperiam saepe atque est aspernatur, quisquam quam officiis non, ad rerum?</p>
+            <div class="mb-1 info_img">
+                <img src="{{alumni_post.post_image.url}}" class='img-fluid rounded' alt="{{alumni_post.image_alt_text}}"/>
+            </div>
+            <h4 class="mt-2">{{ alumni_post.post_title }}</h4>
+            <p>{{ alumni_post.post|truncatechars:160 }}</p>
+            <a href="/about#">Read more </a>
+            <!-- <h4 class="mt-2">Alumnis</h4> -->
         </div>
         <div class="col-md-12 col-lg-3 p-4">
-            <h4>Board Member</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias doloribus magnam corrupti voluptates praesentium, molestias aut mollitia nemo maxime voluptatum ut asperiores.</p>
+            <h4 class="mt-2">{{ board_m_post.post_title }}</h4>
+            <p>{{ board_m_post.post|truncatechars:160 }}</p>
             <a href="/about#">Read more </a>
+            <!-- <h4>Board Member</h4> -->
         </div>
     </div>
 </div>
@@ -102,25 +129,31 @@
                 </div>
             </div>
         </div>
+        {% for news_item in news %}
         <div class="row">
             <div class="col-md-3">
                 <div class="blog-box">
                     <figure>
-                        <img src="{% static 'images/IMG_3046.JPG' %}" class='img-fluid rounded' alt="img"/>
+                        {% if news_item.news_image %}
+                        <img src="{{news_item.news_image.url}}" class='img-fluid rounded' alt="{{news_item.image_alt_text}}">
                         <span>10 Aug 2019</span>
+                        {% else %}
+                        <img src="{% static 'images/IMG_3046.JPG' %}" class='img-fluid rounded' alt="img">
+                        <span>10 Aug 2019</span>
+                        {% endif %}
                     </figure>
-                    <h4>London Amazing Tour</h4>
+                    <h4>{{news_item.headline}}</h4>
                     <div class="travel">
                         <p>
                             <span class="Comment"> <i>inb </i>06 </span>
                             <span class="like"> <i> icn </i>05 </span>
-                            <span> <i>icn</i> Kadzonzo</span>
+                            <span> <i>icn</i> {{news_item.publisher}}</span>
                         </p>
                     </div>
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Led to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web</p>
+                    <p>{{ news_item.news|truncatechars:350}}</p>
                 </div>
             </div>
-            <div class="col-md-3">
+            <!-- <div class="col-md-3">
                 <div class="blog-box">
                     <figure>
                         <img src="{% static 'images/IMG_3046.JPG' %}" class='img-fluid rounded' alt="img"/>
@@ -170,10 +203,16 @@
                     </div>
                     <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Led to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web</p>
                 </div>
-            </div>
+            </div> -->
         </div>
+        {% empty %}
+        <div class="row">
+            <h2 class="text-center">There are No News Items</h2>
+        </div>
+        {% endfor %}
     </div>
 </div>
+<p></p>
 <!-- end our blog -->
 <!-- values -->
 <!-- <div id="values" class="values">
