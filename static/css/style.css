@@ -71,7 +71,7 @@ h4,
 h5,
 h6 {
 	letter-spacing: 0.5px;
-	font-family: 'Times New Roman', serif;
+	font-family: 'Quicksand', sans-serif;
 	font-weight: 600;
 	position: relative;
 	padding: 0 0 10px 0;
@@ -130,8 +130,9 @@ ol {
 }
 
 p {
+	color: #343e47;
 	margin: 0px;
-	font-size: 15px;
+	font-size: 14px;
 	line-height: 24px;
 }
 
@@ -453,15 +454,30 @@ button {
 /* .info-cards .col-lg-3{
 	border: 1px solid #e2e2e2;
 } */
+.info-cards .info_img img{
+	/* height: 130px;
+	width: 100%; */
+	/* object-fit: contain; */
+	transform: scale(1.1);
+	margin-bottom: 10px;
+}
 .info-cards .col-lg-3:first-child{
+	position: relative;
+	top: 1.2rem;
 	border: 1px solid #e2e2e2;
 	box-shadow: -2px -3px #d4d4d4;
 }
+
+.info-cards .col-lg-3:nth-child(n+5){
+	position: relative;
+	top: 1.2rem;
+}
+
 .info-cards .col-lg-3:last-child{
+	top: 2rem;
 	border: 1px solid #e2e2e2;
 	box-shadow: 2px 3px #d4d4d4;
 }
-
 /** values section **/
 
 
@@ -600,7 +616,6 @@ img.zoom {
 }
 
 
-
 .about a {
 text-transform: uppercase;
 border: #563309 solid 1px;
@@ -696,6 +711,17 @@ margin-top: 50px;
 .blog .blog-box .travel span {
     color: #fc4311;
     display: inline-block;
+}
+
+.blog .row:last-child h2{
+	padding: 100px 0px;
+    font-size: 28px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 50px;
+    position: relative;
+	margin: 0 auto;
+	margin-bottom: 30px;
 }
 
 .like {
@@ -806,6 +832,9 @@ margin-top: 50px;
 .cst_pages .list-group-override .list-group-item-override.active{
 	background-color: #563309;
 	border-color: #563309;
+}
+.cst_pages .list-group-override .list-group-item-override:hover{
+	border-left: #563309 solid 3px;
 }
 /*--------------- end about page css ---------------*/
 
