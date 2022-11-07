@@ -1,12 +1,22 @@
 *{
     font-family: 'Poppins', sans-serif;
 }
+header{
+    max-width: 100vw;
+}
+header .top-bar{
+    background-color: #6fb9363b;
+}
+header .navbar-brand .img-fluid{
+    height: auto;
+    width: 90px;
+}
 .navbar-custom,
 .nav-pills .nav-link.active,
 .nav-pills .nav-link:hover,
 .nav-pills .show>.nav-link {
 	background-color: #563309 !important;
-    color: whitesmoke ; 
+    color: whitesmoke ;
 }
 nav .green{
 	background-color: #f5f5f5;
@@ -21,4 +31,10 @@ nav .green{
 .cstm-hov:hover{
     background-color: #56330965;
     color: #563309;
+}
+
+@media (max-width: 991px) {
+    header {
+    display: none;
+}
 }
