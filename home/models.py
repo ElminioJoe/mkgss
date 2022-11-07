@@ -25,6 +25,19 @@ class Publisher(models.Model):
 
 #     def __str__(self):
 #         return self.name
+
+class Department(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
+class SchStatement(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
 class Post(models.Model):
     class TargetLocation(models.TextChoices):
         WELCOME = 'WC', _('Welcome Text Card')
@@ -36,8 +49,9 @@ class Post(models.Model):
         LIBRARY = '6C', _('Library Text Card')
         ALUMNIS = '7C', _('Alumnis Text Card')
         BOARD_MEMBER = '8C', _('Board Members Text Card')
+        ANY = 'ANY', _('ANY')
 
-    target_page = models.CharField(max_length=2, choices=TargetLocation.choices)
+    target_page = models.CharField(max_length=3, choices=TargetLocation.choices, default="ANY")
     post_title = models.CharField(max_length=300, blank=True)
     post = models.TextField()
     post_image = ResizedImageField(size=[1920, 1300], crop=['middle', 'center'], upload_to='posts/', blank=True, default='default value')
@@ -45,13 +59,15 @@ class Post(models.Model):
     publisher = models.ForeignKey(Publisher, on_delete=models.SET(get_sentinel_user))
     post_date = models.DateTimeField(null=True, blank=True)
     modification_date = models.DateTimeField(blank=True, null=True)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, blank=True, null=True)
+    school_info = models.ForeignKey(SchStatement, on_delete=models.CASCADE, blank=True, null=True)
     slug = models.SlugField(max_length=500, unique=True, blank=True, null=True)
     # page = models.ForeignKey('Page', on_delete=models.PROTECT)
 
     # authors = models.ManyToManyField(Author, blank=True)
 
     def __str__(self):
-        return '{} - {}'.format(self.post_title, self.publisher.first_name)
+        return '{} - {}'.format(self.post_title, self.target_page)
 
     def get_absolute_url(self):
         return reverse('post-detail', args=[str(self.id)])
@@ -60,7 +76,7 @@ class Post(models.Model):
         if self.post_date is None:
             self.post_date = timezone.localtime(timezone.now())
 
-        self.slug = slugify('{} {}'.format(self.post_title, self.post))
+        self.slug = slugify('{}'.format(self.post_title))
         self.modification_date = timezone.localtime(timezone.now())
         super(Post, self).save(*args, **kwargs)
 
@@ -101,7 +117,7 @@ class Gallery(models.Model):
     post_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return '{} - {}'.format(self.category.name, self.alt_text)
+        return '{} - {}'.format(self.category.name, self.image_alt_text)
 
     def get_absolute_url(self):
         return reverse('gallery-detail')
