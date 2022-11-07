@@ -57,7 +57,7 @@
     <div class="row my-4 info-cards">
         <div class="col-md-12 col-lg-3 p-4">
             <h4>{{ about_post.post_title }}</h4>
-            <p>{{ about_post.post }}</p>
+            <p>{{ about_post.post|truncatewords:39  }}</p>
             <a href="/about#">Read more </a>
         </div>
         <div class="col-md-4 col-lg-3 p-4">
@@ -65,7 +65,7 @@
                 <img src="{{admission_post.post_image.url}}" class='img-fluid rounded' alt="{{admission_post.image_alt_text}}"/>
             </div>
             <h4 class="mt-2">{{ admission_post.post_title }}</h4>
-            <p>{{ admission_post.post|truncatechars:160 }}</p>
+            <p>{{ admission_post.post|truncatewords:30 }}</p>
             <a href="/about#">Read more </a>
         </div>
         <div class="col-md-4 col-lg-3 p-4">
@@ -73,7 +73,7 @@
                 <img src="{{academics_post.post_image.url}}" class='img-fluid rounded' alt="{{academics_post.image_alt_text}}"/>
             </div>
             <h4 class="mt-2">{{ academics_post.post_title }}</h4>
-            <p>{{ academics_post.post|truncatechars:160 }}</p>
+            <p>{{ academics_post.post|truncatewords:30 }}</p>
             <a href="/about#">Read more </a>
         </div>
         <div class="col-md-4 col-lg-3 p-4">
@@ -81,7 +81,7 @@
                 <img src="{{staff_post.post_image.url}}" class='img-fluid rounded' alt="{{staff_post.image_alt_text}}"/>
             </div>
             <h4 class="mt-2">{{ staff_post.post_title }}</h4>
-            <p>{{ staff_post.post|truncatechars:160 }}</p>
+            <p>{{ staff_post.post|truncatewords:30 }}</p>
             <a href="/about#">Read more </a>
         </div>
         <div class="col-md-4 col-lg-3 p-4">
@@ -89,7 +89,7 @@
                 <img src="{{sports_post.post_image.url}}" class='img-fluid rounded' alt="{{sports_post.image_alt_text}}"/>
             </div>
             <h4 class="mt-2">{{ sports_post.post_title }}</h4>
-            <p>{{ sports_post.post|truncatechars:160 }}</p>
+            <p>{{ sports_post.post|truncatewords:30 }}</p>
             <a href="/about#">Read more </a>
             <!-- <h4 class="mt-2">Sports & Co-Curricular</h4> -->
         </div>
@@ -98,7 +98,7 @@
                 <img src="{{library_post.post_image.url}}" class='img-fluid rounded' alt="{{library_post.image_alt_text}}"/>
             </div>
             <h4 class="mt-2">{{ library_post.post_title }}</h4>
-            <p>{{ library_post.post|truncatechars:160 }}</p>
+            <p>{{ library_post.post|truncatewords:30 }}</p>
             <a href="/about#">Read more </a>
             <!-- <h4 class="mt-2">Library</h4> -->
         </div>
@@ -107,13 +107,13 @@
                 <img src="{{alumni_post.post_image.url}}" class='img-fluid rounded' alt="{{alumni_post.image_alt_text}}"/>
             </div>
             <h4 class="mt-2">{{ alumni_post.post_title }}</h4>
-            <p>{{ alumni_post.post|truncatechars:160 }}</p>
+            <p>{{ alumni_post.post|truncatewords:30 }}</p>
             <a href="/about#">Read more </a>
             <!-- <h4 class="mt-2">Alumnis</h4> -->
         </div>
         <div class="col-md-12 col-lg-3 p-4">
             <h4 class="mt-2">{{ board_m_post.post_title }}</h4>
-            <p>{{ board_m_post.post|truncatechars:160 }}</p>
+            <p>{{ board_m_post.post|truncatewords:39 }}</p>
             <a href="/about#">Read more </a>
             <!-- <h4>Board Member</h4> -->
         </div>
