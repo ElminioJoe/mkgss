@@ -1,5 +1,8 @@
+import os
 from django.contrib.auth import get_user_model
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db import models
+from io import BytesIO
 from django_resized import ResizedImageField
 from django.template.defaultfilters import slugify
 from django.urls import reverse
@@ -112,6 +115,7 @@ class News(models.Model):
 class Gallery(models.Model):
     image_alt_text = models.CharField(max_length=50, blank=True, help_text="A short description of what the image contents are.")
     gallery_image = models.ImageField(upload_to='gallery/', default="default value")
+    thumbnail = ResizedImageField(crop=['middle', 'center'], upload_to="gallery/thumbnails/", blank=True, null=True, editable=False)
     image_caption = models.TextField(null=True, blank=True)
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
     post_date = models.DateTimeField(default=timezone.now)
@@ -122,8 +126,62 @@ class Gallery(models.Model):
     def get_absolute_url(self):
         return reverse('gallery-detail')
 
+    def create_thumbnail(self):
+        # If there is no image associated with this.
+        # do not create thumbnail
+        if not self.gallery_image:
+            return
+
+        # Set our max thumbnail size in a tuple (max width, max height)
+        THUMBNAIL_SIZE = (200, 150)
+
+        DJANGO_TYPE = self.gallery_image.file.content_type
+
+        if DJANGO_TYPE == 'image/jpeg':
+            PIL_TYPE = 'jpeg'
+            FILE_EXTENSION = 'JPG'
+        elif DJANGO_TYPE == 'image/png':
+            PIL_TYPE = 'png'
+            FILE_EXTENSION = 'PNG'
+
+        # Open original photo which we want to thumbnail using PIL's Image
+        image = Image.open(BytesIO(self.gallery_image.read()))
+
+        # We use our PIL Image object to create the thumbnail, which already
+        # has a thumbnail() convenience method that contrains proportions.
+        # Additionally, we use Image.ANTIALIAS to make the image look better.
+        # Without antialiasing the image pattern artifacts may result.
+        image.thumbnail(THUMBNAIL_SIZE, Image.ANTIALIAS)
+
+        # Save the thumbnail
+        temp_handle = BytesIO()
+        image.save(temp_handle, PIL_TYPE)
+        temp_handle.seek(0)
+
+        # Save image to a SimpleUploadedFile which can be saved into
+        # ImageField
+        suf = SimpleUploadedFile(os.path.split(self.gallery_image.name)[-1],
+                temp_handle.read(), content_type=DJANGO_TYPE)
+        # Save SimpleUploadedFile into image field
+        self.thumbnail.save(
+            '%s_thumbnail.%s' % (os.path.splitext(suf.name)[0], FILE_EXTENSION),
+            suf,
+            save=False
+        )
+
     def save(self, *args, **kwargs):
-        super(Gallery, self).save(*args, **kwargs)
+
+        self.create_thumbnail()
+
+        force_update = False
+
+        # If the instance already has been saved, it has an id and we set
+        # force_update to True
+        if self.id:
+            force_update = True
+
+        # Force an UPDATE SQL query if we're editing the image to avoid integrity exception
+        super(Gallery, self).save(force_update=force_update)
 
 
 class Category(models.Model):

@@ -35,9 +35,11 @@ def home(request):
     return render(request, 'home/home.html', context)
 
 def gallery(request):
-    images = Gallery.objects.all().filter(category__gt=0).order_by('category')
+    # image_categories = Category.objects.all()
+    images = Gallery.objects.all()
 
     context = {
+        # 'image_categories': image_categories,
         'images': images,
     }
     return render(request, 'home/gallery.html', context)

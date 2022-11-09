@@ -13,79 +13,24 @@
         </ul>
     </div>
 </div>
+
 <section class="gallery_pg">
     <div class="container">
         <div class="row p-1">
+            {% for image in images %}
             <div class="col-6 col-sm-4 col-md-3 col-lg-2 p-1">
                 <div class="card p-1">
                     <div class="gallery-box">
-                        <a data-fancybox="gallery" data-caption="Temp" href="{% static 'images/IMG_3045.JPG' %}" class="fancylight popup-btn">
-                            <img src="{% static 'images/IMG_3045.JPG' %}" class="img-fluid" loading="lazy" alt="">
+                        <a data-fancybox="gallery" data-caption="{{image.image_caption}}" data-caption="Date" href="{{image.gallery_image.url}}" class="fancylight popup-btn">
+                            <img src="{{image.thumbnail.url}}" class="img-fluid" loading="lazy" alt="{{image.image_alt_text}}">
                         </a>
                     </div>
                     <!-- <p class="gallery-text">Lorem ipsum dolor, sit amet consectetur adipisicing eliut!</p class="gallery-text"> -->
                 </div>
             </div>
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2 p-1">
-                <div class="card p-1">
-                    <div class="gallery-box">
-                        <a data-fancybox="gallery" href="{% static 'images/IMG_3045.JPG' %}" class="fancylight popup-btn">
-                            <img src="{% static 'images/IMG_3045.JPG' %}" class="img-fluid" loading="lazy" alt="">
-                        </a>
-                    </div>
-                    <!-- <p class="gallery-text">Lorem ipsum dolor, sit amet consectetur adipisicing eliut!</p class="gallery-text"> -->
-                </div>
-            </div>
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2 p-1">
-                <div class="card p-1">
-                    <div class="gallery-box">
-                        <a data-fancybox="gallery" href="{% static 'images/IMG_3045.JPG' %}" class="fancylight popup-btn">
-                            <img src="{% static 'images/IMG_3045.JPG' %}" class="img-fluid" loading="lazy" alt="">
-                        </a>
-                    </div>
-                    <!-- <p class="gallery-text">Lorem ipsum dolor, sit amet consectetur adipisicing eliut!</p class="gallery-text"> -->
-                </div>
-            </div>
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2 p-1">
-                <div class="card p-1">
-                    <div class="gallery-box">
-                        <a data-fancybox="gallery" href="{% static 'images/IMG_3045.JPG' %}" class="fancylight popup-btn">
-                            <img src="{% static 'images/IMG_3045.JPG' %}" class="img-fluid" loading="lazy" alt="">
-                        </a>
-                    </div>
-                    <!-- <p class="gallery-text">Lorem ipsum dolor, sit amet consectetur adipisicing eliut!</p class="gallery-text"> -->
-                </div>
-            </div>
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2 p-1">
-                <div class="card p-1">
-                    <div class="gallery-box">
-                        <a data-fancybox="gallery" href="{% static 'images/IMG_3045.JPG' %}" class="fancylight popup-btn">
-                            <img src="{% static 'images/IMG_3045.JPG' %}" class="img-fluid" loading="lazy" alt="">
-                        </a>
-                    </div>
-                    <!-- <p class="gallery-text">Lorem ipsum dolor, sit amet consectetur adipisicing eliut!</p class="gallery-text"> -->
-                </div>
-            </div>
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2 p-1">
-                <div class="card p-1">
-                    <div class="gallery-box">
-                        <a data-fancybox="gallery" href="{% static 'images/IMG_3045.JPG' %}" class="fancylight popup-btn">
-                            <img src="{% static 'images/IMG_3045.JPG' %}" class="img-fluid" loading="lazy" alt="">
-                        </a>
-                    </div>
-                    <!-- <p class="gallery-text">Lorem ipsum dolor, sit amet consectetur adipisicing eliut!</p class="gallery-text"> -->
-                </div>
-            </div>
-            <div class="col-6 col-sm-4 col-md-3 col-lg-2 p-1">
-                <div class="card p-1">
-                    <div class="gallery-box">
-                        <a data-fancybox="gallery" href="{% static 'images/IMG_3045.JPG' %}" class="fancylight popup-btn">
-                            <img src="{% static 'images/IMG_3045.JPG' %}" class="img-fluid" loading="lazy" alt="">
-                        </a>
-                    </div>
-                    <!-- <p class="gallery-text">Lorem ipsum dolor, sit amet consectetur adipisicing eliut!</p class="gallery-text"> -->
-                </div>
-            </div>
+            {% empty %}
+            <h2 class="text-center">NO IMAGES UPLOADED YET</h2>
+        {% endfor %}
         </div>
     </div>
 </section>
