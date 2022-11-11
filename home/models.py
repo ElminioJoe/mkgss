@@ -13,6 +13,7 @@ from PIL import Image
 
 def get_sentinel_user():
     return get_user_model().objects.get_or_create(username='MGKSC')[0]
+
 class Publisher(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
@@ -22,6 +23,19 @@ class Publisher(models.Model):
     def __str__(self):
         return '{} {}'.format(self.first_name, self.last_name)
 
+class Staff(models.Model):
+    title = models.CharField(max_length=5)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+    email = models.EmailField(blank=True)
+    picture = ResizedImageField(size=[600, 600], upload_to='staff/', blank=True, default='default value')
+    phone_number = models.CharField(max_length=10, blank=True)
+    about = models.TextField(max_length=1000, blank=True)
+    role = models.CharField(max_length=30, blank=True)
+    department = models.ForeignKey('Department', on_delete=models.CASCADE, blank=True, null=True)
+
+    def __str__(self):
+        return '{} - {}'.format(self.first_name, self.role)
 
 # class Author(models.Model):
 #     name = models.CharField(max_length=100)
@@ -35,26 +49,27 @@ class Department(models.Model):
     def __str__(self):
         return self.name
 
-class SchStatement(models.Model):
+class About(models.Model):
     name = models.CharField(max_length=30)
+    content = models.TextField(max_length=300, blank=True)
 
     def __str__(self):
         return self.name
 
 class Post(models.Model):
-    class TargetLocation(models.TextChoices):
-        WELCOME = 'WC', _('Welcome Text Card')
-        ABOUT = '1C', _('About Text Card')
-        ADMISSION = '2C',_('Admission Text Card')
-        ACADEMICS = '3C',_('Academics Text Card')
-        STAFF = '4C', _('Staff Text Card')
-        SPORTS = '5C', _('Sports Text Card')
-        LIBRARY = '6C', _('Library Text Card')
-        ALUMNIS = '7C', _('Alumnis Text Card')
-        BOARD_MEMBER = '8C', _('Board Members Text Card')
-        ANY = 'ANY', _('ANY')
+    # class TargetLocation(models.TextChoices):
+    #     WELCOME = 'WC', _('Welcome Text Card')
+    #     ABOUT = '1C', _('About Text Card')
+    #     ADMISSION = '2C',_('Admission Text Card')
+    #     ACADEMICS = '3C',_('Academics Text Card')
+    #     STAFF = '4C', _('Staff Text Card')
+    #     SPORTS = '5C', _('Sports Text Card')
+    #     LIBRARY = '6C', _('Library Text Card')
+    #     ALUMNIS = '7C', _('Alumnis Text Card')
+    #     BOARD_MEMBER = '8C', _('Board Members Text Card')
+    #     ANY = 'ANY', _('ANY')
 
-    target_page = models.CharField(max_length=3, choices=TargetLocation.choices, default="ANY")
+    # target_page = models.CharField(max_length=3, choices=TargetLocation.choices, default="ANY")
     post_title = models.CharField(max_length=300, blank=True)
     post = models.TextField()
     post_image = ResizedImageField(size=[1920, 1300], crop=['middle', 'center'], upload_to='posts/', blank=True, default='default value')
@@ -63,14 +78,14 @@ class Post(models.Model):
     post_date = models.DateTimeField(null=True, blank=True)
     modification_date = models.DateTimeField(blank=True, null=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE, blank=True, null=True)
-    school_info = models.ForeignKey(SchStatement, on_delete=models.CASCADE, blank=True, null=True)
+    about = models.ForeignKey(About, on_delete=models.CASCADE, blank=True, null=True)
     slug = models.SlugField(max_length=500, unique=True, blank=True, null=True)
     # page = models.ForeignKey('Page', on_delete=models.PROTECT)
 
     # authors = models.ManyToManyField(Author, blank=True)
 
     def __str__(self):
-        return '{} - {}'.format(self.post_title, self.target_page)
+        return '{} - {}'.format(self.post_title, self.about)
 
     def get_absolute_url(self):
         return reverse('post-detail', args=[str(self.id)])
@@ -110,6 +125,29 @@ class News(models.Model):
         self.slug = slugify(self.headline)
         self.modification_date = timezone.localtime(timezone.now())
         super(News, self).save(*args, **kwargs)
+
+class Message(models.Model):
+    message_title = models.CharField(max_length=70)
+    message = models.TextField()
+    author = models.ForeignKey(Staff, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(blank=True, null=True)
+    date_modified = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        ordering = ['date_created']
+
+    def __str__(self):
+        return '{} - {}'.format(self.author, self.message_title)
+
+    def get_absolute_url(self):
+        return reverse('message-detail', args=[str(self.id)])
+
+    def save(self, *args, **kwargs):
+        if self.date_created is None:
+            self.date_created = timezone.localtime(timezone.now())
+
+        self.date_modified = timezone.localtime(timezone.now())
+        super(Message, self).save(*args, **kwargs)
 
 
 class Gallery(models.Model):
