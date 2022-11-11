@@ -198,6 +198,9 @@
         border: none;
         border-radius: 10px 10px 0px 0px;
     }
+    .cst_pages img.float-left{
+    	width: 100%;
+    }
 /*--------------- end about page css ---------------*/
 }
 
@@ -316,6 +319,9 @@
         margin: -0.3px;
         border: none;
         border-radius: 10px 10px 0px 0px;
+    }
+    .cst_pages img.float-left{
+    	width: 100%;
     }
 /*--------------- end about page css ---------------*/
 }

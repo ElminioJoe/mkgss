@@ -836,6 +836,10 @@ margin-top: 50px;
 .cst_pages .list-group-override .list-group-item-override:hover{
 	border-left: #563309 solid 3px;
 }
+
+.cst_pages img.float-left{
+	width: 450px;
+}
 /*--------------- end about page css ---------------*/
 
 /*--------------- gallery page css ---------------*/

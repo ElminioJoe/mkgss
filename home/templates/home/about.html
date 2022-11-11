@@ -32,17 +32,17 @@
         <!-- content -->
         <div class="col-md-12 col-lg-9">
             <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="list-curricular" role="tabpanel" aria-labelledby="list-curricular-list">
+                <div class="tab-pane fade show active" id="list-academic" role="tabpanel" aria-labelledby="list-academic-list">
                     <h3 class="mb-3">Academics</h3>
                     <hr>
                     <div class="row d-flex align-items-center">
-                        {% for dep in departments_posts %}
+                        {% for academic in departments_posts %}
                         <div class="col-md-6 col-lg-6">
-                            <h4>{{dep.post_title}}</h4>
-                            <p class="mt-0 mb-4">{{dep.post}}</p>
+                            <h4>{{academic.post_title}}</h4>
+                            <p class="mt-0 mb-4">{{academic.post}}</p>
                         </div>
                         <div class="col-md-6 col-lg-6">
-                            <img src="{{dep.post_image.url}}" class="img-fluid" alt="{{dep.image_alt_text}}">
+                            <img src="{{academic.post_image.url}}" class="img-fluid" alt="{{academic.image_alt_text}}">
                         </div>
                         {% endfor %}
                     </div>
@@ -52,13 +52,13 @@
                     <h3 class="mb-3">Administration</h3>
                     <hr>
                     <div class="row d-flex align-items-center">
-                        {% for dep in departments_posts %}
+                        {% for admin in administration %}
                         <div class="col-md-6 col-lg-6">
-                            <h4>{{dep.post_title}}</h4>
-                            <p class="mt-0 mb-4">{{dep.post}}</p>
+                            <h4>{{admin.post_title}}</h4>
+                            <p class="mt-0 mb-4">{{admin.post}}</p>
                         </div>
                         <div class="col-md-6 col-lg-6">
-                            <img src="{{dep.post_image.url}}" class="img-fluid" alt="{{dep.image_alt_text}}">
+                            <img src="{{admin.post_image.url}}" class="img-fluid" alt="{{admin.image_alt_text}}">
                         </div>
                         {% endfor %}
                     </div>
@@ -68,29 +68,27 @@
                     <h3 class="mb-3">Admission</h3>
                     <hr>
                     <div class="row d-flex align-items-center">
-                        {% for dep in departments_posts %}
                         <div class="col-md-6 col-lg-6">
-                            <h4>{{dep.post_title}}</h4>
-                            <p class="mt-0 mb-4">{{dep.post}}</p>
+                            <h4>{{admission.post_title}}</h4>
+                            <p class="mt-0 mb-4">{{admission.post}}</p>
                         </div>
                         <div class="col-md-6 col-lg-6">
-                            <img src="{{dep.post_image.url}}" class="img-fluid" alt="{{dep.image_alt_text}}">
+                            <img src="{{admission.post_image.url}}" class="img-fluid" alt="{{admission.image_alt_text}}">
                         </div>
-                        {% endfor %}
                     </div>
                 </div>
                 <!--  -->
-                <div class="tab-pane fade show" id="list-academic" role="tabpanel" aria-labelledby="list-academic-list">
+                <div class="tab-pane fade show" id="list-curricular" role="tabpanel" aria-labelledby="list-carricular-list">
                     <h3 class="mb-3">Co-Curricular</h3>
                     <hr>
                     <div class="row d-flex align-items-center">
-                        {% for dep in departments_posts %}
+                        {% for co in curriculars %}
                         <div class="col-md-6 col-lg-6">
-                            <h4>{{dep.post_title}}</h4>
-                            <p class="mt-0 mb-4">{{dep.post}}</p>
+                            <h4>{{co.post_title}}</h4>
+                            <p class="mt-0 mb-4">{{co.post}}</p>
                         </div>
                         <div class="col-md-6 col-lg-6">
-                            <img src="{{dep.post_image.url}}" class="img-fluid" alt="{{dep.image_alt_text}}">
+                            <img src="{{co.post_image.url}}" class="img-fluid" alt="{{co.image_alt_text}}">
                         </div>
                         {% endfor %}
                     </div>
@@ -100,13 +98,13 @@
                     <h3 class="mb-3">Our Values</h3>
                     <hr>
                     <div class="row d-flex align-items-center">
-                        {% for info in school_info %}
+                        {% for virtue in school_virtues %}
                         <div class="col-md-6 col-lg-6">
-                            <h4>{{info.post_title}}</h4>
-                            <p class="mt-0 mb-4">{{info.post}}</p>
+                            <h4>{{virtue.post_title}}</h4>
+                            <p class="mt-0 mb-4">{{virtue.post}}</p>
                         </div>
                         <div class="col-md-6 col-lg-6">
-                            <img src="{{info.post_image.url}}" class="img-fluid" alt="{{info.image_alt_text}}">
+                            <img src="{{virtue.post_image.url}}" class="img-fluid" alt="{{virtue.image_alt_text}}">
                         </div>
                         {% endfor %}
                     </div>
@@ -115,13 +113,13 @@
                 <div class="tab-pane fade show" id="list-history" role="tabpanel" aria-labelledby="list-history-list">
                     <h3 class="mb-3">School History</h3>
                     <hr>
-                    <div class="row d-flex px-3 text-justify align-items-center">
+                    <div class="px-3 text-justify align-items-center">
                         <!-- <div class="col-md-6 col-lg-6"> -->
-                            <h4>{{about.post_title}}</h4>
-                            <p class="mt-0 mb-4">{{about.post}}</p>
+                            <h4>{{school_history.post_title}}</h4>
+                            <p class="mt-0 mb-4">{{school_history.post}}</p>
                         <!-- </div> -->
                         <!-- <div class="col-md-6 col-lg-6">
-                            <img src="{{about.post_image.url}}" class="img-fluid" alt="{{about.image_alt_text}}">
+                            <img src="{{school_history.post_image.url}}" class="img-fluid" alt="{{school_history.image_alt_text}}">
                         </div> -->
                     </div>
                 </div>
@@ -129,15 +127,12 @@
                 <div class="tab-pane fade show" id="list-staff" role="tabpanel" aria-labelledby="list-staff-list">
                     <h3 class="mb-3">Staff</h3>
                     <hr>
-                    <div class="row d-flex align-items-center">
-                        {% for dep in departments_posts %}
-                        <div class="col-md-6 col-lg-6">
-                            <h4>{{dep.post_title}}</h4>
-                            <p class="mt-0 mb-4">{{dep.post}}</p>
-                        </div>
-                        <div class="col-md-6 col-lg-6">
-                            <img src="{{dep.post_image.url}}" class="img-fluid" alt="{{dep.image_alt_text}}">
-                        </div>
+                    <div class="text-justify align-items-center">
+                        {% for staff in staffs %}
+                        <h4>{{staff.title}}. {{staff.first_name}} {{staff.last_name}} | {{staff.role}} {{staff.department|default:''}}</h4>
+                        <img src="{{staff.picture.url}}" class="img-fluid float-left pr-2 pt-2" alt="{{staff.image_alt_text}}">
+                        <p class="mt-0 mb-4">{{staff.about}}</p>
+                        <hr>
                         {% endfor %}
                     </div>
                 </div>

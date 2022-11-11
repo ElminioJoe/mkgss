@@ -20,75 +20,54 @@
             <div class="list-group list-group-override" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-override list-group-item-action active" id="list-principal-list" data-toggle="list" href="#list-principal" role="tab" aria-controls="principal">The Principal</a>
                 <a class="list-group-item list-group-item-override list-group-item-action" id="list-deputy-list" data-toggle="list" href="#list-deputy" role="tab" aria-controls="deputy">Deputy Principal</a>
-                <a class="list-group-item list-group-item-override list-group-item-action" id="list-values-list" data-toggle="list" href="#list-values" role="tab" aria-controls="values">Our Values</a>
-                <a class="list-group-item list-group-item-override list-group-item-action" id="list-history-list" data-toggle="list" href="#list-history" role="tab" aria-controls="history">School History</a>
-                <a class="list-group-item list-group-item-override list-group-item-action" id="list-staff-list" data-toggle="list" href="#list-staff" role="tab" aria-controls="staff">Staff</a>
-
             </div>
         </div>
         <!-- end sidebar links -->
         <!-- content -->
-        <div class="col-md-12 col-lg-9">
+        <div class="col-md-12 col-lg-9 text-justify">
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="list-principal" role="tabpanel" aria-labelledby="list-principal-list">
                     <div class="row d-flex align-items-center">
-                        <div class="col-md-6 col-lg-6">
-                            <h3>Principal's Office</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam magni nemo repellat assumenda dolore, eos, aspernatur adipisci, quidem nisi aut minima impedit inventore neque. Blanditiis sit explicabo magni itaque quisquam, nemo minus nisi labore minima nam quidem voluptate quibusdam! Saepe sit nesciunt quaerat deserunt facere quas itaque sequi molestiae! Iste perferendis qui nemo modi. Veritatis quo officia perspiciatis rem cumque.</p>
-                        </div>
-                        <div class="col-md-6 col-lg-6">
-                            <img src="{% static 'images/IMG_3045.JPG' %}" class="img-fluid" alt="#">
+                        <div class="col-md-12 col-lg-12">
+                            <h3 class="mb-2">Principal's Office</h3>
+                            <hr>
+                            <div>
+                                <h4>
+                                    <span>{{principal.author.title}}.</span>
+                                    <span>{{principal.author.first_name}}</span>
+                                    <span>{{principal.author.last_name}}</span>
+                                    <span>| {{principal.author.role}}</span>
+                                </h4>
+                                <img src="{{principal.author.picture.url}}" class="img-fluid float-left pr-2 pt-2" alt="{{principal.author.picture_alt_text}}">
+                                <h4>{{principal.message_title}}</h4>
+
+                                <p class="mt-0">{{principal.message}}</p>
+                            </div>
+
                         </div>
                     </div>
                 </div>
                 <!--  -->
                 <div class="tab-pane fade show" id="list-deputy" role="tabpanel" aria-labelledby="list-deputy-list">
                     <div class="row d-flex align-items-center">
-                        <div class="col-md-6">
-                            <h3>Deputy Principal's Office</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam magni nemo repellat assumenda dolore, eos, aspernatur adipisci, quidem nisi aut minima impedit inventore neque. Blanditiis sit explicabo magni itaque quisquam, nemo minus nisi labore minima nam quidem voluptate quibusdam! Saepe sit nesciunt quaerat deserunt facere quas itaque sequi molestiae! Iste perferendis qui nemo modi. Veritatis quo officia perspiciatis rem cumque.</p>
-                        </div>
-                        <div class="col-md-6">
-                            <img src="{% static 'images/IMG_3045.JPG' %}" class="img-fluid" alt="#">
-                        </div>
-                    </div>
-                </div>
-                <!--  -->
-                <div class="tab-pane fade show" id="list-values" role="tabpanel" aria-labelledby="list-values-list">
-                    <div class="row d-flex align-items-center">
-                        <div class="col-md-6">
-                            <h3>Our Values</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam magni nemo repellat assumenda dolore, eos, aspernatur adipisci, quidem nisi aut minima impedit inventore neque. Blanditiis sit explicabo magni itaque quisquam, nemo minus nisi labore minima nam quidem voluptate quibusdam! Saepe sit nesciunt quaerat deserunt facere quas itaque sequi molestiae! Iste perferendis qui nemo modi. Veritatis quo officia perspiciatis rem cumque.</p>
-                        </div>
-                        <div class="col-md-6">
-                            <img src="{% static 'images/IMG_3045.JPG' %}" class="img-fluid" alt="#">
-                        </div>
-                    </div>
-                </div>
-                <!--  -->
-                <div class="tab-pane fade show" id="list-history" role="tabpanel" aria-labelledby="list-history-list">
-                    <div class="row d-flex align-items-center">
-                        <div class="col-md-6">
-                            <h3>School History</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam magni nemo repellat assumenda dolore, eos, aspernatur adipisci, quidem nisi aut minima impedit inventore neque. Blanditiis sit explicabo magni itaque quisquam, nemo minus nisi labore minima nam quidem voluptate quibusdam! Saepe sit nesciunt quaerat deserunt facere quas itaque sequi molestiae! Iste perferendis qui nemo modi. Veritatis quo officia perspiciatis rem cumque.</p>
-                        </div>
-                        <div class="col-md-6">
-                            <img src="{% static 'images/IMG_3045.JPG' %}" class="img-fluid" alt="#">
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade show" id="list-staff" role="tabpanel" aria-labelledby="list-staff-list">
-                    <div class="row d-flex align-items-center">
-                        <div class="col-md-6">
-                            <h3>Staff</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam magni nemo repellat assumenda dolore, eos, aspernatur adipisci, quidem nisi aut minima impedit inventore neque. Blanditiis sit explicabo magni itaque quisquam, nemo minus nisi labore minima nam quidem voluptate quibusdam! Saepe sit nesciunt quaerat deserunt facere quas itaque sequi molestiae! Iste perferendis qui nemo modi. Veritatis quo officia perspiciatis rem cumque.</p>
-                        </div>
-                        <div class="col-md-6">
-                            <img src="{% static 'images/IMG_3045.JPG' %}" class="img-fluid" alt="#">
-                        </div>
-                    </div>
-                </div>
+                        <div class="col-md-12 col-lg-12">
+                            <h3 class="mb-2">Deputy Principal's Office</h3>
+                            <hr>
+                            <div>
+                                <h4>
+                                    <span>{{deputy.author.title}}.</span>
+                                    <span>{{deputy.author.first_name}}</span>
+                                    <span>{{deputy.author.last_name}}</span>
+                                    <span>| {{deputy.author.role}}</span>
+                                </h4>
+                                <img src="{{deputy.author.picture.url}}" class="img-fluid float-left pr-2 pt-2" alt="{{deputy.author.picture_alt_text}}">
+                                <h4>{{deputy.message_title}}</h4>
 
+                                <p class="mt-0">{{deputy.message}}</p>
+                            </div>                        </div>
+                    </div>
+                </div>
+                <!--  -->
             </div>
         </div>
         <!-- content end -->
