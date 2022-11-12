@@ -129,9 +129,9 @@
                 </div>
             </div>
         </div>
-        {% for news_item in news %}
         <div class="row">
-            <div class="col-md-3">
+            {% for news_item in news %}
+            <div class="col-md-4">
                 <div class="blog-box">
                     <figure>
                         {% if news_item.news_image %}
@@ -142,10 +142,13 @@
                         <span>10 Aug 2019</span>
                         {% endif %}
                     </figure>
+                    <div>
+
+                    </div>
                     <h4>{{news_item.headline}}</h4>
                     <div class="travel">
                         <p>
-                            <span class="Comment"> <i>inb </i>06 </span>
+                            <span class="Comment"> <i>inb </i>{{news_item.post_date}} </span>
                             <span class="like"> <i> icn </i>05 </span>
                             <span> <i>icn</i> {{news_item.publisher}}</span>
                         </p>
@@ -204,12 +207,13 @@
                     <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Led to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web</p>
                 </div>
             </div> -->
+            {% empty %}
+            <div class="row">
+                <h2 class="text-center">There are No News Items</h2>
+            </div>
+            {% endfor %}
         </div>
-        {% empty %}
-        <div class="row">
-            <h2 class="text-center">There are No News Items</h2>
-        </div>
-        {% endfor %}
+
     </div>
 </div>
 <p></p>

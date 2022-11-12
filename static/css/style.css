@@ -704,6 +704,8 @@ margin-top: 50px;
 .blog .blog-box p {
     font-size: 16px;
     line-height: 20px;
+	color: #e2e2e2;
+	text-align: justify;
 }
 .blog .blog-box .travel {
     padding: 0px;
