@@ -1,6 +1,7 @@
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import *
+from .forms import *
 
 # Create your views here.
 
@@ -20,6 +21,14 @@ def home(request):
 
     news = News.objects.all()[:4]
 
+    # if request.method == 'POST':
+    #     post_form = PostForm(request.POST, request.FILES)
+    #     if post_form.is_valid():
+    #         post_form.save()
+    #     return redirect('home')
+    # else:
+    #     post_form = PostForm()
+
     context = {
         'welcome_post': welcome_post,
         'about_post': about_post,
@@ -31,6 +40,7 @@ def home(request):
         'alumni_post': alumni_post,
         'board_m_post': board_m_post,
         'news': news,
+        # 'post_form': post_form,
     }
     return render(request, 'home/home.html', context)
 
@@ -45,13 +55,22 @@ def gallery(request):
     return render(request, 'home/gallery.html', context)
 
 def about(request):
+    academics = Post.objects.all().filter(department_id__gt=0)
     admission = Post.objects.filter(about__name__contains='Admission').get()
     administration = Post.objects.filter(about__name__contains='Administration').all()
     curriculars = Post.objects.filter(about__name__contains='Co-Curricular').all()
-    academics = Post.objects.all().filter(department_id__gt=0)
     school_virtues = Post.objects.filter(about__name__contains='School Virtues').all()
     school_history = Post.objects.filter(about__name__contains='School History').get()
     staffs = Staff.objects.all()
+
+    if request.method == 'POST':
+        # publisher = Publisher.objects.get(pk=1)
+        post_form = PostForm(request.POST, request.FILES)
+        if post_form.is_valid():
+            post_form.save()
+        return redirect('about')
+    else:
+        post_form = PostForm()
 
     context = {
         'academics': academics,
@@ -61,6 +80,7 @@ def about(request):
         'school_virtues': school_virtues,
         'school_history': school_history,
         'staffs': staffs,
+        'post_form': post_form,
     }
     return render(request, 'home/about.html', context)
 

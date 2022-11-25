@@ -37,12 +37,6 @@ class Staff(models.Model):
     def __str__(self):
         return '{} - {}'.format(self.first_name, self.role)
 
-# class Author(models.Model):
-#     name = models.CharField(max_length=100)
-
-#     def __str__(self):
-#         return self.name
-
 class Department(models.Model):
     name = models.CharField(max_length=30)
 
@@ -57,19 +51,6 @@ class About(models.Model):
         return self.name
 
 class Post(models.Model):
-    # class TargetLocation(models.TextChoices):
-    #     WELCOME = 'WC', _('Welcome Text Card')
-    #     ABOUT = '1C', _('About Text Card')
-    #     ADMISSION = '2C',_('Admission Text Card')
-    #     ACADEMICS = '3C',_('Academics Text Card')
-    #     STAFF = '4C', _('Staff Text Card')
-    #     SPORTS = '5C', _('Sports Text Card')
-    #     LIBRARY = '6C', _('Library Text Card')
-    #     ALUMNIS = '7C', _('Alumnis Text Card')
-    #     BOARD_MEMBER = '8C', _('Board Members Text Card')
-    #     ANY = 'ANY', _('ANY')
-
-    # target_page = models.CharField(max_length=3, choices=TargetLocation.choices, default="ANY")
     post_title = models.CharField(max_length=300, blank=True)
     post = models.TextField()
     post_image = ResizedImageField(size=[1920, 1300], crop=['middle', 'center'], upload_to='posts/', blank=True, default='default value')
@@ -80,12 +61,9 @@ class Post(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE, blank=True, null=True)
     about = models.ForeignKey(About, on_delete=models.CASCADE, blank=True, null=True)
     slug = models.SlugField(max_length=500, unique=True, blank=True, null=True)
-    # page = models.ForeignKey('Page', on_delete=models.PROTECT)
-
-    # authors = models.ManyToManyField(Author, blank=True)
 
     def __str__(self):
-        return '{} - {}'.format(self.post_title, self.about)
+        return '{} - {}'.format(self.post_title, self.about or self.department)
 
     def get_absolute_url(self):
         return reverse('post-detail', args=[str(self.id)])

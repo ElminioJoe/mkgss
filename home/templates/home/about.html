@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
 <div class="jumbotron py-5 mb-0">
@@ -33,10 +34,45 @@
         <div class="col-md-12 col-lg-9">
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="list-academic" role="tabpanel" aria-labelledby="list-academic-list">
-                    <h3 class="mb-3">Academics</h3>
+                    <div class="d-flex mb-3">
+                        <h3 class="mr-auto">Academics</h3>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addPostModal" data-placement="top" title="Add Post">
+                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="addPostModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="ModalLongTitle">Add post</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{%url 'about'%}" class="myForm" method="POST" enctype="multipart/form-data">
+                                        {%csrf_token%}
+
+                                        {{ post_form|crispy }}
+                                        <div class="text-center">
+                                            <input type="submit" class="btn btn-info btn-md font-weight-bold" value="SUBMIT">
+                                        </div>
+                                                                        <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                      </div>
+                    </div>
+                    <!-- End Modal -->
                     <hr>
                     <div class="row d-flex align-items-center">
-                        {% for academic in departments_posts %}
+                        {% for academic in academics %}
                         <div class="col-md-6 col-lg-6">
                             <h4>{{academic.post_title}}</h4>
                             <p class="mt-0 mb-4">{{academic.post}}</p>
@@ -49,7 +85,13 @@
                 </div>
                 <!--  -->
                 <div class="tab-pane fade show" id="list-admin" role="tabpanel" aria-labelledby="list-admin-list">
-                    <h3 class="mb-3">Administration</h3>
+                    <div class="d-flex mb-3">
+                        <h3 class="mr-auto">Administration</h3>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addPostModal" data-placement="top" title="Add Post">
+                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                        </button>
+                    </div>
                     <hr>
                     <div class="row d-flex align-items-center">
                         {% for admin in administration %}
@@ -65,7 +107,13 @@
                 </div>
                 <!--  -->
                 <div class="tab-pane fade show" id="list-admission" role="tabpanel" aria-labelledby="list-admission-list">
-                    <h3 class="mb-3">Admission</h3>
+                    <div class="d-flex mb-3">
+                        <h3 class="mr-auto">Admission</h3>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addPostModal" data-placement="top" title="Add Post">
+                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                        </button>
+                    </div>
                     <hr>
                     <div class="row d-flex align-items-center">
                         <div class="col-md-6 col-lg-6">
@@ -79,7 +127,13 @@
                 </div>
                 <!--  -->
                 <div class="tab-pane fade show" id="list-curricular" role="tabpanel" aria-labelledby="list-carricular-list">
-                    <h3 class="mb-3">Co-Curricular</h3>
+                    <div class="d-flex mb-3">
+                        <h3 class="mr-auto">Co-Curricular</h3>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addPostModal" data-placement="top" title="Add Post">
+                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                        </button>
+                    </div>
                     <hr>
                     <div class="row d-flex align-items-center">
                         {% for co in curriculars %}
@@ -95,7 +149,13 @@
                 </div>
                 <!--  -->
                 <div class="tab-pane fade show" id="list-values" role="tabpanel" aria-labelledby="list-values-list">
-                    <h3 class="mb-3">Our Values</h3>
+                    <div class="d-flex mb-3">
+                        <h3 class="mr-auto">Our Values</h3>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addPostModal" data-placement="top" title="Add Post">
+                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                        </button>
+                    </div>
                     <hr>
                     <div class="row d-flex align-items-center">
                         {% for virtue in school_virtues %}
@@ -111,7 +171,13 @@
                 </div>
                 <!--  -->
                 <div class="tab-pane fade show" id="list-history" role="tabpanel" aria-labelledby="list-history-list">
-                    <h3 class="mb-3">School History</h3>
+                    <div class="d-flex mb-3">
+                        <h3 class="mr-auto">School History</h3>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addPostModal" data-placement="top" title="Add Post">
+                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                        </button>
+                    </div>
                     <hr>
                     <div class="px-3 text-justify align-items-center">
                         <!-- <div class="col-md-6 col-lg-6"> -->
@@ -125,7 +191,13 @@
                 </div>
                 <!--  -->
                 <div class="tab-pane fade show" id="list-staff" role="tabpanel" aria-labelledby="list-staff-list">
-                    <h3 class="mb-3">Staff</h3>
+                    <div class="d-flex mb-3">
+                        <h3 class="mr-auto">Staff</h3>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addPostModal" data-placement="top" title="Add Post">
+                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                        </button>
+                    </div>
                     <hr>
                     <div class="text-justify align-items-center">
                         {% for staff in staffs %}
