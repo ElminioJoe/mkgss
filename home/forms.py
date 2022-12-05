@@ -13,7 +13,7 @@ class PostForm(ModelForm):
     class Meta:
         model = Post
         # fields = '__all__'
-        exclude = ['slug', 'post_date', 'modification_date', 'about']
+        exclude = ['slug', 'post_date', 'modification_date']
         widgets = {
             'post': forms.Textarea(attrs={'rows':5,}),
             }

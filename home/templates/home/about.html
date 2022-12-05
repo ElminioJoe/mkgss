@@ -26,7 +26,6 @@
                 <a class="list-group-item list-group-item-override list-group-item-action" id="list-values-list" data-toggle="list" href="#list-values" role="tab" aria-controls="values">Our Values</a>
                 <a class="list-group-item list-group-item-override list-group-item-action" id="list-history-list" data-toggle="list" href="#list-history" role="tab" aria-controls="history">School History</a>
                 <a class="list-group-item list-group-item-override list-group-item-action" id="list-staff-list" data-toggle="list" href="#list-staff" role="tab" aria-controls="staff">Staff</a>
-
             </div>
         </div>
         <!-- end sidebar links -->
@@ -37,156 +36,198 @@
                     <div class="d-flex mb-3">
                         <h3 class="mr-auto">Academics</h3>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addPostModal" data-placement="top" title="Add Post">
+                        <!-- Add Button -->
+                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addPostModal" data-placement="top" title="Add">
                             <i class="fa fa-plus-square-o" aria-hidden="true"></i>
                         </button>
                     </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="addPostModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-scrollable" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="ModalLongTitle">Add post</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="{%url 'about'%}" class="myForm" method="POST" enctype="multipart/form-data">
-                                        {%csrf_token%}
-
-                                        {{ post_form|crispy }}
-                                        <div class="text-center">
-                                            <input type="submit" class="btn btn-info btn-md font-weight-bold" value="SUBMIT">
-                                        </div>
-                                                                        <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                                    </form>
-                                </div>
-
-                            </div>
-                      </div>
-                    </div>
-                    <!-- End Modal -->
                     <hr>
-                    <div class="row d-flex align-items-center">
-                        {% for academic in academics %}
-                        <div class="col-md-6 col-lg-6">
-                            <h4>{{academic.post_title}}</h4>
-                            <p class="mt-0 mb-4">{{academic.post}}</p>
+                    <div class="row d-flex align-items-center mb-4">
+                        <div class="col-md-12 mb-4 ">
+                            {% for academic in academics %}
+                            <div class="d-flex mb-3">
+                                <!-- Buttons Trigger Modal -->
+                                <h4 class="mr-auto">{{academic.post_title}}</h4>
+                                <!-- Edit Button -->
+                                <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#editPostModal" data-placement="top" title="Edit">
+                                    <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+                                </button>
+                                <!-- Delete Button -->
+                                <button type="button" class="btn btn-sm btn-outline-danger" data-placement="top" title="Delete">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-6 col-lg-6">
+                                    <p class="my-0">{{academic.post}}</p>
+                                </div>
+                                <div class="col-md-6 col-lg-6 mb-4">
+                                    <img src="{{academic.post_image.url}}" class="img-fluid" alt="{{academic.image_alt_text}}">
+                                </div>
+                            </div>
+                            {% endfor %}
                         </div>
-                        <div class="col-md-6 col-lg-6">
-                            <img src="{{academic.post_image.url}}" class="img-fluid" alt="{{academic.image_alt_text}}">
-                        </div>
-                        {% endfor %}
                     </div>
                 </div>
+
                 <!--  -->
+
                 <div class="tab-pane fade show" id="list-admin" role="tabpanel" aria-labelledby="list-admin-list">
                     <div class="d-flex mb-3">
                         <h3 class="mr-auto">Administration</h3>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addPostModal" data-placement="top" title="Add Post">
+                        <!-- Add Button -->
+                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addPostModal" data-placement="top" title="Add">
                             <i class="fa fa-plus-square-o" aria-hidden="true"></i>
                         </button>
                     </div>
                     <hr>
-                    <div class="row d-flex align-items-center">
-                        {% for admin in administration %}
-                        <div class="col-md-6 col-lg-6">
-                            <h4>{{admin.post_title}}</h4>
-                            <p class="mt-0 mb-4">{{admin.post}}</p>
+                    <div class="row d-flex align-items-center mb-4">
+                        <div class="col-md-12 mb-4 ">
+                            {% for admin in administration %}
+                            <div class="d-flex mb-3">
+                                <!-- Buttons Trigger Modal -->
+                                <h4 class="mr-auto">{{admin.post_title}}</h4>
+                                <!-- Edit Button -->
+                                <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#editPostModal" data-placement="top" title="Edit">
+                                    <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+                                </button>
+                                <!-- Delete Button -->
+                                <button type="button" class="btn btn-sm btn-outline-danger" data-placement="top" title="Delete">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-6 col-lg-6">
+                                    <p class="my-0">{{admin.post}}</p>
+                                </div>
+                                <div class="col-md-6 col-lg-6 mb-4">
+                                    <img src="{{admin.post_image.url}}" class="img-fluid" alt="{{admin.image_alt_text}}">
+                                </div>
+                            </div>
+                            {% endfor %}
                         </div>
-                        <div class="col-md-6 col-lg-6">
-                            <img src="{{admin.post_image.url}}" class="img-fluid" alt="{{admin.image_alt_text}}">
-                        </div>
-                        {% endfor %}
                     </div>
                 </div>
+
                 <!--  -->
+
                 <div class="tab-pane fade show" id="list-admission" role="tabpanel" aria-labelledby="list-admission-list">
                     <div class="d-flex mb-3">
                         <h3 class="mr-auto">Admission</h3>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addPostModal" data-placement="top" title="Add Post">
-                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                        <!-- Add Button -->
+                        <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#editPostModal" data-placement="top" title="Edit">
+                            <i class="fa-sharp fa-solid fa-pen-to-square"></i>
                         </button>
                     </div>
                     <hr>
+                    <h4>{{admission.post_title}}</h4>
                     <div class="row d-flex align-items-center">
                         <div class="col-md-6 col-lg-6">
-                            <h4>{{admission.post_title}}</h4>
-                            <p class="mt-0 mb-4">{{admission.post}}</p>
+                            <p class="my-0">{{admission.post}}</p>
                         </div>
                         <div class="col-md-6 col-lg-6">
                             <img src="{{admission.post_image.url}}" class="img-fluid" alt="{{admission.image_alt_text}}">
                         </div>
                     </div>
                 </div>
+
                 <!--  -->
+
                 <div class="tab-pane fade show" id="list-curricular" role="tabpanel" aria-labelledby="list-carricular-list">
                     <div class="d-flex mb-3">
                         <h3 class="mr-auto">Co-Curricular</h3>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addPostModal" data-placement="top" title="Add Post">
+                        <!-- Add Button -->
+                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addPostModal" data-placement="top" title="Add">
                             <i class="fa fa-plus-square-o" aria-hidden="true"></i>
                         </button>
                     </div>
                     <hr>
-                    <div class="row d-flex align-items-center">
-                        {% for co in curriculars %}
-                        <div class="col-md-6 col-lg-6">
-                            <h4>{{co.post_title}}</h4>
-                            <p class="mt-0 mb-4">{{co.post}}</p>
+                    <div class="row d-flex align-items-center mb-4">
+                        <div class="col-md-12 mb-4 ">
+                            {% for co in curriculars %}
+                            <div class="d-flex mb-3">
+                                <!-- Buttons Trigger Modal -->
+                                <h4 class="mr-auto">{{co.post_title}}</h4>
+                                <!-- Edit Button -->
+                                <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#editPostModal" data-placement="top" title="Edit">
+                                    <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+                                </button>
+                                <!-- Delete Button -->
+                                <button type="button" class="btn btn-sm btn-outline-danger" data-placement="top" title="Delete">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-6 col-lg-6">
+                                    <p class="my-0">{{co.post}}</p>
+                                </div>
+                                <div class="col-md-6 col-lg-6 mb-4">
+                                    <img src="{{co.post_image.url}}" class="img-fluid" alt="{{co.image_alt_text}}">
+                                </div>
+                            </div>
+                            {% endfor %}
                         </div>
-                        <div class="col-md-6 col-lg-6">
-                            <img src="{{co.post_image.url}}" class="img-fluid" alt="{{co.image_alt_text}}">
-                        </div>
-                        {% endfor %}
                     </div>
                 </div>
+
                 <!--  -->
+
                 <div class="tab-pane fade show" id="list-values" role="tabpanel" aria-labelledby="list-values-list">
                     <div class="d-flex mb-3">
                         <h3 class="mr-auto">Our Values</h3>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addPostModal" data-placement="top" title="Add Post">
+                        <!-- Add Button -->
+                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addPostModal" data-placement="top" title="Add">
                             <i class="fa fa-plus-square-o" aria-hidden="true"></i>
                         </button>
                     </div>
                     <hr>
-                    <div class="row d-flex align-items-center">
-                        {% for virtue in school_virtues %}
-                        <div class="col-md-6 col-lg-6">
-                            <h4>{{virtue.post_title}}</h4>
-                            <p class="mt-0 mb-4">{{virtue.post}}</p>
+                    <div class="row d-flex align-items-center mb-4">
+                        <div class="col-md-12 mb-4 ">
+                            {% for virtue in school_virtues %}
+                            <div class="d-flex">
+                                <!-- Buttons Trigger Modal -->
+                                <h4 class="mr-auto">{{virtue.post_title}}</h4>
+                                <!-- Edit Button -->
+                                <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#editPostModal" data-placement="top" title="Edit">
+                                    <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+                                </button>
+                                <!-- Delete Button -->
+                                <button type="button" class="btn btn-sm btn-outline-danger" data-placement="top" title="Delete">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <p class="my-0">{{virtue.post}}</p>
+                                </div>
+                                <!-- <div class="col-md-6 col-lg-6 mb-4">
+                                    <img src="{{virtue.post_image.url}}" class="img-fluid" alt="{{virtue.image_alt_text}}">
+                                </div> -->
+                            </div>
+                            {% endfor %}
                         </div>
-                        <div class="col-md-6 col-lg-6">
-                            <img src="{{virtue.post_image.url}}" class="img-fluid" alt="{{virtue.image_alt_text}}">
-                        </div>
-                        {% endfor %}
                     </div>
                 </div>
+
                 <!--  -->
+
                 <div class="tab-pane fade show" id="list-history" role="tabpanel" aria-labelledby="list-history-list">
                     <div class="d-flex mb-3">
                         <h3 class="mr-auto">School History</h3>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addPostModal" data-placement="top" title="Add Post">
-                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                        <!-- Edit Button -->
+                        <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#editPostModal" data-placement="top" title="Edit">
+                            <i class="fa-sharp fa-solid fa-pen-to-square"></i>
                         </button>
                     </div>
                     <hr>
                     <div class="px-3 text-justify align-items-center">
-                        <!-- <div class="col-md-6 col-lg-6"> -->
                             <h4>{{school_history.post_title}}</h4>
-                            <p class="mt-0 mb-4">{{school_history.post}}</p>
-                        <!-- </div> -->
-                        <!-- <div class="col-md-6 col-lg-6">
-                            <img src="{{school_history.post_image.url}}" class="img-fluid" alt="{{school_history.image_alt_text}}">
-                        </div> -->
+                            <p class="my-0">{{school_history.post}}</p>
                     </div>
                 </div>
                 <!--  -->
@@ -194,15 +235,27 @@
                     <div class="d-flex mb-3">
                         <h3 class="mr-auto">Staff</h3>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addPostModal" data-placement="top" title="Add Post">
+                        <!-- Add Button -->
+                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addPostModal" data-placement="top" title="Add">
                             <i class="fa fa-plus-square-o" aria-hidden="true"></i>
                         </button>
                     </div>
                     <hr>
                     <div class="text-justify align-items-center">
                         {% for staff in staffs %}
-                        <h4>{{staff.title}}. {{staff.first_name}} {{staff.last_name}} | {{staff.role}} {{staff.department|default:''}}</h4>
-                        <img src="{{staff.picture.url}}" class="img-fluid float-left pr-2 pt-2" alt="{{staff.image_alt_text}}">
+                        <div class="d-flex">
+                            <h4 class="mr-auto">{{staff.title}}. {{staff.first_name}} {{staff.last_name}} | {{staff.role}} {{staff.department|default:''}}</h4>
+                            <!-- Buttons Trigger Modal -->
+                            <!-- Edit Button -->
+                            <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#editPostModal" data-placement="top" title="Edit">
+                                <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <!-- Delete Button -->
+                            <button type="button" class="btn btn-sm btn-outline-danger" data-placement="top" title="Delete">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                        <img src="{{staff.picture.url}}" class="img-fluid float-left pr-3 pt-2" alt="{{staff.image_alt_text}}">
                         <p class="mt-0 mb-4">{{staff.about}}</p>
                         <hr>
                         {% endfor %}
@@ -214,4 +267,84 @@
         <!-- content end -->
     </div>
 </section>
+
+<!-- Modals Body only Section -->
+<!-- Add Academic Post Modal -->
+<div class="modal fade" id="addPostModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLongTitle">Add</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Add Academic Form -->
+                <form action="{%url 'about'%}" class="myForm" method="POST" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    {{ post_form.post_title|as_crispy_field }}
+                    {{ post_form.post|as_crispy_field }}
+                    {{ post_form.post_image|as_crispy_field }}
+                    {{ post_form.image_alt_text|as_crispy_field }}
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ post_form.department|as_crispy_field }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ post_form.publisher|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <input type="submit" class="btn btn-info btn-md font-weight-bold" value="Save">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+  </div>
+</div>
+<!-- End Modal -->
+<!-- Edit Academic Post Modal -->
+<div class="modal fade" id="editPostModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLongTitle">Edit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Edit Academic Form -->
+                <form action="{%url 'about'%}" class="myForm" method="POST" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    {{ post_form.post_title|as_crispy_field }}
+                    {{ post_form.post|as_crispy_field }}
+                    {{ post_form.post_image|as_crispy_field }}
+                    {{ post_form.image_alt_text|as_crispy_field }}
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ post_form.department|as_crispy_field }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ post_form.publisher|as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <input type="submit" class="btn btn-info btn-md font-weight-bold" value="Save">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+  </div>
+</div>
+<!-- End Modal -->
+
+
 {% endblock %}
