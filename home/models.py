@@ -9,10 +9,41 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
+from polymorphic.models import PolymorphicModel
+
 # Create your models here.
 
 def get_sentinel_user():
     return get_user_model().objects.get_or_create(username='MGKSC')[0]
+
+
+class HomeFeature(models.Model):
+
+    welcome_info = models.CharField(max_length=250)
+
+    staff_info = models.CharField(max_length=200)
+    staff_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='homeFeatures/', default='default value')
+
+    # admission_info = models.CharField(max_length=200)
+    # admission_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='homeFeatures/', default='default value')
+
+    academics_info = models.CharField(max_length=200)
+    academics_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='homeFeatures/', default='default value')
+
+    curricular_info = models.CharField(max_length=200)
+    curricular_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='homeFeatures/', default='default value')
+
+    library_info = models.CharField(max_length=200)
+    library_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='homeFeatures/', default='default value')
+
+    alumni_info = models.CharField(max_length=200)
+    alumni_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='homeFeatures/', default='default value')
+
+    administration_info = models.CharField(max_length=200)
+
+    def __str__(self):
+        return 'Home Features'
+
 
 class Publisher(models.Model):
     first_name = models.CharField(max_length=30)
@@ -37,44 +68,89 @@ class Staff(models.Model):
     def __str__(self):
         return '{} - {}'.format(self.first_name, self.role)
 
+
 class Department(models.Model):
     name = models.CharField(max_length=30)
 
     def __str__(self):
         return self.name
 
-class About(models.Model):
-    name = models.CharField(max_length=30)
-    content = models.TextField(max_length=300, blank=True)
+
+class SchoolInfo(PolymorphicModel):
+    name = models.CharField(max_length=100)
+    image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='about/', default='default value', blank=True)
+    image_alt_text = models.CharField(max_length=50, blank=True, help_text="A short description of what the image contents are.")
+
+
+    def __str__(self):
+        return '{} -'.format(self.name )
+
+
+class Administration(SchoolInfo):
+    info = models.TextField(max_length=500)
 
     def __str__(self):
         return self.name
 
-class Post(models.Model):
-    post_title = models.CharField(max_length=300, blank=True)
-    post = models.TextField()
-    post_image = ResizedImageField(size=[1920, 1300], crop=['middle', 'center'], upload_to='posts/', blank=True, default='default value')
-    image_alt_text = models.CharField(max_length=50, blank=True, help_text="A short description of what the image contents are.")
-    publisher = models.ForeignKey(Publisher, on_delete=models.SET(get_sentinel_user))
-    post_date = models.DateTimeField(null=True, blank=True)
-    modification_date = models.DateTimeField(blank=True, null=True)
-    department = models.ForeignKey(Department, on_delete=models.CASCADE, blank=True, null=True)
-    about = models.ForeignKey(About, on_delete=models.CASCADE, blank=True, null=True)
-    slug = models.SlugField(max_length=500, unique=True, blank=True, null=True)
+
+class Academic(SchoolInfo):
+    subject = models.CharField(max_length=70)
+    info = models.TextField(max_length=500)
+
 
     def __str__(self):
-        return '{} - {}'.format(self.post_title, self.about or self.department)
+        return '{} - {}'.format(self.name, self.subject)
 
-    def get_absolute_url(self):
-        return reverse('post-detail', args=[str(self.id)])
 
-    def save(self, *args, **kwargs):
-        if self.post_date is None:
-            self.post_date = timezone.localtime(timezone.now())
+class Admission(SchoolInfo):
+    info = models.TextField(max_length=500)
 
-        self.slug = slugify('{}'.format(self.post_title))
-        self.modification_date = timezone.localtime(timezone.now())
-        super(Post, self).save(*args, **kwargs)
+    def __str__(self):
+        return self.name
+
+
+class Curricular(SchoolInfo):
+    info = models.TextField(max_length=500)
+
+    def __str__(self):
+        return self.name
+
+
+class SchoolHistory(SchoolInfo):
+    content =models.TextField(max_length=500)
+
+    def __str__(self):
+        return self.name
+
+class SchoolValue(SchoolInfo):
+    content = models.TextField(max_length=500)
+
+    def __str__(self):
+        return self.name
+
+# class Post(models.Model):
+#     post_title = models.CharField(max_length=300, blank=True)
+#     post = models.TextField()
+#     post_image = ResizedImageField(size=[1920, 1300], crop=['middle', 'center'], upload_to='posts/', blank=True, default='default value')
+#     image_alt_text = models.CharField(max_length=50, blank=True, help_text="A short description of what the image contents are.")
+#     post_date = models.DateTimeField(null=True, blank=True)
+#     modification_date = models.DateTimeField(blank=True, null=True)
+#     department = models.ForeignKey(Department, on_delete=models.CASCADE, blank=True, null=True)
+#     slug = models.SlugField(max_length=500, unique=True, blank=True, null=True)
+
+#     def __str__(self):
+#         return '{} - {}'.format(self.post_title, self.about or self.department)
+
+#     def get_absolute_url(self):
+#         return reverse('post-detail', args=[str(self.id)])
+
+#     def save(self, *args, **kwargs):
+#         if self.post_date is None:
+#             self.post_date = timezone.localtime(timezone.now())
+
+#         self.slug = slugify('{}'.format(self.post_title))
+#         self.modification_date = timezone.localtime(timezone.now())
+#         super(Post, self).save(*args, **kwargs)
 
 class News(models.Model):
     headline = models.CharField(max_length=250)
