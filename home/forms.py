@@ -9,13 +9,13 @@ class StaffForm(ModelForm):
         fields = '__all__'
 
 
-class PostForm(ModelForm):
+class AcademicForm(ModelForm):
     class Meta:
-        model = Post
-        # fields = '__all__'
-        exclude = ['slug', 'post_date', 'modification_date']
+        model = SchoolInfo
+        fields = '__all__'
+        # exclude = ['slug', 'post_date', 'modification_date']
         widgets = {
-            'post': forms.Textarea(attrs={'rows':5,}),
+            'info': forms.Textarea(attrs={'rows':5,}),
             }
 class NewsForm(ModelForm):
     class Meta:

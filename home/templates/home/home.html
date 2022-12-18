@@ -47,8 +47,8 @@
 </section>
 <div class="container mt-5">
     <div class="bg-light_silver p-2 text-center rounded">
-        <h2>{{welcome_post.post_title}}</h2>
-        <p class="px-4">{{welcome_post.post}}</p>
+        <h2>Welcome to Moi Kadzonzo Girls Secondary School</h2>
+        <p class="px-4">{{home_features.welcome_info}}</p>
         <a href="/about#_list-history">Read more </a>
         <!-- <h2>Welcome to Moi Kadzonzo Girls Secondary School</h2>
         <p class="px-4">This website is designed for parents, students, Alumnis, staff, sponsors, friends of the school and prospective parents who may know little about us.</p>
@@ -56,64 +56,64 @@
     </div>
     <div class="row my-4 info-cards">
         <div class="col-md-12 col-lg-3 p-4">
-            <h4>{{ about_post.post_title }}</h4>
-            <p>{{ about_post.post|truncatewords:39  }}</p>
+            <h4>{{ school_value.content }}</h4>
+            <p>{{ school_history.content }}</p>
             <a href="/about#">Read more </a>
         </div>
         <div class="col-md-4 col-lg-3 p-4">
             <div class="mb-1 info_img">
-                <img src="{{admission_post.post_image.url}}" class='img-fluid rounded' alt="{{admission_post.image_alt_text}}"/>
+                <img src="{{admission.image.url}}" class='img-fluid rounded' alt="{{admission.image_alt_text}}"/>
             </div>
-            <h4 class="mt-2">{{ admission_post.post_title }}</h4>
-            <p>{{ admission_post.post|truncatewords:30 }}</p>
+            <h4 class="mt-2">Admission</h4>
+            <p>{{ admission.info|truncatewords:30 }}</p>
+            <a href="{% url 'about' %}">Read more </a>
+        </div>
+        <div class="col-md-4 col-lg-3 p-4">
+            <div class="mb-1 info_img">
+                <img src="{{home_features.academics_image.url}}" class='img-fluid rounded' alt="{{home_features.image_alt_text}}"/>
+            </div>
+            <h4 class="mt-2">Academics</h4>
+            <p>{{ home_features.academics_info }}</p>
             <a href="/about#">Read more </a>
         </div>
         <div class="col-md-4 col-lg-3 p-4">
             <div class="mb-1 info_img">
-                <img src="{{academics_post.post_image.url}}" class='img-fluid rounded' alt="{{academics_post.image_alt_text}}"/>
+                <img src="{{home_features.staff_image.url}}" class='img-fluid rounded' alt="{{home_features.image_alt_text}}"/>
             </div>
-            <h4 class="mt-2">{{ academics_post.post_title }}</h4>
-            <p>{{ academics_post.post|truncatewords:30 }}</p>
+            <h4 class="mt-2">Staff</h4>
+            <p>{{ home_features.staff_info }}</p>
             <a href="/about#">Read more </a>
         </div>
         <div class="col-md-4 col-lg-3 p-4">
             <div class="mb-1 info_img">
-                <img src="{{staff_post.post_image.url}}" class='img-fluid rounded' alt="{{staff_post.image_alt_text}}"/>
+                <img src="{{home_features.curricular_image.url}}" class='img-fluid rounded' alt="{{home_features.image_alt_text}}"/>
             </div>
-            <h4 class="mt-2">{{ staff_post.post_title }}</h4>
-            <p>{{ staff_post.post|truncatewords:30 }}</p>
-            <a href="/about#">Read more </a>
-        </div>
-        <div class="col-md-4 col-lg-3 p-4">
-            <div class="mb-1 info_img">
-                <img src="{{sports_post.post_image.url}}" class='img-fluid rounded' alt="{{sports_post.image_alt_text}}"/>
-            </div>
-            <h4 class="mt-2">{{ sports_post.post_title }}</h4>
-            <p>{{ sports_post.post|truncatewords:30 }}</p>
+            <h4 class="mt-2">Co-Curricular</h4>
+            <p>{{ home_features.curricular_info }}</p>
             <a href="/about#">Read more </a>
             <!-- <h4 class="mt-2">Sports & Co-Curricular</h4> -->
         </div>
         <div class="col-md-4 col-lg-3 p-4">
             <div class="mb-1 info_img">
-                <img src="{{library_post.post_image.url}}" class='img-fluid rounded' alt="{{library_post.image_alt_text}}"/>
+                <img src="{{home_features.library_image.url}}" class='img-fluid rounded' alt="{{home_features.image_alt_text}}"/>
             </div>
-            <h4 class="mt-2">{{ library_post.post_title }}</h4>
-            <p>{{ library_post.post|truncatewords:30 }}</p>
+            <h4 class="mt-2">Library</h4>
+            <p>{{ home_features.library_info }}</p>
             <a href="/about#">Read more </a>
             <!-- <h4 class="mt-2">Library</h4> -->
         </div>
         <div class="col-md-4 col-lg-3 p-4">
             <div class="mb-1 info_img">
-                <img src="{{alumni_post.post_image.url}}" class='img-fluid rounded' alt="{{alumni_post.image_alt_text}}"/>
+                <img src="{{home_features.alumni_image.url}}" class='img-fluid rounded' alt="{{home_features.image_alt_text}}"/>
             </div>
-            <h4 class="mt-2">{{ alumni_post.post_title }}</h4>
-            <p>{{ alumni_post.post|truncatewords:30 }}</p>
+            <h4 class="mt-2">Alumni</h4>
+            <p>{{ home_features.alumni_info }}</p>
             <a href="/about#">Read more </a>
             <!-- <h4 class="mt-2">Alumnis</h4> -->
         </div>
         <div class="col-md-12 col-lg-3 p-4">
-            <h4 class="mt-2">{{ board_m_post.post_title }}</h4>
-            <p>{{ board_m_post.post|truncatewords:39 }}</p>
+            <h4 class="mt-2">Administration</h4>
+            <p>{{ home_features.administration_info }}</p>
             <a href="/about#">Read more </a>
             <!-- <h4>Board Member</h4> -->
         </div>
