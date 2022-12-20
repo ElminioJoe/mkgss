@@ -49,24 +49,25 @@
     <div class="bg-light_silver p-2 text-center rounded">
         <h2>Welcome to Moi Kadzonzo Girls Secondary School</h2>
         <p class="px-4">{{home_features.welcome_info}}</p>
-        <a href="/about#_list-history">Read more </a>
+        <!-- <a href="/about#_list-history">Read more </a> -->
         <!-- <h2>Welcome to Moi Kadzonzo Girls Secondary School</h2>
         <p class="px-4">This website is designed for parents, students, Alumnis, staff, sponsors, friends of the school and prospective parents who may know little about us.</p>
         <a href="/about#_list-history">Read more </a> -->
     </div>
     <div class="row my-4 info-cards">
         <div class="col-md-12 col-lg-3 p-4">
-            <h4>{{ school_value.content }}</h4>
-            <p>{{ school_history.content }}</p>
+            <h4>{{ school_values.content }}</h4>
+            <p>{{ school_history.content|truncatewords:57  }}</p>
             <a href="/about#">Read more </a>
         </div>
         <div class="col-md-4 col-lg-3 p-4">
             <div class="mb-1 info_img">
-                <img src="{{admission.image.url}}" class='img-fluid rounded' alt="{{admission.image_alt_text}}"/>
+                <img src="{{home_features.administration_image.url}}" class='img-fluid rounded' alt="{{home_features.image_alt_text}}"/>
             </div>
-            <h4 class="mt-2">Admission</h4>
-            <p>{{ admission.info|truncatewords:30 }}</p>
-            <a href="{% url 'about' %}">Read more </a>
+            <h4 class="mt-2">Administration</h4>
+            <p>{{ home_features.administration_info }}</p>
+            <a href="/about#">Read more </a>
+            <!-- <h4>Board Member</h4> -->
         </div>
         <div class="col-md-4 col-lg-3 p-4">
             <div class="mb-1 info_img">
@@ -112,10 +113,9 @@
             <!-- <h4 class="mt-2">Alumnis</h4> -->
         </div>
         <div class="col-md-12 col-lg-3 p-4">
-            <h4 class="mt-2">Administration</h4>
-            <p>{{ home_features.administration_info }}</p>
-            <a href="/about#">Read more </a>
-            <!-- <h4>Board Member</h4> -->
+            <h4 class="mt-2">Admission</h4>
+            <p>{{ admission.info|truncatewords:60 }}</p>
+            <a href="{% url 'about' %}">Read more </a>
         </div>
     </div>
 </div>

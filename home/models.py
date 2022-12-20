@@ -19,27 +19,29 @@ def get_sentinel_user():
 
 class HomeFeature(models.Model):
 
-    welcome_info = models.CharField(max_length=250)
+    welcome_info = models.TextField(max_length=300)
 
-    staff_info = models.CharField(max_length=200)
+    staff_info = models.TextField(max_length=300)
     staff_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='homeFeatures/', default='default value')
 
-    # admission_info = models.CharField(max_length=200)
+    # admission_info = models.TextField(max_length=300)
     # admission_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='homeFeatures/', default='default value')
 
-    academics_info = models.CharField(max_length=200)
+    academics_info = models.TextField(max_length=300)
     academics_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='homeFeatures/', default='default value')
 
-    curricular_info = models.CharField(max_length=200)
+    curricular_info = models.TextField(max_length=300)
     curricular_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='homeFeatures/', default='default value')
 
-    library_info = models.CharField(max_length=200)
+    library_info = models.TextField(max_length=300)
     library_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='homeFeatures/', default='default value')
 
-    alumni_info = models.CharField(max_length=200)
+    alumni_info = models.TextField(max_length=300)
     alumni_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='homeFeatures/', default='default value')
 
-    administration_info = models.CharField(max_length=200)
+    administration_info = models.TextField(max_length=300)
+    administration_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='homeFeatures/', default='default value')
+
 
     def __str__(self):
         return 'Home Features'
@@ -87,7 +89,7 @@ class SchoolInfo(PolymorphicModel):
 
 
 class Administration(SchoolInfo):
-    info = models.TextField(max_length=500)
+    info = models.TextField(max_length=5000)
 
     def __str__(self):
         return self.name
@@ -95,7 +97,7 @@ class Administration(SchoolInfo):
 
 class Academic(SchoolInfo):
     subject = models.CharField(max_length=70)
-    info = models.TextField(max_length=500)
+    info = models.TextField(max_length=5000)
 
 
     def __str__(self):
@@ -103,21 +105,21 @@ class Academic(SchoolInfo):
 
 
 class Admission(SchoolInfo):
-    info = models.TextField(max_length=500)
+    info = models.TextField(max_length=5000)
 
     def __str__(self):
         return self.name
 
 
 class Curricular(SchoolInfo):
-    info = models.TextField(max_length=500)
+    info = models.TextField(max_length=5000)
 
     def __str__(self):
         return self.name
 
 
 class SchoolHistory(SchoolInfo):
-    content =models.TextField(max_length=500)
+    content = models.TextField(max_length=5000)
 
     def __str__(self):
         return self.name

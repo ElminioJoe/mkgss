@@ -7,12 +7,12 @@ from .forms import *
 
 def home(request):
     home_features = HomeFeature.objects.all().get()
-    # school_history = SchoolHistory.objects.all()[:1]
-    # admission = Admission.objects.all()[:1]
-    # try:
-    #     school_values = SchoolValue.objects.get(name__icontains='motto')
-    # except SchoolValue.DoesNotExist:
-    #     raise Http404("School Motto not added.")
+    school_history = SchoolHistory.objects.values('content').get()
+    admission = Admission.objects.values('info').get()
+    try:
+        school_values = SchoolValue.objects.values('content').get(name__icontains='motto')
+    except SchoolValue.DoesNotExist:
+        raise Http404("School Motto not Found.")
 
     news = News.objects.all()[:4]
 
@@ -26,9 +26,9 @@ def home(request):
 
     context = {
         'home_features': home_features,
-        # 'school_history': school_history,
-        # 'admission': admission,
-        # 'school_values': school_values,
+        'school_history': school_history,
+        'admission': admission,
+        'school_values': school_values,
         'news': news,
         # 'post_form': post_form,
     }
@@ -45,6 +45,7 @@ def gallery(request):
     return render(request, 'home/gallery.html', context)
 
 def about(request):
+    
     # academics = Academic.objects.all()
     # admission = Admission.objects.all()
     # administration = Administration.objects.all()
