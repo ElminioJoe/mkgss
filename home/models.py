@@ -37,31 +37,32 @@ def get_sentinel_user():
 
 class HomeFeature(models.Model):
 
-    welcome_info = models.TextField(max_length=300)
+    welcome_info = models.TextField(max_length=300, blank=True)
 
-    staff_info = models.TextField(max_length=300)
-    staff_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='homeFeatures/', default='default value')
-    staff_image_alt_text = ImageAltTextField(image_field_name='staff_image')
+    administration_info = models.TextField(max_length=300, blank=True)
+    administration_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'], upload_to='homeFeatures/', blank=True, default='default value')
+    administration_image_alt_text = ImageAltTextField(image_field_name='administration_image')
 
-    academics_info = models.TextField(max_length=300)
-    academics_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='homeFeatures/', default='default value')
+    academics_info = models.TextField(max_length=300, blank=True)
+    academics_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'], upload_to='homeFeatures/', blank=True, default='default value')
     academics_image_alt_text = ImageAltTextField(image_field_name='academics_image')
 
-    curricular_info = models.TextField(max_length=300)
-    curricular_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='homeFeatures/', default='default value')
+    staff_info = models.TextField(max_length=300, blank=True)
+    staff_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'], upload_to='homeFeatures/', blank=True, default='default value')
+    staff_image_alt_text = ImageAltTextField(image_field_name='staff_image')
+
+    curricular_info = models.TextField(max_length=300, blank=True)
+    curricular_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'], upload_to='homeFeatures/', blank=True, default='default value')
     curricular_image_alt_text = ImageAltTextField(image_field_name='curricular_image')
 
-    library_info = models.TextField(max_length=300)
-    library_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='homeFeatures/', default='default value')
+    library_info = models.TextField(max_length=300, blank=True)
+    library_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'], upload_to='homeFeatures/', blank=True, default='default value')
     library_image_alt_text = ImageAltTextField(image_field_name='library_image')
 
-    alumni_info = models.TextField(max_length=300)
-    alumni_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='homeFeatures/', default='default value')
+    alumni_info = models.TextField(max_length=300, blank=True)
+    alumni_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'], upload_to='homeFeatures/', blank=True, default='default value')
     alumni_image_alt_text = ImageAltTextField(image_field_name='alumni_image')
 
-    administration_info = models.TextField(max_length=300)
-    administration_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='homeFeatures/', default='default value')
-    administration_image_alt_text = ImageAltTextField(image_field_name='administration_image')
 
     def __str__(self):
         return 'Home Features'

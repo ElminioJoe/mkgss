@@ -1,35 +1,41 @@
 from django import forms
-from django.forms import ModelForm
 
 from .models import *
 
-class StaffForm(ModelForm):
+class StaffForm(forms.ModelForm):
     class Meta:
         model = Staff
         fields = '__all__'
 
 
-class AcademicForm(ModelForm):
+class HomeFeatureForm(forms.ModelForm):
     class Meta:
-        model = SchoolInfo
+        model = HomeFeature
         fields = '__all__'
-        # exclude = ['slug', 'post_date', 'modification_date']
         widgets = {
-            'info': forms.Textarea(attrs={'rows':5,}),
-            }
-class NewsForm(ModelForm):
+           'welcome_info': forms.Textarea(attrs={'rows': 3}),
+           'staff_info': forms.Textarea(attrs={'rows': 3}),
+           'academics_info': forms.Textarea(attrs={'rows': 3}),
+           'curricular_info': forms.Textarea(attrs={'rows': 3}),
+           'library_info': forms.Textarea(attrs={'rows': 3}),
+           'alumni_info': forms.Textarea(attrs={'rows': 3}),
+           'administration_info': forms.Textarea(attrs={'rows': 3}),
+        }
+
+
+class NewsForm(forms.ModelForm):
     class Meta:
         model = News
         fields = '__all__'
 
 
-class MessageForm(ModelForm):
+class MessageForm(forms.ModelForm):
     class Meta:
         model = Message
         fields = '__all__'
 
 
-class GalleryForm(ModelForm):
+class GalleryForm(forms.ModelForm):
     class Meta:
         model = Gallery
         fields = '__all__'
