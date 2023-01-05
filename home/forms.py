@@ -22,6 +22,47 @@ class HomeFeatureForm(forms.ModelForm):
            'administration_info': forms.Textarea(attrs={'rows': 3}),
         }
 
+class SchoolInfoForm(forms.ModelForm):
+    class Meta:
+        model = SchoolInfo
+        fields = ['name', 'image', 'image_alt_text']
+
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+class AdministrationForm(SchoolInfoForm):
+    class Meta(SchoolInfoForm.Meta):
+        model = Administration
+
+class AcademicForm(SchoolInfoForm):
+    subject = forms.CharField(max_length=70)
+
+    class Meta(SchoolInfoForm.Meta):
+        model = Academic
+        fields = SchoolInfoForm.Meta.fields + ['subject']
+
+class AdmissionForm(SchoolInfoForm):
+    class Meta(SchoolInfoForm.Meta):
+        model = Admission
+
+class CurricularForm(SchoolInfoForm):
+    class Meta(SchoolInfoForm.Meta):
+        model = Curricular
+
+class SchoolHistoryForm(SchoolInfoForm):
+    content = forms.CharField(widget=forms.Textarea)
+
+    class Meta(SchoolInfoForm.Meta):
+        model = SchoolHistory
+        fields = SchoolInfoForm.Meta.fields + ['content']
+
+class SchoolValueForm(SchoolInfoForm):
+    content = forms.CharField(widget=forms.Textarea)
+
+    class Meta(SchoolInfoForm.Meta):
+        model = SchoolValue
+        fields = SchoolInfoForm.Meta.fields + ['content']
 
 class NewsForm(forms.ModelForm):
     class Meta:

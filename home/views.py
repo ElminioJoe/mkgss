@@ -68,14 +68,31 @@ def about(request):
     # school_history = SchoolHistory.objects.all()
     staffs = Staff.objects.all()
 
-    # if request.method == 'POST':
-    #     # publisher = Publisher.objects.get(pk=1)
-    #     post_form = AcademicForm(request.POST, request.FILES)
-    #     if post_form.is_valid():
-    #         post_form.save()
-    #     return redirect('about')
-    # else:
-    #     post_form = AcademicForm()
+    form_name = request.GET.get('form_name') # Get the name of the form
+    if form_name == 'administrationForm':
+        form_class = AdministrationForm
+    elif form_name == 'academicForm':
+        form_class = AcademicForm
+    elif form_name == 'admissionForm':
+        form_class = AdmissionForm
+    elif form_name == 'curricularForm':
+        form_class = CurricularForm
+    elif form_name == 'schoolHistoryForm':
+        form_class = SchoolHistoryForm
+    elif form_name == 'schoolValueForm':
+        form_class = SchoolValueForm
+    else:
+        form_class = SchoolInfoForm
+
+    if request.method == 'POST':
+        form = form_class(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Success!!')
+        return HttpResponseRedirect('about')
+
+    else:
+        form = form_class(request.POST)
 
     context = {
         # 'academics': academics,
@@ -85,7 +102,7 @@ def about(request):
         # 'school_virtues': school_virtues,
         # 'school_history': school_history,
         'staffs': staffs,
-        # 'post_form': post_form,
+        'form': form,
     }
     return render(request, 'home/about.html', context)
 
