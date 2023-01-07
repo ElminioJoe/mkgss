@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
-from polymorphic.models import PolymorphicModel
+from model_utils.managers import InheritanceManager
 
 # Create your models here.
 class ImageAltTextField(models.CharField):
@@ -99,11 +99,12 @@ class Department(models.Model):
         return self.name
 
 
-class SchoolInfo(PolymorphicModel):
+class SchoolInfo(models.Model):
     name = models.CharField(max_length=100)
     image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='about/', default='default value', blank=True)
     image_alt_text = ImageAltTextField(image_field_name='image')
-
+    objects = InheritanceManager()
+    
     def __str__(self):
         return self.name
 
