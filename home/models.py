@@ -5,7 +5,7 @@ from django.db import models
 from io import BytesIO
 from django_resized import ResizedImageField
 from django.template.defaultfilters import slugify
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
@@ -67,6 +67,9 @@ class HomeFeature(models.Model):
     def __str__(self):
         return 'Home Features'
 
+    def get_absolute_url(self):
+        return reverse_lazy('home')
+
 
 class Publisher(models.Model):
     first_name = models.CharField(max_length=30)
@@ -75,7 +78,7 @@ class Publisher(models.Model):
     phone_number = models.CharField(max_length=10, blank=True)
 
     def __str__(self):
-        return f'(self.first_name, self.last_name)'
+        return f'{self.first_name}, {self.last_name}'
 
 class Staff(models.Model):
     title = models.CharField(max_length=5)
@@ -89,7 +92,7 @@ class Staff(models.Model):
     department = models.ForeignKey('Department', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
-        return f'(self.first_name, self.last_name, self.role)'
+        return f'{self.first_name}, {self.last_name} - {self.role}'
 
 
 class Department(models.Model):
@@ -104,7 +107,7 @@ class SchoolInfo(models.Model):
     image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='about/', default='default value', blank=True)
     image_alt_text = ImageAltTextField(image_field_name='image')
     objects = InheritanceManager()
-    
+
     def __str__(self):
         return self.name
 
@@ -119,6 +122,9 @@ class SchoolInfo(models.Model):
         # Call the parent delete method to delete the object from the database
         super().delete(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse_lazy('about')
+
 class Administration(SchoolInfo):
     info = models.TextField(max_length=5000)
 
@@ -129,7 +135,7 @@ class Academic(SchoolInfo):
 
 
     def __str__(self):
-        return f'(self.name, self.subject)'
+        return f'{self.name} - {self.subject}'
 
 
 class Admission(SchoolInfo):
@@ -165,7 +171,7 @@ class News(models.Model):
         ordering = ['-post_date']
 
     def __str__(self):
-        return f'(self.headline, self.publisher.first_name)'
+        return f'{self.headline} - {self.publisher.first_name}'
 
     def get_absolute_url(self):
         return reverse('news-detail', args=[str(self.id)])
@@ -198,7 +204,7 @@ class Message(models.Model):
         ordering = ['date_created']
 
     def __str__(self):
-        return f'(self.author, self.message_title)'
+        return self.author, self.message_title
 
     def get_absolute_url(self):
         return reverse('message-detail', args=[str(self.id)])
@@ -220,7 +226,7 @@ class Gallery(models.Model):
     post_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return f'(self.category.name, self.image_alt_text)'
+        return f'{self.category.name} - {self.image_alt_text}'
 
     def get_absolute_url(self):
         return reverse('gallery-detail')
