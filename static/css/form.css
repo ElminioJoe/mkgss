@@ -1,0 +1,109 @@
+/*--------------- Modal Form ---------------*/
+form .control-group{
+	padding: 0.3rem;
+	margin-bottom: 0.1rem;
+}
+form .control-group label{
+	font-size: medium;
+	margin-bottom: 0.2rem;
+}
+
+form .control-group .controls{
+	margin-bottom: 0.1rem;
+}
+form .control-group .controls p{
+	margin-block-start: 0;
+	margin-block-end: 0.5em;
+	font-size: x-small;
+}
+
+.controls input,
+.controls textarea{
+	width: 100%;
+}
+
+/*--------------- Modal Form ---------------*/
+
+/*--------------- Forms ---------------*/
+.aligned{
+	padding: 0 2rem;
+}
+
+fieldset.aligned > :first-child {
+	padding: 1rem;
+	/* border: 1px solid #e8e8e8; */
+	box-shadow: 1.5px 1.5px #d4d4d4, -1.5px -1.5px #d4d4d4;
+}
+
+.form-group{
+     overflow: hidden;
+     padding: 10px;
+     font-size: 0.93rem;
+     border-bottom: 1px solid #e8e8e8;
+}
+
+.aligned label{
+	display: block;
+     padding: 4px 10px 0 0;
+     float: left;
+     width: 160px;
+     word-wrap: break-word;
+     line-height: 1;
+}
+
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=number],
+textarea,
+select {
+	border: 1px solid #ccc;
+     border-radius: 4px;
+     padding: 5px 6px;
+     margin-top: 0;
+     color: #333;
+     background-color: #fff;
+}
+
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=email]:focus,
+input[type=number]:focus,
+textarea:focus,
+select:focus {
+	border-color: #666;
+}
+
+.LargeTextField{
+	width: 44em;
+}
+.TextField {
+	width: 23em;
+}
+/*--------------- Forms ---------------*/
+
+@media (max-width: 767px){
+     .aligned input,
+     .aligned select,
+     .aligned textarea {
+         flex: 1 1 auto;
+         width: 100%;
+         max-width: 100%;
+     }
+}
+
+@media (max-width: 1024px){
+     input[type=text],
+     input[type=password],
+     input[type=email],
+     input[type=number],
+     textarea,
+     select,
+     .TextField {
+          margin: 0;
+          padding: 6px 8px;
+          min-height: 36px;
+          font-size: 0.875rem;
+          max-width: 100%;
+     }
+}

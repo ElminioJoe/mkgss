@@ -1,0 +1,9 @@
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div>
+    <p>Are you sure you want to delete "{{ object }}"?</p>
+    {{ form }}
+    <input type="submit" value="Confirm">
+</div>
+{% endblock %}

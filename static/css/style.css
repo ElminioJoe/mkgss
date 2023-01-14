@@ -146,6 +146,10 @@ p {
 	transition: all .3s ease-in-out;
 }
 
+.info_messages{
+	background: #000;
+}
+
 .messages {
     position: fixed;
     top: 50;
@@ -861,6 +865,10 @@ margin-top: 50px;
 .cst_pages img.float-left{
 	width: 450px;
 }
+
+#list-staff .staff-item{
+min-height: 22rem;
+}
 /*--------------- end about page css ---------------*/
 
 /*--------------- gallery page css ---------------*/
@@ -894,28 +902,3 @@ margin-top: 50px;
 	text-align: center;
 }
 /*--------------- end gallery page css ---------------*/
-/*--------------- Modal Form ---------------*/
-form .control-group{
-	padding: 0.3rem;
-	margin-bottom: 0.1rem;
-}
-form .control-group label{
-	font-size: medium;
-	margin-bottom: 0.2rem;
-}
-
-form .control-group .controls{
-	margin-bottom: 0.1rem;
-}
-form .control-group .controls p{
-	margin-block-start: 0;
-	margin-block-end: 0.5em;
-	font-size: x-small;
-}
-
-.controls input,
-.controls textarea{
-	width: 100%;
-}
-
-/*--------------- Modal Form ---------------*/

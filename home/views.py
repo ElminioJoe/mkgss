@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import HttpResponseRedirect, get_object_or_404, render
 from django.urls import reverse_lazy
-from django.views.generic import View
+from django.views.generic import View, CreateView, UpdateView, DeleteView
 
 from .models import *
 from .forms import *
@@ -9,7 +9,7 @@ from .forms import *
 # Create your views here.
 
 def update_form_fields(form, model):
-    # checks and updates changed form fields
+    "Check and update changed form fields"
     update_fields = {}
     for field in form.changed_data:
         if form.cleaned_data[field]: # only add non-blank fields to the update_fields dictionary
@@ -17,35 +17,25 @@ def update_form_fields(form, model):
     model.objects.filter(pk=form.instance.pk).update(**update_fields)
 
 class HomeView(View):
-    form_class = HomeFeatureForm
     template_name = 'home/home.html'
 
     def get(self, request, *args, **kwargs):
         home_features = get_object_or_404(HomeFeature)
-        school_history = get_object_or_404(SchoolHistory.objects.only('content'))
-        admission = get_object_or_404(Admission.objects.only('info'))
-        school_values = get_object_or_404(SchoolValue.objects.only('motto'))
+        schl_info = SchoolInfo.objects.select_subclasses(Admission, SchoolValue, SchoolHistory)
+        school_history = [info for info in schl_info if isinstance(info, SchoolHistory)]
+        admission = [info for info in schl_info if isinstance(info, Admission)]
+        school_values = [info for info in schl_info if isinstance(info, SchoolValue)]
         news = News.objects.order_by('-post_date')[:4]
-
-        form = self.form_class(request.POST, instance=home_features)
 
         context = {
             'home_features': home_features,
+            'schl_info': schl_info,
             'school_history': school_history,
             'admission': admission,
             'school_values': school_values,
             'news': news,
-            'form': form
         }
         return render(request, self.template_name, context)
-
-    def post(self, request, *args, **kwargs):
-        home_features = get_object_or_404(HomeFeature)
-        form = self.form_class(request.POST, request.FILES, instance=home_features)
-        if form.is_valid():
-            update_form_fields(form, HomeFeature)
-            messages.success(request, 'Update Successful!!')
-        return HttpResponseRedirect(reverse_lazy('home'))
 
 
 def gallery(request):
@@ -58,53 +48,87 @@ def gallery(request):
     }
     return render(request, 'home/gallery.html', context)
 
-def about(request):
+class AboutView(View):
+    template_name = 'home/about.html'
 
-    # academics = Academic.objects.all()
-    # admission = Admission.objects.all()
-    # administration = Administration.objects.all()
-    # curriculars = Curricular.objects.all()
-    # school_virtues = SchoolValue.objects.filter(about__name__contains='School Virtues').all()
-    # school_history = SchoolHistory.objects.all()
-    staffs = Staff.objects.all()
+    def get(self, request, *args, **kwargs):
+        school_info = SchoolInfo.objects.select_subclasses()
+        academics = [info for info in school_info if isinstance(info, Academic)]
+        admission = [info for info in school_info if isinstance(info, Admission)]
+        administration = [info for info in school_info if isinstance(info, Administration)]
+        curriculars = [info for info in school_info if isinstance(info, Curricular)]
+        school_values = [info for info in school_info if isinstance(info, SchoolValue)]
+        school_history = [info for info in school_info if isinstance(info, SchoolHistory)]
+        staffs = Staff.objects.all()
 
-    form_name = request.GET.get('form_name') # Get the name of the form
-    if form_name == 'administrationForm':
-        form_class = AdministrationForm
-    elif form_name == 'academicForm':
-        form_class = AcademicForm
-    elif form_name == 'admissionForm':
-        form_class = AdmissionForm
-    elif form_name == 'curricularForm':
-        form_class = CurricularForm
-    elif form_name == 'schoolHistoryForm':
-        form_class = SchoolHistoryForm
-    elif form_name == 'schoolValueForm':
-        form_class = SchoolValueForm
-    else:
-        form_class = SchoolInfoForm
+        context = {
+            'academics': academics,
+            'administration': administration,
+            'admission': admission,
+            'curriculars': curriculars,
+            'school_values': school_values,
+            'school_history': school_history,
+            'staffs': staffs,
+        }
+        return render(request, self.template_name, context)
 
-    if request.method == 'POST':
-        form = form_class(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Success!!')
-        return HttpResponseRedirect('about')
 
-    else:
-        form = form_class(request.POST)
+class SchoolInfoCreateView(CreateView):
+    model = None # model will be set in the url
+    form_class = None  # form class will be set in the url
+    template_name = None  # template name will be set in the url
+    # success_url = reverse_lazy('about')
 
-    context = {
-        # 'academics': academics,
-        # 'administration': administration,
-        # 'admission': admission,
-        # 'curriculars': curriculars,
-        # 'school_virtues': school_virtues,
-        # 'school_history': school_history,
-        'staffs': staffs,
-        'form': form,
-    }
-    return render(request, 'home/about.html', context)
+    def form_valid(self, form):
+        messages.success(self.request, 'Success! The form has been submitted.')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.form_class  # set the form class in the context
+        context['template_name'] = self.template_name  # set the template name in the context
+        return context
+
+
+class SchoolInfoUpdateView(UpdateView):
+    model = None # model will be set in the url
+    form_class = None  # form class will be set in the url
+    template_name = None  # template name will be set in the url
+    # success_url = reverse_lazy('about')
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.form_class(request.POST or None, instance=self.object)
+        context = self.get_context_data(form=form)
+        return self.render_to_response(context)
+
+    def form_valid(self, form):
+        update_form_fields(form, self.model)
+        messages.success(self.request, 'Success! Details Updated.')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['form'] = self.form_class  # set the form class in the context
+        context['template_name'] = self.template_name  # set the template name in the context
+        return context
+
+
+class SchoolInfoDeleteView(DeleteView):
+    model = None # model will be set in the url
+    template_name = 'home/forms/confirm_delete_form.html'
+    # success_url = reverse_lazy('about')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Deleted!!.')
+        return super().delete(request, *args, **kwargs)
+
 
 def contact(request):
     return render(request, 'home/contact.html',{})

@@ -27,31 +27,25 @@ $(function () {
 
   // Bind a click event handler to the body element using event delegation
   $("#openPostModal").on("show.bs.modal", function (event) {
-    var button = $(event.relatedTarget); // Button that triggered the modal
-    var form = button.data("form"); // Extract form from data-form attribute
+    // Button that triggered the modal
+    var button = $(event.relatedTarget);
+    // Extract form, url & title from data- attribute
+    var form = button.data("form");
     var url = button.data("url")
-    var formTitle = button.data("title"); // Extract form title from data-title attribute
+    var formTitle = button.data("title");
     // Show the selected form
     var modal = $(this);
     modal.find(".modal-title").text("School Info: " + formTitle); // Display the form title
-    $.ajax({
-      type: 'GET',
-      url: url,
-      data: {
-      	'form_name': form
-      },
-      success: (data)=>{
-        console.log(data)
-      	$('#formContainer').html(data)
-    	}
+    modal.find("fieldset.aligned").addClass("d-none");
+    modal.find(`#${form}`).removeClass("d-none");
+    $(`#${form}`).load(url, function(){
+      $("form.myForm").attr("action", url);
     });
-    // modal.find("#schoolInfoForm .form-group").addClass("d-none");
-    // modal.find(`#${form}`).removeClass("d-none");
   });
 
-	// $("#openPostModal").on("hide.bs.modal", function () {
-	// 	$(this).find(".form-group").addClass("d-none");
-	// });
+	$("#openPostModal").on("hide.bs.modal", function () {
+		$(this).find("fieldset.aligned").addClass("d-none");
+	});
 
 
 
