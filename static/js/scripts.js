@@ -47,6 +47,21 @@ $(function () {
 		$(this).find("fieldset.aligned").addClass("d-none");
 	});
 
+  $("#deleteModal").on("show.bs.modal", function (event) {
+		// Button that triggered the modal
+		var button = $(event.relatedTarget);
+		// Extract form, url & title from data- attribute
+		var form = button.data("form");
+		var url = button.data("url");
+		var formTitle = button.data("title");
+		// Show the selected form
+		var modal = $(this);
+    // Display the form title
+		modal.find(".modal-title").text("School Info: " + formTitle);
+        $(`#${form}`).load(url, function(){
+      $("form.myForm").attr("action", url);
+    });
 
+	});
 
 });

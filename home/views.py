@@ -123,7 +123,7 @@ class SchoolInfoUpdateView(UpdateView):
 class SchoolInfoDeleteView(DeleteView):
     model = None # model will be set in the url
     template_name = 'home/forms/confirm_delete_form.html'
-    # success_url = reverse_lazy('about')
+    success_url = None
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, 'Deleted!!.')

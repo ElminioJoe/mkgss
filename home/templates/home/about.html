@@ -191,7 +191,6 @@
                     <div class="row d-flex align-items-center mb-4">
                         <div class="col-md-12 mb-4 ">
                             <div class="d-flex">
-                                <!-- Buttons Trigger Modal -->
                                 <h4 class="mr-auto">{{ school_values.0.motto }}</h4>
                             </div>
                             <div class="row mb-3">
@@ -307,7 +306,7 @@
 <!-- Delete Modal -->
 <form action="" class="myForm" method="POST" enctype="multipart/form-data">
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-md modal-dialog-scrollable" role="document">
+        <div class="modal-dialog modal modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title text-uppercase" id="ModalLongTitle">School Info</h5>
@@ -316,16 +315,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <!-- All Forms -->
+                    <!-- Form -->
 
-                    <!-- Academic form -->
-                    <fieldset class="aligned d-none" id="academicForm"></fieldset>
-                    <!-- Administration form -->
-                    <fieldset class="aligned d-none" id="administrationForm"></fieldset>
+                    <fieldset class="aligned" id="deleteForm"></fieldset>
 
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" class="btn btn-primary btn-md font-weight-bold" value="Save">
+                    <input type="submit" class="btn btn-danger btn-md font-weight-bold" value="Delete">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>

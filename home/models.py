@@ -94,6 +94,9 @@ class Staff(models.Model):
     def __str__(self):
         return f'{self.first_name}, {self.last_name} - {self.role}'
 
+    def get_absolute_url(self):
+        return reverse_lazy('about')
+
 
 class Department(models.Model):
     name = models.CharField(max_length=30)
