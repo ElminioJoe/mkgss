@@ -10,6 +10,7 @@ pillow = "*"
 psycopg2 = "*"
 django-resized = "*"
 django-crispy-forms = "*"
+django-model-utils = "*"
 
 [dev-packages]
 

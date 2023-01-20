@@ -47,75 +47,77 @@
 </section>
 <div class="container mt-5">
     <div class="bg-light_silver p-2 text-center rounded">
-        <h2>{{welcome_post.post_title}}</h2>
-        <p class="px-4">{{welcome_post.post}}</p>
-        <a href="/about#_list-history">Read more </a>
-        <!-- <h2>Welcome to Moi Kadzonzo Girls Secondary School</h2>
-        <p class="px-4">This website is designed for parents, students, Alumnis, staff, sponsors, friends of the school and prospective parents who may know little about us.</p>
-        <a href="/about#_list-history">Read more </a> -->
+        <!-- Buttons Trigger Modal -->
+        <!-- Edit Button -->
+        <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#openPostModal" data-title="Edit HomePage" data-form="homeFeatureForm" data-url="{% url 'home_features_update' home_features.id %}" data-placement="top" title="Edit">
+            <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+        </button>
+
+        <h2>Welcome to Moi Kadzonzo Girls Secondary School</h2>
+        <p class="px-4">{{home_features.welcome_info}}</p>
     </div>
     <div class="row my-4 info-cards">
         <div class="col-md-12 col-lg-3 p-4">
-            <h4>{{ about_post.post_title }}</h4>
-            <p>{{ about_post.post|truncatewords:39  }}</p>
+            {% if school_values %}<h4>{{ school_values.0.motto }}</h4>{% endif %}
+            {% if school_history %}<p>{{ school_history.0.content|truncatewords:57 }}</p>{% endif %}
             <a href="/about#">Read more </a>
         </div>
         <div class="col-md-4 col-lg-3 p-4">
             <div class="mb-1 info_img">
-                <img src="{{admission_post.post_image.url}}" class='img-fluid rounded' alt="{{admission_post.image_alt_text}}"/>
+                <img src="{{home_features.administration_image.url}}" class='img-fluid rounded' alt="{{home_features.administration_image_alt_text}}"/>
             </div>
-            <h4 class="mt-2">{{ admission_post.post_title }}</h4>
-            <p>{{ admission_post.post|truncatewords:30 }}</p>
+            <h4 class="mt-2">Administration</h4>
+            <p>{{ home_features.administration_info }}</p>
+            <a href="/about#">Read more </a>
+            <!-- <h4>Board Member</h4> -->
+        </div>
+        <div class="col-md-4 col-lg-3 p-4">
+            <div class="mb-1 info_img">
+                <img src="{{home_features.academics_image.url}}" class='img-fluid rounded' alt="{{home_features.academics_image_alt_text}}"/>
+            </div>
+            <h4 class="mt-2">Academics</h4>
+            <p>{{ home_features.academics_info }}</p>
             <a href="/about#">Read more </a>
         </div>
         <div class="col-md-4 col-lg-3 p-4">
             <div class="mb-1 info_img">
-                <img src="{{academics_post.post_image.url}}" class='img-fluid rounded' alt="{{academics_post.image_alt_text}}"/>
+                <img src="{{home_features.staff_image.url}}" class='img-fluid rounded' alt="{{home_features.staff_image_alt_text}}"/>
             </div>
-            <h4 class="mt-2">{{ academics_post.post_title }}</h4>
-            <p>{{ academics_post.post|truncatewords:30 }}</p>
+            <h4 class="mt-2">Staff</h4>
+            <p>{{ home_features.staff_info }}</p>
             <a href="/about#">Read more </a>
         </div>
         <div class="col-md-4 col-lg-3 p-4">
             <div class="mb-1 info_img">
-                <img src="{{staff_post.post_image.url}}" class='img-fluid rounded' alt="{{staff_post.image_alt_text}}"/>
+                <img src="{{home_features.curricular_image.url}}" class='img-fluid rounded' alt="{{home_features.curricular_image_alt_text}}"/>
             </div>
-            <h4 class="mt-2">{{ staff_post.post_title }}</h4>
-            <p>{{ staff_post.post|truncatewords:30 }}</p>
-            <a href="/about#">Read more </a>
-        </div>
-        <div class="col-md-4 col-lg-3 p-4">
-            <div class="mb-1 info_img">
-                <img src="{{sports_post.post_image.url}}" class='img-fluid rounded' alt="{{sports_post.image_alt_text}}"/>
-            </div>
-            <h4 class="mt-2">{{ sports_post.post_title }}</h4>
-            <p>{{ sports_post.post|truncatewords:30 }}</p>
+            <h4 class="mt-2">Sports & Co-Curricular</h4>
+            <p>{{ home_features.curricular_info }}</p>
             <a href="/about#">Read more </a>
             <!-- <h4 class="mt-2">Sports & Co-Curricular</h4> -->
         </div>
         <div class="col-md-4 col-lg-3 p-4">
             <div class="mb-1 info_img">
-                <img src="{{library_post.post_image.url}}" class='img-fluid rounded' alt="{{library_post.image_alt_text}}"/>
+                <img src="{{home_features.library_image.url}}" class='img-fluid rounded' alt="{{home_features.library_image_alt_text}}"/>
             </div>
-            <h4 class="mt-2">{{ library_post.post_title }}</h4>
-            <p>{{ library_post.post|truncatewords:30 }}</p>
+            <h4 class="mt-2">Library</h4>
+            <p>{{ home_features.library_info }}</p>
             <a href="/about#">Read more </a>
             <!-- <h4 class="mt-2">Library</h4> -->
         </div>
         <div class="col-md-4 col-lg-3 p-4">
             <div class="mb-1 info_img">
-                <img src="{{alumni_post.post_image.url}}" class='img-fluid rounded' alt="{{alumni_post.image_alt_text}}"/>
+                <img src="{{home_features.alumni_image.url}}" class='img-fluid rounded' alt="{{home_features.alumni_image_alt_text}}"/>
             </div>
-            <h4 class="mt-2">{{ alumni_post.post_title }}</h4>
-            <p>{{ alumni_post.post|truncatewords:30 }}</p>
+            <h4 class="mt-2">Alumni</h4>
+            <p>{{ home_features.alumni_info }}</p>
             <a href="/about#">Read more </a>
             <!-- <h4 class="mt-2">Alumnis</h4> -->
         </div>
         <div class="col-md-12 col-lg-3 p-4">
-            <h4 class="mt-2">{{ board_m_post.post_title }}</h4>
-            <p>{{ board_m_post.post|truncatewords:39 }}</p>
-            <a href="/about#">Read more </a>
-            <!-- <h4>Board Member</h4> -->
+            <h4 class="mt-2">Admission</h4>
+            {% if admission %}<p>{{ admission.0.info|truncatewords:60 }}</p>{% endif %}
+            <a href="{% url 'about' %}">Read more </a>
         </div>
     </div>
 </div>
@@ -156,57 +158,6 @@
                     <p>{{ news_item.news|truncatechars:350}}</p>
                 </div>
             </div>
-            <!-- <div class="col-md-3">
-                <div class="blog-box">
-                    <figure>
-                        <img src="{% static 'images/IMG_3046.JPG' %}" class='img-fluid rounded' alt="img"/>
-                        <span>10 Aug 2019</span>
-                    </figure>
-                    <h4>London Amazing Tour</h4>
-                    <div class="travel">
-                        <p>
-                            <span class="Comment"> <i>inb </i>06 </span>
-                            <span class="like"> <i> icn </i>05 </span>
-                            <span> <i>icn</i> Kadzonzo</span>
-                        </p>
-                    </div>
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Led to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="blog-box">
-                    <figure>
-                        <img src="{% static 'images/IMG_3046.JPG' %}" class='img-fluid rounded' alt="img"/>
-                        <span>10 Aug 2019</span>
-                    </figure>
-                    <h4>London Amazing Tour</h4>
-                    <div class="travel">
-                        <p>
-                            <span class="Comment"> <i>inb </i>06 </span>
-                            <span class="like"> <i> icn </i>05 </span>
-                            <span> <i>icn</i> Kadzonzo</span>
-                        </p>
-                    </div>
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Led to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="blog-box">
-                    <figure>
-                        <img src="{% static 'images/IMG_3046.JPG' %}" class='img-fluid rounded' alt="img"/>
-                        <span>10 Aug 2019</span>
-                    </figure>
-                    <h4>London Amazing Tour</h4>
-                    <div class="travel">
-                        <p>
-                            <span class="Comment"> <i>inb </i>06 </span>
-                            <span class="like"> <i> icn </i>05 </span>
-                            <span> <i>icn</i> Kadzonzo</span>
-                        </p>
-                    </div>
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Led to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web</p>
-                </div>
-            </div> -->
             {% empty %}
             <div class="row">
                 <h2 class="text-center">There are No News Items</h2>
@@ -217,48 +168,30 @@
     </div>
 </div>
 <p></p>
-<!-- end our blog -->
-<!-- values -->
-<!-- <div id="values" class="values">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="titlepage">
-                    <h2>Our Values </h2>
-                    <span>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of <br>using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</span>
+<!-- Modals Body only Section -->
+<form action="" id="SchoolInfoForm" class="myForm" method="POST" enctype="multipart/form-data">
+    <div class="modal fade" id="openPostModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-uppercase" id="ModalLongTitle">School Info</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            </div>
-        </div>
-   </div>
-   <div class="container margin-r-l">
-        <div class="row">
-            <div class="col col-xl-4 col-lg-4 col-md-6 col-sm-12 thumb">
-                <div class="values-box">
-                    <span class="hoverle">
-                        <h3 class="text-uppercase ">Mission</h3>
-                    </span>
-                    <p class="text-center mt-3 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt eos, quisquam veniam maiores in neque!</p>
+                <div class="modal-body">
+                    <!-- Form -->
+                    <fieldset class="aligned" id="homeFeatureForm"></fieldset>
+                        <!-- <input type="submit" class="btn btn-primary btn-md font-weight-bold" value="Save"> -->
                 </div>
-            </div>
-            <div class="col col-xl-4 col-lg-4 col-md-6 col-sm-12 thumb">
-                <div class="values-box">
-                    <span class="hoverle">
-                        <h3 class="text-uppercase ">Motto</h3>
-                    </span>
-                    <p class="text-center mt-3 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt eos, quisquam veniam maiores in neque!</p>
-                </div>
-            </div>
-            <div class="col col-xl-4 col-lg-4 col-md-6 offset-md-3 offset-lg-0 col-sm-12 thumb">
-                <div class="values-box">
-                    <span class="hoverle">
-                        <h3 class="text-uppercase ">Vision</h3>
-                    </span>
-                    <p class="text-center mt-3 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt eos, quisquam veniam maiores in neque!</p>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary btn-md font-weight-bold" value="Save">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
-</div> -->
-<!-- end values -->
+</form>
+<!-- End Modal -->
 
 {% endblock %}

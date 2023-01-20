@@ -1,0 +1,9 @@
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div style="box-shadow: none;">
+    {%csrf_token%}
+    <p class="text-center" style="font-size: larger;">Are you sure you want to delete :<br><b>&nbsp; <span class="obj-name"></span> "{{ object }}"</b>?</p>
+    <input type="hidden" name="post" value="Confirm">
+</div>
+{% endblock %}

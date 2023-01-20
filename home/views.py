@@ -1,48 +1,42 @@
-from django.http import Http404
-from django.shortcuts import redirect, render
+from django.contrib import messages
+from django.shortcuts import HttpResponseRedirect, get_object_or_404, render
+from django.urls import reverse_lazy
+from django.views.generic import View, CreateView, UpdateView, DeleteView
+
 from .models import *
 from .forms import *
 
 # Create your views here.
 
-def home(request):
-    try:
-        welcome_post = Post.objects.filter(about__name__contains='Welcome Text').get()
-        about_post = Post.objects.filter(about__name__contains='School History').get()
-        admission_post = Post.objects.filter(about__name__contains='Admission').get()
-        academics_post = Post.objects.filter(about__name__contains='Academics')[0:1].get()
-        staff_post = Post.objects.filter(about__name__contains='Staff').get()
-        sports_post = Post.objects.filter(about__name__contains='Co-Curricular')[0:1].get()
-        library_post = Post.objects.filter(about__name__contains='Library').get()
-        alumni_post = Post.objects.filter(about__name__contains='Alumni').get()
-        board_m_post = Post.objects.filter(about__name__contains='Administration').get()
-    except Post.DoesNotExist:
-        raise Http404("No Post is Currently available.")
+def update_form_fields(form, model):
+    "Check and update changed form fields"
+    update_fields = {}
+    for field in form.changed_data:
+        if form.cleaned_data[field]: # only add non-blank fields to the update_fields dictionary
+            update_fields[field] = form.cleaned_data[field]
+    model.objects.filter(pk=form.instance.pk).update(**update_fields)
 
-    news = News.objects.all()[:4]
+class HomeView(View):
+    template_name = 'home/home.html'
 
-    # if request.method == 'POST':
-    #     post_form = PostForm(request.POST, request.FILES)
-    #     if post_form.is_valid():
-    #         post_form.save()
-    #     return redirect('home')
-    # else:
-    #     post_form = PostForm()
+    def get(self, request, *args, **kwargs):
+        home_features = get_object_or_404(HomeFeature)
+        schl_info = SchoolInfo.objects.select_subclasses(Admission, SchoolValue, SchoolHistory)
+        school_history = [info for info in schl_info if isinstance(info, SchoolHistory)]
+        admission = [info for info in schl_info if isinstance(info, Admission)]
+        school_values = [info for info in schl_info if isinstance(info, SchoolValue)]
+        news = News.objects.order_by('-post_date')[:4]
 
-    context = {
-        'welcome_post': welcome_post,
-        'about_post': about_post,
-        'admission_post': admission_post,
-        'academics_post': academics_post,
-        'staff_post': staff_post,
-        'sports_post': sports_post,
-        'library_post': library_post,
-        'alumni_post': alumni_post,
-        'board_m_post': board_m_post,
-        'news': news,
-        # 'post_form': post_form,
-    }
-    return render(request, 'home/home.html', context)
+        context = {
+            'home_features': home_features,
+            'schl_info': schl_info,
+            'school_history': school_history,
+            'admission': admission,
+            'school_values': school_values,
+            'news': news,
+        }
+        return render(request, self.template_name, context)
+
 
 def gallery(request):
     # image_categories = Category.objects.all()
@@ -54,39 +48,91 @@ def gallery(request):
     }
     return render(request, 'home/gallery.html', context)
 
-def about(request):
-    academics = Post.objects.all().filter(department_id__gt=0)
-    admission = Post.objects.filter(about__name__contains='Admission').get()
-    administration = Post.objects.filter(about__name__contains='Administration').all()
-    curriculars = Post.objects.filter(about__name__contains='Co-Curricular').all()
-    school_virtues = Post.objects.filter(about__name__contains='School Virtues').all()
-    school_history = Post.objects.filter(about__name__contains='School History').get()
-    staffs = Staff.objects.all()
+class AboutView(View):
+    template_name = 'home/about.html'
 
-    if request.method == 'POST':
-        # publisher = Publisher.objects.get(pk=1)
-        post_form = PostForm(request.POST, request.FILES)
-        if post_form.is_valid():
-            post_form.save()
-        return redirect('about')
-    else:
-        post_form = PostForm()
+    def get(self, request, *args, **kwargs):
+        school_info = SchoolInfo.objects.select_subclasses()
+        academics = [info for info in school_info if isinstance(info, Academic)]
+        admission = [info for info in school_info if isinstance(info, Admission)]
+        administration = [info for info in school_info if isinstance(info, Administration)]
+        curriculars = [info for info in school_info if isinstance(info, Curricular)]
+        school_values = [info for info in school_info if isinstance(info, SchoolValue)]
+        school_history = [info for info in school_info if isinstance(info, SchoolHistory)]
+        staffs = Staff.objects.all()
 
-    context = {
-        'academics': academics,
-        'administration': administration,
-        'admission': admission,
-        'curriculars': curriculars,
-        'school_virtues': school_virtues,
-        'school_history': school_history,
-        'staffs': staffs,
-        'post_form': post_form,
-    }
-    return render(request, 'home/about.html', context)
+        context = {
+            'academics': academics,
+            'administration': administration,
+            'admission': admission,
+            'curriculars': curriculars,
+            'school_values': school_values,
+            'school_history': school_history,
+            'staffs': staffs,
+        }
+        return render(request, self.template_name, context)
+
+
+class SchoolInfoCreateView(CreateView):
+    model = None # model will be set in the url
+    form_class = None  # form class will be set in the url
+    template_name = None  # template name will be set in the url
+    # success_url = reverse_lazy('about')
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Success! The form has been submitted.')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = self.form_class  # set the form class in the context
+        context['template_name'] = self.template_name  # set the template name in the context
+        return context
+
+
+class SchoolInfoUpdateView(UpdateView):
+    model = None # model will be set in the url
+    form_class = None  # form class will be set in the url
+    template_name = None  # template name will be set in the url
+    # success_url = reverse_lazy('about')
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.form_class(request.POST or None, instance=self.object)
+        context = self.get_context_data(form=form)
+        return self.render_to_response(context)
+
+    def form_valid(self, form):
+        update_form_fields(form, self.model)
+        messages.success(self.request, 'Success! Details Updated.')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['form'] = self.form_class  # set the form class in the context
+        context['template_name'] = self.template_name  # set the template name in the context
+        return context
+
+
+class SchoolInfoDeleteView(DeleteView):
+    model = None # model will be set in the url
+    template_name = 'home/forms/confirm_delete_form.html'
+    success_url = None
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Deleted!!.')
+        return super().delete(request, *args, **kwargs)
+
 
 def contact(request):
     return render(request, 'home/contact.html',{})
-def messages(request):
+def message(request):
     principal = Message.objects.filter(author__role='Principal').get()
     deputy = Message.objects.filter(author__role='Deputy Principal').get()
 
