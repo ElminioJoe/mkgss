@@ -39,6 +39,11 @@ footer a {
 }
 footer p {
 	color: rgba(255, 255, 255, 0.3);
+	display: block;
+	margin-block-start: 1em;
+	margin-block-end: 1em;
+	margin-inline-start: 0px;
+	margin-inline-end: 0px;
 }
 footer .footer-heading {
 	font-size: 30px;
@@ -70,13 +75,7 @@ footer .icon {
 	width: 50px;
 	border-radius: 50%;
 }
-p {
-	display: block;
-	margin-block-start: 1em;
-	margin-block-end: 1em;
-	margin-inline-start: 0px;
-	margin-inline-end: 0px;
-}
+
 footer .mb-md-0.d-flex:first-child {
 	background-color: #2720174f;
 }

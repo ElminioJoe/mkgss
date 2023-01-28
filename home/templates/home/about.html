@@ -239,7 +239,7 @@
                         {% for staff in staffs %}
                         <div class="staff-item">
                             <div class="d-flex">
-                                <h4 class="mr-auto">{{ staff.title }}. {{ staff.first_name }} {{ staff.last_name }} | {{ staff.role }} {{ staff.department|default:'' }}</h4>
+                                <h4 class="mr-auto">{{ staff.title }}. {{ staff.staff_full_name }} | {{ staff.role }} {{ staff.department|default:'' }}</h4>
                                 <!-- Buttons Trigger Modal -->
                                 <!-- Edit Button -->
                                 <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#openPostModal" data-title="Edit Staff" data-url="{% url 'staff_update' staff.id %}" data-form="staffForm" data-placement="top" title="Edit">
