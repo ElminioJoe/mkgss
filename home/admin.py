@@ -18,4 +18,3 @@ admin.site.register(SchoolValue)
 admin.site.register(Gallery)
 admin.site.register(Category)
 admin.site.register(News)
-

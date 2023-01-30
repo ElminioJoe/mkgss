@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="jumbotron py-5 mb-0">
+	<h2 class="text-uppercase text-center">News</h2>
+</div>
+<div class="mb-5 breadcrumb bg-light">
+	<div class="container">
+		<ul class="list-inline p-2">
+			<li class="list-inline-item">Home</li>
+			<li class="list-inline-item">News Article</li>
+			<li class="list-inline-item"></li>
+		</ul>
+	</div>
+</div>
+
+<section class="news_detail">
+    <div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-7">
+				<div class="main-post">
+					<div class="news_item p-2">
+						<div class="post-image">
+							<!-- <div class="overlay overlay-bg"></div> -->
+							{% if news_item.news_image %}
+							<img src="{{ news_item.news_image.url }}"	class="img-fluid" alt="{{ news_item.image_alt_text }}"/>
+							{% else %}
+							<img src="{% static 'images/IMG_3046.JPG' %}" class="img-fluid" alt="img"/>
+                    		{% endif %}
+						</div>
+					</div>
+					<div class="p-2">
+                    	<div class="mb-2 ">
+							<h2>{{ news_item.headline }}</h2>
+                    	    <div class="meta d-flex">
+								<span class="text-muted">
+						    		<i class="fa-sharp fa-solid fa-user mr-1"></i>
+						    		{{ news_item.publisher }}
+                    	    	</span>
+								<span class="mx-2 text-muted">
+                    	    	    <i class="fa-solid fa-calendar-days mr-1"></i>
+                    	    	    {{ news_item.post_date|date:"d F Y" }}
+                    	    	</span>
+							</div>
+                    	</div>
+						<p class="mb-2">{{ news_item.news }}</p>
+					</div>
+                </div>
+			</div>
+			<div class="col-lg-4 col-md-5">
+                <div class="side-bars">
+                    <div class="news_post-list">
+                        {% for news_item in news %}
+				        <div class="row align-items-center news_item">
+							<div class="col-5 p-2">
+				        		<div class="post-image">
+				        			<!-- <div class="overlay overlay-bg"></div> -->
+				        			{% if news_item.news_image %}
+				        			<img src="{{ news_item.news_image.url }}"	class="im rounded" alt="{{news_item.image_alt_text}}"/>
+				        			{% else %}
+				        			<img src="{% static 'images/IMG_3046.JPG' %}" class="img-fluid rounded" alt="img"/>
+                            		{% endif %}
+				        		</div>
+							</div>
+							<div class="col-7 p-2">
+                            	<div class="mb-2 ">
+				        		    <a href="{% url 'news' news_item.slug %}" class="stretched-link">
+										<h5 class="display-6">{{ news_item.headline }}</h5>
+									</a>
+                            	    <div class="meta d-flex">
+				        				<span class="text-muted">
+				        		    		<i class="fa-sharp fa-solid fa-user mr-1"></i>
+				        		    		{{ news_item.publisher }}
+                            	    	</span>
+				        				<span class="mx-2 text-muted">
+                            	    	    <i class="fa-solid fa-calendar-days mr-1"></i>
+                            	    	    {{ news_item.post_date|date:"d F Y" }}
+                            	    	</span>
+				        			</div>
+                            	</div>
+				        		<!-- <p class="mb-2">{{ news_item.news|truncatechars:200 }}</p> -->
+							</div>
+                        </div>
+				        {% endfor %}
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>
+</section>
+
+{% block newsModal %}
+
+{% endblock newsModal %}
+{% endblock %}

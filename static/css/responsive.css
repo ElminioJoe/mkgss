@@ -15,7 +15,7 @@
     .banner-main .carousel-caption {
         background: transparent;
     }
-    .relative {
+    .absolute {
         position: absolute;
         top: 44%;
         transform: translateY(-50%);
@@ -52,7 +52,7 @@
     .banner-main .carousel-caption {
         background: transparent;
     }
-    .relative {
+    .absolute {
         position: absolute;
         top: 42%;
         transform: translateY(-50%);
@@ -129,7 +129,7 @@
         font-size: 31px;
         line-height: 39px;
     }
-    .relative {
+    .absolute {
         position: absolute;
         top: 39%;
         transform: translateY(-50%);
@@ -218,7 +218,7 @@
         width: 40px;
         height: 40px;
     }
-    .relative {
+    .absolute {
         position: absolute;
         top: 37%;
         background: transparent;

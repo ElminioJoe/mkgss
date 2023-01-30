@@ -47,12 +47,17 @@ html {
 }
 
 body {
-	font-size: 14px;
-	font-family: 'poppins', sans-serif;
+	font-size: 0.8125rem;
+	/* font-family: 'poppins', sans-serif; */
+	font-family: 'Helvetica', sans-serif;
 	line-height: 1.80857;
 	overflow-x: hidden;
 }
 
+.meta{
+	display: inline-block;
+	font-size: 0.75rem;
+}
 a {
 	color: #0f0f0f;
 	text-decoration: none !important;
@@ -71,7 +76,8 @@ h4,
 h5,
 h6 {
 	letter-spacing: 0.5px;
-	font-family: 'Quicksand', sans-serif;
+	/* font-family: 'Quicksand', sans-serif; */
+	font-family: 'Rajdhani', sans-serif;
 	font-weight: 600;
 	position: relative;
 	padding: 0 0 10px 0;
@@ -132,8 +138,8 @@ ol {
 p {
 	color: #343e47;
 	margin: 0px;
-	font-size: 14px;
-	line-height: 24px;
+	font-size: 0.8125rem;
+	line-height: 1.6;
 }
 
 .btn {
@@ -167,6 +173,27 @@ p {
     list-style: none;
     margin: 10px;
     padding: 10px;
+}
+
+.more {
+    text-transform: uppercase;
+    border: #563309 solid 1px;
+    background: #563309;
+    width: fit-content;
+	display: inline-block;
+    padding: 0.3rem;
+    font-weight: 500;
+    line-height: 20px;
+    color: #fff;
+}
+
+.more:hover {
+    border: #563309 solid 1px;
+    background: #56330917;
+    color: #563309;
+	font-weight: 500;
+    /* border-radius: 20px; */
+    transition: ease-in-out all 0.5s;
 }
 
 img {
@@ -342,11 +369,15 @@ button {
     layout new css
 ---------------------------------------------------------------------*/
 
-.relative {
+.absolute {
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
 	bottom: 0;
+}
+
+.relative{
+	position: relative;
 }
 
 .banner-main {
@@ -725,7 +756,7 @@ margin-top: 50px;
 	font-weight: 500;
 }
 .blog .blog-box p {
-    font-size: 16px;
+    font-size: 0.8125rem;
     line-height: 20px;
 	color: #e2e2e2;
 	text-align: justify;
@@ -867,7 +898,7 @@ margin-top: 50px;
 }
 
 #list-staff .staff-item{
-min-height: 22rem;
+	min-height: 22rem;
 }
 /*--------------- end about page css ---------------*/
 
@@ -895,10 +926,51 @@ min-height: 22rem;
 
 }
 .gallery_pg a[data-fancybox] img {
-  cursor: zoom-in;
+  	cursor: zoom-in;
 }
 
 .gallery_pg a[data-caption]{
 	text-align: center;
 }
 /*--------------- end gallery page css ---------------*/
+
+/*--------------- News/Blog page css ---------------*/
+.overlay-bg {
+  	background: rgba(0, 0, 0, 0.4);
+  	-webkit-transition: all 0.3s ease 0s;
+  	-moz-transition: all 0.3s ease 0s;
+  	-o-transition: all 0.3s ease 0s;
+  	transition: all 0.3s ease 0s;
+}
+.overlay {
+  	position: absolute;
+  	left: 0;
+  	right: 0;
+  	top: 0;
+  	bottom: 0;
+}
+
+.news_pg .relative {
+	overflow: hidden;
+}
+
+.news_pg .relative img {
+	width: 100%;
+	-webkit-transition: all 0.3s ease 0s;
+	-moz-transition: all 0.3s ease 0s;
+	-o-transition: all 0.3s ease 0s;
+	transition: all 0.3s ease 0s;
+}
+
+.news_pg .news_item:hover img {
+	transform: scale(1.1);
+}
+
+.news_detail .side-bars .news_item {
+  border-bottom: 1px solid #eee;
+}
+
+.news_detail .main-post .news_item {
+ 	padding-right: 45px;
+}
+/*--------------- end News/Blog page css ---------------*/

@@ -11,19 +11,22 @@ from django.utils.translation import gettext_lazy as _
 from PIL import Image
 from model_utils.managers import InheritanceManager
 
+from .managers import RandomManager
+
 # Create your models here.
 class ImageAltTextField(models.CharField):
     def __init__(self, *args, **kwargs):
-        self.image_field_name = kwargs.pop('image_field_name', None)
-        kwargs['max_length'] = kwargs.get('max_length', 255)
-        kwargs['blank'] = True
+        self.image_field_name = kwargs.pop("image_field_name", None)
+        kwargs["max_length"] = kwargs.get("max_length", 255)
+        kwargs["blank"] = True
         super().__init__(*args, **kwargs)
 
     def pre_save(self, model_instance, add):
         if not getattr(model_instance, self.attname):
             # Generate image alt text using the image filename
             image_field = [
-                f for f in model_instance._meta.fields
+                f
+                for f in model_instance._meta.fields
                 if isinstance(f, models.ImageField) and f.name == self.image_field_name
             ][0]
             filename = os.path.basename(getattr(model_instance, image_field.name).name)
@@ -32,43 +35,92 @@ class ImageAltTextField(models.CharField):
 
 
 def get_sentinel_user():
-    return get_user_model().objects.get_or_create(username='MGKSC')[0]
+    return get_user_model().objects.get_or_create(username="MGKSC")[0]
 
 
 class HomeFeature(models.Model):
-
     welcome_info = models.TextField(max_length=300, blank=True)
 
     administration_info = models.TextField(max_length=300, blank=True)
-    administration_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'], upload_to='homeFeatures/', blank=True, default='default value')
-    administration_image_alt_text = ImageAltTextField(image_field_name='administration_image')
+    administration_image = ResizedImageField(
+        size=[1920, 1300],
+        crop=["middle", "center"],
+        upload_to="homeFeatures/",
+        blank=True,
+        default="default value",
+    )
+    administration_image_alt_text = ImageAltTextField(
+        image_field_name="administration_image",
+        help_text="Optional: Short description of what the image entails.",
+    )
 
     academics_info = models.TextField(max_length=300, blank=True)
-    academics_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'], upload_to='homeFeatures/', blank=True, default='default value')
-    academics_image_alt_text = ImageAltTextField(image_field_name='academics_image')
+    academics_image = ResizedImageField(
+        size=[1920, 1300],
+        crop=["middle", "center"],
+        upload_to="homeFeatures/",
+        blank=True,
+        default="default value",
+    )
+    academics_image_alt_text = ImageAltTextField(image_field_name="academics_image")
 
     staff_info = models.TextField(max_length=300, blank=True)
-    staff_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'], upload_to='homeFeatures/', blank=True, default='default value')
-    staff_image_alt_text = ImageAltTextField(image_field_name='staff_image')
+    staff_image = ResizedImageField(
+        size=[1920, 1300],
+        crop=["middle", "center"],
+        upload_to="homeFeatures/",
+        blank=True,
+        default="default value",
+    )
+    staff_image_alt_text = ImageAltTextField(
+        image_field_name="staff_image",
+        help_text="Optional: Short description of what the image entails.",
+    )
 
     curricular_info = models.TextField(max_length=300, blank=True)
-    curricular_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'], upload_to='homeFeatures/', blank=True, default='default value')
-    curricular_image_alt_text = ImageAltTextField(image_field_name='curricular_image')
+    curricular_image = ResizedImageField(
+        size=[1920, 1300],
+        crop=["middle", "center"],
+        upload_to="homeFeatures/",
+        blank=True,
+        default="default value",
+    )
+    curricular_image_alt_text = ImageAltTextField(
+        image_field_name="curricular_image,",
+        help_text="Optional: Short description of what the image entails.",
+    )
 
     library_info = models.TextField(max_length=300, blank=True)
-    library_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'], upload_to='homeFeatures/', blank=True, default='default value')
-    library_image_alt_text = ImageAltTextField(image_field_name='library_image')
+    library_image = ResizedImageField(
+        size=[1920, 1300],
+        crop=["middle", "center"],
+        upload_to="homeFeatures/",
+        blank=True,
+        default="default value",
+    )
+    library_image_alt_text = ImageAltTextField(
+        image_field_name="library_image",
+        help_text="Optional: Short description of what the image entails.",
+    )
 
     alumni_info = models.TextField(max_length=300, blank=True)
-    alumni_image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'], upload_to='homeFeatures/', blank=True, default='default value')
-    alumni_image_alt_text = ImageAltTextField(image_field_name='alumni_image')
-
+    alumni_image = ResizedImageField(
+        size=[1920, 1300],
+        crop=["middle", "center"],
+        upload_to="homeFeatures/",
+        blank=True,
+        default="default value",
+    )
+    alumni_image_alt_text = ImageAltTextField(
+        image_field_name="alumni_image",
+        help_text="Optional: Short description of what the image entails.",
+    )
 
     def __str__(self):
-        return 'Home Features'
+        return "Home Features"
 
     def get_absolute_url(self):
-        return reverse_lazy('home')
+        return reverse_lazy("home")
 
 
 class Publisher(models.Model):
@@ -77,29 +129,40 @@ class Publisher(models.Model):
     email = models.EmailField()
     phone_number = models.CharField(max_length=10, blank=True)
 
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
     def __str__(self):
-        return f'{self.first_name}, {self.last_name}'
+        return self.full_name()
+
 
 class Staff(models.Model):
-    title = models.CharField(max_length=5)
+    title = models.CharField(max_length=5, help_text="Titles and other words associated with a person's name. Example: 'Mr', 'Mrs', 'Miss'")
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.EmailField(blank=True)
-    picture = ResizedImageField(size=[600, 600], upload_to='staff/', blank=True, default='default value')
+    picture = ResizedImageField(
+        size=[600, 600], upload_to="staff/", blank=True, default="default value"
+    )
     phone_number = models.CharField(max_length=10, blank=True)
-    about = models.TextField(max_length=1000, blank=True)
-    role = models.CharField(max_length=30, blank=True)
-    department = models.ForeignKey('Department', on_delete=models.CASCADE, blank=True, null=True)
+    about = models.TextField(max_length=1000, blank=True, help_text="Description of the staff")
+    role = models.CharField(max_length=30, blank=True, help_text="Optional. The role of the staff member. Example: 'Principal', 'Deputy Principal', 'HOD'")
+    department = models.ForeignKey(
+        "Department", on_delete=models.CASCADE, blank=True, null=True, help_text="Optional. The department the staff member belongs to."
+    )
+
+    def staff_full_name(self):
+        return f"{self.first_name} {self.last_name}"
 
     def __str__(self):
-        return f'{self.first_name}, {self.last_name} - {self.role}'
+        return f"{self.staff_full_name()} - {self.role}"
 
     def get_absolute_url(self):
-        return reverse_lazy('about')
+        return reverse_lazy("about")
 
 
 class Department(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, help_text="The name of the department. Example: 'Mathematics', 'Humanities'  ")
 
     def __str__(self):
         return self.name
@@ -107,8 +170,20 @@ class Department(models.Model):
 
 class SchoolInfo(models.Model):
     name = models.CharField(max_length=100)
-    image =  ResizedImageField(size=[1920, 1300], crop=['middle', 'center'],upload_to='about/', default='default value', blank=True)
-    image_alt_text = ImageAltTextField(image_field_name='image')
+    image = ResizedImageField(
+        size=[1920, 1300],
+        crop=["middle", "center"],
+        upload_to="about/",
+        default="default value",
+        blank=True,
+    )
+    image_alt_text = ImageAltTextField(
+        image_field_name="image",
+        help_text="Optional: short description of what the image entails.",
+    )
+    date_created = models.DateTimeField(blank=True, null=True, auto_now_add=True)
+    date_modified = models.DateTimeField(blank=True, null=True, auto_now=True)
+
     objects = InheritanceManager()
 
     def __str__(self):
@@ -126,7 +201,8 @@ class SchoolInfo(models.Model):
         super().delete(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse_lazy('about')
+        return reverse_lazy("about")
+
 
 class Administration(SchoolInfo):
     info = models.TextField(max_length=5000)
@@ -136,9 +212,8 @@ class Academic(SchoolInfo):
     subject = models.CharField(max_length=70)
     info = models.TextField(max_length=5000)
 
-
     def __str__(self):
-        return f'{self.name} - {self.subject}'
+        return f"{self.name} - {self.subject}"
 
 
 class Admission(SchoolInfo):
@@ -163,21 +238,33 @@ class News(models.Model):
     headline = models.CharField(max_length=250)
     news = models.TextField()
     publisher = models.ForeignKey(Publisher, on_delete=models.SET(get_sentinel_user))
-    news_image = models.ImageField(upload_to='news/', default='default value')
-    image_alt_text = ImageAltTextField(image_field_name='news_image')
-    post_date = models.DateTimeField(null=True, blank=True)
-    modification_date = models.DateTimeField(blank=True, null=True)
+    news_image = ResizedImageField(
+        size=[1920, 1300],
+        crop=["middle", "center"],
+        upload_to="news/",
+        default="default value"
+    )
+    image_alt_text = ImageAltTextField(
+        image_field_name="news_image",
+        help_text="Optional: short description of what the image entails.",
+    )
+    post_date = models.DateTimeField(null=True, blank=True, auto_now_add=True)
+    modification_date = models.DateTimeField(blank=True, null=True, auto_now=True)
     slug = models.SlugField(max_length=500, unique=True, blank=True, null=True)
     # authors = models.ManyToManyField(Author)
 
+    objects = models.Manager()
+    random_data = RandomManager()
+
     class Meta:
-        ordering = ['-post_date']
+        ordering = ["-post_date"]
 
     def __str__(self):
-        return f'{self.headline} - {self.publisher.first_name}'
+        return f"{self.headline} - {self.publisher.full_name()}"
 
     def get_absolute_url(self):
-        return reverse('news-detail', args=[str(self.id)])
+        # return reverse("news-detail", args=[str(self.id)])
+        return reverse_lazy("news")
 
     def save(self, *args, **kwargs):
         if self.post_date is None:
@@ -195,22 +282,21 @@ class News(models.Model):
         super().delete(*args, **kwargs)
 
 
-
 class Message(models.Model):
     message_title = models.CharField(max_length=70)
     message = models.TextField()
     author = models.ForeignKey(Staff, on_delete=models.CASCADE)
-    date_created = models.DateTimeField(blank=True, null=True)
-    date_modified = models.DateTimeField(blank=True, null=True)
+    date_created = models.DateTimeField(blank=True, null=True, auto_now_add=True)
+    date_modified = models.DateTimeField(blank=True, null=True, auto_now=True)
 
     class Meta:
-        ordering = ['date_created']
+        ordering = ["date_created"]
 
     def __str__(self):
         return self.author, self.message_title
 
     def get_absolute_url(self):
-        return reverse('message-detail', args=[str(self.id)])
+        return reverse("message-detail", args=[str(self.id)])
 
     def save(self, *args, **kwargs):
         if self.date_created is None:
@@ -221,18 +307,27 @@ class Message(models.Model):
 
 
 class Gallery(models.Model):
-    gallery_image = models.ImageField(upload_to='gallery/', default="default value")
-    image_alt_text = ImageAltTextField(image_field_name='gallery_image')
-    thumbnail = ResizedImageField(crop=['middle', 'center'], upload_to="gallery/thumbnails/", blank=True, null=True, editable=False)
+    gallery_image = models.ImageField(upload_to="gallery/", default="default value")
+    image_alt_text = ImageAltTextField(
+        image_field_name="gallery_image",
+        help_text="Optional: short description of what the image entails.",
+    )
+    thumbnail = ResizedImageField(
+        crop=["middle", "center"],
+        upload_to="gallery/thumbnails/",
+        blank=True,
+        null=True,
+        editable=False,
+    )
     image_caption = models.TextField(null=True, blank=True)
-    category = models.ForeignKey('Category', on_delete=models.CASCADE)
-    post_date = models.DateTimeField(default=timezone.now)
+    category = models.ForeignKey("Category", on_delete=models.CASCADE)
+    post_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.category.name} - {self.image_alt_text}'
+        return f"{self.category.name} - {self.image_alt_text}"
 
     def get_absolute_url(self):
-        return reverse('gallery-detail')
+        return reverse("gallery-detail")
 
     def create_thumbnail(self):
         # If there is no image associated with this object, return
@@ -252,14 +347,15 @@ class Gallery(models.Model):
         temp_handle.seek(0)
 
         # Save the thumbnail to the thumbnail field
-        self.thumbnail.save(f"{self.gallery_image.name}_thumbnail.{image.format.lower()}",
-            File(temp_handle), save=False)
-
+        self.thumbnail.save(
+            f"{self.gallery_image.name}_thumbnail.{image.format.lower()}",
+            File(temp_handle),
+            save=False,
+        )
 
     def save(self, *args, **kwargs):
         self.create_thumbnail()
         super().save(*args, **kwargs)
-
 
     def delete(self, *args, **kwargs):
         # Delete the image files from the file system
@@ -273,14 +369,14 @@ class Gallery(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=50, null=True, blank=True)
     slug = models.SlugField(max_length=300, unique=True, blank=True, null=True)
-    date_created = models.DateTimeField(blank=True, null=True)
-    date_modified = models.DateTimeField(blank=True, null=True)
+    date_created = models.DateTimeField(blank=True, null=True, auto_now_add=True)
+    date_modified = models.DateTimeField(blank=True, null=True, auto_now=True)
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('category-detail', args=[str(self.id)])
+        return reverse("category-detail", args=[str(self.id)])
 
     def save(self, *args, **kwargs):
         if self.date_created is None:
@@ -290,9 +386,6 @@ class Category(models.Model):
         self.date_modified = timezone.localtime(timezone.now())
         super(Category, self).save(*args, **kwargs)
 
-
     @classmethod
-    def update_category(cls,id,name):
+    def update_category(cls, id, name):
         cls.objects.filter(id=id).update(name=name)
-
-
