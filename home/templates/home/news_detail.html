@@ -37,19 +37,35 @@
 						    		<i class="fa-sharp fa-solid fa-user mr-1"></i>
 						    		{{ news_item.publisher }}
                     	    	</span>
-								<span class="mx-2 text-muted">
+								<span class="mx-2 text-muted mr-auto">
                     	    	    <i class="fa-solid fa-calendar-days mr-1"></i>
                     	    	    {{ news_item.post_date|date:"d F Y" }}
                     	    	</span>
+
+								<!-- Buttons Trigger Modal -->
+                            	<!-- Edit Button -->
+                            	<button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#openPostModal" data-title="Edit: {{ news_item.headline }} Article" data-url="{% url 'news_update' news_item.id %}" data-form="newsForm" data-placement="top" title="Edit">
+                            	    <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+                            	</button>
+                            	<!-- Delete Button -->
+                            	<button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteModal" data-title="Delete {{ news_item.headline }}" data-url="{% url 'news_delete' news_item.id %}" data-form="deleteForm" data-placement="top" title="Delete">
+                            	    <i class="fa-solid fa-trash"></i>
+                            	</button>
 							</div>
                     	</div>
-						<p class="mb-2">{{ news_item.news }}</p>
+						<p class="mb-2 para-br">{{ news_item.news }}</p>
 					</div>
                 </div>
 			</div>
 			<div class="col-lg-4 col-md-5">
                 <div class="side-bars">
-                    <div class="news_post-list">
+					<h4 class="theme_bg text-white p-2">Events</h4>
+					<div class="event-list p-3">
+						<p>this</p>
+					</div>
+
+					<h4 class="theme_bg text-white p-2">News</h4>
+                    <div class="news_post-list p-3">
                         {% for news_item in news %}
 				        <div class="row align-items-center news_item">
 							<div class="col-5 p-2">
@@ -70,11 +86,11 @@
                             	    <div class="meta d-flex">
 				        				<span class="text-muted">
 				        		    		<i class="fa-sharp fa-solid fa-user mr-1"></i>
-				        		    		{{ news_item.publisher }}
+				        		    		{{ news_item.publisher.first_name }}
                             	    	</span>
 				        				<span class="mx-2 text-muted">
                             	    	    <i class="fa-solid fa-calendar-days mr-1"></i>
-                            	    	    {{ news_item.post_date|date:"d F Y" }}
+                            	    	    {{ news_item.post_date|date:"d M Y" }}
                             	    	</span>
 				        			</div>
                             	</div>
@@ -89,7 +105,58 @@
 	</div>
 </section>
 
-{% block newsModal %}
+<!-- Modals Body only Section -->
+<form action="" class="myForm" method="POST" enctype="multipart/form-data">
+    <div class="modal fade" id="openPostModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-uppercase" id="ModalLongTitle">School Info</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- All Forms -->
 
-{% endblock newsModal %}
+                    <!-- News form -->
+                    <fieldset class="aligned d-none" id="newsForm"></fieldset>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary btn-md font-weight-bold" value="Save">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- End Modal -->
+
+<!-- Delete Modal -->
+<form action="" class="myForm" method="POST" enctype="multipart/form-data">
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-uppercase" id="ModalLongTitle">School Info</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form -->
+
+                    <fieldset class="aligned" id="deleteForm"></fieldset>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-danger btn-md font-weight-bold" value="Delete">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- End Modal -->
 {% endblock %}

@@ -1,9 +1,0 @@
-{% load crispy_forms_tags %}
-{% load static %}
-<form action="{%url 'addPost'%}" method="POST" enctype="multipart/form-data">
-    {%csrf_token%}
-    {{ post_form|crispy }}
-    <div class="text-center">
-        <input type="submit" class="btn btn-info btn-md font-weight-bold" value="SUBMIT">
-    </div>
-</form>
