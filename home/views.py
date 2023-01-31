@@ -102,7 +102,7 @@ class SchoolInfoDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["news"] = News.random_data.all()[:8]
+        context["news"] = News.random_data.exclude(id=self.object.id)[:8]
         context["template_name"] = self.template_name
         return context
 
@@ -167,10 +167,3 @@ class SchoolInfoDeleteView(DeleteView):
 def contact(request):
     return render(request, "home/contact.html", {})
 
-
-def message(request):
-    principal = Message.objects.filter(author__role="Principal").get()
-    deputy = Message.objects.filter(author__role="Deputy Principal").get()
-
-    context = {"principal": principal, "deputy": deputy}
-    return render(request, "home/message.html", context)

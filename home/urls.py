@@ -171,5 +171,4 @@ urlpatterns = [
         name="news_delete",
     ),
     path("contact/", views.contact, name="contact"),
-    path("messages/", views.message, name="message"),
 ]

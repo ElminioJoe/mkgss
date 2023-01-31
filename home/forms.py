@@ -80,12 +80,6 @@ class NewsForm(FormWidgets, forms.ModelForm):
         exclude = ["post_date", "modification_date", "slug"]
 
 
-class MessageForm(FormWidgets, forms.ModelForm):
-    class Meta:
-        model = Message
-        exclude = ["date_created", "date_modified"]
-
-
 class GalleryForm(FormWidgets, forms.ModelForm):
     class Meta:
         model = Gallery

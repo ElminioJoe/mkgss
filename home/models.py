@@ -145,7 +145,7 @@ class Staff(models.Model):
         size=[600, 600], upload_to="staff/", blank=True, default="default value"
     )
     phone_number = models.CharField(max_length=10, blank=True)
-    about = models.TextField(max_length=1000, blank=True, help_text="Description of the staff")
+    message = models.TextField(max_length=1000, blank=True, help_text="")
     role = models.CharField(max_length=30, blank=True, help_text="Optional. The role of the staff member. Example: 'Principal', 'Deputy Principal', 'HOD'")
     department = models.ForeignKey(
         "Department", on_delete=models.CASCADE, blank=True, null=True, help_text="Optional. The department the staff member belongs to."
@@ -281,29 +281,6 @@ class News(models.Model):
         # Call the parent delete method to delete the object from the database
         super().delete(*args, **kwargs)
 
-
-class Message(models.Model):
-    message_title = models.CharField(max_length=70)
-    message = models.TextField()
-    author = models.ForeignKey(Staff, on_delete=models.CASCADE)
-    date_created = models.DateTimeField(blank=True, null=True, auto_now_add=True)
-    date_modified = models.DateTimeField(blank=True, null=True, auto_now=True)
-
-    class Meta:
-        ordering = ["date_created"]
-
-    def __str__(self):
-        return self.author, self.message_title
-
-    def get_absolute_url(self):
-        return reverse("message-detail", args=[str(self.id)])
-
-    def save(self, *args, **kwargs):
-        if self.date_created is None:
-            self.date_created = timezone.localtime(timezone.now())
-
-        self.date_modified = timezone.localtime(timezone.now())
-        super(Message, self).save(*args, **kwargs)
 
 
 class Gallery(models.Model):
