@@ -42,8 +42,8 @@
                         </button>
                     </div>
                     <hr>
-                    <div class="row d-flex align-items-center mb-4">
-                        <div class="col-md-12 mb-4 ">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-12 mb-2 ">
                             {% for academic in academics %}
                             <div class="d-flex mb-3">
                                 <!-- Buttons Trigger Modal -->
@@ -59,7 +59,7 @@
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-6">
-                                    <p class="my-0">{{ academic.info }}</p>
+                                    <p class="mt-0 mb-3">{{ academic.info }}</p>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <img src="{{ academic.image.url }}" class="img-fluid" alt="{{ academic.image_alt_text }}">
@@ -82,8 +82,8 @@
                         </button>
                     </div>
                     <hr>
-                    <div class="row d-flex align-items-center mb-4">
-                        <div class="col-md-12 mb-4 ">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-12 mb-2 ">
                             {% for admin in administration %}
                             <div class="d-flex mb-3">
                                 <!-- Buttons Trigger Modal -->
@@ -99,7 +99,7 @@
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-6">
-                                    <p class="my-0">{{ admin.info }}</p>
+                                    <p class="mt-0 mb-3">{{ admin.info }}</p>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <img src="{{ admin.image.url }}" class="img-fluid" alt="{{ admin.image_alt_text }}">
@@ -125,8 +125,8 @@
                     {% if admission %}
                     <!-- <h4>{{ admission.0.name }}</h4> -->
                     <div class="row d-flex align-items-center">
-                        <div class="col-md-6">
-                            <p class="my-0">{{ admission.0.info }}</p>
+                        <div class="col-md-6 align-self-start">
+                            <p class="mt-0 mb-3">{{ admission.0.info }}</p>
                         </div>
                         <div class="col-md-6">
                             <img src="{{ admission.0.image.url }}" class="img-fluid" alt="{{ admission.0.image_alt_text }}">
@@ -147,8 +147,8 @@
                         </button>
                     </div>
                     <hr>
-                    <div class="row d-flex align-items-center mb-4">
-                        <div class="col-md-12 mb-4 ">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-12 mb-2 ">
                             {% for co in curriculars %}
                             <div class="d-flex mb-3">
                                 <!-- Buttons Trigger Modal -->
@@ -164,7 +164,7 @@
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-6">
-                                    <p class="my-0">{{ co.info }}</p>
+                                    <p class="mt-0 mb-3">{{ co.info }}</p>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <img src="{{ co.image.url }}" class="img-fluid" alt="{{ co.image_alt_text }}">
@@ -188,14 +188,14 @@
                     </div>
                     <hr>
                     {% if school_values %}
-                    <div class="row d-flex align-items-center mb-4">
-                        <div class="col-md-12 mb-4 ">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-md-12 mb-2 ">
                             <div class="d-flex">
                                 <h4 class="mr-auto">{{ school_values.0.motto }}</h4>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-md-12">
-                                    <p class="my-0">{{ school_values.post }}</p>
+                                    <p class="mt-0 mb-3">{{ school_values.post }}</p>
                                 </div>
                             </div>
                         </div>
@@ -218,7 +218,7 @@
                     {% if school_history %}
                     <div class="px-3 text-justify align-items-center">
                         <!-- <h4>{{school_history.name}}</h4> -->
-                        <p class="my-0">{{ school_history.0.content }}</p>
+                        <p class="mt-0 mb-3">{{ school_history.0.content }}</p>
                     </div>
                     {% endif %}
                 </div>

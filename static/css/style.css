@@ -382,6 +382,7 @@ button {
 
 .banner-main {
 	position: relative;
+	overflow: hidden;
 }
 
 

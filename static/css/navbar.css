@@ -13,6 +13,7 @@ header .navbar-brand .img-fluid{
 .nav-pills .nav-link:hover,
 .nav-pills .show>.nav-link {
 	background-color: #563309 !important;
+    font-size: 0.8125rem;
     color: whitesmoke ;
 }
 nav .green{
@@ -23,6 +24,7 @@ nav .green{
 .dropdown-item,
 .dropdown-item:hover{
     color: #563309;
+    font-size: 0.8125rem;
 }
 
 .cstm-hov:hover{

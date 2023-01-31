@@ -155,6 +155,7 @@
                         </p>
                     </div>
                     <p>{{ news_item.news|truncatechars:350}}</p>
+					<a href="{% url 'news' news_item.slug %}" class="mt-2 more bg-light text-dark">Read More</a>
                 </div>
             </div>
             {% empty %}

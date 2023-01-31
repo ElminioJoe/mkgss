@@ -15,6 +15,9 @@
     .banner-main .carousel-caption {
         background: transparent;
     }
+    .meta{
+    	font-size: 0.638em;
+    }
     .absolute {
         position: absolute;
         top: 44%;
@@ -51,6 +54,10 @@
 
     .banner-main .carousel-caption {
         background: transparent;
+    }
+
+    .side-bars .meta {
+    	font-size: 0.638em;
     }
     .absolute {
         position: absolute;
@@ -124,7 +131,6 @@
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
-
     .logo a {
         font-size: 31px;
         line-height: 39px;
@@ -156,9 +162,6 @@
     }
     .top_layer::before {
         display: none;
-    }
-    .info-cards .info_img img{
-        transform: scale(1);
     }
     .address {
         margin-bottom: 30px;
