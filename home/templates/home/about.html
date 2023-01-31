@@ -99,7 +99,7 @@
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-6">
-                                    <p class="mt-0 mb-3">{{ admin.info }}</p>
+                                    <p class="mt-0 mb-3 para-br">{{ admin.info }}</p>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <img src="{{ admin.image.url }}" class="img-fluid" alt="{{ admin.image_alt_text }}">
@@ -126,7 +126,7 @@
                     <!-- <h4>{{ admission.0.name }}</h4> -->
                     <div class="row d-flex align-items-center">
                         <div class="col-md-6 align-self-start">
-                            <p class="mt-0 mb-3">{{ admission.0.info }}</p>
+                            <p class="mt-0 mb-3 para-br">{{ admission.0.info }}</p>
                         </div>
                         <div class="col-md-6">
                             <img src="{{ admission.0.image.url }}" class="img-fluid" alt="{{ admission.0.image_alt_text }}">
@@ -164,7 +164,7 @@
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-6">
-                                    <p class="mt-0 mb-3">{{ co.info }}</p>
+                                    <p class="mt-0 mb-3 para-br">{{ co.info }}</p>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <img src="{{ co.image.url }}" class="img-fluid" alt="{{ co.image_alt_text }}">
@@ -218,7 +218,7 @@
                     {% if school_history %}
                     <div class="px-3 text-justify align-items-center">
                         <!-- <h4>{{school_history.name}}</h4> -->
-                        <p class="mt-0 mb-3">{{ school_history.0.content }}</p>
+                        <p class="mt-0 mb-3 para-br">{{ school_history.0.content }}</p>
                     </div>
                     {% endif %}
                 </div>
@@ -251,7 +251,7 @@
                                 </button>
                             </div>
                             <img src="{{ staff.picture.url }}" class="img-fluid float-left pr-3 pt-2" alt="{{ staff.image_alt_text }}">
-                            <p class="mt-0 mb-4">{{ staff.message }}</p>
+                            <p class="mt-0 mb-4 para-br">{{ staff.message }}</p>
                         </div>
                         <hr>
                         {% endfor %}

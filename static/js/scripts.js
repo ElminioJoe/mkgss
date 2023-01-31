@@ -65,8 +65,10 @@ $(function () {
 	});
 
   // convert newline('/n') to <br>
-  let text = $(".para-br").text();
-	text = text.replace(/\n/g, "<br><br>");
-	$(".para-br").html(text);
+  $(".para-br").each(function() {
+    let text = $(this).text();
+    text = text.replace(/\n/g, "<br><br>");
+    $(this).html(text);
+  });
 
 });
