@@ -187,20 +187,37 @@
                         </button>
                     </div>
                     <hr>
-                    {% if school_values %}
                     <div class="row d-flex align-items-center">
-                        <div class="col-md-12 mb-2 ">
-                            <div class="d-flex">
-                                <h4 class="mr-auto">{{ school_values.0.motto }}</h4>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-md-12">
-                                    <p class="mt-0 mb-3">{{ school_values.post }}</p>
-                                </div>
+                        {% if school_values %}
+                        <div class=" col-md-4 value-item d-flex flex-row">
+                            <!-- <div class="icon">
+                                <i class="fa-regular fa-atom"></i>
+                            </div> -->
+                            <div class="details">
+                                <h4>Motto</h4>
+                                <p>{{ school_values.0.motto }}</p>
                             </div>
                         </div>
+                        <div class=" col-md-4 value-item d-flex flex-row">
+                            <!-- <div class="icon">
+                                <i class="fa-regular fa-octagon-check"></i>
+                            </div> -->
+                            <div class="details">
+                                <h4>Mission</h4>
+                                <p>{{ school_values.0.mission }}</p>
+                            </div>
+                        </div>
+                        <div class=" col-md-4 value-item d-flex flex-row">
+                            <!-- <div class="icon">
+                                <i class="fa-regular fa-arrows-to-eye"></i>
+                            </div> -->
+                            <div class="details">
+                                <h4>Vision</h4>
+                                <p>{{ school_values.0.vision }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
-                    {% endif %}
                 </div>
 
                 <!--  -->
