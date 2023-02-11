@@ -91,7 +91,7 @@
     }
     .blog .blog-box .travel p {
         padding-left: 12px;
-       font-size: 13px;
+        font-size: 13px;
     }
 
 
@@ -202,7 +202,10 @@
         border-radius: 10px 10px 0px 0px;
     }
     .cst_pages img.float-left{
-    	width: 100%;
+    	width: 100vw;
+        float: none;
+        padding: 1em 0 !important;
+
     }
 /*--------------- end about page css ---------------*/
 }
@@ -324,7 +327,10 @@
         border-radius: 10px 10px 0px 0px;
     }
     .cst_pages img.float-left{
-    	width: 100%;
+    	width: 100vw;
+        float: none;
+        padding: 1em 0 !important;
+
     }
 /*--------------- end about page css ---------------*/
 }

@@ -147,9 +147,12 @@ class Staff(models.Model):
     phone_number = models.CharField(max_length=10, blank=True)
     message = models.TextField(max_length=1000, blank=True, help_text="")
     role = models.CharField(max_length=30, blank=True, help_text="Optional. The role of the staff member. Example: 'Principal', 'Deputy Principal', 'HOD'")
-    department = models.ForeignKey(
-        "Department", on_delete=models.CASCADE, blank=True, null=True, help_text="Optional. The department the staff member belongs to."
+    department = models.CharField(max_length=100 ,blank=True, null=True, help_text="Optional. The department the staff member belongs to."
     )
+
+    # department = models.ForeignKey(
+    #     "Department", on_delete=models.CASCADE, blank=True, null=True, help_text="Optional. The department the staff member belongs to."
+    # )
 
     def staff_full_name(self):
         return f"{self.first_name} {self.last_name}"
@@ -284,7 +287,8 @@ class News(models.Model):
 
 
 class Gallery(models.Model):
-    gallery_image = models.ImageField(upload_to="gallery/", default="default value")
+    category = models.ForeignKey("Category", on_delete=models.CASCADE, blank=True, related_name="image_category")
+    gallery_image = models.ImageField(upload_to="gallery/", blank=False, default="default value")
     image_alt_text = ImageAltTextField(
         image_field_name="gallery_image",
         help_text="Optional: short description of what the image entails.",
@@ -296,8 +300,7 @@ class Gallery(models.Model):
         null=True,
         editable=False,
     )
-    image_caption = models.TextField(null=True, blank=True)
-    category = models.ForeignKey("Category", on_delete=models.CASCADE)
+    # image_caption = models.TextField(null=True, blank=True)
     post_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -344,7 +347,8 @@ class Gallery(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=50, null=True, blank=True)
+    name = models.CharField(max_length=50, unique=True, blank=True, verbose_name="Category")
+    description = models.CharField(max_length=200, null=True, blank=True)
     slug = models.SlugField(max_length=300, unique=True, blank=True, null=True)
     date_created = models.DateTimeField(blank=True, null=True, auto_now_add=True)
     date_modified = models.DateTimeField(blank=True, null=True, auto_now=True)

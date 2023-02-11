@@ -1,0 +1,57 @@
+{% load static %}
+
+{% block content %}
+<form action="" method="post" enctype="multipart/form-data">
+    <fieldset>
+<div>
+    {% csrf_token %}
+    {% for hidden in category_form.hidden_fields %}
+        {{ hidden }}
+    {% endfor %}
+
+    {% if image_formset.non_field_errors %}
+        <div class="non-field-errors">
+          {% for err in image_formset.non_field_errors %}
+            <p class="form-error">{{ err }}</p>
+          {% endfor %}
+        </div>
+    {% endif %}
+
+    {% for field in category_form %}
+    <div class="form-group">
+        {{ field.label_tag }}
+        {{ field }}
+        {% if field.help_text %}
+            <small class="form-text text-muted">{{ field.help_text }}</small>
+        {% endif %}
+        {% if field.errors %}
+            <div class="alert alert-danger">
+                {% for error in field.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+    <br><hr><br>
+        {% for field in image_formset %}
+        <div class="form-group">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+            {% endif %}
+            {% if field.errors %}
+                <div class="alert alert-danger">
+                    {% for error in field.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    <input type="submit" value="Upload">
+</div>
+</fieldset>
+</form>
+{% endblock %}

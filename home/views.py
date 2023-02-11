@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import HttpResponseRedirect, get_object_or_404, render
 from django.urls import reverse_lazy
-from django.views.generic import View, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import View, DetailView, CreateView, UpdateView, DeleteView, FormView
 
 from .models import *
 from .forms import *
@@ -167,3 +167,66 @@ class SchoolInfoDeleteView(DeleteView):
 def contact(request):
     return render(request, "home/contact.html", {})
 
+class GalleryUploadView(FormView):
+    template_name = 'home/forms/gallery_upload_form.html'
+    form_class = GalleryForm
+    success_url = '/gallery/'
+
+    def get(self, request, *args, **kwargs):
+        image_formset = self.form_class()
+        # category_form = CategoryForm()
+
+        context = {
+            "image_formset": image_formset,
+            # "category_form": category_form
+        }
+        return render(request, self.template_name, context )
+
+    def post(self, request, *args, **kwargs):
+        image_formset = self.form_class(request.POST, request.FILES)
+        images = request.FILES.getlist('gallery_image')
+
+        if image_formset.is_valid():
+            category = image_formset.cleaned_data.get("category")
+
+            if isinstance(category, Category):
+                for image in images:
+                    gallery = Gallery(category=category, gallery_image=image)
+                    gallery.save()
+            else:
+                created_category = image_formset.cleaned_data.get('create_category')
+                description = image_formset.cleaned_data.get('description')
+                category = Category.objects.create(name=created_category, description=description)
+                for image in images:
+                    gallery = Gallery(category=category, gallery_image=image)
+                    gallery.save()
+            messages.success(request, "Images uploaded successfully!")
+            return super().form_valid(image_formset)
+
+        else:
+            return self.form_invalid(image_formset)
+
+
+    # def post(self, request, *args, **kwargs):
+    #     image_formset = self.form_class(request.POST, request.FILES)
+    #     category_form = CategoryForm(request.POST)
+    #     images = request.FILES.getlist('gallery_image')
+    #     if image_formset.is_valid() and category_form.is_valid():
+    #         category_name = request.POST.get("category")
+    #         if not image_formset.data["category"] and not category_form.data["name"]:
+    #             image_formset.add_error("category", "Please select or create a category")
+    #         # Check if the user selected an existing category or created a new one
+    #         elif category_name:
+    #             category, created = Category.objects.get_or_create(name=category_name)
+    #         else:
+    #             category = category_form.save()
+
+    #         for image in images:
+    #             gallery = Gallery(category=category, gallery_image=image)
+    #             gallery.save()
+    #         messages.success(request, "Images uploaded successfully!")
+    #         return HttpResponseRedirect(self.success_url)
+
+    #     else:
+
+    #         self.form_invalid(image_formset)
