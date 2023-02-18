@@ -16,6 +16,12 @@
 
 <section class="gallery_pg">
     <div class="container">
+        <!-- Button trigger modal -->
+        <!-- Add Button -->
+        <button type="button" class="btn btn-sm btn-outline-success mb-3" data-toggle="modal" data-target="#openPostModal" data-title="Add Images" data-url="{% url 'upload_images' %}" data-form="galleryForm" data-placement="top" title="Add">
+            <i class="fa fa-plus-square-o mr-1" aria-hidden="true"></i>
+            Add Image Gallery
+        </button>
         <div class="row p-1">
             {% for image in images %}
             <div class="col-6 col-sm-4 col-md-3 col-lg-2 p-1">
@@ -34,4 +40,58 @@
         </div>
     </div>
 </section>
+
+<!-- Modals Body only Section -->
+<form action="" class="myForm" method="POST" enctype="multipart/form-data">
+    <div class="modal fade" id="openPostModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-uppercase" id="ModalLongTitle">School Info</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- All Forms -->
+
+                    <fieldset class="aligned d-none" id="galleryForm"></fieldset>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary btn-md font-weight-bold" value="Upload">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- End Modal -->
+
+<!-- Delete Modal -->
+<form action="" class="myForm" method="POST" enctype="multipart/form-data">
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-uppercase" id="ModalLongTitle">School Info</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form -->
+
+                    <fieldset class="aligned" id="deleteForm"></fieldset>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-danger btn-md font-weight-bold" value="Delete">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- End Modal -->
 {% endblock %}

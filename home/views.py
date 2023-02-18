@@ -115,15 +115,15 @@ class SchoolInfoCreateView(CreateView):
 
     def form_valid(self, form):
         messages.success(self.request, "Success! The form has been submitted.")
-        return super().form_valid(form)
+        return super(SchoolInfoCreateView, self).form_valid(form)
 
     def form_invalid(self, form):
-        return super().form_invalid(form)
+        return super(SchoolInfoCreateView, self).form_invalid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form"] = self.form_class
-        context["template_name"] = self.template_name
+        # context["template_name"] = self.template_name
         return context
 
 
@@ -133,25 +133,21 @@ class SchoolInfoUpdateView(UpdateView):
     template_name = None  # template name will be set in the url
     # success_url = reverse_lazy('about')
 
-    def get(self, request, *args, **kwargs):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         self.object = self.get_object()
-        form = self.form_class(request.POST or None, instance=self.object)
-        context = self.get_context_data(form=form)
-        return self.render_to_response(context)
+        form = self.form_class(self.request.POST or None, instance=self.object)
+        context['form'] = form
+        # context["template_name"] = self.template_name
+        return context
 
     def form_valid(self, form):
         update_form_fields(form, self.model)
         messages.success(self.request, "Success! Details Updated.")
-        return super().form_valid(form)
+        return super(SchoolInfoUpdateView, self).form_valid(form)
 
     def form_invalid(self, form):
-        return super().form_invalid(form)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # context['form'] = self.form_class
-        context["template_name"] = self.template_name
-        return context
+        return super(SchoolInfoUpdateView, self).form_invalid(form)
 
 
 class SchoolInfoDeleteView(DeleteView):
@@ -167,66 +163,36 @@ class SchoolInfoDeleteView(DeleteView):
 def contact(request):
     return render(request, "home/contact.html", {})
 
+
 class GalleryUploadView(FormView):
     template_name = 'home/forms/gallery_upload_form.html'
     form_class = GalleryForm
     success_url = '/gallery/'
 
-    def get(self, request, *args, **kwargs):
-        image_formset = self.form_class()
-        # category_form = CategoryForm()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["image_formset"] = self.form_class
+        context["errors"] = self.form_class.non_field_errors
+        return context
 
-        context = {
-            "image_formset": image_formset,
-            # "category_form": category_form
-        }
-        return render(request, self.template_name, context )
+    def form_valid(self, form):
+        # Create category object if user entered a new category name
+        category_name = form.cleaned_data["create_category"]
+        description = form.cleaned_data["description"]
 
-    def post(self, request, *args, **kwargs):
-        image_formset = self.form_class(request.POST, request.FILES)
-        images = request.FILES.getlist('gallery_image')
-
-        if image_formset.is_valid():
-            category = image_formset.cleaned_data.get("category")
-
-            if isinstance(category, Category):
-                for image in images:
-                    gallery = Gallery(category=category, gallery_image=image)
-                    gallery.save()
-            else:
-                created_category = image_formset.cleaned_data.get('create_category')
-                description = image_formset.cleaned_data.get('description')
-                category = Category.objects.create(name=created_category, description=description)
-                for image in images:
-                    gallery = Gallery(category=category, gallery_image=image)
-                    gallery.save()
-            messages.success(request, "Images uploaded successfully!")
-            return super().form_valid(image_formset)
-
+        if category_name:
+            category = Category.objects.create(name=category_name, description=description)
         else:
-            return self.form_invalid(image_formset)
+            category = form.cleaned_data['category']
 
+        # Create image objects for each uploaded images
+        images = self.request.FILES.getlist('gallery_image')
+        for image in images:
+            gallery = Gallery(category=category, gallery_image=image)
+            gallery.save()
+        messages.success(self.request, "Images uploaded successfully!")
+        return super(GalleryUploadView, self).form_valid(form)
 
-    # def post(self, request, *args, **kwargs):
-    #     image_formset = self.form_class(request.POST, request.FILES)
-    #     category_form = CategoryForm(request.POST)
-    #     images = request.FILES.getlist('gallery_image')
-    #     if image_formset.is_valid() and category_form.is_valid():
-    #         category_name = request.POST.get("category")
-    #         if not image_formset.data["category"] and not category_form.data["name"]:
-    #             image_formset.add_error("category", "Please select or create a category")
-    #         # Check if the user selected an existing category or created a new one
-    #         elif category_name:
-    #             category, created = Category.objects.get_or_create(name=category_name)
-    #         else:
-    #             category = category_form.save()
+    def form_invalid(self, form):
+        return super(GalleryUploadView, self).form_invalid(form)
 
-    #         for image in images:
-    #             gallery = Gallery(category=category, gallery_image=image)
-    #             gallery.save()
-    #         messages.success(request, "Images uploaded successfully!")
-    #         return HttpResponseRedirect(self.success_url)
-
-    #     else:
-
-    #         self.form_invalid(image_formset)

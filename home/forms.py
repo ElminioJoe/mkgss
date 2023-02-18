@@ -107,15 +107,15 @@ class NewsForm(FormWidgets, forms.ModelForm):
 
 
 class GalleryForm(FormWidgets, forms.ModelForm):
-    # create_category = forms.CharField(max_length=50, required=False)
-    # category = forms.ChoiceField(
-    #     choices=[("", "")], required=False, label="Select Category"
-    # )
-    # description = forms.CharField(max_length=200, required=False)
+    create_category = forms.CharField(max_length=50, required=False, validators=[validate_category])
+    description = forms.CharField(max_length=200, required=False)
+    category = forms.ModelChoiceField(queryset=Category.objects.all(), required=False, label="Select Category")
 
     class Meta:
         model = Gallery
         fields = [
+            "create_category",
+            "description",
             "category",
             "gallery_image",
             # "image_alt_text",
@@ -130,30 +130,30 @@ class GalleryForm(FormWidgets, forms.ModelForm):
             )
         }
 
-    def __init__(self, *args, **kwargs):
-        super(GalleryForm, self).__init__(*args, **kwargs)
-        self.fields["category"].choices += [
-            (cat.id, cat.name) for cat in Category.objects.all()
-        ]
+    # def __init__(self, *args, **kwargs):
+    #     super(GalleryForm, self).__init__(*args, **kwargs)
+    #     self.fields["category"].choices += [
+    #         (cat.id, cat.name) for cat in Category.objects.all()
+    #     ]
 
-    def clean(self):
-        cleaned_data = super().clean()
-        category = cleaned_data.get("category")
-        created_category = cleaned_data.get("create_category")
-        description = cleaned_data.get("description")
+    # def clean(self):
+    #     cleaned_data = super().clean()
+    #     category = cleaned_data.get("category")
+    #     created_category = cleaned_data.get("create_category")
+    #     description = cleaned_data.get("description")
 
-        if not category and not created_category:
-            raise forms.ValidationError(
-                "Please choose an existing category or create a new one."
-            )
+    #     if not category and not created_category:
+    #         raise forms.ValidationError(
+    #             "Please choose an existing category or create a new one."
+    #         )
 
-        if created_category:
-            category = Category.objects.create(
-                name=created_category, description=description
-            )
-            cleaned_data["category"] = category
+    #     if created_category:
+    #         category = Category.objects.create(
+    #             name=created_category, description=description
+    #         )
+    #         cleaned_data["category"] = category
 
-        return cleaned_data
+    #     return cleaned_data
 
 
 # GalleryFormSet = forms.formset_factory(GalleryForm, extra =1)
@@ -172,7 +172,7 @@ class CategoryForm(FormWidgets, forms.ModelForm):
         # }
 
 class GalleryFormSet(FormWidgets, forms.Form):
-    name = forms.CharField(label=_("Create Category"), validators=[validate_category])
+    name = forms.CharField(label=_("Create Category"), validators=[validate_category],  required=False)
     description = forms.CharField(widget=forms.Textarea, required=False)
     category = forms.ModelChoiceField(queryset=Category.objects.all(),
                                        label=_("Select Category"), required=False)

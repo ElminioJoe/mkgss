@@ -14,7 +14,7 @@ urlpatterns = [
         name="home_features_update",
     ),
     path("gallery/", views.gallery, name="gallery"),
-    path("gallery/add/",views.GalleryUploadView.as_view(), name="add_image"),
+    path("gallery/add/",views.GalleryUploadView.as_view(), name="upload_images"),
     path("about/", views.AboutView.as_view(), name="about"),
     path(
         "about/create/administration/",

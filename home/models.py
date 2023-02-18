@@ -25,8 +25,7 @@ class ImageAltTextField(models.CharField):
         if not getattr(model_instance, self.attname):
             # Generate image alt text using the image filename
             image_field = [
-                f
-                for f in model_instance._meta.fields
+                f for f in model_instance._meta.fields
                 if isinstance(f, models.ImageField) and f.name == self.image_field_name
             ][0]
             filename = os.path.basename(getattr(model_instance, image_field.name).name)
@@ -86,7 +85,7 @@ class HomeFeature(models.Model):
         default="default value",
     )
     curricular_image_alt_text = ImageAltTextField(
-        image_field_name="curricular_image,",
+        image_field_name="curricular_image",
         help_text="Optional: Short description of what the image entails.",
     )
 

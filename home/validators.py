@@ -5,5 +5,5 @@ from .models import Category
 
 def validate_category(value):
     if Category.objects.filter(name__iexact=value).exists():
-        raise ValidationError(_("A category with this name already exists."))
+        raise ValidationError(_("A category with this name already exists."), code="invalid")
     return value
