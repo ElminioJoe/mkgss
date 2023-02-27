@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import HttpResponseRedirect, get_object_or_404, render
 from django.urls import reverse_lazy
-from django.views.generic import View, DetailView, CreateView, UpdateView, DeleteView, FormView
+from django.views.generic import View, DetailView, CreateView, UpdateView, DeleteView, FormView, ListView
 
 from .models import *
 from .forms import *
@@ -43,15 +43,19 @@ class HomeView(View):
         return render(request, self.template_name, context)
 
 
-def gallery(request):
-    # image_categories = Category.objects.all()
-    images = Gallery.objects.all()
+class GalleryView(View):
+    template_name = "home/gallery.html"
 
-    context = {
-        # 'image_categories': image_categories,
-        "images": images,
-    }
-    return render(request, "home/gallery.html", context)
+    def get(self, request, *args, **kwargs):
+        images = Gallery.objects.all().order_by("category")
+        image = images.first()
+
+        context = {
+            # "categories": categories,
+            "images": images,
+            "image": image,
+        }
+        return render(request, self.template_name, context)
 
 
 class AboutView(View):
@@ -95,7 +99,7 @@ class NewsView(View):
         return render(request, self.template_name, context)
 
 
-class SchoolInfoDetailView(DetailView):
+class SchoolNewsDetailView(DetailView):
     model = None  # model will be set in the url
     template_name = None  # template name will be set in the url
     context_object_name = None

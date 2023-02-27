@@ -13,7 +13,7 @@ urlpatterns = [
         ),
         name="home_features_update",
     ),
-    path("gallery/", views.gallery, name="gallery"),
+    path("gallery/", views.GalleryView.as_view(), name="gallery"),
     path("gallery/add/",views.GalleryUploadView.as_view(), name="upload_images"),
     path("about/", views.AboutView.as_view(), name="about"),
     path(
@@ -142,7 +142,7 @@ urlpatterns = [
     path("news/", views.NewsView.as_view(), name="news"),
     path(
         "news/<slug:slug>/",
-        views.SchoolInfoDetailView.as_view(
+        views.SchoolNewsDetailView.as_view(
             model=News,
             template_name="home/news_detail.html",
             context_object_name = "news_item"

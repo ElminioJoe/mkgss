@@ -22,14 +22,25 @@
             <i class="fa fa-plus-square-o mr-1" aria-hidden="true"></i>
             Add Image Gallery
         </button>
+
         <div class="row p-1">
-            {% for image in images %}
+            {% regroup images by category as category_list %}
+
+            {% for category in category_list %}
             <div class="col-6 col-sm-4 col-md-3 col-lg-2 p-1">
                 <div class="card p-1">
                     <div class="gallery-box">
-                        <a data-fancybox="gallery" data-caption="{{image.image_caption}}" data-caption="Date" href="{{image.gallery_image.url}}" class="fancylight popup-btn">
+                        <a data-fresco-group="gallery-{{ category.grouper.id }}" data-fresco-caption="{{ category.grouper.description }}" href="{{ image.gallery_image.url }}" class="fresco popup-btn">
+                            <img src="{{ image.thumbnail.url }}" class="img-fluid" loading="lazy" alt="{{ image.image_alt_text }}">
+                        </a>
+                    </div>
+
+                    <div class="d-none">
+                        {% for image in category.list %}
+                        <a data-fresco-group="gallery-{{ category.grouper.id }}" href="{{ image.gallery_image.url }}" class="fresco popup-btn">
                             <img src="{{image.thumbnail.url}}" class="img-fluid" loading="lazy" alt="{{image.image_alt_text}}">
                         </a>
+                        {% endfor %}
                     </div>
                     <!-- <p class="gallery-text">Lorem ipsum dolor, sit amet consectetur adipisicing eliut!</p class="gallery-text"> -->
                 </div>
@@ -38,6 +49,7 @@
             <h2 class="text-center">NO IMAGES UPLOADED YET</h2>
         {% endfor %}
         </div>
+
     </div>
 </section>
 
