@@ -18,11 +18,14 @@
     <div class="container">
 		<div class="row">
 			<div class="col-md-8">
+                {% if user.is_authenticated %}
 				<!-- Button trigger modal -->
                 <!-- Add Button -->
                 <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#openPostModal" data-title="Add News Article" data-url="{% url 'news_create' %}" data-form="newsForm" data-placement="top" title="Add">
                     <i class="fa fa-plus-square-o mr-2" aria-hidden="true"></i> Add News Article
                 </button>
+                {% endif %}
+
 				{% for news_item in news %}
 				<div class="my-3 pb-3 row align-items-center news_item">
                     <div class="mb-2 col-md-12 col-lg-5">
@@ -52,6 +55,7 @@
 					    <p class="mb-2">{{ news_item.news|truncatechars:200 }}</p>
 						<div class="d-flex">
 							<a href="{% url 'news' news_item.slug %}" class="mr-auto more">Read More</a>
+                            {% if user.is_authenticated %}
 							<!-- Buttons Trigger Modal -->
                             <!-- Edit Button -->
                             <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#openPostModal" data-title="Edit: {{ news_item.headline }} Article" data-url="{% url 'news_update' news_item.id %}" data-form="newsForm" data-placement="top" title="Edit">
@@ -61,6 +65,7 @@
                             <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteModal" data-title="Delete {{ news_item.headline }}" data-url="{% url 'news_delete' news_item.id %}" data-form="deleteForm" data-placement="top" title="Delete">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
+                            {% endif %}
 						</div>
                     </div>
 				</div>

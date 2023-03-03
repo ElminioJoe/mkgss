@@ -77,9 +77,22 @@ select:focus {
 .LargeTextField{
 	width: 42em;
 }
+
 .TextField {
 	width: 23em;
 }
+
+form.authentication {
+     padding-top: 2rem;
+     width: 400px;
+     margin: auto;
+}
+
+form.authentication input[type=submit] {
+     margin: 0.5rem auto;
+     width: 100%;
+}
+
 /*--------------- Forms ---------------*/
 
 @media (max-width: 767px){

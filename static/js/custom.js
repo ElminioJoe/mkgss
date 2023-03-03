@@ -105,20 +105,20 @@ $(function () {
   /* Fancybox
   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 
-  Fancybox.bind('[data-fancybox="gallery"]', {
-    caption: function (_fancybox, carousel, slide) {
-      return (
-        `${slide.index + 1} / ${carousel.slides.length} <br />` + slide.caption
-      );
-    },
-  });
+  // Fancybox.bind('[data-fancybox="gallery"]', {
+  //   caption: function (_fancybox, carousel, slide) {
+  //     return (
+  //       `${slide.index + 1} / ${carousel.slides.length} <br />` + slide.caption
+  //     );
+  //   },
+  // });
 
   /* Toggle sidebar
   -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 
   // Javascript to enable link to tab
   var hash = document.location.hash;
-  var prefix = "_";
+  var prefix = "tab_";
   if (hash) {
     $('#list-tab a[href="' + hash.replace(prefix, "") + '"]').tab("show");
   }

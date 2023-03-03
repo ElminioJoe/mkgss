@@ -47,11 +47,13 @@
 </section>
 <div class="container mt-5">
     <div class="bg-light_silver p-2 text-center rounded">
+        {% if user.is_authenticated %}
         <!-- Buttons Trigger Modal -->
         <!-- Edit Button -->
         <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#openPostModal" data-title="Edit HomePage" data-form="homeFeatureForm" data-url="{% url 'home_features_update' home_features.id %}" data-placement="top" title="Edit">
             <i class="fa-sharp fa-solid fa-pen-to-square"></i>
         </button>
+        {% endif %}
 
         <h2>Welcome to Moi Kadzonzo Girls Secondary School</h2>
         <p class="px-4">{{home_features.welcome_info}}</p>

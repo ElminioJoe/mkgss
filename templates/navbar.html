@@ -26,22 +26,22 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse mx-5" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills text-uppercase" id="pills-tab" role="tablist">
+      <ul class="navbar-nav mr-auto mb-2 mb-lg-0 nav-pills text-uppercase" id="pills-tab" role="tablist">
         <li class="nav-item" role="presentation">
           <a class="nav-link active cstm-hov" aria-current="page" href="/">Home</a>
         </li>
         <li class="nav-item dropdown" role="presentation">
-          <a class="nav-link dropdown-toggle cstm-hov" href="/about" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle cstm-hov" href="{% url 'about' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
             ABOUT
           </a>
           <ul class="dropdown-menu pt-2 green" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="/about#_list-academics">Academics</a></li>
-            <li><a class="dropdown-item" href="/about#_list-admin">Administration</a></li>
-            <li><a class="dropdown-item" href="/about#_list-admission">Admission</a></li>
-            <li><a class="dropdown-item" href="/about#_list-curricular">Co-Curricular</a></li>
-            <li><a class="dropdown-item" href="/about#_list-values">Our Values</a></li>
-            <li><a class="dropdown-item" href="/about#_list-history">School History</a></li>
-            <li><a class="dropdown-item" href="/about#_list-staff">Staff</a></li>
+            <li><a class="dropdown-item" href="/about#tab_list-academics">Academics</a></li>
+            <li><a class="dropdown-item" href="/about#tab_list-admin">Administration</a></li>
+            <li><a class="dropdown-item" href="/about#tab_list-admission">Admission</a></li>
+            <li><a class="dropdown-item" href="/about#tab_list-curricular">Co-Curricular</a></li>
+            <li><a class="dropdown-item" href="/about#tab_list-values">Our Values</a></li>
+            <li><a class="dropdown-item" href="/about#tab_list-history">School History</a></li>
+            <li><a class="dropdown-item" href="/about#tab_list-staff">Staff</a></li>
           </ul>
         </li>
         <li class="nav-item" role="presentation">
@@ -57,6 +57,14 @@
           <a class="nav-link" href="/contact">contact</a>
         </li>
       </ul>
+      {% if user.is_authenticated %}
+      <ul class="navbar-nav nav-pills text-uppercase">
+        <li class="navbar-text text-white">User: {{ user.get_username }}</li>
+        <li class="nav-item cstm-hov">
+          <a class="nav-link" href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
+        </li>
+      </ul>
+      {% endif %}
       <!-- <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>

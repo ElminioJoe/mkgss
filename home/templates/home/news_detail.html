@@ -42,6 +42,7 @@
                     	    	    {{ news_item.post_date|date:"d F Y" }}
                     	    	</span>
 
+								{% if user.is_authenticated %}
 								<!-- Buttons Trigger Modal -->
                             	<!-- Edit Button -->
                             	<button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#openPostModal" data-title="Edit: {{ news_item.headline }} Article" data-url="{% url 'news_update' news_item.id %}" data-form="newsForm" data-placement="top" title="Edit">
@@ -51,6 +52,7 @@
                             	<button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteModal" data-title="Delete {{ news_item.headline }}" data-url="{% url 'news_delete' news_item.id %}" data-form="deleteForm" data-placement="top" title="Delete">
                             	    <i class="fa-solid fa-trash"></i>
                             	</button>
+								{% endif %}
 							</div>
                     	</div>
 						<p class="mb-2 para-br">{{ news_item.news }}</p>
