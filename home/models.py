@@ -13,6 +13,7 @@ from model_utils.managers import InheritanceManager
 
 from .managers import RandomManager
 
+
 # Create your models here.
 class ImageAltTextField(models.CharField):
     def __init__(self, *args, **kwargs):
@@ -38,77 +39,107 @@ def get_sentinel_user():
 
 
 class HomeFeature(models.Model):
-    welcome_info = models.TextField(max_length=300, blank=True)
+    welcome_info = models.TextField(
+        max_length=300,
+        blank=True,
+        default="Welcome to Moi Kadzonzo Girls High School website. It is designed for parents, students, Alumni, staff, sponsors, friends of the school and prospective parents who may know little about us.",
+    )
 
-    administration_info = models.TextField(max_length=300, blank=True)
+    administration_info = models.TextField(
+        max_length=300,
+        blank=True,
+        default="Meet our team of experienced professionals who manage and lead our organization. Our administration is dedicated to providing the best possible service to our clients and stakeholders."
+    )
     administration_image = ResizedImageField(
         size=[1920, 1300],
         crop=["middle", "center"],
         upload_to="homeFeatures/",
         blank=True,
-        default="default value",
+        default="default-image.jpg",
     )
     administration_image_alt_text = ImageAltTextField(
         image_field_name="administration_image",
         help_text="Optional: Short description of what the image entails.",
     )
 
-    academics_info = models.TextField(max_length=300, blank=True)
+    academics_info = models.TextField(
+        max_length=300,
+        blank=True,
+        default="Our educational programs are designed to prepare students for success in their chosen careers. We offer a wide range of courses and programs, from technical training to liberal arts and sciences.",
+    )
     academics_image = ResizedImageField(
         size=[1920, 1300],
         crop=["middle", "center"],
         upload_to="homeFeatures/",
         blank=True,
-        default="default value",
+        default="default-image.jpg",
     )
-    academics_image_alt_text = ImageAltTextField(image_field_name="academics_image")
+    academics_image_alt_text = ImageAltTextField(
+        image_field_name="academics_image", default=""
+    )
 
-    staff_info = models.TextField(max_length=300, blank=True)
+    staff_info = models.TextField(
+        max_length=300,
+        blank=True,
+        default="Our staff is made up of dedicated and talented individuals who are committed to providing excellent service to our clients and customers. They bring a wealth of experience and expertise to their roles, ensuring that we deliver the highest quality work.",
+    )
     staff_image = ResizedImageField(
         size=[1920, 1300],
         crop=["middle", "center"],
         upload_to="homeFeatures/",
         blank=True,
-        default="default value",
+        default="default-image.jpg",
     )
     staff_image_alt_text = ImageAltTextField(
         image_field_name="staff_image",
         help_text="Optional: Short description of what the image entails.",
     )
 
-    curricular_info = models.TextField(max_length=300, blank=True)
+    curricular_info = models.TextField(
+        max_length=300,
+        blank=True,
+        default="Our curricular activities are designed to provide students with opportunities to explore their interests, develop new skills, and build relationships with peers. We offer a wide range of activities, from sports teams and clubs to music and theater programs.",
+    )
     curricular_image = ResizedImageField(
         size=[1920, 1300],
         crop=["middle", "center"],
         upload_to="homeFeatures/",
         blank=True,
-        default="default value",
+        default="default-image.jpg",
     )
     curricular_image_alt_text = ImageAltTextField(
         image_field_name="curricular_image",
         help_text="Optional: Short description of what the image entails.",
     )
 
-    library_info = models.TextField(max_length=300, blank=True)
+    library_info = models.TextField(
+        max_length=300,
+        blank=True,
+        default="Our library is a vital resource for students and researchers, providing access to a wide range of books, journals, and digital resources. Our knowledgeable staff is available to assist with research and information inquiries.",
+    )
     library_image = ResizedImageField(
         size=[1920, 1300],
         crop=["middle", "center"],
         upload_to="homeFeatures/",
         blank=True,
-        default="default value",
+        default="default-image.jpg",
     )
     library_image_alt_text = ImageAltTextField(
         image_field_name="library_image",
         help_text="Optional: Short description of what the image entails.",
     )
 
-    alumni_info = models.TextField(max_length=300, blank=True)
+    alumni_info = models.TextField(
+        max_length=300,
+        blank=True,
+        default="Our alumni are an important part of our community, and we are proud of their accomplishments and contributions. We maintain strong relationships with our alumni, providing opportunities for networking, professional development, and social events.",
+    )
     alumni_image = ResizedImageField(
         size=[1920, 1300],
         crop=["middle", "center"],
         upload_to="homeFeatures/",
         blank=True,
-        default="default value",
+        default="default-image.jpg",
     )
     alumni_image_alt_text = ImageAltTextField(
         image_field_name="alumni_image",
@@ -136,7 +167,10 @@ class Publisher(models.Model):
 
 
 class Staff(models.Model):
-    title = models.CharField(max_length=5, help_text="Titles and other words associated with a person's name. Example: 'Mr', 'Mrs', 'Miss'")
+    title = models.CharField(
+        max_length=5,
+        help_text="Titles and other words associated with a person's name. Example: 'Mr', 'Mrs', 'Miss'",
+    )
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.EmailField(blank=True)
@@ -145,8 +179,16 @@ class Staff(models.Model):
     )
     phone_number = models.CharField(max_length=10, blank=True)
     message = models.TextField(max_length=1000, blank=True, help_text="")
-    role = models.CharField(max_length=30, blank=True, help_text="Optional. The role of the staff member. Example: 'Principal', 'Deputy Principal', 'HOD'")
-    department = models.CharField(max_length=100 ,blank=True, null=True, help_text="Optional. The department the staff member belongs to."
+    role = models.CharField(
+        max_length=30,
+        blank=True,
+        help_text="Optional. The role of the staff member. Example: 'Principal', 'Deputy Principal', 'HOD'",
+    )
+    department = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+        help_text="Optional. The department the staff member belongs to.",
     )
 
     # department = models.ForeignKey(
@@ -164,14 +206,17 @@ class Staff(models.Model):
 
 
 class Department(models.Model):
-    name = models.CharField(max_length=30, help_text="The name of the department. Example: 'Mathematics', 'Humanities'  ")
+    name = models.CharField(
+        max_length=30,
+        help_text="The name of the department. Example: 'Mathematics', 'Humanities'  ",
+    )
 
     def __str__(self):
         return self.name
 
 
 class SchoolInfo(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, default='')
     image = ResizedImageField(
         size=[1920, 1300],
         crop=["middle", "center"],
@@ -231,9 +276,18 @@ class SchoolHistory(SchoolInfo):
 
 
 class SchoolValue(SchoolInfo):
-    motto = models.TextField(max_length=500)
-    mission = models.TextField(max_length=500)
-    vision = models.TextField(max_length=500)
+    motto = models.TextField(
+        max_length=500,
+        default="Bright Shining Star of Academic Excellence in the Nation.",
+    )
+    mission = models.TextField(
+        max_length=500,
+        default="Instilling Self-Esteem And Empowering The Girl Child For The Competitive Market In Life.",
+    )
+    vision = models.TextField(
+        max_length=500,
+        default="To Be A Bright Shining Star of Academic Excellence In The Nation.",
+    )
 
 
 class News(models.Model):
@@ -244,7 +298,7 @@ class News(models.Model):
         size=[1920, 1300],
         crop=["middle", "center"],
         upload_to="news/",
-        default="default value"
+        default="default value",
     )
     image_alt_text = ImageAltTextField(
         image_field_name="news_image",
@@ -284,10 +338,13 @@ class News(models.Model):
         super().delete(*args, **kwargs)
 
 
-
 class Gallery(models.Model):
-    category = models.ForeignKey("Category", on_delete=models.CASCADE, blank=True, related_name="image_category")
-    gallery_image = models.ImageField(upload_to="gallery/", blank=False, default="default value")
+    category = models.ForeignKey(
+        "Category", on_delete=models.CASCADE, blank=True, related_name="image_category"
+    )
+    gallery_image = models.ImageField(
+        upload_to="gallery/", blank=False, default="default value"
+    )
     image_alt_text = ImageAltTextField(
         image_field_name="gallery_image",
         help_text="Optional: short description of what the image entails.",
@@ -346,7 +403,9 @@ class Gallery(models.Model):
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=50, unique=True, blank=True, verbose_name="Category")
+    name = models.CharField(
+        max_length=50, unique=True, blank=True, verbose_name="Category"
+    )
     description = models.CharField(max_length=200, null=True, blank=True)
     slug = models.SlugField(max_length=300, unique=True, blank=True, null=True)
     date_created = models.DateTimeField(blank=True, null=True, auto_now_add=True)
@@ -369,3 +428,4 @@ class Category(models.Model):
     @classmethod
     def update_category(cls, id, name):
         cls.objects.filter(id=id).update(name=name)
+

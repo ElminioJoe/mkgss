@@ -23,7 +23,19 @@ class HomeView(View):
     template_name = "home/home.html"
 
     def get(self, request, *args, **kwargs):
-        home_features = get_object_or_404(HomeFeature)
+        try:
+            home_features = HomeFeature.objects.get()
+        except HomeFeature.DoesNotExist:
+            home_features = HomeFeature.objects.create(
+                welcome_info="Welcome to Moi Kadzonzo Girls High School website. It is designed for parents, students, Alumni, staff, sponsors, friends of the school and prospective parents who may know little about us.",
+                administration_info="Meet our team of experienced professionals who manage and lead our organization. Our administration is dedicated to providing the best possible service to our clients and stakeholders.",
+                academics_info="Our educational programs are designed to prepare students for success in their chosen careers. We offer a wide range of courses and programs, from technical training to liberal arts and sciences.",
+                staff_info="Our staff is made up of dedicated and talented individuals who are committed to providing excellent service to our clients and customers. They bring a wealth of experience and expertise to their roles, ensuring that we deliver the highest quality work.",
+                curricular_info="Our curricular activities are designed to provide students with opportunities to explore their interests, develop new skills, and build relationships with peers. We offer a wide range of activities, from sports teams and clubs to music and theater programs.",
+                library_info="Our library is a vital resource for students and researchers, providing access to a wide range of books, journals, and digital resources. Our knowledgeable staff is available to assist with research and information inquiries.",
+                alumni_info="Our alumni are an important part of our community, and we are proud of their accomplishments and contributions. We maintain strong relationships with our alumni, providing opportunities for networking, professional development, and social events."
+        )
+            
         schl_info = SchoolInfo.objects.select_subclasses(
             Admission, SchoolValue, SchoolHistory
         )
