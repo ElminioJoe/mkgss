@@ -41,9 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Installed Apps
-    'home',
+    'user_auth.apps.UserAuthConfig',
+    'home.apps.HomeConfig',
     'crispy_forms',
 ]
+
+AUTH_USER_MODEL = 'user_auth.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -142,9 +145,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Login & Logout URLs
-LOGIN_URL = '/accounts/login/'
+LOGIN_URL = '/authentication/login/'
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/accounts/login/'
+LOGOUT_REDIRECT_URL = '/authentication/login/'
+
+AUTHENTICATION_BACKENDS = [
+    'user_auth.backends.EmailBackend',
+]
 
 # DJANGO RESIZED
 

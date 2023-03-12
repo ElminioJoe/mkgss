@@ -19,7 +19,7 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('authentication/', include('user_auth.urls')),
 ]
 
 # Use static() to add url mapping to serve static files during development (only)
