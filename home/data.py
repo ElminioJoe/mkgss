@@ -34,10 +34,14 @@ def create_school_info_objects():
     if created:
         print("SchoolValue object created.")
 
+    history_file = "home/school_history.txt"
+    with open(history_file, "r") as f:
+        history_content = f.read()
+
     _, created = SchoolHistory.objects.get_or_create(
         name="School History",
         defaults={
-            "content": "school history goes here"
+            "content": history_content
         }
     )
     if created:
