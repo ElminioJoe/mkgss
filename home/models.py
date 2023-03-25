@@ -221,7 +221,7 @@ class SchoolInfo(models.Model):
         size=[1920, 1300],
         crop=["middle", "center"],
         upload_to="about/",
-        default="default value",
+        default="default-image.jpg",
         blank=True,
     )
     image_alt_text = ImageAltTextField(
@@ -298,7 +298,7 @@ class News(models.Model):
         size=[1920, 1300],
         crop=["middle", "center"],
         upload_to="news/",
-        default="default value",
+        default="default-image.jpg",
     )
     image_alt_text = ImageAltTextField(
         image_field_name="news_image",
@@ -343,7 +343,7 @@ class Gallery(models.Model):
         "Category", on_delete=models.CASCADE, blank=True, related_name="image_category"
     )
     gallery_image = models.ImageField(
-        upload_to="gallery/", blank=False, default="default value"
+        upload_to="gallery/", blank=False, default="default-image.jpg"
     )
     image_alt_text = ImageAltTextField(
         image_field_name="gallery_image",
