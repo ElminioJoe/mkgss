@@ -177,8 +177,8 @@ p {
 
 .more {
     text-transform: uppercase;
-    border: #563309 solid 1px;
-    background: #563309;
+    border: #6D3D14 solid 1px;
+    background: #6D3D14;
     width: fit-content;
 	display: inline-block;
     padding: 0.3rem;
@@ -188,9 +188,9 @@ p {
 }
 
 .more:hover {
-    border: #563309 solid 1px;
+    border: #6D3D14 solid 1px;
     background: #56330917;
-    color: #563309;
+    color: #6D3D14;
 	font-weight: 500;
     /* border-radius: 20px; */
     transition: ease-in-out all 0.5s;
@@ -224,7 +224,7 @@ button {
 	background: #f9f9f9;
 }
 .theme_bg {
-	background: #563309;
+	background: #6D3D14;
 }
 
 /*----------------------------
@@ -408,8 +408,8 @@ button {
 
 .banner-main .carousel-caption a {
 	text-transform: uppercase;
-	border: #563309 solid 1px;
-	background: #563309;
+	border: #6D3D14 solid 1px;
+	background: #6D3D14;
 	width: 196px;
 	padding: 12px 0;
 	display: inline-block;
@@ -422,7 +422,7 @@ button {
 .banner-main .carousel-caption a:hover {
 	border: #fff solid 1px;
 	background: #fff;
-	color: #563309;
+	color: #6D3D14;
 	border-radius: 25px;
     transition: ease-in all 0.5s;
 }
@@ -490,7 +490,7 @@ button {
 .slider_section #myCarousel .carousel-control-next:hover,
 .slider_section #myCarousel .carousel-control-prev:focus,
 .slider_section #myCarousel .carousel-control-next:focus {
-	background: #563309 !important;
+	background: #6D3D14 !important;
 	color: #fff;
 }
 
@@ -558,7 +558,7 @@ button {
 
 .values .values-box p {
 	padding: 10px 30px;
-	border: 5px solid #563309;
+	border: 5px solid #6D3D14;
 	border-top: none;
 	border-bottom: none;
 	border-radius:  100px;
@@ -587,7 +587,7 @@ button {
 
 .values .values-box .hoverle h3 {
 	padding: 5px 30px;
-	color: #563309;
+	color: #6D3D14;
    	font-size: 27px;
 	border-bottom: 1px solid #fc4311;
 	border-bottom-width: 3px;
@@ -615,7 +615,7 @@ button {
 	text-align: center;
 	display: flex;
 	justify-content: center;
-	background: #563309;
+	background: #6D3D14;
 	align-items: center;
 	margin: 0 15px;
 	border-radius: 20px;
@@ -673,8 +673,8 @@ img.zoom {
 
 .about a {
 text-transform: uppercase;
-border: #563309 solid 1px;
-background: #563309;
+border: #6D3D14 solid 1px;
+background: #6D3D14;
 width: 206px;
 padding: 15px 0;
 font-weight: 500;
@@ -746,7 +746,7 @@ margin-top: 50px;
     position: absolute;
     margin-left: 15px;
 	border: 1px transparent ;
-    background: #563309;
+    background: #6D3D14;
     padding: 7px 15px;
     color: #fff;
 }
@@ -836,9 +836,9 @@ margin-top: 50px;
 
 .contact .contact .send {
 	font-size: 16px;
-	border: #563309 solid 1px;
+	border: #6D3D14 solid 1px;
 	padding: 10px 50px;
-	background-color: #563309;
+	background-color: #6D3D14;
 	color: #fff;
 	display: flex;
 	justify-content: center;
@@ -850,15 +850,15 @@ margin-top: 50px;
 }
 
 .contact .contact .send:hover {
-	background-color: #563309;
-	border: #563309 solid 1px;
+	background-color: #6D3D14;
+	border: #6D3D14 solid 1px;
 	color: #fff;
     border-radius: 25px;
     transition: ease-in all 0.5s;
 }
 .contact .address{
 	font-size: 1.1rem;
-	color: #563309;
+	color: #6D3D14;
 	font-weight: 600;
 }
 .contact .address i{
@@ -887,11 +887,11 @@ margin-top: 50px;
     justify-items: center;
 } */
 .cst_pages .list-group-override .list-group-item-override.active{
-	background-color: #563309;
-	border-color: #563309;
+	background-color: #6D3D14;
+	border-color: #6D3D14;
 }
 .cst_pages .list-group-override .list-group-item-override:hover{
-	border-left: #563309 solid 3px;
+	border-left: #6D3D14 solid 3px;
 }
 
 .cst_pages img.float-left{

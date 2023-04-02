@@ -1,7 +1,7 @@
 footer {
 	display: block;
 	padding: 0 0 7em 0;
-	background: #563309;
+	background: #6D3D14;
 }
 footer .text {
 	color: #f0f0f0;
@@ -65,7 +65,7 @@ footer .menu a {
 }
 footer .icon i {
 	padding: 0.2em;
-	color: #563309;
+	color: #6D3D14;
 	font-size: 1.5em;
 }
 footer .icon {
@@ -77,13 +77,13 @@ footer .icon {
 }
 
 footer .mb-md-0.d-flex:first-child {
-	background-color: #2720174f;
+	background-color: #472f1b4f;
 }
 footer .mb-md-0.d-flex:nth-child(2) {
-	background-color: #2720176b;
+	background-color: #472f1b6b;
 }
 footer .mb-md-0.d-flex:last-child {
-	background-color: #27201727;
+	background-color: #472f1b2d;
 }
 .footer-social li:first-child a:hover {
 	color: #FF0000;
