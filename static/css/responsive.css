@@ -25,7 +25,6 @@
         bottom: 0;
         padding: 0;
     }
-    .banner-main .carousel-caption h1 {padding-top: 0px;}
     .footer .address h3 {
         font-size: 20px;
     }
@@ -66,21 +65,6 @@
         padding: 0;
         border: 0 aliceblue;
         bottom: 0;
-    }
-    .banner-main .carousel-caption h1 {
-        color: #fff;
-        font-size: 59px;
-        line-height: 60px;
-        font-weight: bold;
-        padding-top: 0px;
-    }
-    .banner-main .carousel-caption p {
-        font-size: 17px;
-        padding: 9px 0px 18px 0px;
-    }
-    .banner-main .carousel-caption a {
-        width: 182px;
-        padding: 8px 0;
     }
     .top_layer::before {
         display: none;
@@ -142,27 +126,29 @@
         padding: 0;
         bottom: 0;
     }
-    .banner-main .carousel-caption {
-        background: transparent;
-    }
-    .banner-main .carousel-caption h1 {
 
-    font-size: 45px;
-    line-height: 50px;
-    color: #fc4311;
-    padding-top: 0px;
+    .slider_section .carousel-control-prev {
+        left: -20px;
     }
-    .banner-main .carousel-caption p {
-        font-size: 17px;
-        padding: 7px 0px 20px 0px;
+    .slider_section .carousel-control-next {
+        right: -20px;
     }
-    .carousel-item img {
+
+    .slider_section .carousel-item img {
         width: 100%;
-        height: 400px;
+        height: auto;
     }
     .top_layer::before {
         display: none;
     }
+    .info-cards .info_img img {
+        transform: scale(1);
+    }
+
+    .info-cards .col-lg-3:last-child {
+        padding-top: 1.5rem !important;
+    }
+
     .address {
         margin-bottom: 30px;
     }
@@ -219,10 +205,15 @@
         padding-bottom: 25px;
         float: inherit;
     }
-    #main_slider .carousel-control-prev,
-    #main_slider .carousel-control-next {
-        width: 40px;
-        height: 40px;
+    .slider_section .carousel-control-prev {
+        left: -20px;
+    }
+    .slider_section .carousel-control-next {
+        right: -20px;
+    }
+    .slider_section .carousel-item img {
+        width: 100%;
+        height: auto;
     }
     .absolute {
         position: absolute;
@@ -231,17 +222,6 @@
         transform: translateY(-50%);
         padding: 0;
         bottom: 0;
-    }
-    .banner-main .carousel-caption h1 {
-        font-size: 26px;
-        line-height: 50px;
-        margin-bottom: 19px;
-    }
-
-    .banner-main .carousel-caption p {
-        font-size: 17px;
-        padding: 7px 0px 20px 0px;
-        display: none;
     }
     .carousel-item img {
         width: 100%;
