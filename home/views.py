@@ -54,12 +54,9 @@ class GalleryView(View):
 
     def get(self, request, *args, **kwargs):
         images = Gallery.objects.all().order_by("category")
-        image = images.first()
 
         context = {
-            # "categories": categories,
             "images": images,
-            "image": image,
         }
         return render(request, self.template_name, context)
 

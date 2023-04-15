@@ -32,19 +32,20 @@
             <div class="col-6 col-sm-4 col-md-3 col-lg-2 p-1">
                 <div class="card p-1">
                     <div class="gallery-box">
-                        <a data-fresco-group="gallery-{{ category.grouper.id }}" data-fresco-caption="{{ category.grouper.description }}" href="{{ image.gallery_image.url }}" class="fresco popup-btn">
-                            <img src="{{ image.thumbnail.url }}" class="img-fluid" loading="lazy" alt="{{ image.image_alt_text }}">
+                        <a data-fresco-group="gallery-{{ category.grouper.id }}" href="{{ category.list.0.gallery_image.url }}" class="fresco popup-btn">
+                            <img src="{{ category.list.0.thumbnail.url }}" class="img-fluid" loading="lazy" alt="{{ category.list.0.image_alt_text }}">
+                            <p class="gallery-text">{{ category.grouper.description }}</p>
                         </a>
                     </div>
 
                     <div class="d-none">
-                        {% for image in category.list %}
+                        {% for image in category.list|slice:"1:" %}
                         <a data-fresco-group="gallery-{{ category.grouper.id }}" href="{{ image.gallery_image.url }}" class="fresco popup-btn">
                             <img src="{{image.thumbnail.url}}" class="img-fluid" loading="lazy" alt="{{image.image_alt_text}}">
                         </a>
                         {% endfor %}
                     </div>
-                    <!-- <p class="gallery-text">Lorem ipsum dolor, sit amet consectetur adipisicing eliut!</p class="gallery-text"> -->
+                    <!-- <p class="gallery-text">{{ category.grouper.description }}</p> -->
                 </div>
             </div>
             {% empty %}

@@ -810,6 +810,11 @@ img.zoom {
 	padding: 0px 5px;
 }
 
+.contact .address span{
+	font-size: 1rem;
+	font-weight: normal;
+}
+
 .contact .flexcont .p-override {
 	padding: 2px;
 }
@@ -856,21 +861,30 @@ img.zoom {
 /*--------------- gallery page css ---------------*/
 
 .gallery_pg .card .gallery-text {
-	/* display: none; */
 	position: absolute;
-	color: #000;
-	bottom: 3rem;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	color: #fff;
+	font-size: 0.7rem;
+	padding: 0.5rem;
+	border-radius: 5px;
+	opacity: 0;
+	transition: opacity 0.2s ease-in-out;
+}
 
+.gallery-box:hover .gallery-text {
+	opacity: 1;
 }
 
 .gallery_pg .gallery-box img {
 	cursor: pointer;
 }
 
-.gallery_pg .gallery-box img:hover {
+/* .gallery_pg .gallery-box img:hover {
 	opacity: 0.5;
 	filter: grayscale(90%);
-}
+} */
 
 .gallery_pg .card:hover {
 	display: contents;

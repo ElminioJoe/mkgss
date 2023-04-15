@@ -25,9 +25,6 @@ form .control-group .controls p{
 /*--------------- Modal Form ---------------*/
 
 /*--------------- Forms ---------------*/
-.aligned{
-	padding: 0 2rem;
-}
 
 fieldset.aligned > :first-child {
 	padding: 1rem;
@@ -49,6 +46,10 @@ fieldset.aligned > :first-child {
      width: 160px;
      word-wrap: break-word;
      line-height: 1;
+}
+
+.aligned .form-control-file {
+     width: 75%;
 }
 
 input[type=text],
@@ -75,7 +76,7 @@ select:focus {
 }
 
 .LargeTextField{
-	width: 42em;
+	width: 37em;
 }
 
 .TextField {
