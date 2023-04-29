@@ -5,15 +5,14 @@
 <div class="jumbotron py-5 mb-0">
     <h2 class="text-uppercase text-center">About</h2>
 </div>
-<div class="mb-5 breadcrumb bg-light">
+{% comment %}
+<div class="breadcrumb bg-light">
     <div class="container-md">
-        <ul class="list-inline p-2">
-            <li class="list-inline-item">Home</li>
-            <li class="list-inline-item">About</li>
-            <li class="list-inline-item"></li>
-        </ul>
+        {% include "breadcrumb.html" %}
     </div>
 </div>
+{% endcomment %}
+
 <section class="container-md cst_pages">
     <div class="row">
         <!-- sidebar links -->

@@ -4,15 +4,13 @@
 <div class="jumbotron py-5 mb-0">
 	<h2 class="text-uppercase text-center">News</h2>
 </div>
-<div class="mb-5 breadcrumb bg-light">
+{% comment %}
+<div class="breadcrumb bg-light">
 	<div class="container-md">
-		<ul class="list-inline p-2">
-			<li class="list-inline-item">Home</li>
-			<li class="list-inline-item">News Article</li>
-			<li class="list-inline-item"></li>
-		</ul>
+		{% include "breadcrumb.html" %}
 	</div>
 </div>
+{% endcomment %}
 
 <section class="news_detail">
     <div class="container-md">
@@ -31,6 +29,9 @@
 					</div>
 					<div class="p-2">
                     	<div class="mb-2 ">
+									<a href="{{ news_item.get_absolute_url }}" data-toggle="tooltip" data-placement="right" title="News">
+										<i class="fa-solid fa-angles-left fa-beat-fade fa-lg" style="color: #6d3d14;"></i>
+									</a>
 							<h2>{{ news_item.headline }}</h2>
                     	    <div class="meta d-flex">
 								<span class="text-muted">
@@ -82,7 +83,7 @@
 							</div>
 							<div class="col-7 p-2">
                             	<div class="mb-2 ">
-				        		    <a href="{% url 'news' news_item.slug %}" class="stretched-link">
+				        		    <a href="{% url 'news-detail' news_item.slug %}" class="stretched-link">
 										<h5 class="display-6">{{ news_item.headline }}</h5>
 									</a>
                             	    <div class="meta d-flex">

@@ -147,7 +147,7 @@ urlpatterns = [
             template_name="home/news_detail.html",
             context_object_name = "news_item"
         ),
-        name="news"),
+        name="news-detail"),
     path(
         "news/create/article",
         views.SchoolInfoCreateView.as_view(
