@@ -10,6 +10,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from PIL import Image
 from model_utils.managers import InheritanceManager
+from ckeditor.fields import RichTextField
 
 from .managers import RandomManager
 
@@ -252,27 +253,27 @@ class SchoolInfo(models.Model):
 
 
 class Administration(SchoolInfo):
-    info = models.TextField(max_length=5000)
+    info = RichTextField()
 
 
 class Academic(SchoolInfo):
     subject = models.CharField(max_length=70)
-    info = models.TextField(max_length=5000)
+    info = RichTextField()
 
     def __str__(self):
         return f"{self.name} - {self.subject}"
 
 
 class Admission(SchoolInfo):
-    info = models.TextField(max_length=5000)
+    info = RichTextField()
 
 
 class Curricular(SchoolInfo):
-    info = models.TextField(max_length=5000)
+    info = RichTextField()
 
 
 class SchoolHistory(SchoolInfo):
-    content = models.TextField(max_length=5000)
+    content = RichTextField()
 
 
 class SchoolValue(SchoolInfo):
@@ -292,7 +293,7 @@ class SchoolValue(SchoolInfo):
 
 class News(models.Model):
     headline = models.CharField(max_length=250)
-    news = models.TextField()
+    news = RichTextField()
     publisher = models.ForeignKey(Publisher, on_delete=models.SET(get_sentinel_user))
     news_image = ResizedImageField(
         size=[1920, 1300],

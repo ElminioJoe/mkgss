@@ -11,6 +11,7 @@ psycopg2 = "*"
 django-resized = "*"
 django-crispy-forms = "*"
 django-model-utils = "*"
+django-ckeditor = "*"
 
 [dev-packages]
 black = "*"

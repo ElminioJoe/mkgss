@@ -1,5 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
+from ckeditor.widgets import CKEditorWidget
+
 
 from .models import *
 from .validators import validate_category
@@ -11,13 +13,18 @@ class FormWidgets(forms.Form):
         for name, field in self.fields.items():
             attrs = {}
             if isinstance(field.widget, forms.Textarea):
-                attrs.update({"class": "LargeTextField", "rows": "3", "cols": "10"})
+                attrs.update({"class": "LargeTextField ckeditor", "rows": "3", "cols": "10"})
             if isinstance(field.widget, forms.TextInput):
                 attrs.update({"class": "TextField"})
             if isinstance(field.widget, forms.ClearableFileInput):
                 attrs.update({"class": "form-control-file"})
             self.fields[name].widget.attrs.update(attrs)
 
+
+class MultipleFileInput(forms.FileInput):
+    def render(self, name, value, attrs=None, renderer=None):
+        attrs['multiple'] = 'multiple'
+        return super().render(name, value, attrs)
 
 class StaffForm(FormWidgets, forms.ModelForm):
     class Meta:
@@ -65,6 +72,8 @@ class SchoolInfoForm(FormWidgets, forms.ModelForm):
 
 
 class AdministrationForm(SchoolInfoForm):
+    info = forms.CharField(widget=CKEditorWidget())
+
     class Meta(SchoolInfoForm.Meta):
         model = Administration
         fields = SchoolInfoForm.Meta.fields + ["info"]
@@ -77,6 +86,7 @@ class AcademicForm(SchoolInfoForm):
 
 
 class AdmissionForm(SchoolInfoForm):
+    info = forms.CharField(widget=CKEditorWidget())
     class Meta(SchoolInfoForm.Meta):
         model = Admission
         fields = SchoolInfoForm.Meta.fields + ["info"]
@@ -110,6 +120,11 @@ class GalleryForm(FormWidgets, forms.ModelForm):
     create_category = forms.CharField(max_length=50, required=False, validators=[validate_category])
     description = forms.CharField(max_length=200, required=False)
     category = forms.ModelChoiceField(queryset=Category.objects.all(), required=False, label="Select Category")
+    gallery_image = forms.ImageField(
+        label=_("Image"),
+        widget=MultipleFileInput(attrs={"required": False}),
+        required=False,
+    )
 
     class Meta:
         model = Gallery
@@ -124,11 +139,7 @@ class GalleryForm(FormWidgets, forms.ModelForm):
             "gallery_image": _("Image"),
         }
         help_texts = {"gallery_image": _("upload images")}
-        widgets = {
-            "gallery_image": forms.ClearableFileInput(
-                attrs={"multiple": True, "required": False}
-            )
-        }
+
 
     # def __init__(self, *args, **kwargs):
     #     super(GalleryForm, self).__init__(*args, **kwargs)
@@ -171,35 +182,34 @@ class CategoryForm(FormWidgets, forms.ModelForm):
         #     'name': _('Category name.'),
         # }
 
-class GalleryFormSet(FormWidgets, forms.Form):
-    name = forms.CharField(label=_("Create Category"), validators=[validate_category],  required=False)
-    description = forms.CharField(widget=forms.Textarea, required=False)
-    category = forms.ModelChoiceField(queryset=Category.objects.all(),
-                                       label=_("Select Category"), required=False)
-    gallery_image = forms.ImageField(widget=forms.ClearableFileInput(
-                attrs={"multiple": True, "required": False}), label=_("Image"),
-                                           required=False)
+# class GalleryFormSet(FormWidgets, forms.Form):
+#     name = forms.CharField(label=_("Create Category"), validators=[validate_category],  required=False)
+#     description = forms.CharField(widget=forms.Textarea, required=False)
+#     category = forms.ModelChoiceField(queryset=Category.objects.all(),
+#                                        label=_("Select Category"), required=False)
+#     gallery_image = forms.ImageField(widget=MultipleFileInput(attrs={"required": False}), label=_("Image"),
+#                                            required=False)
 
-    def clean_category(self):
-        name = self.cleaned_data.get('name')
-        category = self.cleaned_data.get('category')
+#     def clean_category(self):
+#         name = self.cleaned_data.get('name')
+#         category = self.cleaned_data.get('category')
 
-        if not name and not category:
-            raise forms.ValidationError(_("Please create a new category or select an existing one"))
+#         if not name and not category:
+#             raise forms.ValidationError(_("Please create a new category or select an existing one"))
 
-        return category
+#         return category
 
-    def save(self, commit=True):
-        name = self.cleaned_data.get('name')
-        description = self.cleaned_data.get('description')
-        category = self.cleaned_data.get('category')
-        images = self.cleaned_data.get('gallery_image')
+#     def save(self, commit=True):
+#         name = self.cleaned_data.get('name')
+#         description = self.cleaned_data.get('description')
+#         category = self.cleaned_data.get('category')
+#         images = self.cleaned_data.get('gallery_image')
 
-        if name:
-            category = Category.objects.create(name=name, description=description)
-        else:
-            category = Category.objects.get(id=category.id)
+#         if name:
+#             category = Category.objects.create(name=name, description=description)
+#         else:
+#             category = Category.objects.get(id=category.id)
 
-        if images:
-            for image in images:
-                Gallery.objects.create(category=category, gallery_image=image)
+#         if images:
+#             for image in images:
+#                 Gallery.objects.create(category=category, gallery_image=image)
