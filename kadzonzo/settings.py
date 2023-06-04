@@ -172,7 +172,7 @@ CKEDITOR_CONFIGS = {
         'toolbar_Custom': [
             {'name': 'tools', 'items': ['Maximize']},
             {'name': 'clipboard', 'items': ['Undo', 'Redo', '-', 'SelectAll', 'Copy', 'Cut', 'Paste']},
-            {'name': 'paragraph', 'items': ['NumberedList', 'BulletedList', '-','JustifyLeft', 'JustifyCenter', 'JustifyRight', '-', 'Outdent', 'Indent',]},
+            {'name': 'paragraph', 'items': ['NumberedList', 'BulletedList', '-','JustifyLeft', 'JustifyCenter', 'JustifyRight', '-', 'Outdent', 'Indent', '-', 'Blockquote']},
             '/', # next toolbar on new line
             {'name': 'styles', 'items': ['Format']},
             {'name': 'basicstyles', 'items': ['Bold', 'Italic', 'Underline', '-', 'Subscript', 'Superscript', '-', 'RemoveFormat']},

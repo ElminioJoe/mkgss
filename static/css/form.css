@@ -96,6 +96,20 @@ form.authentication input[type=submit] {
 
 /*--------------- Forms ---------------*/
 
+/*--------------- CKEDITOR ---------------*/
+div.cke.cke_reset.cke_chrome {
+     width: 47em !important;
+}
+
+@media (max-width: 991px) {
+     div.cke.cke_reset.cke_chrome {
+          width: auto !important;
+     }
+
+}
+
+/*--------------- end CKEDITOR ---------------*/
+
 @media (max-width: 767px){
      .aligned input,
      .aligned select,

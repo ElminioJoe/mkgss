@@ -52,6 +52,7 @@ body {
 	font-family: 'Helvetica', sans-serif;
 	line-height: 1.80857;
 	overflow-x: hidden;
+	/* background-color: #cbb9a840; */
 }
 
 .meta {
@@ -944,5 +945,14 @@ img.zoom {
 .news_detail .main-post .news_item {
 	padding-right: 45px;
 }
+.news_detail .main-post .para-br p {
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
 
+.news_detail .main-post blockquote {
+	border-left: 2px solid #6D3D14;
+	padding-left: 20px;
+	font-style: italic;
+}
 /*--------------- end News/Blog page css ---------------*/

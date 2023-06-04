@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
-<div class="jumbotron py-5 mb-0">
+<div class="jumbotron py-5 mb-5">
     <h2 class="text-uppercase text-center">About</h2>
 </div>
 {% comment %}
@@ -62,7 +62,7 @@
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-6">
-                                    <p class="mt-0 mb-3">{{ academic.info }}</p>
+                                    <p class="mt-0 mb-3">{{ academic.info|safe }}</p>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <img src="{{ academic.image.url }}" class="img-fluid" alt="{{ academic.image_alt_text }}">
@@ -106,7 +106,7 @@
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-6">
-                                    <p class="mt-0 mb-3 para-br">{{ admin.info }}</p>
+                                    <p class="mt-0 mb-3 para-br">{{ admin.info|safe }}</p>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <img src="{{ admin.image.url }}" class="img-fluid" alt="{{ admin.image_alt_text }}">
@@ -135,7 +135,7 @@
                     <!-- <h4>{{ admission.0.name }}</h4> -->
                     <div class="row d-flex align-items-center">
                         <div class="col-md-6 align-self-start">
-                            <p class="mt-0 mb-3 para-br">{{ admission.0.info }}</p>
+                            <p class="mt-0 mb-3 para-br">{{ admission.0.info|safe }}</p>
                         </div>
                         <div class="col-md-6">
                             <img src="{{ admission.0.image.url }}" class="img-fluid" alt="{{ admission.0.image_alt_text }}">
@@ -177,7 +177,7 @@
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-6">
-                                    <p class="mt-0 mb-3 para-br">{{ co.info }}</p>
+                                    <p class="mt-0 mb-3 para-br">{{ co.info|safe }}</p>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <img src="{{ co.image.url }}" class="img-fluid" alt="{{ co.image_alt_text }}">
@@ -252,7 +252,7 @@
                     {% if school_history %}
                     <div class="px-3 text-justify align-items-center">
                         <!-- <h4>{{school_history.name}}</h4> -->
-                        <p class="mt-0 mb-3 para-br">{{ school_history.0.content }}</p>
+                        <p class="mt-0 mb-3 para-br">{{ school_history.0.content|safe }}</p>
                     </div>
                     {% endif %}
                 </div>
@@ -289,7 +289,7 @@
                                 {% endif %}
                             </div>
                             <img src="{{ staff.picture.url }}" class="img-fluid float-left pr-3 pt-2" alt="{{ staff.image_alt_text }}">
-                            <p class="mt-0 mb-4 para-br">{{ staff.message }}</p>
+                            <p class="mt-0 mb-4 para-br">{{ staff.message|safe }}</p>
                         </div>
                         <hr>
                         {% endfor %}
