@@ -141,34 +141,6 @@ class GalleryForm(FormWidgets, forms.ModelForm):
         help_texts = {"gallery_image": _("upload images")}
 
 
-    # def __init__(self, *args, **kwargs):
-    #     super(GalleryForm, self).__init__(*args, **kwargs)
-    #     self.fields["category"].choices += [
-    #         (cat.id, cat.name) for cat in Category.objects.all()
-    #     ]
-
-    # def clean(self):
-    #     cleaned_data = super().clean()
-    #     category = cleaned_data.get("category")
-    #     created_category = cleaned_data.get("create_category")
-    #     description = cleaned_data.get("description")
-
-    #     if not category and not created_category:
-    #         raise forms.ValidationError(
-    #             "Please choose an existing category or create a new one."
-    #         )
-
-    #     if created_category:
-    #         category = Category.objects.create(
-    #             name=created_category, description=description
-    #         )
-    #         cleaned_data["category"] = category
-
-    #     return cleaned_data
-
-
-# GalleryFormSet = forms.formset_factory(GalleryForm, extra =1)
-
 
 class CategoryForm(FormWidgets, forms.ModelForm):
     # name = forms.CharField(validators=[validate_category])
@@ -181,35 +153,3 @@ class CategoryForm(FormWidgets, forms.ModelForm):
         # help_texts = {
         #     'name': _('Category name.'),
         # }
-
-# class GalleryFormSet(FormWidgets, forms.Form):
-#     name = forms.CharField(label=_("Create Category"), validators=[validate_category],  required=False)
-#     description = forms.CharField(widget=forms.Textarea, required=False)
-#     category = forms.ModelChoiceField(queryset=Category.objects.all(),
-#                                        label=_("Select Category"), required=False)
-#     gallery_image = forms.ImageField(widget=MultipleFileInput(attrs={"required": False}), label=_("Image"),
-#                                            required=False)
-
-#     def clean_category(self):
-#         name = self.cleaned_data.get('name')
-#         category = self.cleaned_data.get('category')
-
-#         if not name and not category:
-#             raise forms.ValidationError(_("Please create a new category or select an existing one"))
-
-#         return category
-
-#     def save(self, commit=True):
-#         name = self.cleaned_data.get('name')
-#         description = self.cleaned_data.get('description')
-#         category = self.cleaned_data.get('category')
-#         images = self.cleaned_data.get('gallery_image')
-
-#         if name:
-#             category = Category.objects.create(name=name, description=description)
-#         else:
-#             category = Category.objects.get(id=category.id)
-
-#         if images:
-#             for image in images:
-#                 Gallery.objects.create(category=category, gallery_image=image)

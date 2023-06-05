@@ -171,5 +171,5 @@ urlpatterns = [
         views.SchoolInfoDeleteView.as_view(model=News, success_url=reverse_lazy("news")),
         name="news_delete",
     ),
-    path("contact/", views.contact, name="contact"),
+    path("contact/", views.ContactFormView.as_view(), name="contact"),
 ]
