@@ -1,5 +1,3 @@
-import re
-
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.shortcuts import HttpResponseRedirect, get_object_or_404, render
@@ -9,7 +7,7 @@ from django.views.generic import View, DetailView, CreateView, UpdateView, Delet
 from .models import *
 from .forms import *
 from .data import create_school_info_objects, create_home_feature_objects
-
+from .validators import validate_email, sanitize_input
 # Create your views here.
 
 
@@ -177,31 +175,33 @@ class ContactFormView(View):
     # success_url = "/contact/"
 
     def get(self, request):
-        return render(request, self.template_name)
+        form = ContactForm(initial=request.POST)
+        return render(request, self.template_name, {'form':form})
 
     def post(self, request):
-        name = sanitize_input(request.POST.get('Name'))
-        email = sanitize_input(request.POST.get('Email'))
-        subject = sanitize_input(request.POST.get('Subject'))
-        message = sanitize_input(request.POST.get('Message'))
+        form = ContactForm(request.POST)
 
-        # Perform additional validation
-        if not name or not email or not subject or not message:
-            return render(request, self.template_name, {'error': 'Please fill in all fields.'})
+        if form.is_valid():
+            name = sanitize_input(form.cleaned_data.get('name'))
+            email = form.cleaned_data.get('email')
+            subject = sanitize_input(form.cleaned_data.get('subject'))
+            message = sanitize_input(form.cleaned_data.get('message'))
 
-        if not validate_email(email):
-            return render(request, self.template_name, {'error': 'Invalid email address.'})
+            # Perform additional validation
+            if not all([name, email, subject, message]):
+                messages.error(request, 'Please fill in all fields.')
+            elif not validate_email(email):
+                messages.error(request, 'Invalid Email Address.')
+            else:
+                host_email_address = os.environ.get('EMAIL_HOST_USER')
+                send_mail(subject, message, email, [host_email_address])
+                messages.info(self.request, 'Your message has been delivered Successfully.')
+                # Clear the form values after successful submission
+                form = ContactForm()
+        else:
+            messages.error(request, 'Form submission is invalid.')
 
-        # Retrieve email from the environment Variable
-        import os
-
-        host_email_address = os.environ.get('EMAIL_HOST_USER')
-        # Send the email
-        send_mail(subject, message, email, [host_email_address])
-
-        messages.success(self.request, 'Your message has been delivered Successfully.')
-
-        return render(request, self.template_name)
+        return render(request, self.template_name, {'form': form})
 
 class GalleryUploadView(FormView):
     template_name = 'home/forms/gallery_upload_form.html'
@@ -234,18 +234,3 @@ class GalleryUploadView(FormView):
 
     def form_invalid(self, form):
         return super(GalleryUploadView, self).form_invalid(form)
-
-
-
-def sanitize_input(data):
-    # Remove HTML tags and special characters
-    cleaned_data = re.sub('<[^>]*>', '', data)
-    cleaned_data = cleaned_data.strip()
-    return cleaned_data
-
-def validate_email(email):
-    # Perform email validation logic, such as using regular expressions
-    # Return True if the email is valid, False otherwise
-    # Example:
-    pattern = re.compile(r'^[\w.-]+@[a-zA-Z.-]+\.[a-zA-Z]{2,}$')
-    return bool(pattern.match(email))

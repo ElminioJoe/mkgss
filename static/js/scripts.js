@@ -19,9 +19,9 @@ $(function () {
   // destroy messages div after 2 seconds
   setTimeout(function () {
     if ($("#message").length > 0) {
-      $("#message").remove();
+      $(".messages").empty();
     }
-  }, 5000);
+  }, 15000);
 
   // form DOM Manipulation
 

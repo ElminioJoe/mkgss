@@ -16,7 +16,8 @@
 
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                 <div class="contact card">
-                    <form>
+                    <form action="{% url 'contact' %}" method="POST">
+                        {% csrf_token %}
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="titlepage">
@@ -24,19 +25,19 @@
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <input class="contactus" placeholder="Name" type="text" name="Name" required>
+                                <input class="contactus" placeholder="Name" type="text" name="name" value="{{ form.name.value|default_if_none:'' }}" required>
                             </div>
                             <div class="col-sm-12 col-md-6">
-                                <input class="contactus" placeholder="Email" type="email" name="Email" required>
+                                <input class="contactus" placeholder="Email" type="email" name="email" value="{{ form.email.value|default_if_none:'' }}" required>
                             </div>
                             <div class="col-sm-12">
-                                <input class="contactus" placeholder="Subject" type="text" name="Subject" required>
+                                <input class="contactus" placeholder="Subject" type="text" name="subject" value="{{ form.subject.value|default_if_none:'' }}" required>
                             </div>
                             <div class="col-sm-12">
-                                <textarea class="textarea" placeholder="Message" type="text" name="Message" required rows="4"></textarea>
+                                <textarea class="textarea" placeholder="Message" type="text" name="message" required rows="4">{{ form.message.value|default_if_none:'' }}</textarea>
                             </div>
                             <div class="col-sm-12">
-                                <button class="send">SEND</button>
+                                <button type="submit" class="send">SEND</button>
                             </div>
                             <p class="px-2 text-center">* All fields are Mandatory.</p>
                         </div>

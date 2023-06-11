@@ -155,6 +155,9 @@ AUTHENTICATION_BACKENDS = [
     'user_auth.backends.EmailBackend',
 ]
 
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
 # DJANGO RESIZED
 
 DJANGORESIZED_DEFAULT_SIZE = [500, 500]

@@ -12,6 +12,7 @@ django-resized = "*"
 django-crispy-forms = "*"
 django-model-utils = "*"
 django-ckeditor = "*"
+bleach = "*"
 
 [dev-packages]
 black = "*"
