@@ -98,9 +98,11 @@ class NewsView(View):
 
     def get(self, request):
         news = News.objects.order_by("-post_date")[:4]
+        recommended = News.random_data.all()[:6]
 
         context = {
             "news": news,
+            "recommended": recommended,
         }
         return render(request, self.template_name, context)
 
@@ -112,7 +114,7 @@ class SchoolNewsDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["news"] = News.random_data.exclude(id=self.object.id)[:8]
+        context["news"] = News.objects.order_by("-post_date").exclude(id=self.object.id)[:8]
         context["template_name"] = self.template_name
         return context
 

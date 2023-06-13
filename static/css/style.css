@@ -52,7 +52,7 @@ body {
 	font-family: 'Helvetica', sans-serif;
 	line-height: 1.80857;
 	overflow-x: hidden;
-	/* background-color: #cbb9a840; */
+	background-color: #CBB9A840;
 }
 
 .meta {
@@ -92,7 +92,7 @@ h1 {
 }
 
 h2 {
-	font-size: 23px
+	font-size: 24px
 }
 
 h3 {
@@ -223,6 +223,7 @@ button {
 
 .bg-light_silver {
 	background: #f9f9f9;
+	padding: 2rem;
 }
 
 .theme_bg {
@@ -854,6 +855,9 @@ img.zoom {
 	min-height: 22rem;
 }
 
+#list-staff hr:last-child {
+	display: none;
+}
 /*--------------- end about page css ---------------*/
 
 /*--------------- gallery page css ---------------*/
@@ -935,9 +939,28 @@ img.zoom {
 	transform: scale(1.1);
 }
 
-.news_detail .side-bars .news_item {
-	border-bottom: 1px solid #eee;
+.news_pg .side-bars .news_item:hover img {
+	transform: scale(1.0);
 }
+
+.side-bars .news_item {
+	border-bottom: 1px solid #CBB9A840;
+	padding: 7px 0px;
+}
+
+.side-bars .news_item img {
+	max-width: 120px;
+}
+
+.side-bars .news_item .detail {
+	padding-left: 15px;
+}
+
+/* .news_detail .main-post .post-image img {
+	height: 330px;
+	width: 100%;
+	object-fit: cover;
+} */
 
 .news_detail .main-post .news_item {
 	padding-right: 45px;

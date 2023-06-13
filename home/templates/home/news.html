@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 <div class="jumbotron py-5 mb-5">
-	<h2 class="text-uppercase text-center">News</h2>
+	<h2 class="text-uppercase text-center">Blog</h2>
 </div>
 {% comment %}
 <div class="breadcrumb bg-light">
@@ -15,65 +15,106 @@
 <section class="news_pg">
     <div class="container-md">
 		<div class="row">
-			<div class="col-md-8">
-                {% if user.is_authenticated %}
-				<!-- Button trigger modal -->
-                <!-- Add Button -->
-                <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#openPostModal" data-title="Add News Article" data-url="{% url 'news_create' %}" data-form="newsForm" data-placement="top" title="Add">
-                    <i class="fa fa-plus-square-o mr-2" aria-hidden="true"></i> Add News Article
-                </button>
-                {% endif %}
+			<div class="col-lg-8">
+                <div class="bg-light_silver p-2">
+                    {% if user.is_authenticated %}
+			    	<!-- Button trigger modal -->
+                    <!-- Add Button -->
+                    <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#openPostModal" data-title="Add News Article" data-url="{% url 'news_create' %}" data-form="newsForm" data-placement="top" title="Add">
+                        <i class="fa fa-plus-square-o mr-2" aria-hidden="true"></i> Add News Article
+                    </button>
+                    {% endif %}
 
-				{% for news_item in news %}
-				<div class="my-3 pb-3 row align-items-center news_item">
-                    <div class="mb-2 col-md-12 col-lg-5">
-						<div class="relative">
-							<div class="overlay overlay-bg"></div>
-					    	{% if news_item.news_image %}
-					    	<img src="{{ news_item.news_image.url }}"	class="img-fluid rounded" alt="{{ news_item.image_alt_text }}"/>
-					    	{% else %}
-					    	<img src="{% static 'images/IMG_3046.JPG' %}" class="img-fluid rounded" alt="img"/>
-                        	{% endif %}
-						</div>
-                    </div>
-					<div class="col-md-12 col-lg-7">
-                        <div class="mb-2">
-					        <h3 class="display-5">{{ news_item.headline }}</h3>
-                            <div class="meta d-flex">
-								<span class="text-muted">
-					        		<i class="fa-sharp fa-solid fa-user mr-1"></i>
-					        		{{ news_item.publisher }}
-                            	</span>
-								<span class="mx-2 text-muted">
-                            	    <i class="fa-solid fa-calendar-days mr-1"></i>
-                            	    {{ news_item.post_date|date:"d F Y" }}
-                            	</span>
-							</div>
+			    	{% for news_item in news %}
+			    	<div class="my-3 pb-3 row align-items-center news_item">
+                        <div class="mb-2 col-md-12 col-lg-5">
+			    			<div class="relative">
+			    				<div class="overlay overlay-bg"></div>
+			    		    	{% if news_item.news_image %}
+			    		    	<img src="{{ news_item.news_image.url }}"	class="img-fluid rounded" alt="{{ news_item.image_alt_text }}"/>
+			    		    	{% else %}
+			    		    	<img src="{% static 'images/IMG_3046.JPG' %}" class="img-fluid rounded" alt="img"/>
+                            	{% endif %}
+			    			</div>
                         </div>
-					    <p class="mb-2">{{ news_item.news|safe|truncatechars:200 }}</p>
-						<div class="d-flex">
-							<a href="{% url 'news-detail' news_item.slug %}" class="mr-auto more">Read More</a>
-                            {% if user.is_authenticated %}
-							<!-- Buttons Trigger Modal -->
-                            <!-- Edit Button -->
-                            <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#openPostModal" data-title="Edit: {{ news_item.headline }} Article" data-url="{% url 'news_update' news_item.id %}" data-form="newsForm" data-placement="top" title="Edit">
-                                <i class="fa-sharp fa-solid fa-pen-to-square"></i>
-                            </button>
-                            <!-- Delete Button -->
-                            <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteModal" data-title="Delete {{ news_item.headline }}" data-url="{% url 'news_delete' news_item.id %}" data-form="deleteForm" data-placement="top" title="Delete">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                            {% endif %}
-						</div>
-                    </div>
-				</div>
-				{% empty %}
-				<div class="row">
-					<h2 class="text-center">There are No News Items</h2>
-				</div>
-				{% endfor %}
+			    		<div class="col-md-12 col-lg-7">
+                            <div class="mb-2">
+			    		        <h3 class="display-5">{{ news_item.headline }}</h3>
+                                <div class="meta d-flex">
+			    					<span class="text-muted">
+			    		        		<i class="fa-sharp fa-solid fa-user mr-1"></i>
+			    		        		{{ news_item.publisher }}
+                                	</span>
+			    					<span class="mx-2 text-muted">
+                                	    <i class="fa-solid fa-calendar-days mr-1"></i>
+                                	    {{ news_item.post_date|date:"d F Y" }}
+                                	</span>
+			    				</div>
+                            </div>
+			    		    <p class="mb-2">{{ news_item.news|safe|truncatechars:200 }}</p>
+			    			<div class="d-flex">
+			    				<a href="{% url 'news-detail' news_item.slug %}" class="mr-auto more">Read More</a>
+                                {% if user.is_authenticated %}
+			    				<!-- Buttons Trigger Modal -->
+                                <!-- Edit Button -->
+                                <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#openPostModal" data-title="Edit: {{ news_item.headline }} Article" data-url="{% url 'news_update' news_item.id %}" data-form="newsForm" data-placement="top" title="Edit">
+                                    <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+                                </button>
+                                <!-- Delete Button -->
+                                <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteModal" data-title="Delete {{ news_item.headline }}" data-url="{% url 'news_delete' news_item.id %}" data-form="deleteForm" data-placement="top" title="Delete">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                                {% endif %}
+			    			</div>
+                        </div>
+			    	</div>
+			    	{% empty %}
+			    	<div class="row">
+			    		<h2 class="text-center">There are No Blog Items</h2>
+			    	</div>
+			    	{% endfor %}
+                </div>
 			</div>
-			<div class="col-md-4"><p class="d-none">side</p></div>
+			<div class="col-lg-4">
+                <div class="side-bars bg-light_silver p-2">
+                    <!-- <h4 class="theme_bg text-white p-2">Events</h4>
+                    <div class="event-list p-3">
+                        <p>this</p>
+                    </div> -->
+
+                    <h4 class="theme_bg text-white p-2">Popular Posts</h4>
+                    <div class="news_post-list p-1 pt-3">
+                        {% for news_item in recommended %}
+                        <div class="news_item d-flex flex-row align-items-center ">
+                            <div class="post-image">
+                                <!-- <div class="overlay overlay-bg"></div> -->
+                                {% if news_item.news_image %}
+                                <img src="{{ news_item.news_image.url }}" class="img-fluid rounded" alt="{{news_item.image_alt_text}}" />
+                                {% else %}
+                                <img src="{% static 'images/IMG_3046.JPG' %}" class="img-fluid rounded" alt="img" />
+                                {% endif %}
+                            </div>
+                            <div class="mb-2 detail">
+                                <a href="{% url 'news-detail' news_item.slug %}">
+                                    <h5 class="display-6">{{ news_item.headline }}</h5>
+                                </a>
+                                <div class="meta d-flex">
+                                    <span class="text-muted">
+                                        <i class="fa-sharp fa-solid fa-user mr-1"></i>
+                                        {{ news_item.publisher.first_name }}
+                                    </span>
+                                    <span class="mx-2 text-muted">
+                                        <i class="fa-solid fa-calendar-days mr-1"></i>
+                                        {{ news_item.post_date|date:"d M Y" }}
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- <p class="mb-2">{{ news_item.news|truncatechars:200 }}</p> -->
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
 		</div>
 	</div>
 </section>
