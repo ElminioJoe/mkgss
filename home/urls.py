@@ -13,8 +13,14 @@ urlpatterns = [
         ),
         name="home_features_update",
     ),
-    path("gallery/", views.GalleryView.as_view(), name="gallery"),
-    path("gallery/add/",views.GalleryUploadView.as_view(), name="upload_images"),
+    path("gallery/", views.GalleryCategoryListView.as_view(), name="gallery"),
+    path("gallery/<slug:slug>/", views.GalleryCategoryDetailView.as_view(), name='gallery-detail'),
+    path("gallery/category/add/",views.GalleryUploadView.as_view(), name="upload_images"),
+    path(
+        "gallery/delete/image/<int:pk>/",
+        views.SchoolInfoDeleteView.as_view(model=Gallery, success_url=reverse_lazy("gallery-detail")),
+        name="image_delete",
+    ),
     path("about/", views.AboutView.as_view(), name="about"),
     path(
         "about/create/administration/",

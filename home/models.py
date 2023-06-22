@@ -371,21 +371,25 @@ class Gallery(models.Model):
         if not self.gallery_image:
             return
 
-        # Set our max thumbnail size
-        THUMBNAIL_SIZE = (200, 150)
-
-        # Open original image and create thumbnail
+        # Open original image
         image = Image.open(self.gallery_image.file)
-        image.thumbnail(THUMBNAIL_SIZE, Image.ANTIALIAS)
+
+        # Calculate thumbnail size based on the original image size
+        original_size = image.size
+        max_thumbnail_size = (200, 150)
+        thumbnail_size = calculate_thumbnail_size(original_size, max_thumbnail_size)
+
+        # Create thumbnail
+        image.thumbnail(thumbnail_size, Image.ANTIALIAS)
 
         # Save thumbnail to a BytesIO object
         temp_handle = BytesIO()
-        image.save(temp_handle, image.format)
+        image.save(temp_handle, "PNG")
         temp_handle.seek(0)
 
         # Save the thumbnail to the thumbnail field
         self.thumbnail.save(
-            f"{self.gallery_image.name}_thumbnail.{image.format.lower()}",
+            f"{self.gallery_image.name}_thumbnail.png",
             File(temp_handle),
             save=False,
         )
@@ -430,3 +434,26 @@ class Category(models.Model):
     def update_category(cls, id, name):
         cls.objects.filter(id=id).update(name=name)
 
+
+def calculate_thumbnail_size(original_size, max_thumbnail_size):
+    # Calculate the thumbnail size while preserving the aspect ratio
+    width, height = original_size
+    max_width, max_height = max_thumbnail_size
+
+    if width <= max_width and height <= max_height:
+        # No need to resize, return the original size
+        return original_size
+
+    # Calculate the aspect ratio
+    aspect_ratio = width / height
+
+    if aspect_ratio > max_width / max_height:
+        # Image is wider, limit by width
+        thumbnail_width = max_width
+        thumbnail_height = int(thumbnail_width / aspect_ratio)
+    else:
+        # Image is taller or square, limit by height
+        thumbnail_height = max_height
+        thumbnail_width = int(thumbnail_height * aspect_ratio)
+
+    return thumbnail_width, thumbnail_height

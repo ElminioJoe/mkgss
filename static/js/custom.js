@@ -138,14 +138,38 @@ $(function () {
   /* Magnific Popup
     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 
-  // $(document).ready(function() {
-  //     var popup_btn = $('.popup-btn');
-  //     popup_btn.magnificPopup({
-  //     type : 'image',
-  //     gallery : {
-  //       enabled : true
-  //     }
+  var popup_btn = $('.gallery');
 
-  //     });
-  // });
+  popup_btn.magnificPopup({
+    delegate: "a",
+    type: "image",
+    tLoading: "Loading image #%curr%...",
+    closeOnContentClick: false,
+    closeBtnInside: false,
+    mainClass: "mfp-with-zoom mfp-img-mobile",
+    gallery: {
+      enabled: true,
+      preload: [0, 3],
+      navigateByImgClick: true,
+      arrowMarkup:
+        '<button title="%title%" type="button" class="mfp-arrow mfp-arrow-%dir%"></button>', // markup of an arrow button
+
+      tPrev: "Previous",
+      tNext: "Next",
+      tCounter: '<span class="mfp-counter">%curr% of %total%</span>',
+    },
+    image: {
+      verticalFit: true,
+      tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+    },
+    // zoom: {
+    //   enabled: true,
+    //   duration: 300, // don't forget to change the duration also in CSS
+    //   easing: 'ease-in-out',
+    //   opener: function(element) {
+    //     return element.find('img');
+    //   }
+    // }
+  });
+  
 });

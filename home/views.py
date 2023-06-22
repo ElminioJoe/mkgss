@@ -3,6 +3,7 @@ from django.core.mail import send_mail
 from django.shortcuts import HttpResponseRedirect, get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import View, DetailView, CreateView, UpdateView, DeleteView, FormView, ListView
+from random import choice
 
 from .models import *
 from .forms import *
@@ -50,16 +51,30 @@ class HomeView(View):
         return render(request, self.template_name, context)
 
 
-class GalleryView(View):
+class GalleryCategoryListView(ListView):
+    model = Category
     template_name = "home/gallery.html"
+    context_object_name = 'category_list'
 
-    def get(self, request, *args, **kwargs):
-        images = Gallery.objects.all().order_by("category")
 
-        context = {
-            "images": images,
-        }
-        return render(request, self.template_name, context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        for category in context['category_list']:
+            category.random_image = choice(category.image_category.all())
+        return context
+
+
+class GalleryCategoryDetailView(DetailView):
+    model = Category
+    template_name = "home/gallery_detail.html"
+    context_object_name = 'category'
+    slug_field = 'slug'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category = context['category']
+        context['images'] = category.image_category.all()
+        return context
 
 
 class AboutView(View):
