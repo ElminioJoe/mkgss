@@ -16,12 +16,12 @@ $(function () {
     },
   );
 
-  // destroy messages div after 2 seconds
+  // destroy messages div after 5 seconds
   setTimeout(function () {
     if ($("#message").length > 0) {
       $(".messages").empty();
     }
-  }, 15000);
+  }, 5000);
 
   // form DOM Manipulation
 

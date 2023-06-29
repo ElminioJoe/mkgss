@@ -118,6 +118,10 @@ div.cke.cke_reset.cke_chrome {
          width: 100%;
          max-width: 100%;
      }
+
+     input[type=checkbox]{
+          width: auto;
+     }
 }
 
 @media (max-width: 1024px){

@@ -14,38 +14,54 @@
 
 <section class="gallery_detail_pg">
     <div class="container-md">
-        {% if user.is_authenticated %}
-        <!-- Button trigger modal -->
-        <!-- Add Button -->
-        <button type="button" class="btn btn-sm btn-outline-success mb-3" data-toggle="modal" data-target="#openPostModal" data-title="Add Images" data-url="{% url 'upload_images' %}" data-form="imageForm" data-placement="top" title="Add">
-            <i class="fa fa-plus-square-o mr-1" aria-hidden="true"></i>
-            Add Image Gallery
-        </button>
-        {% endif %}
-
         <div class="row gallery bg-light_silver p-1">
+            {% if user.is_authenticated %}
+            <div class="col-sm-12">
+                <!-- Button trigger modal -->
+                <!-- Add Button -->
+                <button type="button" class="btn btn-sm btn-outline-success m-2" data-toggle="modal" data-target="#openPostModal"
+                    data-title="Add Images" data-url="{% url 'add_images' category.id %}" data-form="imageForm" data-placement="top"
+                    title="Add">
+                    <i class="fa fa-plus-square-o mr-1" aria-hidden="true"></i>
+                    Add Images
+                </button>
+
+                <!-- Toggel switch between Delete and View modes -->
+                <div class="toggle-modes m-2 float-right">
+                    <label class="switch" title="Toggle between Delete and View modes">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            {% endif %}
+
             <div class="col-md-12 text-center rounded my-3">
                 <h4 class="">{{ category.name }}</h4>
-                <p>{{ category.description }}</p>
+                <p class="text-left">{{ category.description }}</p>
             </div>
+
             {% for image in images %}
             <div class="col-3 col-sm-3 col-md-2 col-lg-2 p-1">
                 <div class="card">
                     <div class="gallery-box">
                         <!-- <div class="overlay overlay-bg"></div> -->
+                        <div class="checkbox-container mfp-delete d-none" style="z-index: 9999;">
+                            <input type="checkbox" name="selected_images" value="{{ image.id }}">
+                        </div>
                         <a href="{{ image.gallery_image.url }}">
                             <img src="{{ image.thumbnail.url }}" class="img-fluid" loading="lazy" alt="{{ image.image_alt_text }}">
-                            <button type="button" class="btn btn-sm btn-outline-danger mfp-delete" data-toggle="modal" data-target="#deleteModal"
+                            <!-- <button type="button" class="btn btn-sm btn-outline-danger mfp-delete" data-toggle="modal" data-target="#deleteModal"
                                 data-title="Delete {{ image.id }}" data-url="{% url 'image_delete' image.id %}" data-form="deleteForm"
                                 data-placement="top" title="Delete">
                                 <i class="fa-solid fa-trash"></i>
-                            </button>
+                            </button> -->
                         </a>
                     </div>
                 </div>
             </div>
             {% empty %}
-            <h2 class="text-center">NO IMAGES UPLOADED YET</h2>
+            <h2 class="text-center">NO IMAGES ADDED YET</h2>
             {% endfor %}
         </div>
 
@@ -64,6 +80,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    {% csrf_token %}
                     <!-- All Forms -->
 
                     <fieldset class="aligned d-none" id="imageForm"></fieldset>
@@ -92,8 +109,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Form -->
-
-                    <fieldset class="aligned" id="deleteForm"></fieldset>
+                    {% csrf_token %}                    <fieldset class="aligned" id="deleteForm"></fieldset>
 
                 </div>
                 <div class="modal-footer">

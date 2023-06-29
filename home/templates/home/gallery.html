@@ -17,7 +17,7 @@
         {% if user.is_authenticated %}
         <!-- Button trigger modal -->
         <!-- Add Button -->
-        <button type="button" class="btn btn-sm btn-outline-success mb-3" data-toggle="modal" data-target="#openPostModal" data-title="Add Images" data-url="{% url 'upload_images' %}" data-form="galleryForm" data-placement="top" title="Add">
+        <button type="button" class="btn btn-sm btn-outline-success mb-3" data-toggle="modal" data-target="#openPostModal" data-title="Add Images" data-url="{% url 'create_category' %}" data-form="galleryForm" data-placement="top" title="Add">
             <i class="fa fa-plus-square-o mr-1" aria-hidden="true"></i>
             Add Image Gallery
         </button>
@@ -28,12 +28,12 @@
             <div class="col-4 col-sm-4 col-md-3 col-lg-2 p-1">
                 <div class="card">
                     <div class="gallery-box">
-                        <img src="{{ category.random_image.gallery_image.url }}" class="img-fluid" loading="lazy" alt="{{ category.random_image.image_alt_text }}">
+                        <img src="{{ category.random_image.thumbnail.url }}" class="img-fluid" loading="lazy" alt="{{ category.random_image.image_alt_text }}">
                     </div>
 
                     <a href="{% url 'gallery-detail' category.slug %}" class="card_content">
                         <span class="d-flex flex-row">
-                            <h4 class="card_title mr-auto">{{ category.name }}</h4>
+                            <h5 class="card_title mr-auto">{{ category.name }}</h5>
                             <i class="fa-solid fa-arrow-right-long pt-1" style="color: #f5faff;"></i>
                         </span>
                         <p class="card_description">{{ category.description }}</p>
@@ -61,7 +61,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <!-- All Forms -->
+                    {% csrf_token %}                    <!-- All Forms -->
 
                     <fieldset class="aligned d-none" id="galleryForm"></fieldset>
 
@@ -89,8 +89,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Form -->
-
-                    <fieldset class="aligned" id="deleteForm"></fieldset>
+                    {% csrf_token %}                    <fieldset class="aligned" id="deleteForm"></fieldset>
 
                 </div>
                 <div class="modal-footer">

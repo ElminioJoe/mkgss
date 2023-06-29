@@ -16,7 +16,7 @@
         {% endif %}
 
             {% for field in image_formset %}
-            <div class="form-group">
+            <div class="form-group" id="{{ field.id_for_label }}_group">
                 {{ field.label_tag }}
                 {{ field }}
                 {% if field.help_text %}
@@ -33,4 +33,33 @@
             {% endfor %}
         <input type="hidden" name="upload" value="Save">
     </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script>
+  $(function () {
+
+    // Show Category and Description fields on checkbox
+    // in Add images form in gallery detail
+    $("#id_new_category_name_group").hide();
+    $("#id_new_description_group").hide();
+
+    $("#id_rename_category").on("click", function () {
+      if ($(this).is(":checked")) {
+        $("#id_new_category_name_group").slideDown();
+      } else {
+        $("#id_new_category_name_group").slideUp();
+      }
+    });
+
+    $("#id_rename_description").change(function () {
+      if ($(this).is(":checked")) {
+        $("#id_new_description_group").slideDown();
+    } else {
+      $("#id_new_description_group").slideUp();
+    }
+  });
+});
+</script>
 {% endblock %}

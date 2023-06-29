@@ -565,6 +565,7 @@ button {
 img.zoom {
 	width: 100%;
 	object-fit: cover;
+	transition: all .3s ease-in-out;
 	-webkit-transition: all .3s ease-in-out;
 	-moz-transition: all .3s ease-in-out;
 	-o-transition: all .3s ease-in-out;
@@ -870,13 +871,13 @@ img.zoom {
  .gallery_pg .gallery-box {
 	font-weight: bold;
 	/* font-size: 24px; */
-	padding: 3px 3px 31px;
+	padding: 5px 5px 31px;
 	color: #f8f8f8;
 }
 
 .gallery_pg .gallery-box img {
 	cursor: pointer;
-	height: 160px;
+	/* height: 160px; */
 	object-fit: cover;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
@@ -887,9 +888,9 @@ img.zoom {
 	left: 0;
 	bottom: 0;
 	width: 100%;
-	padding: 5px;
+	padding: 0px 10px 5px;
 	background: #6D3D14;
-	border-top-left-radius: 15px;
+	/* border-top-left-radius: 15px; */
 	height: 60%;
 	-webkit-transform: translateY(65px);
 	-ms-transform: translateY(65px);
@@ -900,7 +901,7 @@ img.zoom {
 	transition: transform .25s, -webkit-transform .25s;
 }
 
-.gallery_pg .card_content::before {
+/* .gallery_pg .card_content::before {
 	content: '';
 	position: absolute;
 	top: -39px;
@@ -913,7 +914,7 @@ img.zoom {
 	border-radius: 50%;
 	-webkit-box-shadow: inset 48px 48px #6D3D14;
 	box-shadow: inset 48px 48px #6D3D14;
-}
+} */
 
 .gallery_pg .card_content span,
 .gallery_pg .card_content p.card_description {
@@ -924,10 +925,11 @@ img.zoom {
 }
 
 .gallery_pg .card_content span {
-	padding: 5px 10px 0px;
+	padding: 5px 2px 0px;
 }
 
 .gallery_pg .card_content .card_description {
+	font-size: 0.96em;
 	opacity: 0;
 	transition: opacity .5s;
 }
@@ -978,6 +980,7 @@ img.zoom {
 .mfp-with-zoom .mfp-container,
 .mfp-with-zoom.mfp-bg {
 	opacity: 0;
+	backface-visibility: hidden;
 	-webkit-backface-visibility: hidden;
 	/* ideally, transition speed should match zoom duration */
 	-webkit-transition: all 0.3s ease-out;
@@ -1009,6 +1012,99 @@ img.zoom {
 	cursor: pointer;
 }
 	/*----------- end Magnific Pop-up css -----------*/
+
+	/*----------- toggle view delete modes ----------*/
+.toggle-modes{
+	max-height: 1.98rem;
+}
+
+.toggle-modes .switch {
+	position: relative;
+	display: inline-block;
+	width: 120px;
+	height: 34px;
+}
+
+.toggle-modes .switch input {
+	display: none;
+}
+
+.toggle-modes .switch .slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #6D3D14;
+	-webkit-transition: .4s;
+	transition: .4s;
+	border-radius: 34px;
+}
+
+.toggle-modes .switch .slider:before {
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
+	border-radius: 50%;
+}
+
+.toggle-modes .switch input:checked+.slider {
+	background-color: #f81717;
+}
+
+.toggle-modes .switch input:focus+.slider {
+	-webkit-box-shadow: 0 0 1px #f81717;
+	box-shadow: 0 0 1px #f81717;
+}
+
+.toggle-modes .switch input:checked+.slider:before {
+	content: "\f1f8";
+	font-family: "Font Awesome 5 Free";
+	font-weight: 900;
+	font-size: 0.964543rem;
+	color: #f81717;
+	padding: 0px 6px 0px;
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(85px);
+}
+
+.toggle-modes .switch .slider:before {
+	content: "\f03e";
+	font-family: "Font Awesome 5 Free";
+	font-weight: 900;
+	font-size: 0.964543rem;
+	color: #6D3D14;
+	padding: 0px 4px 0px;
+}
+
+/*------ ADDED CSS ---------*/
+.toggle-modes .switch .slider:after {
+	content: 'VIEW';
+	color: white;
+	display: block;
+	position: absolute;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	font-size: 9px;
+	font-weight: 600;
+}
+
+.toggle-modes .switch input:checked+.slider:after {
+	content: 'DELETE';
+}
+
+	/*----------- end toggle-view-delete-modes -------*/
 
 /*--------------- end gallery page css ---------------*/
 

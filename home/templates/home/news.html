@@ -131,7 +131,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <!-- All Forms -->
+                    {% csrf_token %}                    <!-- All Forms -->
 
                     <!-- News form -->
                     <fieldset class="aligned d-none" id="newsForm"></fieldset>
@@ -160,7 +160,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Form -->
-
+                    {% csrf_token %}
                     <fieldset class="aligned" id="deleteForm"></fieldset>
 
                 </div>
