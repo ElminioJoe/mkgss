@@ -15,7 +15,8 @@ urlpatterns = [
     ),
     path("gallery/", views.GalleryCategoryListView.as_view(), name="gallery"),
     path("gallery/<slug:slug>/", views.GalleryCategoryDetailView.as_view(), name='gallery-detail'),
-    path("gallery/category/add/",views.GalleryUploadView.as_view(), name="upload_images"),
+    path("gallery/create/category/",views.CreateCategoryView.as_view(), name="create_category"),
+    path("gallery/add/images/<int:category_id>/",views.AddImageView.as_view(), name="add_images"),
     path(
         "gallery/delete/image/<int:pk>/",
         views.SchoolInfoDeleteView.as_view(model=Gallery, success_url=reverse_lazy("gallery-detail")),

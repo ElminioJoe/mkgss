@@ -60,7 +60,9 @@ class GalleryCategoryListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         for category in context['category_list']:
-            category.random_image = choice(category.image_category.all())
+            images = category.images.all()
+            if images.exists():
+                category.random_image = choice(images)
         return context
 
 
@@ -73,7 +75,7 @@ class GalleryCategoryDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         category = context['category']
-        context['images'] = category.image_category.all()
+        context['images'] = category.images.all()
         return context
 
 
@@ -220,9 +222,59 @@ class ContactFormView(View):
 
         return render(request, self.template_name, {'form': form})
 
-class GalleryUploadView(FormView):
+
+class AddImageView(FormView):
     template_name = 'home/forms/gallery_upload_form.html'
-    form_class = GalleryForm
+    form_class = AddImageForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["image_formset"] = self.form_class
+        context["errors"] = self.form_class.non_field_errors
+        return context
+
+    def form_valid(self, form):
+        category_id = self.kwargs.get('category_id')
+        category = get_object_or_404(Category, id=category_id)
+
+        # Handle renaming category and description
+        rename_category = form.cleaned_data.get('rename_category')
+        new_category_name = form.cleaned_data.get('new_category_name')
+        rename_description = form.cleaned_data.get('rename_description')
+        new_description = form.cleaned_data.get('new_description')
+
+        if rename_category and new_category_name:
+            category.name = new_category_name
+            category.save()
+
+        if rename_description and new_description:
+            category.description = new_description
+            category.save()
+
+        # Create image objects for each uploaded images
+        images = self.request.FILES.getlist('gallery_image')
+        for image in images:
+            gallery = Gallery(category=category, gallery_image=image)
+            gallery.save()
+        messages.success(self.request, "Images Added successfully!")
+        return super(AddImageView, self).form_valid(form)
+    def form_invalid(self, form):
+        # Add form errors to messages framework
+        errors = form.non_field_errors()
+        for error in errors:
+            messages.error(self.request, error)
+
+        return super().form_invalid(form)
+
+    def get_success_url(self):
+        # Assuming your Category model has a 'slug' field
+        category = get_object_or_404(Category, id=self.kwargs.get('category_id'))
+        return reverse_lazy('gallery-detail', kwargs={'slug': category.slug})
+
+
+class CreateCategoryView(FormView):
+    template_name = 'home/forms/gallery_upload_form.html'
+    form_class = CreateGalleryForm
     success_url = '/gallery/'
 
     def get_context_data(self, **kwargs):
@@ -232,22 +284,17 @@ class GalleryUploadView(FormView):
         return context
 
     def form_valid(self, form):
-        # Create category object if user entered a new category name
-        category_name = form.cleaned_data["create_category"]
-        description = form.cleaned_data["description"]
+        category = form.save(commit=False)
+        category_image = self.request.FILES.getlist('category_image')
 
-        if category_name:
-            category = Category.objects.create(name=category_name, description=description)
-        else:
-            category = form.cleaned_data['category']
+        # Associate the uploaded image with the category
+        if category_image:
+            category.save()  # Save the category first to generate the ID
 
-        # Create image objects for each uploaded images
-        images = self.request.FILES.getlist('gallery_image')
-        for image in images:
-            gallery = Gallery(category=category, gallery_image=image)
-            gallery.save()
-        messages.success(self.request, "Images uploaded successfully!")
-        return super(GalleryUploadView, self).form_valid(form)
+            # Create image objects for each uploaded image
+            for image in category_image:
+                gallery = Gallery(category=category, gallery_image=image)
+                gallery.save()
 
-    def form_invalid(self, form):
-        return super(GalleryUploadView, self).form_invalid(form)
+        self.request.session['new_category_id'] = category.id
+        return super(CreateCategoryView, self).form_valid(form)

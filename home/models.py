@@ -341,11 +341,9 @@ class News(models.Model):
 
 class Gallery(models.Model):
     category = models.ForeignKey(
-        "Category", on_delete=models.CASCADE, blank=True, related_name="image_category"
+        "Category", on_delete=models.CASCADE, blank=True, related_name="images"
     )
-    gallery_image = models.ImageField(
-        upload_to="gallery/", blank=False, default="default-image.jpg"
-    )
+    gallery_image = models.ImageField(upload_to="gallery/", blank=False)
     image_alt_text = ImageAltTextField(
         image_field_name="gallery_image",
         help_text="Optional: short description of what the image entails.",
@@ -357,14 +355,16 @@ class Gallery(models.Model):
         null=True,
         editable=False,
     )
-    # image_caption = models.TextField(null=True, blank=True)
     post_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.category.name} - {self.image_alt_text}"
 
-    def get_absolute_url(self):
-        return reverse("gallery-detail")
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.create_thumbnail()
+        super(Gallery, self).save(*args, **kwargs)
+
 
     def create_thumbnail(self):
         # If there is no image associated with this object, return
@@ -376,7 +376,7 @@ class Gallery(models.Model):
 
         # Calculate thumbnail size based on the original image size
         original_size = image.size
-        max_thumbnail_size = (200, 150)
+        max_thumbnail_size = (200, 200)
         thumbnail_size = calculate_thumbnail_size(original_size, max_thumbnail_size)
 
         # Create thumbnail
@@ -393,10 +393,6 @@ class Gallery(models.Model):
             File(temp_handle),
             save=False,
         )
-
-    def save(self, *args, **kwargs):
-        self.create_thumbnail()
-        super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         # Delete the image files from the file system
@@ -423,7 +419,7 @@ class Category(models.Model):
         return reverse("category-detail", args=[str(self.id)])
 
     def save(self, *args, **kwargs):
-        if self.date_created is None:
+        if not self.id:
             self.date_created = timezone.localtime(timezone.now())
 
         self.slug = slugify(self.name)

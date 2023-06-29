@@ -18,6 +18,8 @@ class FormWidgets(forms.Form):
                 attrs.update({"class": "TextField"})
             if isinstance(field.widget, forms.ClearableFileInput):
                 attrs.update({"class": "form-control-file"})
+            if isinstance(field.widget, forms.BooleanField):
+                attrs.update({"class": "form-check-input"})
             self.fields[name].widget.attrs.update(attrs)
 
 
@@ -116,43 +118,62 @@ class NewsForm(FormWidgets, forms.ModelForm):
         exclude = ["post_date", "modification_date", "slug"]
 
 
-class GalleryForm(FormWidgets, forms.ModelForm):
-    create_category = forms.CharField(max_length=50, required=False, validators=[validate_category])
-    description = forms.CharField(max_length=200, required=False)
-    category = forms.ModelChoiceField(queryset=Category.objects.all(), required=False, label="Select Category")
+class AddImageForm(FormWidgets, forms.ModelForm):
     gallery_image = forms.ImageField(
-        label=_("Image"),
-        widget=MultipleFileInput(attrs={"required": False}),
+        label=_("Images"),
+        widget=MultipleFileInput(attrs={"required": True}),
+        required=True,
+    )
+
+    rename_category = forms.BooleanField(
+        label=_("Rename Category"),
         required=False,
+        initial=False,
+    )
+    new_category_name = forms.CharField(
+        label=_("Category Name"),
+        required=False,
+        max_length=50,
+    )
+    rename_description = forms.BooleanField(
+        label=_("Modify Description"),
+        required=False,
+        initial=False,
+    )
+    new_description = forms.CharField(
+        label=_("Description"),
+        required=False,
+        max_length=200,
     )
 
     class Meta:
         model = Gallery
-        fields = [
-            "create_category",
-            "description",
-            "category",
-            "gallery_image",
-            # "image_alt_text",
-        ]
-        labels = {
-            "gallery_image": _("Image"),
-        }
+        fields = ['gallery_image', 'image_alt_text']
         help_texts = {"gallery_image": _("upload images")}
 
+    def clean(self):
+        cleaned_data = super().clean()
+        rename_category = cleaned_data.get('rename_category')
+        new_category_name = cleaned_data.get('new_category_name')
+        rename_description = cleaned_data.get('rename_description')
+        new_description = cleaned_data.get('new_description')
+
+        if (new_category_name or new_description) and not (rename_category or rename_description):
+            self.add_error(None, "You must check the appropriate rename fields.")
 
 
-class CategoryForm(FormWidgets, forms.ModelForm):
-    # name = forms.CharField(validators=[validate_category])
+        return cleaned_data
+
+class CreateGalleryForm(FormWidgets, forms.ModelForm):
+    category_image = forms.ImageField(
+        label="Category Image",
+        widget=MultipleFileInput(attrs={"required": True}),
+        required=True)
+
     class Meta:
         model = Category
-        fields = ("name", "description")
-        labels = {
-            "name": _("Create Category"),
-        }
-        # help_texts = {
-        #     'name': _('Category name.'),
-        # }
+        fields = ['name', 'description', 'category_image']
+        help_texts = {"category_image": _("upload images")}
 
 
 class ContactForm(forms.Form):
