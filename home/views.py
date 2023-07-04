@@ -1,6 +1,7 @@
+import json
 from django.contrib import messages
 from django.core.mail import send_mail
-from django.shortcuts import HttpResponseRedirect, get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import View, DetailView, CreateView, UpdateView, DeleteView, FormView, ListView
 from random import choice
@@ -267,7 +268,6 @@ class AddImageView(FormView):
         return super().form_invalid(form)
 
     def get_success_url(self):
-        # Assuming your Category model has a 'slug' field
         category = get_object_or_404(Category, id=self.kwargs.get('category_id'))
         return reverse_lazy('gallery-detail', kwargs={'slug': category.slug})
 
@@ -298,3 +298,25 @@ class CreateCategoryView(FormView):
 
         self.request.session['new_category_id'] = category.id
         return super(CreateCategoryView, self).form_valid(form)
+
+
+def images_delete(request):
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        selected_image_ids = request.POST.get('selected_images', [])
+        category_slug = request.POST.get('category_slug')
+
+        if action == 'delete_selected_images':
+            selected_image_ids = json.loads(selected_image_ids)
+            images = Gallery.objects.filter(id__in=selected_image_ids)
+            if images:
+                # category_id = images.first().category.id
+                images.delete()
+                messages.success(request, 'Selected images have been deleted.')
+
+                # category = get_object_or_404(Category, id=category_id)
+                return redirect('gallery-detail', slug=category_slug)
+            else:
+                messages.error(request, 'Please select at least one image to delete.')
+
+    return redirect('gallery-detail', slug=category_slug)

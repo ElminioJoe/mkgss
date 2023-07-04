@@ -26,14 +26,29 @@
                     Add Images
                 </button>
 
-                <!-- Toggel switch between Delete and View modes -->
+                <!-- Toggle switch between Delete and View modes -->
                 <div class="toggle-modes m-2 float-right">
-                    <label class="switch" title="Toggle between Delete and View modes">
-                        <input type="checkbox">
+                    <label class="switch" for="toggleSwitch" title="Toggle between Delete and View modes">
+                        <input type="checkbox" id="toggleSwitch">
                         <span class="slider"></span>
                     </label>
                 </div>
             </div>
+
+            <div class="col-12 utils mt-2">
+                <hr>
+                <!-- Delete Selected button -->
+                <button type="button" class="btn btn-sm btn-outline-danger" id="delete-selected-button" data-toggle="modal" data-target="#deleteModal"
+                    data-title="Delete Gallery Images" data-url="{% url 'image_delete' %}" data-form="deleteForm" title="Delete Selected Images">
+                    <i class="fa-solid fa-trash mr-2"></i>Delete Selected Images
+                </button>
+                <!-- Select All checkbox -->
+                <label class="select-all-checkbox-label mt-3">
+                    <input class="select-all-checkbox" type="checkbox" id="select-all-checkbox">
+                    Select all images
+                </label>
+            </div>
+
             {% endif %}
 
             <div class="col-md-12 text-center rounded my-3">
@@ -46,16 +61,11 @@
                 <div class="card">
                     <div class="gallery-box">
                         <!-- <div class="overlay overlay-bg"></div> -->
-                        <div class="checkbox-container mfp-delete d-none" style="z-index: 9999;">
-                            <input type="checkbox" name="selected_images" value="{{ image.id }}">
+                        <div class="checkbox-container mfp-delete d-none" style="z-index: 1;">
+                            <input class="selected-checkbox" type="checkbox" name="selected_images" value="{{ image.id }}">
                         </div>
                         <a href="{{ image.gallery_image.url }}">
                             <img src="{{ image.thumbnail.url }}" class="img-fluid" loading="lazy" alt="{{ image.image_alt_text }}">
-                            <!-- <button type="button" class="btn btn-sm btn-outline-danger mfp-delete" data-toggle="modal" data-target="#deleteModal"
-                                data-title="Delete {{ image.id }}" data-url="{% url 'image_delete' image.id %}" data-form="deleteForm"
-                                data-placement="top" title="Delete">
-                                <i class="fa-solid fa-trash"></i>
-                            </button> -->
                         </a>
                     </div>
                 </div>
@@ -102,14 +112,19 @@
         <div class="modal-dialog modal modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-uppercase" id="ModalLongTitle">School Info</h5>
+                    <h5 class="modal-titl text-uppercase" id="ModalLongTitle">Gallery: Confirm Deletion</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <!-- Form -->
-                    {% csrf_token %}                    <fieldset class="aligned" id="deleteForm"></fieldset>
+                    <p>Are you sure you want to delete the selected images?</p>
+                    {% csrf_token %}
+                    <input type="hidden" name="action" id="action-input" value="">
+                    <input type="hidden" name="selected_images" id="selected-images-input" value="">
+                    <input type="hidden" name="category_slug" value="{{ category.slug }}">
+                    <fieldset class="aligned" id="deleteForm"></fieldset>
 
                 </div>
                 <div class="modal-footer">

@@ -1106,6 +1106,51 @@ img.zoom {
 
 	/*----------- end toggle-view-delete-modes -------*/
 
+.select-all-checkbox,
+.selected-checkbox {
+	appearance: none;
+	width: 17px;
+	height: 17px;
+	border: 2px solid #6D3D14;
+	border-radius: 5px;
+	background-color: transparent;
+	display: inline-block;
+	position: relative;
+	margin-right: 10px;
+	cursor: pointer;
+}
+
+.select-all-checkbox:before,
+.selected-checkbox:before {
+	content: "";
+	background-color: #6D3D14;
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(0);
+	width: 8.5px;
+	height: 8.5px;
+	border-radius: 3px;
+	transition: all 0.3s ease-in-out;
+}
+
+.select-all-checkbox:checked:before,
+.selected-checkbox:checked:before {
+	transform: translate(-50%, -50%) scale(1);
+}
+
+.select-all-checkbox-label {
+	font-size: 14px;
+	width: fit-content;
+	vertical-align: middle;
+	line-height: 1.5;
+	cursor: pointer;
+	user-select: none;
+	display: flex;
+	align-items: center;
+}
+
 /*--------------- end gallery page css ---------------*/
 
 /*--------------- News/Blog page css ---------------*/
