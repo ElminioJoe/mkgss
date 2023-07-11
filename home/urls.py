@@ -18,6 +18,7 @@ urlpatterns = [
     path("gallery/create/category/",views.CreateCategoryView.as_view(), name="create_category"),
     path("gallery/add/images/<int:category_id>/",views.AddImageView.as_view(), name="add_images"),
     path("gallery/delete/images/", views.images_delete, name="image_delete"),
+    path("gallery/delete/category/", views.category_delete, name="category_delete"),
     path("about/", views.AboutView.as_view(), name="about"),
     path(
         "about/create/administration/",

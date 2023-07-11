@@ -320,3 +320,25 @@ def images_delete(request):
                 messages.error(request, 'Please select at least one image to delete.')
 
     return redirect('gallery-detail', slug=category_slug)
+
+
+def category_delete(request):
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        selected_image_ids = request.POST.get('selected_images', [])
+        category_slug = request.POST.get('category_slug')
+
+        if action == 'delete_selected_images':
+            selected_image_ids = json.loads(selected_image_ids)
+            images = Gallery.objects.filter(id__in=selected_image_ids)
+            if images:
+                # category_id = images.first().category.id
+                images.delete()
+                messages.success(request, 'Selected images have been deleted.')
+
+                # category = get_object_or_404(Category, id=category_id)
+                return redirect('gallery-detail', slug=category_slug)
+            else:
+                messages.error(request, 'Please select at least one image to delete.')
+
+    return redirect('gallery-detail', slug=category_slug)

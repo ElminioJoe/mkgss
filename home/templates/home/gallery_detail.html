@@ -14,8 +14,8 @@
 
 <section class="gallery_detail_pg">
     <div class="container-md">
-        <div class="row gallery bg-light_silver p-1">
-            {% if user.is_authenticated %}
+        {% if user.is_authenticated %}
+        <div class="row bg-light_silver mb-3 py-3 px-1">
             <div class="col-sm-12">
                 <!-- Button trigger modal -->
                 <!-- Add Button -->
@@ -35,11 +35,12 @@
                 </div>
             </div>
 
-            <div class="col-12 utils mt-2">
+            <div class="col-12 gallery-actions mt-2">
                 <hr>
                 <!-- Delete Selected button -->
-                <button type="button" class="btn btn-sm btn-outline-danger" id="delete-selected-button" data-toggle="modal" data-target="#deleteModal"
-                    data-title="Delete Gallery Images" data-url="{% url 'image_delete' %}" data-form="deleteForm" title="Delete Selected Images">
+                <button type="button" class="btn btn-sm btn-outline-danger" id="delete-selected-button" data-toggle="modal"
+                    data-target="#deleteModal" data-title="Delete Gallery Images" data-url="{% url 'image_delete' %}"
+                    data-form="deleteForm" title="Delete Selected Images">
                     <i class="fa-solid fa-trash mr-2"></i>Delete Selected Images
                 </button>
                 <!-- Select All checkbox -->
@@ -48,8 +49,10 @@
                     Select all images
                 </label>
             </div>
+        </div>
+        {% endif %}
 
-            {% endif %}
+        <div class="row gallery bg-light_silver px-1">
 
             <div class="col-md-12 text-center rounded my-3">
                 <h4 class="">{{ category.name }}</h4>

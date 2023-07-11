@@ -68,7 +68,7 @@ $(function () {
 	var galleryBoxes = $(".gallery-box");
 	var selectAllCheckbox = $("#select-all-checkbox");
 
-	$(".gallery_detail_pg .utils").hide();
+	$(".gallery-actions").hide();
 	// Add an event listener to the toggle switch
 	toggleSwitch.on("change", function () {
 		if (toggleSwitch.prop("checked")) {
@@ -80,13 +80,15 @@ $(function () {
 				var galleryBox = $(this);
 				// Get the anchor tag and its href
 				var anchorTag = galleryBox.find("a");
+				var img = galleryBox.find("img")
 				var href = anchorTag.attr("href");
+				var elemClass = anchorTag.attr("class");
 
 				// Replace anchor tag with button
 				var button = $("<button>")
 					.attr({
 						type: "button",
-						class: "",
+						class: elemClass,
 					})
 					.html(anchorTag.html());
 				anchorTag.replaceWith(button);
@@ -103,10 +105,19 @@ $(function () {
 					deleteCheckbox.prop("checked", isChecked).trigger("change");
 				});
 
+				// Bind click event to img
+				img.on("click", function () {
+					var deleteCheckbox = galleryBox.find(
+						'.checkbox-container input[type="checkbox"]',
+					);
+					var isChecked = !deleteCheckbox.prop("checked");
+					deleteCheckbox.prop("checked", isChecked).trigger("change");
+				});
+
 				// Show the delete checkbox
 				var deleteCheckbox = galleryBox.find(".checkbox-container");
 				deleteCheckbox.removeClass("d-none");
-				$(".gallery_detail_pg .utils").slideDown();
+				$(".gallery-actions").slideDown();
 			});
 		} else {
 			// View mode is active
@@ -118,9 +129,15 @@ $(function () {
 				// Get the button and its href
 				var button = galleryBox.find("button");
 				var href = button.data("href");
+				var elemClass = button.attr("class");
 
 				// Replace button with anchor tag
-				var anchorTag = $("<a>").attr("href", href).html(button.html());
+				var anchorTag = $("<a>")
+					.attr({
+						href: href,
+						class: elemClass,
+					})
+					.html(button.html());
 				button.replaceWith(anchorTag);
 
 				// Hide the delete checkbox
@@ -128,7 +145,7 @@ $(function () {
 				deleteCheckbox.addClass("d-none");
 			});
 
-			$(".gallery_detail_pg .utils").slideUp();
+			$(".gallery-actions").slideUp();
 			// Reset the selected items to unchecked
 			$('.checkbox-container input[type="checkbox"]').prop("checked", false);
 			selectAllCheckbox.prop("checked", false);
