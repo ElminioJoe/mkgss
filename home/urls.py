@@ -17,7 +17,8 @@ urlpatterns = [
     path("gallery/<slug:slug>/", views.GalleryCategoryDetailView.as_view(), name='gallery-detail'),
     path("gallery/create/category/",views.CreateCategoryView.as_view(), name="create_category"),
     path("gallery/add/images/<int:category_id>/",views.AddImageView.as_view(), name="add_images"),
-    path("gallery/delete/images/", views.images_delete, name="image_delete"),
+    path("gallery/delete/images/", views.images_delete, {'model': Gallery, 'success_message': 'Selected images have been deleted.'}, name="image_delete"),
+    path("gallery/delete/category/", views.images_delete, {'model': Category, 'success_message': 'Selected Categories have been deleted.'}, name="category_delete"),
     path("about/", views.AboutView.as_view(), name="about"),
     path(
         "about/create/administration/",

@@ -300,7 +300,7 @@ class CreateCategoryView(FormView):
         return super(CreateCategoryView, self).form_valid(form)
 
 
-def images_delete(request):
+def images_delete(request, model, success_message):
     if request.method == 'POST':
         action = request.POST.get('action')
         selected_image_ids = request.POST.get('selected_images', [])
@@ -308,15 +308,18 @@ def images_delete(request):
 
         if action == 'delete_selected_images':
             selected_image_ids = json.loads(selected_image_ids)
-            images = Gallery.objects.filter(id__in=selected_image_ids)
+            images = model.objects.filter(id__in=selected_image_ids)
             if images:
                 # category_id = images.first().category.id
                 images.delete()
-                messages.success(request, 'Selected images have been deleted.')
+                messages.success(request, success_message)
 
                 # category = get_object_or_404(Category, id=category_id)
                 return redirect('gallery-detail', slug=category_slug)
             else:
                 messages.error(request, 'Please select at least one image to delete.')
 
-    return redirect('gallery-detail', slug=category_slug)
+    if category_slug:
+        return redirect('gallery-detail', slug=category_slug)
+    else:
+        return redirect('gallery')
