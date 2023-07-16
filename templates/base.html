@@ -34,11 +34,16 @@
     {% endblock %}
 
 
-    {% if title %}
-    <title>School - {{title}}</title>
-    {% else %}
-    <title> School </title>
-    {% endif %}
+    <title>
+        {% block title %}
+        {% if title %} {{ title }}
+            {% if subtitle %} -
+                {{ subtitle|capfirst|truncatewords:4 }}
+            {% endif %} |
+        {% endif %}
+            {{ site_title|default:_('Moi Kadzonzo Girls') }}
+        {% endblock %}
+    </title>
 </head>
 <body class="main-layout">
     <!-- loader  -->

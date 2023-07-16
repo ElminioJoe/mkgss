@@ -42,6 +42,7 @@ class HomeView(View):
         news = News.objects.order_by("-post_date")[:4]
 
         context = {
+            "title": "Home",
             "home_features": home_features,
             "schl_info": schl_info,
             "school_history": school_history,
@@ -60,6 +61,7 @@ class GalleryCategoryListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['title'] = "Gallery"
         for category in context['category_list']:
             images = category.images.all()
             if images.exists():
@@ -76,7 +78,10 @@ class GalleryCategoryDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         category = context['category']
+        context['title'] = "Gallery"
+        context['subtitle'] = category.name
         context['images'] = category.images.all()
+
         return context
 
 
@@ -100,6 +105,7 @@ class AboutView(View):
         staffs = Staff.objects.all()
 
         context = {
+            "title": "About",
             "academics": academics,
             "administration": administration,
             "admission": admission,
@@ -119,6 +125,7 @@ class NewsView(View):
         recommended = News.random_data.all()[:6]
 
         context = {
+            "title": "Blog",
             "news": news,
             "recommended": recommended,
         }
@@ -132,6 +139,9 @@ class SchoolNewsDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        news_item = context["news_item"]
+        context["title"] = "Blog"
+        context["subtitle"] = news_item.headline
         context["news"] = News.objects.order_by("-post_date").exclude(id=self.object.id)[:8]
         context["template_name"] = self.template_name
         return context
@@ -196,7 +206,7 @@ class ContactFormView(View):
 
     def get(self, request):
         form = ContactForm(initial=request.POST)
-        return render(request, self.template_name, {'form':form})
+        return render(request, self.template_name, {'form':form, "title": "Contact Us"})
 
     def post(self, request):
         form = ContactForm(request.POST)
@@ -221,7 +231,7 @@ class ContactFormView(View):
         else:
             messages.error(request, 'Form submission is invalid.')
 
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, {'form': form, "title": "Contact Us"})
 
 
 class AddImageView(FormView):
