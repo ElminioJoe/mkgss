@@ -78,7 +78,7 @@ class GalleryCategoryDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         category = context['category']
-        context['title'] = "Gallery"
+        context['title'] = "Gallery Detail"
         context['subtitle'] = category.name
         context['images'] = category.images.all()
 
@@ -140,7 +140,7 @@ class SchoolNewsDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         news_item = context["news_item"]
-        context["title"] = "Blog"
+        context["title"] = "Blog Detail"
         context["subtitle"] = news_item.headline
         context["news"] = News.objects.order_by("-post_date").exclude(id=self.object.id)[:8]
         context["template_name"] = self.template_name

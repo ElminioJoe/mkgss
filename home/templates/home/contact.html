@@ -1,15 +1,6 @@
 {% extends "base.html" %}
-{% block content %}
-<div class="jumbotron py-5 mb-5">
-    <h2 class="text-uppercase text-center">Contact Us</h2>
-</div>
-{% comment %}
-<div class="breadcrumb bg-light">
-    <div class="container-md">
-        {% include "breadcrumb.html" %}
-    </div>
-</div>
-{% endcomment %}
+{% block content %} {{ block.super }}
+
 <section id="contact" class="contact">
     <div class="container-md">
         <div class="row flexcont">

@@ -155,6 +155,9 @@ p {
 	transition: all .3s ease-in-out;
 }
 
+.jumbotron h2 {
+	font-size: 35px;
+}
 .info_messages {
 	margin-top: 0.6rem;
 }

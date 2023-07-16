@@ -30,14 +30,12 @@
         <!-- responsive css -->
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
 
-
     {% endblock %}
-
 
     <title>
         {% block title %}
         {% if title %} {{ title }}
-            {% if subtitle %} -
+            {% if subtitle %} ·
                 {{ subtitle|capfirst|truncatewords:4 }}
             {% endif %} |
         {% endif %}
@@ -68,6 +66,14 @@
             {% endif %}
         </div>
     {% block content %}
+        {% include "home/jumbotron.html" %}
+        {% comment %}
+        <div class="breadcrumb bg-light">
+            <div class="container-md">
+                {% include "breadcrumb.html" %}
+            </div>
+        </div>
+        {% endcomment %}
     {% endblock %}
     </main>
     {% include "footer.html" %}
