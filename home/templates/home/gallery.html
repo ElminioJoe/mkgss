@@ -61,7 +61,7 @@
                             alt="{{ category.random_image.image_alt_text }}">
                         <div class="checkbox-container mfp-delete d-none mt-1" style="z-index: 1;">
                             <input class="selected-checkbox" type="checkbox" name="selected_images"
-                                value="{{ image.id }}">
+                                value="{{ category.id }}">
                         </div>
                         <a href="{% url 'gallery-detail' category.slug %}" class="card_content">
                             <span class="d-flex flex-row">

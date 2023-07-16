@@ -296,6 +296,7 @@ class CreateCategoryView(FormView):
                 gallery = Gallery(category=category, gallery_image=image)
                 gallery.save()
 
+        messages.success(self.request, "Gallery Added successfully!")
         self.request.session['new_category_id'] = category.id
         return super(CreateCategoryView, self).form_valid(form)
 
@@ -314,8 +315,10 @@ def images_delete(request, model, success_message):
                 images.delete()
                 messages.success(request, success_message)
 
-                # category = get_object_or_404(Category, id=category_id)
-                return redirect('gallery-detail', slug=category_slug)
+                if category_slug:
+                    return redirect('gallery-detail', slug=category_slug)
+                else:
+                    return redirect('gallery')
             else:
                 messages.error(request, 'Please select at least one image to delete.')
 
