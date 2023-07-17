@@ -49,6 +49,22 @@
     }
 }
 
+@media (max-width: 991px) {
+    .cst_pages .list-group-override {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        overflow-y: scroll;
+        white-space: nowrap;
+    }
+
+    .cst_pages .list-group-override .list-group-item-override {
+        padding-inline: 0.567rem ;
+        border-radius: 10px 10px 0px 0px;
+    }
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
 
     .banner-main .carousel-caption {
@@ -103,14 +119,7 @@
     	border: #563309 solid 0.5px;
         border-bottom: none;
     }
-    .cst_pages .list-group-override{
-    	display: inline;
-    }
-    .cst_pages .list-group-override .list-group-item-override{
-    	display: inline;
-        border: none;
-        border-radius: 10px 10px 0px 0px;
-    }
+
 /*--------------- end about page css ---------------*/
 }
 
@@ -174,19 +183,12 @@
     .cst_pages .side_bar {
         margin-bottom: 1rem;
     }
-    .cst_pages .list-group-override{
-    	display: inline;
-    }
+
     .cst_pages .list-group-override .list-group-item-override:hover{
     	border: #563309 solid 0.5px;
-        border-bottom: none;    }
-    .cst_pages .list-group-override .list-group-item-override{
-    	display: inline;
-        padding: 0.8rem 0.7rem;
-        margin: auto 0.2px;
-        border: none;
-        border-radius: 10px 10px 0px 0px;
+        border-bottom: none;
     }
+
     .cst_pages img.float-left{
     	width: 100vw;
         float: none;
@@ -291,20 +293,13 @@
     }
     .cst_pages .list-group-override .list-group-item-override:hover{
     	border: #563309 solid 0.5px;
-        border-bottom: none;    }
-    .cst_pages .list-group-override{
-    	display: inline;
-        /* justify-items: center; */
+        border-bottom: none;
     }
+
     .cst_pages .list-group-override .list-group-item-override{
-    	display: inline-block;
         text-align: center;
         font-size: calc(3.2vw - (40vw / 70));
-        max-width: max-content;
-        padding: 0.5rem 0.4rem;
-        margin: -0.3px;
-        border: none;
-        border-radius: 10px 10px 0px 0px;
+        margin: 0.3px;
     }
     .cst_pages img.float-left{
     	width: 100vw;
