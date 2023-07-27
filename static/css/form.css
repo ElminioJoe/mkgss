@@ -83,10 +83,38 @@ select:focus {
 	width: 23em;
 }
 
-form.authentication {
-     padding-top: 2rem;
+/* USER AUTHENTICATION */
+section.auth {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     height: 90vh;
+     margin: 0;
+}
+
+section.auth .login-container,
+section.auth .container {
      width: 400px;
+     background-color: #FFFFFF;
+     padding: 1.7rem;
+     border-radius: 5px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form.authentication {
+     display: flex;
+     flex-direction: column;
+     padding: 1rem;
      margin: auto;
+}
+
+.login-form label {
+     margin-bottom: 5px;
+}
+
+form.authentication input {
+     padding: 10px;
+     margin-bottom: 10px;
 }
 
 form.authentication input[type=submit] {
