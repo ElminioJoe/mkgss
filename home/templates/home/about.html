@@ -192,30 +192,30 @@
                         {% endif %}
                     </div>
                     <hr>
-                    <div class="row d-flex align-items-center">
+                    <div class="row">
                         {% if school_values %}
-                        <div class=" col-md-4 value-item d-flex flex-row">
-                            <!-- <div class="icon">
-                                <i class="fa-regular fa-atom"></i>
-                            </div> -->
+                        <div class=" col-md-4 value-item d-flex flex-md-column">
+                            <div class="icon">
+                                <img src="{% static 'icon/Motto.png' %}" alt="Motto">
+                            </div>
                             <div class="details">
                                 <h4>Motto</h4>
                                 <p>{{ school_values.0.motto }}</p>
                             </div>
                         </div>
-                        <div class=" col-md-4 value-item d-flex flex-row">
-                            <!-- <div class="icon">
-                                <i class="fa-regular fa-octagon-check"></i>
-                            </div> -->
+                        <div class=" col-md-4 value-item d-flex flex-md-column">
+                            <div class="icon">
+                                <img src="{% static 'icon/Mission.png' %}" alt="Mission">
+                            </div>
                             <div class="details">
                                 <h4>Mission</h4>
                                 <p>{{ school_values.0.mission }}</p>
                             </div>
                         </div>
-                        <div class=" col-md-4 value-item d-flex flex-row">
-                            <!-- <div class="icon">
-                                <i class="fa-regular fa-arrows-to-eye"></i>
-                            </div> -->
+                        <div class=" col-md-4 value-item d-flex flex-md-column">
+                            <div class="icon">
+                                <img src="{% static 'icon/Vision.png' %}" alt="Vision">
+                            </div>
                             <div class="details">
                                 <h4>Vision</h4>
                                 <p>{{ school_values.0.vision }}</p>

@@ -838,10 +838,6 @@ img.zoom {
 	display: inline;
 }
 
-/* .cst_pages .list-group-override{
-	display: inline;
-    justify-items: center;
-} */
 .cst_pages .list-group-override .list-group-item-override.active {
 	background-color: #6D3D14;
 	border-color: #6D3D14;
@@ -861,6 +857,34 @@ img.zoom {
 
 #list-staff hr:last-child {
 	display: none;
+}
+
+.value-item .icon {
+	display:flex;
+	border-radius: 10px;
+	justify-content: center;
+	align-items: center;
+	min-width: 80px;
+	height: 85px;
+	background-color: #6D3D14;
+}
+
+.value-item .icon img {
+	width: 40px;
+	filter: invert(100%) brightness(100%) contrast(100%);
+}
+
+.value-item .details {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	width: fit-content;
+	margin-top: 0.58rem;
+}
+
+.value-item .details>p {
+	height: max-content;
 }
 /*--------------- end about page css ---------------*/
 

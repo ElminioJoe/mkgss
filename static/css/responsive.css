@@ -193,7 +193,16 @@
     	width: 100vw;
         float: none;
         padding: 1em 0 !important;
+    }
 
+    .value-item {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+
+    .value-item .details {
+        margin-top: 0;
+        margin-left: 0.972rem;
     }
 /*--------------- end about page css ---------------*/
 }
@@ -306,6 +315,16 @@
         float: none;
         padding: 1em 0 !important;
 
+    }
+
+    .value-item .details {
+        margin-top: 0;
+        margin-left: 0.842rem;
+    }
+
+    .value-item {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
     }
 /*--------------- end about page css ---------------*/
 }
