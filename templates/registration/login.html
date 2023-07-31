@@ -1,6 +1,10 @@
 {% extends "registration/auth_base.html" %}
 
-<title>Login</title>
+{% block title %}
+    {% with title="Login" %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
 
 {% block content %}
 <section class="auth">

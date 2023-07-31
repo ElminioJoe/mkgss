@@ -27,12 +27,13 @@
 
     {% endblock %}
 
-
-    {% if title %}
-    <title>{{title}} | Moi Girls Kadzonzo Secondary School</title>
-    {% else %}
-    <title>Moi Girls Kadzonzo Secondary School </title>
-    {% endif %}
+    {% block title %}
+        {% if title %}
+        <title>{{title}} | Moi Girls Kadzonzo Secondary School</title>
+        {% else %}
+        <title>Moi Girls Kadzonzo Secondary School </title>
+        {% endif %}
+    {% endblock %}
 </head>
 <body class="main-layout">
     <!-- loader  -->
