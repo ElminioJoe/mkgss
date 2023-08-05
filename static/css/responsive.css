@@ -295,6 +295,9 @@
         width: 313px;
         margin: auto;
     }
+    .page-link {
+        padding-inline: 0.62rem;
+    }
 /*--------------- about page css ---------------*/
 
     .cst_pages .side_bar {
@@ -326,5 +329,10 @@
         padding-top: 0.75rem;
         padding-bottom: 0.75rem;
     }
+
 /*--------------- end about page css ---------------*/
+
+    .meta {
+        font-size: 0.699rem;
+    }
 }

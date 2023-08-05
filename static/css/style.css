@@ -260,6 +260,16 @@ button {
 	width: 280px;
 }
 
+.page-link {
+	color: #6D3D14;
+	background-color: #fff;
+}
+
+.page-item.active .page-link {
+	color: #fff;
+	background-color: #6D3D14;
+	border-color: #6D3D14;
+}
 
 /*----------------------------
     scroll to top area

@@ -57,6 +57,7 @@ class GalleryCategoryListView(ListView):
     model = Category
     template_name = "home/gallery.html"
     context_object_name = 'category_list'
+    paginate_by = 10
 
 
     def get_context_data(self, **kwargs):
@@ -117,19 +118,18 @@ class AboutView(View):
         return render(request, self.template_name, context)
 
 
-class NewsView(View):
+class NewsView(ListView):
+    model = News
     template_name = "home/news.html"
+    context_object_name = "news"
+    paginate_by = 6
 
-    def get(self, request):
-        news = News.objects.order_by("-post_date")[:4]
-        recommended = News.random_data.all()[:6]
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Blog"
+        context["recommended"] = News.random_data.all()[:5]
 
-        context = {
-            "title": "Blog",
-            "news": news,
-            "recommended": recommended,
-        }
-        return render(request, self.template_name, context)
+        return context
 
 
 class SchoolNewsDetailView(DetailView):
@@ -142,7 +142,7 @@ class SchoolNewsDetailView(DetailView):
         news_item = context["news_item"]
         context["title"] = "Blog Detail"
         context["subtitle"] = news_item.headline
-        context["news"] = News.objects.order_by("-post_date").exclude(id=self.object.id)[:8]
+        context["news"] = News.objects.order_by("-post_date").exclude(id=self.object.id)[:5]
         context["template_name"] = self.template_name
         return context
 
