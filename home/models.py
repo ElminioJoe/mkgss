@@ -218,7 +218,7 @@ class Department(models.Model):
 
 class SchoolInfo(models.Model):
     name = models.CharField(max_length=100, default='')
-    image = ResizedImageField(
+    cover_image = ResizedImageField(
         size=[1920, 1300],
         crop=["middle", "center"],
         upload_to="about/",
@@ -226,7 +226,7 @@ class SchoolInfo(models.Model):
         blank=True,
     )
     image_alt_text = ImageAltTextField(
-        image_field_name="image",
+        image_field_name="cover_image",
         help_text="Optional: short description of what the image entails.",
     )
     date_created = models.DateTimeField(blank=True, null=True, auto_now_add=True)
@@ -238,7 +238,7 @@ class SchoolInfo(models.Model):
         return self.name
 
     def update_image(self, new_image):
-        self.image = new_image
+        self.cover_image = new_image
         self.save()
 
     def delete(self, *args, **kwargs):
@@ -257,11 +257,8 @@ class Administration(SchoolInfo):
 
 
 class Academic(SchoolInfo):
-    subject = models.CharField(max_length=70)
+    # subject = models.CharField(max_length=70)
     info = RichTextField()
-
-    def __str__(self):
-        return f"{self.name} - {self.subject}"
 
 
 class Admission(SchoolInfo):

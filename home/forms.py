@@ -67,15 +67,13 @@ class HomeFeatureForm(FormWidgets, forms.ModelForm):
 class SchoolInfoForm(FormWidgets, forms.ModelForm):
     class Meta:
         model = SchoolInfo
-        fields = ["name", "image", "image_alt_text"]
+        fields = ["name", "cover_image"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
 
 class AdministrationForm(SchoolInfoForm):
-    info = forms.CharField(widget=CKEditorWidget())
-
     class Meta(SchoolInfoForm.Meta):
         model = Administration
         fields = SchoolInfoForm.Meta.fields + ["info"]
@@ -84,11 +82,10 @@ class AdministrationForm(SchoolInfoForm):
 class AcademicForm(SchoolInfoForm):
     class Meta(SchoolInfoForm.Meta):
         model = Academic
-        fields = SchoolInfoForm.Meta.fields + ["subject", "info"]
+        fields = SchoolInfoForm.Meta.fields + ["info"]
 
 
 class AdmissionForm(SchoolInfoForm):
-    info = forms.CharField(widget=CKEditorWidget())
     class Meta(SchoolInfoForm.Meta):
         model = Admission
         fields = SchoolInfoForm.Meta.fields + ["info"]
@@ -148,7 +145,7 @@ class AddImageForm(FormWidgets, forms.ModelForm):
 
     class Meta:
         model = Gallery
-        fields = ['gallery_image', 'image_alt_text']
+        fields = ['gallery_image']
         help_texts = {"gallery_image": _("upload images")}
 
     def clean(self):

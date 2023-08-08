@@ -26,41 +26,27 @@
                         <h3 class="mr-auto">Academics</h3>
                         {% if user.is_authenticated %}
                         <!-- Button trigger modal -->
-                        <!-- Add Button -->
-                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#openPostModal" data-title="Add Academic" data-url="{% url 'academic_create' %}" data-form="academicForm" data-placement="top" title="Add">
-                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                        <!-- Edit Button -->
+                        <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal"
+                            data-target="#openPostModal" data-title="Edit Academic" data-url="{% url 'academic_update' academics.0.id %}"
+                            data-form="academicForm" data-placement="top" title="Edit">
+                            <i class="fa-sharp fa-solid fa-pen-to-square"></i>
                         </button>
                         {% endif %}
                     </div>
                     <hr>
-                    <div class="row d-flex align-items-center">
-                        <div class="col-md-12 mb-2 ">
-                            {% for academic in academics %}
-                            <div class="d-flex mb-3">
-                                <h4 class="mr-auto">{{ academic.subject }}</h4>
-                                {% if user.is_authenticated %}
-                                <!-- Buttons Trigger Modal -->
-                                <!-- Edit Button -->
-                                <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#openPostModal" data-title="Edit Academic" data-url="{% url 'academic_update' academic.id %}" data-form="academicForm" data-placement="top" title="Edit">
-                                    <i class="fa-sharp fa-solid fa-pen-to-square"></i>
-                                </button>
-                                <!-- Delete Button -->
-                                <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteModal" data-title="Delete {{ academic.subject}}" data-url="{% url 'academic_delete' academic.id %}" data-form="deleteForm" data-placement="top" title="Delete">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                                {% endif %}
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-md-6">
-                                    <p class="mt-0 mb-3">{{ academic.info|safe }}</p>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <img src="{{ academic.image.url }}" class="img-fluid" alt="{{ academic.image_alt_text }}">
-                                </div>
-                            </div>
-                            {% endfor %}
+                    {% if academics %}
+                    <div class="d-flex flex-column align-items-center">
+                        {% if academics.0.cover_image.url %}
+                        <div class="mb-3">
+                            <img src="{{ academics.0.cover_image.url }}" class="img-fluid" alt="{{ academics.0.image_alt_text }}">
+                        </div>
+                        {% endif %}
+                        <div class="px-2">
+                            {{ academics.0.info|safe }}
                         </div>
                     </div>
+                    {% endif %}
                 </div>
 
                 <!--  -->
@@ -70,41 +56,27 @@
                         <h3 class="mr-auto">Administration</h3>
                         {% if user.is_authenticated %}
                         <!-- Button trigger modal -->
-                        <!-- Add Button -->
-                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#openPostModal" data-title="Add administration" data-url="{% url 'administration_create' %}" data-form="administrationForm" data-placement="top" title="Add">
-                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                        <!-- Edit Button -->
+                        <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#openPostModal"
+                            data-title="Edit Administration" data-url="{% url 'administration_update' administration.0.id %}"
+                            data-form="administrationForm" data-placement="top" title="Edit">
+                            <i class="fa-sharp fa-solid fa-pen-to-square"></i>
                         </button>
                         {% endif %}
                     </div>
                     <hr>
-                    <div class="row d-flex align-items-center">
-                        <div class="col-md-12 mb-2 ">
-                            {% for admin in administration %}
-                            <div class="d-flex mb-3">
-                                <h4 class="mr-auto">{{ admin.name }}</h4>
-                                {% if user.is_authenticated %}
-                                <!-- Buttons Trigger Modal -->
-                                <!-- Edit Button -->
-                                <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#openPostModal" data-title="Edit Administration" data-url="{% url 'administration_update' admin.id %}" data-form="administrationForm" data-placement="top" title="Edit">
-                                    <i class="fa-sharp fa-solid fa-pen-to-square"></i>
-                                </button>
-                                <!-- Delete Button -->
-                                <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteModal" data-title="Delete {{ admin.name}}" data-url="{% url 'administration_delete' admin.id %}" data-form="deleteForm" data-placement="top" title="Delete">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                                {% endif %}
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-md-6">
-                                    <p class="mt-0 mb-3 para-br">{{ admin.info|safe }}</p>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <img src="{{ admin.image.url }}" class="img-fluid" alt="{{ admin.image_alt_text }}">
-                                </div>
-                            </div>
-                            {% endfor %}
+                    {% if administration %}
+                    <div class="d-flex flex-column align-items-center">
+                        {% if administration.0.cover_image.url %}
+                        <div class="mb-3">
+                            <img src="{{ administration.0.cover_image.url }}" class="img-fluid" alt="{{ administration.0.image_alt_text }}">
+                        </div>
+                        {% endif %}
+                        <div class="px-2">
+                            {{ administration.0.info|safe }}
                         </div>
                     </div>
+                    {% endif %}
                 </div>
 
                 <!--  -->
@@ -115,7 +87,9 @@
                         {% if user.is_authenticated %}
                         <!-- Button trigger modal -->
                         <!-- Edit Button -->
-                        <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#openPostModal" data-title="Edit Admission" data-url="{% url 'admission_update' admission.0.id %}" data-form="admissionForm" data-placement="top" title="Edit">
+                        <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#openPostModal"
+                            data-title="Edit Admission" data-url="{% url 'admission_update' admission.0.id %}"
+                            data-form="admissionForm" data-placement="top" title="Edit">
                             <i class="fa-sharp fa-solid fa-pen-to-square"></i>
                         </button>
                         {% endif %}
@@ -123,12 +97,14 @@
                     <hr>
                     {% if admission %}
                     <!-- <h4>{{ admission.0.name }}</h4> -->
-                    <div class="row d-flex align-items-center">
-                        <div class="col-md-6 align-self-start">
-                            <p class="mt-0 mb-3 para-br">{{ admission.0.info|safe }}</p>
+                    <div class="d-flex flex-column align-items-center">
+                        {% if admission.0.cover_image %}
+                        <div class="mb-3">
+                            <img src="{{ admission.0.cover_image.url }}" class="img-fluid" alt="{{ admission.0.image_alt_text }}">
                         </div>
-                        <div class="col-md-6">
-                            <img src="{{ admission.0.image.url }}" class="img-fluid" alt="{{ admission.0.image_alt_text }}">
+                        {% endif %}
+                        <div class="px-2">
+                            {{ admission.0.info|safe }}
                         </div>
                     </div>
                     {% endif %}
@@ -141,41 +117,27 @@
                         <h3 class="mr-auto">Co-Curricular</h3>
                         {% if user.is_authenticated %}
                         <!-- Button trigger modal -->
-                        <!-- Add Button -->
-                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#openPostModal" data-title="Add Curriular" data-url="{% url 'curricular_create' %}" data-form="curricularForm" data-placement="top" title="Add">
-                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                        <!-- Edit Button -->
+                        <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#openPostModal"
+                            data-title="Edit Curricular" data-url="{% url 'curricular_update' curriculars.0.id %}" data-form="curricularForm"
+                            data-placement="top" title="Edit">
+                            <i class="fa-sharp fa-solid fa-pen-to-square"></i>
                         </button>
                         {% endif %}
                     </div>
                     <hr>
-                    <div class="row d-flex align-items-center">
-                        <div class="col-md-12 mb-2 ">
-                            {% for co in curriculars %}
-                            <div class="d-flex mb-3">
-                                <h4 class="mr-auto">{{ co.name }}</h4>
-                                {% if user.is_authenticated %}
-                                <!-- Buttons Trigger Modal -->
-                                <!-- Edit Button -->
-                                <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#openPostModal" data-title="Edit Curricular" data-url="{% url 'curricular_update' co.id %}" data-form="curricularForm" data-placement="top" title="Edit">
-                                    <i class="fa-sharp fa-solid fa-pen-to-square"></i>
-                                </button>
-                                <!-- Delete Button -->
-                                <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteModal" data-title="Delete {{ co.name}}" data-url="{% url 'curricular_delete' co.id %}" data-form="deleteForm" data-placement="top" title="Delete">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                                {% endif %}
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-md-6">
-                                    <p class="mt-0 mb-3 para-br">{{ co.info|safe }}</p>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <img src="{{ co.image.url }}" class="img-fluid" alt="{{ co.image_alt_text }}">
-                                </div>
-                            </div>
-                            {% endfor %}
+                    {% if curriculars %}
+                    <div class="d-flex flex-column align-items-center">
+                        {% if curriculars.0.cover_image %}
+                        <div class="mb-4">
+                            <img src="{{ curriculars.0.cover_image.url }}" class="img-fluid" alt="{{ curriculars.0.image_alt_text }}">
+                        </div>
+                        {% endif %}
+                        <div class="px-2">
+                            {{ curriculars.0.info|safe }}
                         </div>
                     </div>
+                    {% endif %}
                 </div>
 
                 <!--  -->
@@ -240,9 +202,15 @@
                     </div>
                     <hr>
                     {% if school_history %}
-                    <div class="px-3 text-justify align-items-center">
-                        <!-- <h4>{{school_history.name}}</h4> -->
-                        <p class="mt-0 mb-3 para-br">{{ school_history.0.content|safe }}</p>
+                    <div class="d-flex flex-column align-items-center">
+                        {% if school_history.0.cover_image %}
+                        <div class="mb-4">
+                            <img src="{{ school_history.0.cover_image.url }}" class="img-fluid" alt="{{ school_history.0.image_alt_text }}">
+                        </div>
+                        {% endif %}
+                        <div class="px-2">
+                            {{ school_history.0.content|safe }}
+                        </div>
                     </div>
                     {% endif %}
                 </div>
@@ -278,7 +246,9 @@
                                 </button>
                                 {% endif %}
                             </div>
+                            {% if staff.picture.url %}
                             <img src="{{ staff.picture.url }}" class="img-fluid float-left pr-3 pt-2" alt="{{ staff.image_alt_text }}">
+                            {% endif %}
                             <p class="mt-0 mb-4 para-br">{{ staff.message|safe }}</p>
                         </div>
                         <hr>
