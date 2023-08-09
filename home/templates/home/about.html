@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
 {% load static %}
 {% block content %} {{ block.super }}
 
@@ -314,7 +313,8 @@
                 </div>
                 <div class="modal-body">
                     <!-- Form -->
-                    {% csrf_token %}                    <fieldset class="aligned" id="deleteForm"></fieldset>
+                    {% csrf_token %}
+                    <fieldset class="aligned" id="deleteForm"></fieldset>
 
                 </div>
                 <div class="modal-footer">
