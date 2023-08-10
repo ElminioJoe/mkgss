@@ -253,20 +253,20 @@ class SchoolInfo(models.Model):
 
 
 class Administration(SchoolInfo):
-    info = RichTextField()
+    admin_info = RichTextField()
 
 
 class Academic(SchoolInfo):
     # subject = models.CharField(max_length=70)
-    info = RichTextField()
+    academics_info = RichTextField()
 
 
 class Admission(SchoolInfo):
-    info = RichTextField()
+    admission_info = RichTextField()
 
 
 class Curricular(SchoolInfo):
-    info = RichTextField()
+    curricular_info = RichTextField()
 
 
 class SchoolHistory(SchoolInfo):

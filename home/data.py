@@ -1,4 +1,4 @@
-from .models import HomeFeature, Admission, SchoolValue, SchoolHistory
+from .models import Academic, Administration, Curricular, HomeFeature, Admission, SchoolValue, SchoolHistory
 
 
 def create_home_feature_objects():
@@ -14,14 +14,41 @@ def create_home_feature_objects():
 
 
 def create_school_info_objects():
+    _, created = Administration.objects.get_or_create(
+        name="Administration",
+        defaults={
+            "admin_info": "Administration information goes here"
+        }
+    )
+    if created:
+        print("Administration object created.")
+
     _, created = Admission.objects.get_or_create(
         name="Admission",
         defaults={
-            "info": "admission information goes here"
+            "admission_info": "admission information goes here"
         }
     )
     if created:
         print("Admission object created.")
+
+    _, created = Academic.objects.get_or_create(
+        name="Academic",
+        defaults={
+            "academics_info": "academic information goes here"
+        }
+    )
+    if created:
+        print("Academic object created.")
+
+    _, created = Curricular.objects.get_or_create(
+        name="Curricular",
+        defaults={
+            "curricular_info": "Curricular information goes here"
+        }
+    )
+    if created:
+        print("Curricular object created.")
 
     _, created = SchoolValue.objects.get_or_create(
         name="School Values",

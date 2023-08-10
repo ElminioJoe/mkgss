@@ -179,15 +179,17 @@ DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 # CKEDITOR_IMAGE_BACKEND = 'pillow'
 CKEDITOR_CONFIGS = {
     'default': {
+        # 'skin': 'moono',
         'toolbar': 'Custom',
         'toolbar_Custom': [
             {'name': 'tools', 'items': ['Maximize']},
             {'name': 'clipboard', 'items': ['Undo', 'Redo', '-', 'SelectAll', 'Copy', 'Cut', 'Paste']},
-            {'name': 'paragraph', 'items': ['NumberedList', 'BulletedList', '-','JustifyLeft', 'JustifyCenter', 'JustifyRight', '-', 'Outdent', 'Indent', '-', 'Blockquote']},
+            {'name': 'paragraph', 'items': ['NumberedList', 'BulletedList', '-','JustifyLeft', 'JustifyCenter', 'JustifyRight', '-', 'Blockquote']},
             '/', # next toolbar on new line
             {'name': 'styles', 'items': ['Format']},
             {'name': 'basicstyles', 'items': ['Bold', 'Italic', 'Underline', '-', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
-            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+            {'name': 'colors', 'items': ['TextColor']},
+            {'name': 'links', 'items': ['Link', 'Unlink']},
         ],
         'height': 300,
         # 'width': "125%",

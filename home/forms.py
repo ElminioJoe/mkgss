@@ -1,10 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from ckeditor.widgets import CKEditorWidget
-
 
 from .models import *
-from .validators import validate_category
 
 
 class FormWidgets(forms.Form):
@@ -71,30 +68,31 @@ class SchoolInfoForm(FormWidgets, forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields["name"].widget.attrs.update({"disabled": True, "title":"Disabled"})
 
 
 class AdministrationForm(SchoolInfoForm):
     class Meta(SchoolInfoForm.Meta):
         model = Administration
-        fields = SchoolInfoForm.Meta.fields + ["info"]
+        fields = SchoolInfoForm.Meta.fields + ["admin_info"]
 
 
 class AcademicForm(SchoolInfoForm):
     class Meta(SchoolInfoForm.Meta):
         model = Academic
-        fields = SchoolInfoForm.Meta.fields + ["info"]
+        fields = SchoolInfoForm.Meta.fields + ["academics_info"]
 
 
 class AdmissionForm(SchoolInfoForm):
     class Meta(SchoolInfoForm.Meta):
         model = Admission
-        fields = SchoolInfoForm.Meta.fields + ["info"]
+        fields = SchoolInfoForm.Meta.fields + ["admission_info"]
 
 
 class CurricularForm(SchoolInfoForm):
     class Meta(SchoolInfoForm.Meta):
         model = Curricular
-        fields = SchoolInfoForm.Meta.fields + ["info"]
+        fields = SchoolInfoForm.Meta.fields + ["curricular_info"]
 
 
 class SchoolHistoryForm(SchoolInfoForm):

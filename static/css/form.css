@@ -27,29 +27,88 @@ form .control-group .controls p{
 /*--------------- Forms ---------------*/
 
 fieldset.aligned > :first-child {
-	padding: 1rem;
+	padding: 17px 10px;
+     position: relative;
+     display: -ms-flexbox;
+     display: flex;
+     -ms-flex-direction: column;
+     flex-direction: column;
+     min-width: 0;
+     word-wrap: break-word;
+     background-color: #fff;
+     background-clip: border-box;
+     border: 1px solid rgba(0, 0, 0, .125);
+     border-radius: 0.25rem;
 	/* border: 1px solid #e8e8e8; */
-	box-shadow: 1.5px 1.5px #d4d4d4, -1.5px -1.5px #d4d4d4;
+	/* box-shadow: 1.5px 1.5px #d4d4d4, -1.5px -1.5px #d4d4d4; */
 }
 
 .form-group{
      overflow: hidden;
-     padding: 10px;
-     font-size: 0.93rem;
+     overflow-wrap: break-word;
+     background-color: #e4ddd640;
+     padding: 15px 7px;
+     border-radius: 5px;
+     font-size: 0.7875rem;
      border-bottom: 1px solid #e8e8e8;
+     font-weight: normal;
+}
+
+.form-group a {
+     font-size: x-small;
+     font-weight: 400;
 }
 
 .aligned label{
-	display: block;
+	display: inline-block;
      padding: 4px 10px 0 0;
-     float: left;
      width: 160px;
      word-wrap: break-word;
      line-height: 1;
+     font-weight: bold;
 }
 
 .aligned .form-control-file {
-     width: 75%;
+     display: inline;
+     width: 30%;
+     max-width: 90%;
+     color: #444;
+     padding: 2px;
+     background: #fff;
+     border-radius: 10px;
+     border: 1px solid rgba(8, 8, 8, 0.288);
+}
+
+.aligned .form-control-file::-webkit-file-upload-button {
+     margin-right: 20px;
+     border: none;
+     background: #6D3D14;
+     padding: 5px 10px;
+     border-radius: 10px;
+     color: #fff;
+     cursor: pointer;
+     -webkit-transition: background .2s ease-in-out;
+     transition: background .2s ease-in-out;
+}
+
+.aligned .form-control-file::file-selector-button {
+     margin-right: 20px;
+     border: none;
+     background: #6D3D14;
+     padding: 5px 10px;
+     border-radius: 10px;
+     color: #fff;
+     cursor: pointer;
+     -webkit-transition: background .2s ease-in-out;
+     transition: background .2s ease-in-out;
+}
+
+.aligned .form-control-file::-webkit-file-upload-button:hover {
+     background: #6d3d14cc;
+}
+
+.aligned .form-control-file::file-selector-button:hover {
+     background: #6d3d14cc;
 }
 
 input[type=text],
@@ -75,12 +134,12 @@ select:focus {
 	border-color: #666;
 }
 
-.LargeTextField{
-	width: 37em;
+.LargeTextField {
+	width: 35rem;
 }
 
 .TextField {
-	width: 23em;
+	width: 33rem;
 }
 
 /* USER AUTHENTICATION */
@@ -126,12 +185,15 @@ form.authentication input[type=submit] {
 
 /*--------------- CKEDITOR ---------------*/
 div.cke.cke_reset.cke_chrome {
-     width: 47em !important;
+     width: 45rem !important;
 }
 
 @media (max-width: 991px) {
      div.cke.cke_reset.cke_chrome {
-          width: auto !important;
+          width: 100% !important;
+     }
+     .aligned .form-control-file {
+          width: 50%;
      }
 
 }
@@ -165,5 +227,12 @@ div.cke.cke_reset.cke_chrome {
           min-height: 36px;
           font-size: 0.875rem;
           max-width: 100%;
+     }
+}
+
+@media (max-width: 575px) {
+     .aligned .form-control-file {
+          width: auto;
+          max-width: 70%;
      }
 }
