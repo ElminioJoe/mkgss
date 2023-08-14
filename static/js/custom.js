@@ -149,6 +149,25 @@ $(function () {
 		$("#navbar").collapse("toggle");
 	});
 
+	/* Nav Hide on scroll
+    -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+	var lastScrollTop = 0;
+	var navbar = $(".navbar");
+
+	$(window).scroll(function (){
+		var scrollUp = $(this).scrollTop();
+
+		if (scrollUp > lastScrollTop) {
+			navbar.addClass("hide");
+		}
+		else {
+			navbar.removeClass("hide")
+		}
+
+		lastScrollTop = scrollUp;
+	});
+
+
 	/* Product slider
     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 	// optional
