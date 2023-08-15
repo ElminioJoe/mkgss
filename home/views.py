@@ -33,6 +33,8 @@ class HomeView(View):
             create_home_feature_objects()
             return
 
+        carousel_images = CarouselImage.objects.order_by("date_created")
+
         schl_info = SchoolInfo.objects.select_subclasses(
             Admission, SchoolValue, SchoolHistory
         )
@@ -43,6 +45,7 @@ class HomeView(View):
 
         context = {
             "title": "Home",
+            "carousel_images": carousel_images,
             "home_features": home_features,
             "schl_info": schl_info,
             "school_history": school_history,

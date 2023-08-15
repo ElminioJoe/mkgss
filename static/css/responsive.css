@@ -136,6 +136,12 @@
         bottom: 0;
     }
 
+    .slider_section .carousel-caption * {
+        font-size: 1.675;
+        letter-spacing: 8px;
+        line-height: 1.575rem;
+    }
+
     .slider_section .carousel-control-prev {
         left: -20px;
     }
@@ -215,6 +221,10 @@
         text-align: center !important;
         padding-bottom: 25px;
         float: inherit;
+    }
+    .slider_section .carousel-caption * {
+        font-size: 1.515;
+        letter-spacing: 7px;
     }
     .slider_section .carousel-control-prev {
         left: -20px;

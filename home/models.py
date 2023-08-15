@@ -39,6 +39,23 @@ def get_sentinel_user():
     return get_user_model().objects.get_or_create(username="MGKSC")[0]
 
 
+class CarouselImage(models.Model):
+    carousel_image = models.ImageField(upload_to="carousel_images/", blank=False)
+    image_alt_text = ImageAltTextField(
+        image_field_name="carousel_image",
+        help_text="Optional: short description of what the image entails.",
+    )
+    caption = models.CharField(max_length=200, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.image_alt_text} - {self.caption}"
+
+    def get_absolute_url(self):
+        return reverse_lazy("home")
+
+
+
 class HomeFeature(models.Model):
     welcome_info = models.TextField(
         max_length=300,

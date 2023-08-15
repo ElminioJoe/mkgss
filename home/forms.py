@@ -41,6 +41,12 @@ class StaffForm(FormWidgets, forms.ModelForm):
         ]
 
 
+class CarouselImageForm(FormWidgets, forms.ModelForm):
+    class Meta:
+        model = CarouselImage
+        fields = ["caption", "carousel_image"]
+
+
 class HomeFeatureForm(FormWidgets, forms.ModelForm):
     class Meta:
         model = HomeFeature

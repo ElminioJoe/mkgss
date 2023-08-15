@@ -4,6 +4,12 @@ from . import views
 
 urlpatterns = [
     path("", views.HomeView.as_view(), name="home"),
+    path("update_carousel_image/<int:pk>/", views.SchoolInfoUpdateView.as_view(
+            model=CarouselImage,
+            form_class=CarouselImageForm,
+            template_name="home/forms/carousel_image_form.html",
+        ),
+        name="update_carousel_image"),
     path(
         "features/update/<int:pk>/",
         views.SchoolInfoUpdateView.as_view(
