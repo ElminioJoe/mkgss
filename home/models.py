@@ -234,7 +234,7 @@ class Department(models.Model):
 
 
 class SchoolInfo(models.Model):
-    name = models.CharField(max_length=100, default='')
+    name = models.CharField(max_length=100, blank=True,)
     cover_image = ResizedImageField(
         size=[1920, 1300],
         crop=["middle", "center"],

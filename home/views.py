@@ -155,9 +155,10 @@ class SchoolInfoCreateView(CreateView):
     form_class = None  # form class will be set in the url
     template_name = None  # template name will be set in the url
     # success_url = reverse_lazy('about')
+    success_message=None
 
     def form_valid(self, form):
-        messages.success(self.request, "Success! The form has been submitted.")
+        messages.success(self.request, self.success_message)
         return super(SchoolInfoCreateView, self).form_valid(form)
 
     def form_invalid(self, form):
@@ -175,6 +176,7 @@ class SchoolInfoUpdateView(UpdateView):
     form_class = None  # form class will be set in the url
     template_name = None  # template name will be set in the url
     # success_url = reverse_lazy('about')
+    success_message = None
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -186,7 +188,7 @@ class SchoolInfoUpdateView(UpdateView):
 
     def form_valid(self, form):
         update_form_fields(form, self.model)
-        messages.success(self.request, "Success! Details Updated.")
+        messages.success(self.request, self.success_message)
         return super(SchoolInfoUpdateView, self).form_valid(form)
 
     def form_invalid(self, form):
@@ -197,9 +199,10 @@ class SchoolInfoDeleteView(DeleteView):
     model = None  # model will be set in the url
     template_name = "home/forms/confirm_delete_form.html"
     success_url = None
+    success_message=None
 
     def delete(self, request, *args, **kwargs):
-        messages.success(self.request, "Deleted!!.")
+        messages.success(self.request, self.success_message)
         return super().delete(request, *args, **kwargs)
 
 
