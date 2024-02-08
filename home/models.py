@@ -3,16 +3,22 @@ from django.contrib.auth import get_user_model
 from django.core.files import File
 from django.db import models
 from io import BytesIO
+from django.shortcuts import get_object_or_404
 from django_resized import ResizedImageField
 from django.template.defaultfilters import slugify
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.utils.text import slugify
 from PIL import Image
 from model_utils.managers import InheritanceManager
 from ckeditor.fields import RichTextField
 
-from .managers import RandomManager
+from .managers.news_managers import RandomNewsManager
+from .managers.entry_managers import (
+    AdministrationEntryManager, AdmissionEntryManager, AcademicEntryManager,
+    CurricularEntryManager, HistoryEntryManager, PrinciplesEntryManager
+)
 
 
 # Create your models here.
@@ -233,78 +239,6 @@ class Department(models.Model):
         return self.name
 
 
-class SchoolInfo(models.Model):
-    name = models.CharField(max_length=100, blank=True,)
-    cover_image = ResizedImageField(
-        size=[1920, 1300],
-        crop=["middle", "center"],
-        upload_to="about/",
-        default="default-image.jpg",
-        blank=True,
-    )
-    image_alt_text = ImageAltTextField(
-        image_field_name="cover_image",
-        help_text="Optional: short description of what the image entails.",
-    )
-    date_created = models.DateTimeField(blank=True, null=True, auto_now_add=True)
-    date_modified = models.DateTimeField(blank=True, null=True, auto_now=True)
-
-    objects = InheritanceManager()
-
-    def __str__(self):
-        return self.name
-
-    def update_image(self, new_image):
-        self.cover_image = new_image
-        self.save()
-
-    def delete(self, *args, **kwargs):
-        # Delete the image files from the file system
-        self.image.delete()
-
-        # Call the parent delete method to delete the object from the database
-        super().delete(*args, **kwargs)
-
-    def get_absolute_url(self):
-        return reverse_lazy("about")
-
-
-class Administration(SchoolInfo):
-    admin_info = RichTextField()
-
-
-class Academic(SchoolInfo):
-    # subject = models.CharField(max_length=70)
-    academics_info = RichTextField()
-
-
-class Admission(SchoolInfo):
-    admission_info = RichTextField()
-
-
-class Curricular(SchoolInfo):
-    curricular_info = RichTextField()
-
-
-class SchoolHistory(SchoolInfo):
-    content = RichTextField()
-
-
-class SchoolValue(SchoolInfo):
-    motto = models.TextField(
-        max_length=500,
-        default="Bright Shining Star of Academic Excellence in the Nation.",
-    )
-    mission = models.TextField(
-        max_length=500,
-        default="Instilling Self-Esteem And Empowering The Girl Child For The Competitive Market In Life.",
-    )
-    vision = models.TextField(
-        max_length=500,
-        default="To Be A Bright Shining Star of Academic Excellence In The Nation.",
-    )
-
-
 class News(models.Model):
     headline = models.CharField(max_length=250)
     news = RichTextField()
@@ -325,7 +259,7 @@ class News(models.Model):
     # authors = models.ManyToManyField(Author)
 
     objects = models.Manager()
-    random_data = RandomManager()
+    random_data = RandomNewsManager()
 
     class Meta:
         ordering = ["-post_date"]
@@ -467,3 +401,112 @@ def calculate_thumbnail_size(original_size, max_thumbnail_size):
         thumbnail_width = int(thumbnail_height * aspect_ratio)
 
     return thumbnail_width, thumbnail_height
+
+
+class BaseModel(models.Model):
+    date_created = models.DateTimeField(
+        verbose_name="Date Created", auto_now_add=True
+    )
+    date_modified = models.DateTimeField(
+        verbose_name="Date Modified", auto_now=True
+    )
+    is_deleted = models.BooleanField(
+        verbose_name="Deleted", default=False
+    )
+    date_deleted = models.DateTimeField(
+        verbose_name="Date Deleted", null=True, blank=True, editable=False
+    )
+
+    class Meta:
+        abstract = True
+
+    def delete(self):
+        self.is_deleted = True
+        self.date_deleted = timezone.now()
+        self.save()
+
+    # def permanent_delete(self):
+        # TODO: check if the date deleted is > 30 days
+        # in order to permanently delete an object
+
+
+
+class Entry(BaseModel):
+    class Meta:
+        verbose_name = "School Info Entry"
+        verbose_name_plural  = "School Info Entries"
+
+    ENTRY_CHOICES = [
+        (None, "---------"),
+        ("ADMINISTRATION", "Administration"),
+        ("ADMISSION", "Admissions"),
+        ("ACADEMIC", "Academic"),
+        ("CURRICULAR", "Co-Curricular"),
+        ("HISTORY", "School History"),
+        ("PRINCIPLES", "Principles"),
+    ]
+
+    parent_entry = models.ForeignKey(
+        "self", verbose_name="Parent Entry", on_delete=models.RESTRICT,
+        blank=True, null=True, related_name="children"
+    )
+    # sub_entry = models.CharField(max_length=150, blank=True)
+    entry = models.CharField(
+        max_length=15, choices=ENTRY_CHOICES, default=ENTRY_CHOICES[0],
+        blank=True
+    )
+    title = models.CharField(max_length=150, blank=True, default="")
+    content = RichTextField()
+    cover_image = ResizedImageField(
+        size=[1920, 1300],
+        crop=["middle", "center"],
+        upload_to="entries/",
+        default="",
+        blank=True,
+    )
+    image_alt_text = ImageAltTextField(
+        image_field_name="cover_image",
+        help_text="Optional: short description of what the image entails.",
+    )
+
+    objects = models.Manager()
+    administration_entries = AdministrationEntryManager()
+    admission_entries = AdmissionEntryManager()
+    academic_entries = AcademicEntryManager()
+    curricular_entries = CurricularEntryManager()
+    history_entries = HistoryEntryManager()
+    principles_entries = PrinciplesEntryManager()
+
+    def __str__(self):
+        return f'{self.entry} - {self.title}'.upper()
+
+    def save(self, *args, **kwargs):
+        if not self.parent_entry and self.entry:
+            pass
+        elif self.parent_entry and not self.entry:
+            root_parent_entry = get_root_parent_entry(self.parent_entry)
+            self.entry = root_parent_entry.entry
+        else:
+            raise ValueError("Both parent_entry and entry can't be blank")
+
+        return super(Entry, self).save(*args, **kwargs)
+
+    def update_image(self, new_image):
+        self.cover_image = new_image
+        self.save()
+
+    def has_children(self):
+        return Entry.objects.filter(extra_entry=self).exists()
+
+
+
+def get_root_parent_entry(parent_entry):
+    if parent_entry is None:
+        return None
+
+    root_parent_entry = parent_entry.parent_entry
+
+    if root_parent_entry is None:
+        return parent_entry
+
+    return get_root_parent_entry(root_parent_entry)

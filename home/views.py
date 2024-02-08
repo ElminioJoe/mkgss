@@ -1,15 +1,26 @@
 import json
 from django.contrib import messages
 from django.core.mail import send_mail
+from django.forms import modelformset_factory
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
-from django.views.generic import View, DetailView, CreateView, UpdateView, DeleteView, FormView, ListView
+from django.views.generic import (
+    View,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+    FormView,
+    ListView,
+)
 from random import choice
 
 from .models import *
 from .forms import *
 from .data import create_school_info_objects, create_home_feature_objects
 from .validators import validate_email, sanitize_input
+
 # Create your views here.
 
 
@@ -30,27 +41,21 @@ class HomeView(View):
         try:
             home_features = HomeFeature.objects.get()
         except HomeFeature.DoesNotExist:
-            create_home_feature_objects()
+            # create_home_feature_objects()
             return
 
         carousel_images = CarouselImage.objects.order_by("date_created")
 
-        schl_info = SchoolInfo.objects.select_subclasses(
-            Admission, SchoolValue, SchoolHistory
-        )
-        school_history = [info for info in schl_info if isinstance(info, SchoolHistory)]
-        admission = [info for info in schl_info if isinstance(info, Admission)]
-        school_values = [info for info in schl_info if isinstance(info, SchoolValue)]
         news = News.objects.order_by("-post_date")[:4]
 
         context = {
             "title": "Home",
             "carousel_images": carousel_images,
             "home_features": home_features,
-            "schl_info": schl_info,
-            "school_history": school_history,
-            "admission": admission,
-            "school_values": school_values,
+            "schl_info": None,
+            "school_history": None,
+            "admission": None,
+            "school_values": None,
             "news": news,
         }
         return render(request, self.template_name, context)
@@ -59,14 +64,13 @@ class HomeView(View):
 class GalleryCategoryListView(ListView):
     model = Category
     template_name = "home/gallery.html"
-    context_object_name = 'category_list'
+    context_object_name = "category_list"
     paginate_by = 10
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = "Gallery"
-        for category in context['category_list']:
+        context["title"] = "Gallery"
+        for category in context["category_list"]:
             images = category.images.all()
             if images.exists():
                 category.random_image = choice(images)
@@ -76,15 +80,15 @@ class GalleryCategoryListView(ListView):
 class GalleryCategoryDetailView(DetailView):
     model = Category
     template_name = "home/gallery_detail.html"
-    context_object_name = 'category'
-    slug_field = 'slug'
+    context_object_name = "category"
+    slug_field = "slug"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        category = context['category']
-        context['title'] = "Gallery Detail"
-        context['subtitle'] = category.name
-        context['images'] = category.images.all()
+        category = context["category"]
+        context["title"] = "Gallery Detail"
+        context["subtitle"] = category.name
+        context["images"] = category.images.all()
 
         return context
 
@@ -93,19 +97,14 @@ class AboutView(View):
     template_name = "home/about.html"
 
     def get(self, request, *args, **kwargs):
-        create_school_info_objects()
+        # create_school_info_objects()
 
-        school_info = SchoolInfo.objects.select_subclasses()
-        academics = [info for info in school_info if isinstance(info, Academic)]
-        admission = [info for info in school_info if isinstance(info, Admission)]
-        administration = [
-            info for info in school_info if isinstance(info, Administration)
-        ]
-        curriculars = [info for info in school_info if isinstance(info, Curricular)]
-        school_values = [info for info in school_info if isinstance(info, SchoolValue)]
-        school_history = [
-            info for info in school_info if isinstance(info, SchoolHistory)
-        ]
+        academics = Entry.academic_entries.all()
+        admission = Entry.admission_entries.all()
+        administration = Entry.administration_entries.all()
+        curriculars = Entry.curricular_entries.all()
+        school_values = Entry.principles_entries.all()
+        school_history = Entry.history_entries.all()
         staffs = Staff.objects.all()
 
         context = {
@@ -129,7 +128,7 @@ class NewsView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = "Blog"
+        context["title"] = "Blog"
         context["recommended"] = News.random_data.all()[:5]
 
         return context
@@ -145,7 +144,9 @@ class SchoolNewsDetailView(DetailView):
         news_item = context["news_item"]
         context["title"] = "Blog Detail"
         context["subtitle"] = news_item.headline
-        context["news"] = News.objects.order_by("-post_date").exclude(id=self.object.id)[:5]
+        context["news"] = News.objects.order_by("-post_date").exclude(
+            id=self.object.id
+        )[:5]
         context["template_name"] = self.template_name
         return context
 
@@ -155,7 +156,7 @@ class SchoolInfoCreateView(CreateView):
     form_class = None  # form class will be set in the url
     template_name = None  # template name will be set in the url
     # success_url = reverse_lazy('about')
-    success_message=None
+    success_message = None
 
     def form_valid(self, form):
         messages.success(self.request, self.success_message)
@@ -171,6 +172,27 @@ class SchoolInfoCreateView(CreateView):
         return context
 
 
+class ManageEntryView(FormView):
+    model = Entry
+    form_class = EntryFormSet
+    template_name = "home/forms/academic_form.html"
+    success_message = "Academic Details Added"
+
+    def form_valid(self, formset):
+        messages.success(self.request, self.success_message)
+        return super(ManageEntryView, self).form_valid(formset)
+
+    def form_invalid(self, formset):
+        return super(ManageEntryView, self).form_invalid(formset)
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        entry_type = self.kwargs.get("entry")
+        context["formset"] = self.form_class(entry_type, prefix=entry_type)
+        return context
+
+
 class SchoolInfoUpdateView(UpdateView):
     model = None  # model will be set in the url
     form_class = None  # form class will be set in the url
@@ -182,7 +204,7 @@ class SchoolInfoUpdateView(UpdateView):
         context = super().get_context_data(**kwargs)
         self.object = self.get_object()
         form = self.form_class(self.request.POST or None, instance=self.object)
-        context['form'] = form
+        context["form"] = form
         # context["template_name"] = self.template_name
         return context
 
@@ -199,7 +221,7 @@ class SchoolInfoDeleteView(DeleteView):
     model = None  # model will be set in the url
     template_name = "home/forms/confirm_delete_form.html"
     success_url = None
-    success_message=None
+    success_message = None
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
@@ -212,36 +234,42 @@ class ContactFormView(View):
 
     def get(self, request):
         form = ContactForm(initial=request.POST)
-        return render(request, self.template_name, {'form':form, "title": "Contact Us"})
+        return render(
+            request, self.template_name, {"form": form, "title": "Contact Us"}
+        )
 
     def post(self, request):
         form = ContactForm(request.POST)
 
         if form.is_valid():
-            name = sanitize_input(form.cleaned_data.get('name'))
-            email = form.cleaned_data.get('email')
-            subject = sanitize_input(form.cleaned_data.get('subject'))
-            message = sanitize_input(form.cleaned_data.get('message'))
+            name = sanitize_input(form.cleaned_data.get("name"))
+            email = form.cleaned_data.get("email")
+            subject = sanitize_input(form.cleaned_data.get("subject"))
+            message = sanitize_input(form.cleaned_data.get("message"))
 
             # Perform additional validation
             if not all([name, email, subject, message]):
-                messages.error(request, 'Please fill in all fields.')
+                messages.error(request, "Please fill in all fields.")
             elif not validate_email(email):
-                messages.error(request, 'Invalid Email Address.')
+                messages.error(request, "Invalid Email Address.")
             else:
-                host_email_address = os.environ.get('EMAIL_HOST_USER')
+                host_email_address = os.environ.get("EMAIL_HOST_USER")
                 send_mail(subject, message, email, [host_email_address])
-                messages.info(self.request, 'Your message has been delivered Successfully.')
+                messages.info(
+                    self.request, "Your message has been delivered Successfully."
+                )
                 # Clear the form values after successful submission
                 form = ContactForm()
         else:
-            messages.error(request, 'Form submission is invalid.')
+            messages.error(request, "Form submission is invalid.")
 
-        return render(request, self.template_name, {'form': form, "title": "Contact Us"})
+        return render(
+            request, self.template_name, {"form": form, "title": "Contact Us"}
+        )
 
 
 class AddImageView(FormView):
-    template_name = 'home/forms/gallery_upload_form.html'
+    template_name = "home/forms/gallery_upload_form.html"
     form_class = AddImageForm
 
     def get_context_data(self, **kwargs):
@@ -251,14 +279,14 @@ class AddImageView(FormView):
         return context
 
     def form_valid(self, form):
-        category_id = self.kwargs.get('category_id')
+        category_id = self.kwargs.get("category_id")
         category = get_object_or_404(Category, id=category_id)
 
         # Handle renaming category and description
-        rename_category = form.cleaned_data.get('rename_category')
-        new_category_name = form.cleaned_data.get('new_category_name')
-        rename_description = form.cleaned_data.get('rename_description')
-        new_description = form.cleaned_data.get('new_description')
+        rename_category = form.cleaned_data.get("rename_category")
+        new_category_name = form.cleaned_data.get("new_category_name")
+        rename_description = form.cleaned_data.get("rename_description")
+        new_description = form.cleaned_data.get("new_description")
 
         if rename_category and new_category_name:
             category.name = new_category_name
@@ -269,12 +297,13 @@ class AddImageView(FormView):
             category.save()
 
         # Create image objects for each uploaded images
-        images = self.request.FILES.getlist('gallery_image')
+        images = self.request.FILES.getlist("gallery_image")
         for image in images:
             gallery = Gallery(category=category, gallery_image=image)
             gallery.save()
         messages.success(self.request, "Images Added successfully!")
         return super(AddImageView, self).form_valid(form)
+
     def form_invalid(self, form):
         # Add form errors to messages framework
         errors = form.non_field_errors()
@@ -284,14 +313,14 @@ class AddImageView(FormView):
         return super().form_invalid(form)
 
     def get_success_url(self):
-        category = get_object_or_404(Category, id=self.kwargs.get('category_id'))
-        return reverse_lazy('gallery-detail', kwargs={'slug': category.slug})
+        category = get_object_or_404(Category, id=self.kwargs.get("category_id"))
+        return reverse_lazy("gallery-detail", kwargs={"slug": category.slug})
 
 
 class CreateCategoryView(FormView):
-    template_name = 'home/forms/gallery_upload_form.html'
+    template_name = "home/forms/gallery_upload_form.html"
     form_class = CreateGalleryForm
-    success_url = '/gallery/'
+    success_url = "/gallery/"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -301,7 +330,7 @@ class CreateCategoryView(FormView):
 
     def form_valid(self, form):
         category = form.save(commit=False)
-        category_image = self.request.FILES.getlist('category_image')
+        category_image = self.request.FILES.getlist("category_image")
 
         # Associate the uploaded image with the category
         if category_image:
@@ -313,17 +342,17 @@ class CreateCategoryView(FormView):
                 gallery.save()
 
         messages.success(self.request, "Gallery Added successfully!")
-        self.request.session['new_category_id'] = category.id
+        self.request.session["new_category_id"] = category.id
         return super(CreateCategoryView, self).form_valid(form)
 
 
 def images_delete(request, model, success_message):
-    if request.method == 'POST':
-        action = request.POST.get('action')
-        selected_image_ids = request.POST.get('selected_images', [])
-        category_slug = request.POST.get('category_slug')
+    if request.method == "POST":
+        action = request.POST.get("action")
+        selected_image_ids = request.POST.get("selected_images", [])
+        category_slug = request.POST.get("category_slug")
 
-        if action == 'delete_selected_images':
+        if action == "delete_selected_images":
             selected_image_ids = json.loads(selected_image_ids)
             images = model.objects.filter(id__in=selected_image_ids)
             if images:
@@ -332,13 +361,13 @@ def images_delete(request, model, success_message):
                 messages.success(request, success_message)
 
                 if category_slug:
-                    return redirect('gallery-detail', slug=category_slug)
+                    return redirect("gallery-detail", slug=category_slug)
                 else:
-                    return redirect('gallery')
+                    return redirect("gallery")
             else:
-                messages.error(request, 'Please select at least one image to delete.')
+                messages.error(request, "Please select at least one image to delete.")
 
     if category_slug:
-        return redirect('gallery-detail', slug=category_slug)
+        return redirect("gallery-detail", slug=category_slug)
     else:
-        return redirect('gallery')
+        return redirect("gallery")

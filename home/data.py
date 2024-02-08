@@ -1,4 +1,4 @@
-from .models import Academic, Administration, Curricular, HomeFeature, Admission, SchoolValue, SchoolHistory
+from .models import Entry, HomeFeature
 
 
 def create_home_feature_objects():
@@ -14,8 +14,9 @@ def create_home_feature_objects():
 
 
 def create_school_info_objects():
-    _, created = Administration.objects.get_or_create(
-        name="Administration",
+    _, created = Entry.objects.get_or_create(
+        entry = "ADMINISTRATION",
+        title="Administration",
         defaults={
             "admin_info": "Administration information goes here"
         }
@@ -23,8 +24,9 @@ def create_school_info_objects():
     if created:
         print("Administration object created.")
 
-    _, created = Admission.objects.get_or_create(
-        name="Admission",
+    _, created = Entry.objects.get_or_create(
+        entry="ADMISSION",
+        title="Admission",
         defaults={
             "admission_info": "admission information goes here"
         }
@@ -32,8 +34,9 @@ def create_school_info_objects():
     if created:
         print("Admission object created.")
 
-    _, created = Academic.objects.get_or_create(
-        name="Academic",
+    _, created = Entry.objects.get_or_create(
+        entry = "ACADEMIC",
+        title="Academic",
         defaults={
             "academics_info": "academic information goes here"
         }
@@ -41,8 +44,9 @@ def create_school_info_objects():
     if created:
         print("Academic object created.")
 
-    _, created = Curricular.objects.get_or_create(
-        name="Curricular",
+    _, created = Entry.objects.get_or_create(
+        entry = "CURRICULAR",
+        title="Curricular",
         defaults={
             "curricular_info": "Curricular information goes here"
         }
@@ -50,8 +54,9 @@ def create_school_info_objects():
     if created:
         print("Curricular object created.")
 
-    _, created = SchoolValue.objects.get_or_create(
-        name="School Values",
+    _, created = Entry.objects.get_or_create(
+        entry = "PRINCIPLES",
+        title="School Values",
         defaults={
             "motto": "Bright Shining Star of Academic Excellence in the Nation.",
             "mission": "Instilling Self-Esteem And Empowering The Girl Child For The Competitive Market In Life.",
@@ -65,8 +70,9 @@ def create_school_info_objects():
     with open(history_file, "r") as f:
         history_content = f.read()
 
-    _, created = SchoolHistory.objects.get_or_create(
-        name="School History",
+    _, created = Entry.objects.get_or_create(
+        entry = "HISTORY",
+        title="School History",
         defaults={
             "content": history_content
         }

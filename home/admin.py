@@ -1,20 +1,35 @@
 from django.contrib import admin
-from .models import *
+
+from . import models
 
 # Register your models here.
 
-admin.site.register(HomeFeature)
-admin.site.register(CarouselImage)
-admin.site.register(Publisher)
-admin.site.register(Staff)
-admin.site.register(Department)
-admin.site.register(SchoolInfo)
-admin.site.register(Administration)
-admin.site.register(Academic)
-admin.site.register(Admission)
-admin.site.register(Curricular)
-admin.site.register(SchoolHistory)
-admin.site.register(SchoolValue)
-admin.site.register(Gallery)
-admin.site.register(Category)
-admin.site.register(News)
+admin.site.register(models.HomeFeature)
+admin.site.register(models.CarouselImage)
+admin.site.register(models.Publisher)
+admin.site.register(models.Staff)
+admin.site.register(models.Department)
+admin.site.register(models.Gallery)
+admin.site.register(models.Category)
+admin.site.register(models.News)
+
+
+class EntryAdmin(admin.ModelAdmin):
+    list_display = (
+        "title",
+        "entry",
+        "parent_entry",
+        "is_deleted",
+        "date_created",
+        "date_modified",
+    )
+    list_filter = (
+        "entry",
+        "parent_entry",
+        "is_deleted",
+        "date_created",
+        "date_modified",
+    )
+
+
+admin.site.register(models.Entry, EntryAdmin)
