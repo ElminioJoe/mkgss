@@ -11,13 +11,18 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
 from PIL import Image
-from model_utils.managers import InheritanceManager
-from ckeditor.fields import RichTextField
+from django_ckeditor_5.fields import CKEditor5Field
+
+# from ckeditor.fields import RichTextField
 
 from .managers.news_managers import RandomNewsManager
 from .managers.entry_managers import (
-    AdministrationEntryManager, AdmissionEntryManager, AcademicEntryManager,
-    CurricularEntryManager, HistoryEntryManager, PrinciplesEntryManager
+    AdministrationEntryManager,
+    AdmissionEntryManager,
+    AcademicEntryManager,
+    CurricularEntryManager,
+    HistoryEntryManager,
+    PrinciplesEntryManager,
 )
 
 
@@ -33,7 +38,8 @@ class ImageAltTextField(models.CharField):
         if not getattr(model_instance, self.attname):
             # Generate image alt text using the image filename
             image_field = [
-                f for f in model_instance._meta.fields
+                f
+                for f in model_instance._meta.fields
                 if isinstance(f, models.ImageField) and f.name == self.image_field_name
             ][0]
             filename = os.path.basename(getattr(model_instance, image_field.name).name)
@@ -61,7 +67,6 @@ class CarouselImage(models.Model):
         return reverse_lazy("home")
 
 
-
 class HomeFeature(models.Model):
     welcome_info = models.TextField(
         max_length=300,
@@ -72,7 +77,7 @@ class HomeFeature(models.Model):
     administration_info = models.TextField(
         max_length=300,
         blank=True,
-        default="Meet our team of experienced professionals who manage and lead our organization. Our administration is dedicated to providing the best possible service to our clients and stakeholders."
+        default="Meet our team of experienced professionals who manage and lead our organization. Our administration is dedicated to providing the best possible service to our clients and stakeholders.",
     )
     administration_image = ResizedImageField(
         size=[1920, 1300],
@@ -241,7 +246,7 @@ class Department(models.Model):
 
 class News(models.Model):
     headline = models.CharField(max_length=250)
-    news = RichTextField()
+    news = CKEditor5Field(config_name="minimal")
     publisher = models.ForeignKey(Publisher, on_delete=models.SET(get_sentinel_user))
     news_image = ResizedImageField(
         size=[1920, 1300],
@@ -312,7 +317,6 @@ class Gallery(models.Model):
         if not self.id:
             self.create_thumbnail()
         super(Gallery, self).save(*args, **kwargs)
-
 
     def create_thumbnail(self):
         # If there is no image associated with this object, return
@@ -404,15 +408,9 @@ def calculate_thumbnail_size(original_size, max_thumbnail_size):
 
 
 class BaseModel(models.Model):
-    date_created = models.DateTimeField(
-        verbose_name="Date Created", auto_now_add=True
-    )
-    date_modified = models.DateTimeField(
-        verbose_name="Date Modified", auto_now=True
-    )
-    is_deleted = models.BooleanField(
-        verbose_name="Deleted", default=False
-    )
+    date_created = models.DateTimeField(verbose_name="Date Created", auto_now_add=True)
+    date_modified = models.DateTimeField(verbose_name="Date Modified", auto_now=True)
+    is_deleted = models.BooleanField(verbose_name="Deleted", default=False)
     date_deleted = models.DateTimeField(
         verbose_name="Date Deleted", null=True, blank=True, editable=False
     )
@@ -426,15 +424,16 @@ class BaseModel(models.Model):
         self.save()
 
     # def permanent_delete(self):
-        # TODO: check if the date deleted is > 30 days
-        # in order to permanently delete an object
+    # TODO: check if the date deleted is > 30 days
+    # in order to permanently delete an object
+
 
 
 
 class Entry(BaseModel):
     class Meta:
         verbose_name = "School Info Entry"
-        verbose_name_plural  = "School Info Entries"
+        verbose_name_plural = "School Info Entries"
 
     ENTRY_CHOICES = [
         (None, "---------"),
@@ -447,16 +446,18 @@ class Entry(BaseModel):
     ]
 
     parent_entry = models.ForeignKey(
-        "self", verbose_name="Parent Entry", on_delete=models.RESTRICT,
-        blank=True, null=True, related_name="children"
+        "self",
+        verbose_name="Parent Entry",
+        on_delete=models.RESTRICT,
+        blank=True,
+        null=True,
+        related_name="children",
     )
-    # sub_entry = models.CharField(max_length=150, blank=True)
     entry = models.CharField(
-        max_length=15, choices=ENTRY_CHOICES, default=ENTRY_CHOICES[0],
-        blank=True
+        max_length=15, choices=ENTRY_CHOICES, default=ENTRY_CHOICES[0], blank=True
     )
     title = models.CharField(max_length=150, blank=True, default="")
-    content = RichTextField()
+    content = CKEditor5Field(config_name="minimal")
     cover_image = ResizedImageField(
         size=[1920, 1300],
         crop=["middle", "center"],
@@ -478,7 +479,7 @@ class Entry(BaseModel):
     principles_entries = PrinciplesEntryManager()
 
     def __str__(self):
-        return f'{self.entry} - {self.title}'.upper()
+        return f"{self.entry} - {self.title}".upper()
 
     def save(self, *args, **kwargs):
         if not self.parent_entry and self.entry:
@@ -497,7 +498,6 @@ class Entry(BaseModel):
 
     def has_children(self):
         return Entry.objects.filter(extra_entry=self).exists()
-
 
 
 def get_root_parent_entry(parent_entry):

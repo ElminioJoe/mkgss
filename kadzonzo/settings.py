@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'user_auth.apps.UserAuthConfig',
     'home.apps.HomeConfig',
     'crispy_forms',
-    'ckeditor',
+    'django_ckeditor_5',
 ]
 
 AUTH_USER_MODEL = 'user_auth.CustomUser'
@@ -174,25 +174,7 @@ DJANGORESIZED_DEFAULT_QUALITY = 75
 DJANGORESIZED_DEFAULT_KEEP_META = True
 DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 
-# CKEDITOR
-# CKEDITOR_UPLOAD_PATH = 'uploads/'
-# CKEDITOR_IMAGE_BACKEND = 'pillow'
-CKEDITOR_CONFIGS = {
-    'default': {
-        # 'skin': 'moono',
-        'toolbar': 'Custom',
-        'toolbar_Custom': [
-            {'name': 'tools', 'items': ['Maximize']},
-            {'name': 'clipboard', 'items': ['Undo', 'Redo', '-', 'SelectAll', 'Copy', 'Cut', 'Paste']},
-            {'name': 'paragraph', 'items': ['NumberedList', 'BulletedList', '-','JustifyLeft', 'JustifyCenter', 'JustifyRight', '-', 'Blockquote']},
-            '/', # next toolbar on new line
-            {'name': 'styles', 'items': ['Format']},
-            {'name': 'basicstyles', 'items': ['Bold', 'Italic', 'Underline', '-', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
-            {'name': 'colors', 'items': ['TextColor']},
-            {'name': 'links', 'items': ['Link', 'Unlink']},
-        ],
-        'height': 300,
-        # 'width': "125%",
-    },
+# CKEDITOR-5
+from .ckeditor_5_config import CKEDITOR_5_CONFIGS
 
-}
+# CKEDITOR_5_CONFIGS

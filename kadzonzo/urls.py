@@ -17,9 +17,13 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('home.urls')),
-    path('authentication/', include('user_auth.urls')),
+    path("admin/", admin.site.urls),
+    path("", include("home.urls")),
+    path("authentication/", include("user_auth.urls")),
+    path(
+        "ckeditor5/", include("django_ckeditor_5.urls"),
+        name="ck_editor_5_upload_file"
+    ),
 ]
 
 # Use static() to add url mapping to serve static files during development (only)
