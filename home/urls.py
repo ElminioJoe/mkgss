@@ -1,10 +1,27 @@
-from django.urls import path, reverse_lazy
+from django.urls import include, path, re_path, reverse_lazy
 from .forms import *
 from . import views, models
 
 urlpatterns = [
     # ----------- Entry Urls -----------
-    # path("entry")
+    # path("entry/")
+    path(
+        "entry/",
+        include(
+            [
+                path(
+                    "add/<str:entry>/",
+                    views.CreateEntryView.as_view(),
+                    name="create_entry",
+                ),
+                path(
+                    "update/<str:entry>/<int:pk>/",
+                    views.UpdateEntryView.as_view(),
+                    name="update_entry",
+                ),
+            ]
+        ),
+    ),
     # ----------- ---------- -----------
     path("", views.HomeView.as_view(), name="home"),
     path(
@@ -64,7 +81,9 @@ urlpatterns = [
     ),
     # ----------- ---------- -----------
     # ----------- About Urls -----------
-    path("about/", views.AboutView.as_view(), name="about"),
+    re_path(
+        "about/(?:#tab_list-(?P<entry>)/)?$", views.AboutView.as_view(), name="about"
+    ),
     path(
         "about/delete/curricular/<int:pk>/",
         views.SchoolInfoDeleteView.as_view(
@@ -144,9 +163,4 @@ urlpatterns = [
     ),
     path("contact/", views.ContactFormView.as_view(), name="contact"),
     # ----------- ---------- -----------
-    path(
-        "entry/manage/<str:entry>/",
-        views.ManageEntryView.as_view(),
-        name="academic_create",
-    ),
 ]

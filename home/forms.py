@@ -1,6 +1,5 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
-
 from . import models
 
 
@@ -71,6 +70,11 @@ class HomeFeatureForm(FormWidgets, forms.ModelForm):
 
 
 class EntryForm(FormWidgets, forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["content"].required = False
+
     class Meta:
         model = models.Entry
         fields = [
@@ -79,30 +83,11 @@ class EntryForm(FormWidgets, forms.ModelForm):
             "content",
         ]
 
-
-class BaseEntryFormSet(forms.BaseModelFormSet):
-    def __init__(self, entry_type=None, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.entry_type = entry_type
-        if entry_type:
-            entry_manager = get_entry_object_manager(entry_type)
-            if hasattr(entry_manager, "get_queryset"):
-                self.queryset = entry_manager.get_queryset().all()
-            else:
-                raise TypeError(f"{entry_manager} does not provide a valid queryset.")
-
-EntryFormSet = forms.modelformset_factory(
-    models.Entry,
-    form=EntryForm,
-    formset=BaseEntryFormSet,
-    extra=2,
-    max_num=15,
-    fields=[
-        "title",
-        "cover_image",
-        "content",
-    ],
-)
+    def clean_content(self):
+        data = self.cleaned_data["content"]
+        if not data:
+            raise forms.ValidationError("This field is required.")
+        return data
 
 
 class NewsForm(FormWidgets, forms.ModelForm):
@@ -182,6 +167,5 @@ class ContactForm(forms.Form):
 def get_entry_object_manager(entry: str):
     if entry:
         entry = entry.lower()
-    print(entry)
     manager_name = f"{entry}_entries"
     return getattr(models.Entry, manager_name, None)

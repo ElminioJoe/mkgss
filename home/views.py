@@ -1,8 +1,8 @@
 import json
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
-from django.forms import modelformset_factory
-from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import (
@@ -171,26 +171,51 @@ class SchoolInfoCreateView(CreateView):
         # context["template_name"] = self.template_name
         return context
 
-
-class ManageEntryView(FormView):
+class BaseEntryView(LoginRequiredMixin, SuccessMessageMixin):
+    login_url = "/404/not-found/"
+    redirect_field_name = None
     model = Entry
-    form_class = EntryFormSet
-    template_name = "home/forms/academic_form.html"
-    success_message = "Academic Details Added"
-
-    def form_valid(self, formset):
-        messages.success(self.request, self.success_message)
-        return super(ManageEntryView, self).form_valid(formset)
-
-    def form_invalid(self, formset):
-        return super(ManageEntryView, self).form_invalid(formset)
-
+    form_class = EntryForm
+    template_name = "home/forms/entry_form.html"
+    form_method = None
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         entry_type = self.kwargs.get("entry")
-        context["formset"] = self.form_class(entry_type, prefix=entry_type)
+        context["entry"] = entry_type
+        context["method"] = self.form_method
+        context["title"] = f"{self.form_method} {entry_type} entries"
         return context
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message % dict(
+            cleaned_data,
+            entry=self.kwargs.get("entry").capitalize(),
+        )
+
+    def get_success_url(self):
+        entry = self.kwargs.get("entry")
+        if self.request.POST.get("add_another"):
+            return reverse_lazy("create_entry", args=[entry])
+        elif self.request.POST.get("save_continue"):
+            return reverse_lazy("update_entry", args=[entry])
+        else:
+            # return reverse_lazy("about", kwargs={"entry": entry})
+            return f"/about/#tab_list-{entry}"
+
+
+class CreateEntryView(BaseEntryView, CreateView):
+    success_message = "%(entry)s Entry '%(title)s' was created successfully"
+    form_method = "add"
+
+    def form_valid(self, form):
+        form.instance.entry = self.kwargs.get("entry").upper()
+        return super(CreateEntryView, self).form_valid(form)
+
+
+class UpdateEntryView(BaseEntryView, UpdateView):
+    success_message = "%(entry)s Entry '%(title)s' was updated successfully"
+    form_method = "update"
 
 
 class SchoolInfoUpdateView(UpdateView):
