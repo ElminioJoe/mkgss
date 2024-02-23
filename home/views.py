@@ -99,10 +99,10 @@ class AboutView(View):
     def get(self, request, *args, **kwargs):
         # create_school_info_objects()
 
-        academics = Entry.academic_entries.all()
-        admission = Entry.admission_entries.all()
-        administration = Entry.administration_entries.all()
-        curriculars = Entry.curricular_entries.all()
+        academics = Entry.academic_entries.all().exclude(is_deleted=True)
+        admission = Entry.admission_entries.all().exclude(is_deleted=True)
+        administration = Entry.administration_entries.all().exclude(is_deleted=True)
+        curriculars = Entry.curricular_entries.all().exclude(is_deleted=True)
         school_values = Entry.principles_entries.all()
         school_history = Entry.history_entries.all()
         staffs = Staff.objects.all()
@@ -171,20 +171,21 @@ class SchoolInfoCreateView(CreateView):
         # context["template_name"] = self.template_name
         return context
 
+
 class BaseEntryView(LoginRequiredMixin, SuccessMessageMixin):
     login_url = "/404/not-found/"
     redirect_field_name = None
     model = Entry
     form_class = EntryForm
     template_name = "home/forms/entry_form.html"
-    form_method = None
+    form_action = None
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         entry_type = self.kwargs.get("entry")
         context["entry"] = entry_type
-        context["method"] = self.form_method
-        context["title"] = f"{self.form_method} {entry_type} entries"
+        context["action"] = self.form_action
+        context["title"] = f"{self.form_action} {entry_type} entries"
         return context
 
     def get_success_message(self, cleaned_data):
@@ -198,7 +199,7 @@ class BaseEntryView(LoginRequiredMixin, SuccessMessageMixin):
         if self.request.POST.get("add_another"):
             return reverse_lazy("create_entry", args=[entry])
         elif self.request.POST.get("save_continue"):
-            return reverse_lazy("update_entry", args=[entry])
+            return reverse_lazy("update_entry", args=[entry, self.object.id])
         else:
             # return reverse_lazy("about", kwargs={"entry": entry})
             return f"/about/#tab_list-{entry}"
@@ -206,7 +207,7 @@ class BaseEntryView(LoginRequiredMixin, SuccessMessageMixin):
 
 class CreateEntryView(BaseEntryView, CreateView):
     success_message = "%(entry)s Entry '%(title)s' was created successfully"
-    form_method = "add"
+    form_action = "add"
 
     def form_valid(self, form):
         form.instance.entry = self.kwargs.get("entry").upper()
@@ -215,7 +216,21 @@ class CreateEntryView(BaseEntryView, CreateView):
 
 class UpdateEntryView(BaseEntryView, UpdateView):
     success_message = "%(entry)s Entry '%(title)s' was updated successfully"
-    form_method = "update"
+    form_action = "update"
+
+
+class DeleteEntryView(BaseEntryView, DeleteView):
+    template_name = "home/forms/confirm_entry_delete_form.html"
+    success_message = "%(entry)s Entry '%(title)s' was deleted successfully"
+    form_action = "delete"
+    form_class = EntryDeleteForm
+    # context_object_name = "entry"
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message % dict(
+            self.get_object().__dict__,
+            entry = self.kwargs.get("entry").capitalize(),
+        )
 
 
 class SchoolInfoUpdateView(UpdateView):

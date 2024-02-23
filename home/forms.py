@@ -90,6 +90,9 @@ class EntryForm(FormWidgets, forms.ModelForm):
         return data
 
 
+class EntryDeleteForm(forms.Form):
+    pass
+
 class NewsForm(FormWidgets, forms.ModelForm):
     class Meta:
         model = models.News

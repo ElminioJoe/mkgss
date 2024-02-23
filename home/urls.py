@@ -1,4 +1,6 @@
 from django.urls import include, path, re_path, reverse_lazy
+from django.views.generic import RedirectView
+
 from .forms import *
 from . import views, models
 
@@ -18,6 +20,11 @@ urlpatterns = [
                     "update/<str:entry>/<int:pk>/",
                     views.UpdateEntryView.as_view(),
                     name="update_entry",
+                ),
+                path(
+                    "delete/<str:entry>/<int:pk>/",
+                    views.DeleteEntryView.as_view(),
+                    name="delete_entry",
                 ),
             ]
         ),
@@ -81,8 +88,13 @@ urlpatterns = [
     ),
     # ----------- ---------- -----------
     # ----------- About Urls -----------
+    path(
+        "about/<str:entry>/",
+        RedirectView.as_view(pattern_name="about"),
+        name="about_redirect",
+    ),
     re_path(
-        "about/(?:#tab_list-(?P<entry>)/)?$", views.AboutView.as_view(), name="about"
+        r"^about/(?:#tab_list-(?P<entry>)/)?$", views.AboutView.as_view(), name="about"
     ),
     path(
         "about/delete/curricular/<int:pk>/",
