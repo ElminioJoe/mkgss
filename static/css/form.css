@@ -1,49 +1,46 @@
 /*--------------- Modal Form ---------------*/
-form .control-group{
-	padding: 0.3rem;
-	margin-bottom: 0.1rem;
-}
-form .control-group label{
-	font-size: medium;
-	margin-bottom: 0.2rem;
+form .control-group {
+     padding: 0.3rem;
+     margin-bottom: 0.1rem;
 }
 
-form .control-group .controls{
-	margin-bottom: 0.1rem;
+form .control-group label {
+     font-size: medium;
+     margin-bottom: 0.2rem;
 }
-form .control-group .controls p{
-	margin-block-start: 0;
-	margin-block-end: 0.5em;
-	font-size: x-small;
+
+form .control-group .controls {
+     margin-bottom: 0.1rem;
+}
+
+form .control-group .controls p {
+     margin-block-start: 0;
+     margin-block-end: 0.5em;
+     font-size: x-small;
 }
 
 .controls input,
-.controls textarea{
-	width: 100%;
+.controls textarea {
+     width: 100%;
 }
 
 /*--------------- Modal Form ---------------*/
 
 /*--------------- Forms ---------------*/
-
-fieldset.aligned > :first-child {
-	padding: 17px 10px;
-     position: relative;
-     display: -ms-flexbox;
-     display: flex;
-     -ms-flex-direction: column;
-     flex-direction: column;
-     min-width: 0;
-     word-wrap: break-word;
-     background-color: #fff;
-     background-clip: border-box;
-     border: 1px solid rgba(0, 0, 0, .125);
-     border-radius: 0.25rem;
-	/* border: 1px solid #e8e8e8; */
-	/* box-shadow: 1.5px 1.5px #d4d4d4, -1.5px -1.5px #d4d4d4; */
+.error-feedback {
+     width: 100%;
+     margin-bottom: 0.25rem;
+     font-size: .875em;
+     color: #dc3545;
 }
 
-.form-group{
+.error-feedback+* {
+     padding: 0.2867rem;
+     border: solid #dc3545 1px;
+     border-radius: 2px;
+}
+
+.form-group {
      overflow: hidden;
      overflow-wrap: break-word;
      background-color: #e4ddd640;
@@ -59,19 +56,34 @@ fieldset.aligned > :first-child {
      font-weight: 400;
 }
 
-.aligned label{
-	display: inline-block;
+.form-group img,
+.form-group input {
+     vertical-align: middle;
+}
+
+.aligned label {
+     display: inline-block;
      padding: 4px 10px 0 0;
-     width: 160px;
+     width: 20%;
      word-wrap: break-word;
      line-height: 1;
+}
+
+.aligned p {
+     flex-grow: 1;
+}
+
+.aligned p label {
+     width: 25% !important;
+}
+
+.aligned label.required {
      font-weight: bold;
 }
 
 .aligned .form-control-file {
      display: inline;
-     width: 30%;
-     max-width: 90%;
+     width: 220px;
      color: #444;
      padding: 2px;
      background: #fff;
@@ -79,18 +91,7 @@ fieldset.aligned > :first-child {
      border: 1px solid rgba(8, 8, 8, 0.288);
 }
 
-.aligned .form-control-file::-webkit-file-upload-button {
-     margin-right: 20px;
-     border: none;
-     background: #6D3D14;
-     padding: 5px 10px;
-     border-radius: 10px;
-     color: #fff;
-     cursor: pointer;
-     -webkit-transition: background .2s ease-in-out;
-     transition: background .2s ease-in-out;
-}
-
+.aligned .form-control-file::-webkit-file-upload-button,
 .aligned .form-control-file::file-selector-button {
      margin-right: 20px;
      border: none;
@@ -111,13 +112,14 @@ fieldset.aligned > :first-child {
      background: #6d3d14cc;
 }
 
+
 input[type=text],
 input[type=password],
 input[type=email],
 input[type=number],
 textarea,
 select {
-	border: 1px solid #ccc;
+     border: 1px solid #ccc;
      border-radius: 4px;
      padding: 5px 6px;
      margin-top: 0;
@@ -131,15 +133,15 @@ input[type=email]:focus,
 input[type=number]:focus,
 textarea:focus,
 select:focus {
-	border-color: #666;
+     border-color: #666;
 }
 
 .LargeTextField {
-	width: 35rem;
+     width: 35rem;
 }
 
 .TextField {
-	width: 33rem;
+     width: 33rem;
 }
 
 /* USER AUTHENTICATION */
@@ -181,40 +183,138 @@ form.authentication input[type=submit] {
      width: 100%;
 }
 
+.delete_card {
+     max-width: 350px;
+     /* background: white; */
+     padding: 20px;
+}
+
+.delete_card .title {
+     color: black;
+     font-size: 2rem;
+     font-weight: 600;
+}
+
+.delete_card .description {
+     color: black;
+     margin-top: 10px;
+     margin-bottom: 20px;
+     font-size: larger;
+     padding-inline: 2rem;
+}
+
+.delete_card .actions {
+     margin-top: 10px;
+     display: flex;
+     justify-content: center;
+     flex-wrap: wrap;
+     gap: 5px;
+     align-items: center;
+     font-size: .8rem;
+}
+
+.delete_card .delete {
+     border-color: #ff0000;
+     color: #ff0000;
+}
+
+.delete_card .delete:hover {
+     background-color: #ff0000;
+     color: #ffffff;
+}
+
+.delete_card .cancel {
+     border-radius: 4px;
+     padding: 5px 8px;
+     border-color: #808080;
+     color: #000000;
+}
+
+.delete_card .cancel:hover {
+     background-color: #e9e9e9;
+     font-size: .825rem;
+}
+
+.delete_card div::before,
+.delete_card div::after {
+     content: "";
+     z-index: -1;
+     position: absolute;
+     bottom: 15px;
+     left: 10px;
+     width: 50%;
+     top: 80%;
+     max-width: 300px;
+     background: rgba(0, 0, 0, 0.7);
+     -webkit-box-shadow: 0 15px 10px rgba(0, 0, 0, 0.7);
+     box-shadow: 0 15px 10px rgba(0, 0, 0, 0.7);
+     -webkit-transform: rotate(-3deg);
+     transform: rotate(-3deg);
+}
+
+.delete_card div::after {
+     right: 10px;
+     left: unset;
+     transform: rotate(3deg);
+}
+
 /*--------------- Forms ---------------*/
 
 /*--------------- CKEDITOR ---------------*/
-div.cke.cke_reset.cke_chrome {
-     width: 45rem !important;
+div.cke,
+.django-ckeditor-widget {
+     width: 100% !important;
 }
 
 @media (max-width: 991px) {
      div.cke.cke_reset.cke_chrome {
           width: 100% !important;
      }
-     .aligned .form-control-file {
-          width: 50%;
-     }
 
 }
 
 /*--------------- end CKEDITOR ---------------*/
 
-@media (max-width: 767px){
+@media (max-width: 767px) {
+
      .aligned input,
      .aligned select,
-     .aligned textarea {
-         flex: 1 1 auto;
-         width: 100%;
-         max-width: 100%;
+     .aligned textarea,
+     .aligned .submit-btn a {
+          flex: 1 1 auto;
+          width: 100%;
+          max-width: 100%;
      }
 
-     fieldset.aligned input[type=checkbox]{
+     .aligned input[type=checkbox] {
           width: auto;
+     }
+
+     .flex-container {
+          flex-flow: column;
+     }
+
+     .aligned .form-group input {
+          flex: 1 1 auto;
+          max-width: 100%;
+     }
+
+     .aligned label {
+          width: 100%;
+          padding: 0 0 10px;
+     }
+
+     .aligned p label {
+          width: 25% !important;
+     }
+
+     .delete_card .actions>* {
+          width: 100%;
      }
 }
 
-@media (max-width: 1024px){
+@media (max-width: 1024px) {
+
      input[type=text],
      input[type=password],
      input[type=email],
@@ -227,12 +327,5 @@ div.cke.cke_reset.cke_chrome {
           min-height: 36px;
           font-size: 0.875rem;
           max-width: 100%;
-     }
-}
-
-@media (max-width: 575px) {
-     .aligned .form-control-file {
-          width: auto;
-          max-width: 70%;
      }
 }

@@ -195,10 +195,12 @@
         border-bottom: none;
     }
 
-    .cst_pages img.float-left{
-    	width: 100vw;
+    .cst_pages img.img-float-right,
+    .cst_pages img.img-float-left {
+        width: 100%;
         float: none;
-        padding: 1em 0 !important;
+        margin: 0;
+        margin-bottom: 1rem;
     }
 
     .value-item {
@@ -323,11 +325,13 @@
         font-size: calc(3.2vw - (40vw / 70));
         margin: 0.3px;
     }
-    .cst_pages img.float-left{
-    	width: 100vw;
-        float: none;
-        padding: 1em 0 !important;
 
+    .cst_pages img.img-float-right,
+    .cst_pages img.img-float-left {
+        width: 100%;
+        float: none;
+        margin: 0;
+        margin-bottom: 1rem;
     }
 
     .value-item .details {

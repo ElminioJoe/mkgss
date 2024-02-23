@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}{{ block.super }}
+
+<div class="container-md mt-5">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.media }}
+        <fieldset class="aligned">
+            <div class="card pb-3 m-3">
+                <div class="text-uppercase theme_bg text-white p-2 pl-5 mb-3">
+                    {{ action }} {{ entry }} Entry
+                </div>
+                {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+                {% endfor %}
+                <div class="px-4">
+                    <div class="border border-secondary rounded p-2">
+                        {{ form.non_field_errors }}
+                        {% for field in form.visible_fields %}
+                        <div class="form-group">
+                            <div class="flex-container">
+                                {{ field.label_tag }}
+                                {% if field.errors %}
+                                <small class="error-feedback">
+                                    {% for error in field.errors %}
+                                    {{ error }}
+                                    {% endfor %}
+                                </small>
+                                {% endif %}
+
+                                {% if field.widget_type == "clearablefile" %}
+                                <p>{{ field }}</p>
+                                {% else %}
+                                {{ field }}
+                                {% endif %}
+                            </div>
+                            {% if field.help_text %}
+                            <small
+                                class="form-text text-muted">{{ field.help_text }}</small>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="card mx-3 submit-btn">
+                <div class="p-2 ml-3 ">
+                    <input type="submit" class="btn btn-primary btn-sm m-1"
+                        value="Save" name="save_entry">
+                    <input type="submit" class="btn btn-primary btn-sm m-1"
+                        value="Save and add another" name="add_another">
+                    <input type="submit" class="btn btn-primary btn-sm m-1"
+                        value="Save and continue" name="save_continue">
+                    {% if action == "update" %}
+                    <a href="{% url 'delete_entry' entry object.pk %}"
+                        class="btn btn-danger btn-sm m-1 ml-auto">Delete</a>
+                    {% endif %}
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}
