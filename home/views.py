@@ -1,4 +1,5 @@
 import json
+import os
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -6,6 +7,7 @@ from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import (
+    TemplateView,
     View,
     DetailView,
     CreateView,
@@ -16,13 +18,14 @@ from django.views.generic import (
 )
 from random import choice
 
-from .models import *
+from . import models
+from .managers.queries import QueryManager
 from .forms import *
-from .data import create_school_info_objects, create_home_feature_objects
 from .validators import validate_email, sanitize_input
 
 # Create your views here.
 
+all_entries = QueryManager.get_all_entries()
 
 def update_form_fields(form, model):
     "Check and update changed form fields"
@@ -34,35 +37,31 @@ def update_form_fields(form, model):
     model.objects.filter(pk=form.instance.pk).update(**update_fields)
 
 
-class HomeView(View):
+class HomeView(TemplateView):
     template_name = "home/home.html"
+    carousel_images = QueryManager.get_carousel_images()
+    latest_news_4 = QueryManager.get_news(4)
+    home_entries = all_entries
 
-    def get(self, request, *args, **kwargs):
-        try:
-            home_features = HomeFeature.objects.get()
-        except HomeFeature.DoesNotExist:
-            # create_home_feature_objects()
-            return
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Home"
+        context["carousel_images"] = self.carousel_images
+        context["entries"] = None
+        context["extras"] = self.home_entries.filter(entry="EXTRA")
+        context["curricular"] = self.home_entries.filter(entry="CURRICULAR").first()
+        context["school_history"] = self.home_entries.filter(entry="HISTORY").first()
+        context["admin"] = self.home_entries.filter(entry="ADMINISTRATION").first()
+        context["academic"] = self.home_entries.filter(entry="ACADEMIC").first()
+        context["admission"] = self.home_entries.filter(entry="ADMISSION").first()
+        context["school_values"] = self.home_entries.filter(entry="PRINCIPLES")
+        context["news"] = self.latest_news_4
 
-        carousel_images = CarouselImage.objects.order_by("date_created")
-
-        news = News.objects.order_by("-post_date")[:4]
-
-        context = {
-            "title": "Home",
-            "carousel_images": carousel_images,
-            "home_features": home_features,
-            "schl_info": None,
-            "school_history": None,
-            "admission": None,
-            "school_values": None,
-            "news": news,
-        }
-        return render(request, self.template_name, context)
+        return context
 
 
 class GalleryCategoryListView(ListView):
-    model = Category
+    model = models.Category
     template_name = "home/gallery.html"
     context_object_name = "category_list"
     paginate_by = 10
@@ -78,7 +77,7 @@ class GalleryCategoryListView(ListView):
 
 
 class GalleryCategoryDetailView(DetailView):
-    model = Category
+    model = models.Category
     template_name = "home/gallery_detail.html"
     context_object_name = "category"
     slug_field = "slug"
@@ -93,44 +92,38 @@ class GalleryCategoryDetailView(DetailView):
         return context
 
 
-class AboutView(View):
+class AboutView(TemplateView):
     template_name = "home/about.html"
+    all_entries = QueryManager.get_all_entries()
+    staff_list = QueryManager.get_all_staff()
 
-    def get(self, request, *args, **kwargs):
-        # create_school_info_objects()
-
-        academics = Entry.academic_entries.all().exclude(is_deleted=True)
-        admission = Entry.admission_entries.all().exclude(is_deleted=True)
-        administration = Entry.administration_entries.all().exclude(is_deleted=True)
-        curriculars = Entry.curricular_entries.all().exclude(is_deleted=True)
-        school_values = Entry.principles_entries.all()
-        school_history = Entry.history_entries.all()
-        staffs = Staff.objects.all()
-
-        context = {
-            "title": "About",
-            "academics": academics,
-            "administration": administration,
-            "admission": admission,
-            "curriculars": curriculars,
-            "school_values": school_values,
-            "school_history": school_history,
-            "staffs": staffs,
-        }
-        return render(request, self.template_name, context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        entry = self.kwargs.get("entry")
+        print(entry)
+        context["title"] = "About"
+        context["entry"] = entry
+        context["academics"] = self.all_entries.filter(entry="ACADEMIC")
+        context["admission"] = self.all_entries.filter(entry="ADMISSION")
+        context["administration"] = self.all_entries.filter(entry="ADMINISTRATION")
+        context["curricular"] = self.all_entries.filter(entry="CURRICULAR")
+        context["school_values"] = self.all_entries.filter(entry="PRINCIPLES")
+        context["school_history"] = self.all_entries.filter(entry="HISTORY")
+        context["staffs"] = self.staff_list
+        return context
 
 
 class NewsView(ListView):
-    model = News
+    model = models.News
     template_name = "home/news.html"
     context_object_name = "news"
     paginate_by = 6
+    recommended_news_5 = QueryManager.get_random_news()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "Blog"
-        context["recommended"] = News.random_data.all()[:5]
-
+        context["recommended"] = self.recommended_news_5
         return context
 
 
@@ -138,15 +131,14 @@ class SchoolNewsDetailView(DetailView):
     model = None  # model will be set in the url
     template_name = None  # template name will be set in the url
     context_object_name = None
+    latest_news_5 = QueryManager.get_news(5)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         news_item = context["news_item"]
         context["title"] = "Blog Detail"
         context["subtitle"] = news_item.headline
-        context["news"] = News.objects.order_by("-post_date").exclude(
-            id=self.object.id
-        )[:5]
+        context["news"] = self.latest_news_5.exclude(id=self.object.id)
         context["template_name"] = self.template_name
         return context
 
@@ -168,14 +160,13 @@ class SchoolInfoCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form"] = self.form_class
-        # context["template_name"] = self.template_name
         return context
 
 
 class BaseEntryView(LoginRequiredMixin, SuccessMessageMixin):
     login_url = "/404/not-found/"
     redirect_field_name = None
-    model = Entry
+    model = models.Entry
     form_class = EntryForm
     template_name = "home/forms/entry_form.html"
     form_action = None
@@ -229,7 +220,7 @@ class DeleteEntryView(BaseEntryView, DeleteView):
     def get_success_message(self, cleaned_data):
         return self.success_message % dict(
             self.get_object().__dict__,
-            entry = self.kwargs.get("entry").capitalize(),
+            entry=self.kwargs.get("entry").capitalize(),
         )
 
 
@@ -320,7 +311,7 @@ class AddImageView(FormView):
 
     def form_valid(self, form):
         category_id = self.kwargs.get("category_id")
-        category = get_object_or_404(Category, id=category_id)
+        category = get_object_or_404(models.Category, id=category_id)
 
         # Handle renaming category and description
         rename_category = form.cleaned_data.get("rename_category")
@@ -339,7 +330,7 @@ class AddImageView(FormView):
         # Create image objects for each uploaded images
         images = self.request.FILES.getlist("gallery_image")
         for image in images:
-            gallery = Gallery(category=category, gallery_image=image)
+            gallery = models.Gallery(category=category, gallery_image=image)
             gallery.save()
         messages.success(self.request, "Images Added successfully!")
         return super(AddImageView, self).form_valid(form)
@@ -353,7 +344,7 @@ class AddImageView(FormView):
         return super().form_invalid(form)
 
     def get_success_url(self):
-        category = get_object_or_404(Category, id=self.kwargs.get("category_id"))
+        category = get_object_or_404(models.Category, id=self.kwargs.get("category_id"))
         return reverse_lazy("gallery-detail", kwargs={"slug": category.slug})
 
 
@@ -378,7 +369,7 @@ class CreateCategoryView(FormView):
 
             # Create image objects for each uploaded image
             for image in category_image:
-                gallery = Gallery(category=category, gallery_image=image)
+                gallery = models.Gallery(category=category, gallery_image=image)
                 gallery.save()
 
         messages.success(self.request, "Gallery Added successfully!")
