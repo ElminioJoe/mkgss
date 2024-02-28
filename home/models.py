@@ -1,29 +1,14 @@
 import os
 from django.contrib.auth import get_user_model
-from django.core.files import File
 from django.db import models
-from io import BytesIO
-from django.shortcuts import get_object_or_404
 from django_resized import ResizedImageField
-from django.template.defaultfilters import slugify
 from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django.utils.text import slugify
-from PIL import Image
 from django_ckeditor_5.fields import CKEditor5Field
 
-# from ckeditor.fields import RichTextField
-
 from .managers.news_managers import RandomNewsManager
-from .managers.entry_managers import (
-    AdministrationEntryManager,
-    AdmissionEntryManager,
-    AcademicEntryManager,
-    CurricularEntryManager,
-    HistoryEntryManager,
-    PrinciplesEntryManager,
-)
+from .utils import create_thumbnail, generate_unique_slug, set_parent_entry
 
 
 # Create your models here.
@@ -67,121 +52,6 @@ class CarouselImage(models.Model):
         return reverse_lazy("home")
 
 
-class HomeFeature(models.Model):
-    welcome_info = models.TextField(
-        max_length=300,
-        blank=True,
-        default="Welcome to Moi Kadzonzo Girls High School website. It is designed for parents, students, Alumni, staff, sponsors, friends of the school and prospective parents who may know little about us.",
-    )
-
-    administration_info = models.TextField(
-        max_length=300,
-        blank=True,
-        default="Meet our team of experienced professionals who manage and lead our organization. Our administration is dedicated to providing the best possible service to our clients and stakeholders.",
-    )
-    administration_image = ResizedImageField(
-        size=[1920, 1300],
-        crop=["middle", "center"],
-        upload_to="homeFeatures/",
-        blank=True,
-        default="default-image.jpg",
-    )
-    administration_image_alt_text = ImageAltTextField(
-        image_field_name="administration_image",
-        help_text="Optional: Short description of what the image entails.",
-    )
-
-    academics_info = models.TextField(
-        max_length=300,
-        blank=True,
-        default="Our educational programs are designed to prepare students for success in their chosen careers. We offer a wide range of courses and programs, from technical training to liberal arts and sciences.",
-    )
-    academics_image = ResizedImageField(
-        size=[1920, 1300],
-        crop=["middle", "center"],
-        upload_to="homeFeatures/",
-        blank=True,
-        default="default-image.jpg",
-    )
-    academics_image_alt_text = ImageAltTextField(
-        image_field_name="academics_image", default=""
-    )
-
-    staff_info = models.TextField(
-        max_length=300,
-        blank=True,
-        default="Our staff is made up of dedicated and talented individuals who are committed to providing excellent service to our clients and customers. They bring a wealth of experience and expertise to their roles, ensuring that we deliver the highest quality work.",
-    )
-    staff_image = ResizedImageField(
-        size=[1920, 1300],
-        crop=["middle", "center"],
-        upload_to="homeFeatures/",
-        blank=True,
-        default="default-image.jpg",
-    )
-    staff_image_alt_text = ImageAltTextField(
-        image_field_name="staff_image",
-        help_text="Optional: Short description of what the image entails.",
-    )
-
-    curricular_info = models.TextField(
-        max_length=300,
-        blank=True,
-        default="Our curricular activities are designed to provide students with opportunities to explore their interests, develop new skills, and build relationships with peers. We offer a wide range of activities, from sports teams and clubs to music and theater programs.",
-    )
-    curricular_image = ResizedImageField(
-        size=[1920, 1300],
-        crop=["middle", "center"],
-        upload_to="homeFeatures/",
-        blank=True,
-        default="default-image.jpg",
-    )
-    curricular_image_alt_text = ImageAltTextField(
-        image_field_name="curricular_image",
-        help_text="Optional: Short description of what the image entails.",
-    )
-
-    library_info = models.TextField(
-        max_length=300,
-        blank=True,
-        default="Our library is a vital resource for students and researchers, providing access to a wide range of books, journals, and digital resources. Our knowledgeable staff is available to assist with research and information inquiries.",
-    )
-    library_image = ResizedImageField(
-        size=[1920, 1300],
-        crop=["middle", "center"],
-        upload_to="homeFeatures/",
-        blank=True,
-        default="default-image.jpg",
-    )
-    library_image_alt_text = ImageAltTextField(
-        image_field_name="library_image",
-        help_text="Optional: Short description of what the image entails.",
-    )
-
-    alumni_info = models.TextField(
-        max_length=300,
-        blank=True,
-        default="Our alumni are an important part of our community, and we are proud of their accomplishments and contributions. We maintain strong relationships with our alumni, providing opportunities for networking, professional development, and social events.",
-    )
-    alumni_image = ResizedImageField(
-        size=[1920, 1300],
-        crop=["middle", "center"],
-        upload_to="homeFeatures/",
-        blank=True,
-        default="default-image.jpg",
-    )
-    alumni_image_alt_text = ImageAltTextField(
-        image_field_name="alumni_image",
-        help_text="Optional: Short description of what the image entails.",
-    )
-
-    def __str__(self):
-        return "Home Features"
-
-    def get_absolute_url(self):
-        return reverse_lazy("home")
-
-
 class Publisher(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
@@ -204,7 +74,7 @@ class Staff(models.Model):
     last_name = models.CharField(max_length=30)
     email = models.EmailField(blank=True)
     picture = ResizedImageField(
-        size=[600, 600], upload_to="staff/", blank=True, default="default value"
+        size=[600, 600], upload_to="staff/", blank=True, default=""
     )
     phone_number = models.CharField(max_length=10, blank=True)
     message = models.TextField(max_length=1000, blank=True, help_text="")
@@ -252,7 +122,7 @@ class News(models.Model):
         size=[1920, 1300],
         crop=["middle", "center"],
         upload_to="news/",
-        default="default-image.jpg",
+        default="",
     )
     image_alt_text = ImageAltTextField(
         image_field_name="news_image",
@@ -260,7 +130,7 @@ class News(models.Model):
     )
     post_date = models.DateTimeField(null=True, blank=True, auto_now_add=True)
     modification_date = models.DateTimeField(blank=True, null=True, auto_now=True)
-    slug = models.SlugField(max_length=500, unique=True, blank=True, null=True)
+    slug = models.SlugField(max_length=500, unique=True, blank=True, null=False)
     # authors = models.ManyToManyField(Author)
 
     objects = models.Manager()
@@ -277,11 +147,7 @@ class News(models.Model):
         return reverse_lazy("news")
 
     def save(self, *args, **kwargs):
-        if self.post_date is None:
-            self.post_date = timezone.localtime(timezone.now())
-
-        self.slug = slugify(self.headline)
-        self.modification_date = timezone.localtime(timezone.now())
+        self.slug = generate_unique_slug(self.__class__.objects, self.headline)
         super(News, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
@@ -314,44 +180,15 @@ class Gallery(models.Model):
         return f"{self.category.name} - {self.image_alt_text}"
 
     def save(self, *args, **kwargs):
-        if not self.id:
-            self.create_thumbnail()
+        create_thumbnail(self, self.gallery_image, self.thumbnail)
         super(Gallery, self).save(*args, **kwargs)
 
-    def create_thumbnail(self):
-        # If there is no image associated with this object, return
-        if not self.gallery_image:
-            return
-
-        # Open original image
-        image = Image.open(self.gallery_image.file)
-
-        # Calculate thumbnail size based on the original image size
-        original_size = image.size
-        max_thumbnail_size = (200, 200)
-        thumbnail_size = calculate_thumbnail_size(original_size, max_thumbnail_size)
-
-        # Create thumbnail
-        image.thumbnail(thumbnail_size, Image.ANTIALIAS)
-
-        # Save thumbnail to a BytesIO object
-        temp_handle = BytesIO()
-        image.save(temp_handle, "PNG")
-        temp_handle.seek(0)
-
-        # Save the thumbnail to the thumbnail field
-        self.thumbnail.save(
-            f"{self.gallery_image.name}_thumbnail.png",
-            File(temp_handle),
-            save=False,
-        )
 
     def delete(self, *args, **kwargs):
         # Delete the image files from the file system
         self.gallery_image.delete()
         self.thumbnail.delete()
 
-        # Call the parent delete method to delete the object from the database
         super().delete(*args, **kwargs)
 
 
@@ -360,7 +197,7 @@ class Category(models.Model):
         max_length=50, unique=True, blank=True, verbose_name="Category"
     )
     description = models.CharField(max_length=200, null=True, blank=True)
-    slug = models.SlugField(max_length=300, unique=True, blank=True, null=True)
+    slug = models.SlugField(max_length=300, unique=True, blank=True, null=False)
     date_created = models.DateTimeField(blank=True, null=True, auto_now_add=True)
     date_modified = models.DateTimeField(blank=True, null=True, auto_now=True)
 
@@ -371,40 +208,12 @@ class Category(models.Model):
         return reverse("category-detail", args=[str(self.id)])
 
     def save(self, *args, **kwargs):
-        if not self.id:
-            self.date_created = timezone.localtime(timezone.now())
-
-        self.slug = slugify(self.name)
-        self.date_modified = timezone.localtime(timezone.now())
+        self.slug = generate_unique_slug(self.__class__.objects, self.name)
         super(Category, self).save(*args, **kwargs)
 
     @classmethod
     def update_category(cls, id, name):
         cls.objects.filter(id=id).update(name=name)
-
-
-def calculate_thumbnail_size(original_size, max_thumbnail_size):
-    # Calculate the thumbnail size while preserving the aspect ratio
-    width, height = original_size
-    max_width, max_height = max_thumbnail_size
-
-    if width <= max_width and height <= max_height:
-        # No need to resize, return the original size
-        return original_size
-
-    # Calculate the aspect ratio
-    aspect_ratio = width / height
-
-    if aspect_ratio > max_width / max_height:
-        # Image is wider, limit by width
-        thumbnail_width = max_width
-        thumbnail_height = int(thumbnail_width / aspect_ratio)
-    else:
-        # Image is taller or square, limit by height
-        thumbnail_height = max_height
-        thumbnail_width = int(thumbnail_height * aspect_ratio)
-
-    return thumbnail_width, thumbnail_height
 
 
 class BaseModel(models.Model):
@@ -414,6 +223,7 @@ class BaseModel(models.Model):
     date_deleted = models.DateTimeField(
         verbose_name="Date Deleted", null=True, blank=True, editable=False
     )
+    slug = models.SlugField(max_length=500, unique=True, blank=True, null=False)
 
     class Meta:
         abstract = True
@@ -423,11 +233,12 @@ class BaseModel(models.Model):
         self.date_deleted = timezone.now()
         self.save()
 
-    # def permanent_delete(self):
-    # TODO: check if the date deleted is > 30 days
-    # in order to permanently delete an object
-
-
+    def permanent_delete(self):
+        """Permanently delete the object if it's been deleted for more than 30 days."""
+        if self.is_deleted and self.date_deleted is not None:
+            days_difference = (timezone.now() - self.date_deleted).days
+            if days_difference > 30:
+                super().delete()
 
 
 class Entry(BaseModel):
@@ -443,6 +254,7 @@ class Entry(BaseModel):
         ("CURRICULAR", "Co-Curricular"),
         ("HISTORY", "School History"),
         ("PRINCIPLES", "Principles"),
+        ("EXTRA", "Extra"),
     ]
 
     parent_entry = models.ForeignKey(
@@ -470,27 +282,17 @@ class Entry(BaseModel):
         help_text="Optional: short description of what the image entails.",
     )
 
-    objects = models.Manager()
-    administration_entries = AdministrationEntryManager()
-    admission_entries = AdmissionEntryManager()
-    academic_entries = AcademicEntryManager()
-    curricular_entries = CurricularEntryManager()
-    history_entries = HistoryEntryManager()
-    principles_entries = PrinciplesEntryManager()
-
     def __str__(self):
         return f"{self.entry} - {self.title}".upper()
 
-    def save(self, *args, **kwargs):
-        if not self.parent_entry and self.entry:
-            pass
-        elif self.parent_entry and not self.entry:
-            root_parent_entry = get_root_parent_entry(self.parent_entry)
-            self.entry = root_parent_entry.entry
-        else:
-            raise ValueError("Both parent_entry and entry can't be blank")
+    def get_absolute_url(self):
+        return reverse("entry-detail", kwargs={"pk": self.pk})
 
-        return super(Entry, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = generate_unique_slug(self.__class__.objects, self.entry)
+        set_parent_entry(self)
+        super().save(*args, **kwargs)
 
     def update_image(self, new_image):
         self.cover_image = new_image
@@ -498,15 +300,3 @@ class Entry(BaseModel):
 
     def has_children(self):
         return Entry.objects.filter(extra_entry=self).exists()
-
-
-def get_root_parent_entry(parent_entry):
-    if parent_entry is None:
-        return None
-
-    root_parent_entry = parent_entry.parent_entry
-
-    if root_parent_entry is None:
-        return parent_entry
-
-    return get_root_parent_entry(root_parent_entry)

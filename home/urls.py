@@ -41,16 +41,7 @@ urlpatterns = [
         ),
         name="update_carousel_image",
     ),
-    path(
-        "features/update/<int:pk>/",
-        views.SchoolInfoUpdateView.as_view(
-            model=models.HomeFeature,
-            form_class=HomeFeatureForm,
-            template_name="home/forms/home_features_form.html",
-            success_message="Homepage Hero Details Updated",
-        ),
-        name="home_features_update",
-    ),
+
     # ----------- Gallery Urls -----------
     path("gallery/", views.GalleryCategoryListView.as_view(), name="gallery"),
     path(

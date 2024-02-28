@@ -4,7 +4,6 @@ from . import models
 
 # Register your models here.
 
-admin.site.register(models.HomeFeature)
 admin.site.register(models.CarouselImage)
 admin.site.register(models.Publisher)
 admin.site.register(models.Staff)

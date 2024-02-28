@@ -49,26 +49,6 @@ class CarouselImageForm(FormWidgets, forms.ModelForm):
         fields = ["caption", "carousel_image"]
 
 
-class HomeFeatureForm(FormWidgets, forms.ModelForm):
-    class Meta:
-        model = models.HomeFeature
-        fields = [
-            "welcome_info",
-            "administration_info",
-            "administration_image",
-            "academics_info",
-            "academics_image",
-            "staff_info",
-            "staff_image",
-            "curricular_info",
-            "curricular_image",
-            "library_info",
-            "library_image",
-            "alumni_info",
-            "alumni_image",
-        ]
-
-
 class EntryForm(FormWidgets, forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
