@@ -25,7 +25,6 @@ from .validators import validate_email, sanitize_input
 
 # Create your views here.
 
-all_entries = QueryManager.get_all_entries()
 
 def update_form_fields(form, model):
     "Check and update changed form fields"
@@ -39,24 +38,36 @@ def update_form_fields(form, model):
 
 class HomeView(TemplateView):
     template_name = "home/home.html"
-    carousel_images = QueryManager.get_carousel_images()
-    latest_news_4 = QueryManager.get_news(4)
-    home_entries = all_entries
 
     def get_context_data(self, **kwargs):
+        entries = QueryManager.get_all_entries()
+        carousel_images = QueryManager.get_carousel_images()
+        latest_news_4 = QueryManager.get_news(4)
+
         context = super().get_context_data(**kwargs)
         context["title"] = "Home"
-        context["carousel_images"] = self.carousel_images
+        context["carousel_images"] = carousel_images
         context["entries"] = None
-        context["extras"] = self.home_entries.filter(entry="EXTRA")
-        context["curricular"] = self.home_entries.filter(entry="CURRICULAR").first()
-        context["school_history"] = self.home_entries.filter(entry="HISTORY").first()
-        context["admin"] = self.home_entries.filter(entry="ADMINISTRATION").first()
-        context["academic"] = self.home_entries.filter(entry="ACADEMIC").first()
-        context["admission"] = self.home_entries.filter(entry="ADMISSION").first()
-        context["school_values"] = self.home_entries.filter(entry="PRINCIPLES")
-        context["news"] = self.latest_news_4
-
+        context["extras"] = entries.filter(entry="EXTRA")
+        context["curricular"] = entries.filter(
+            parent_entry=None, entry="CURRICULAR"
+        ).first()
+        context["school_history"] = entries.filter(
+            parent_entry=None, entry="HISTORY"
+        ).first()
+        context["admin"] = entries.filter(
+            parent_entry=None, entry="ADMINISTRATION"
+        ).first()
+        context["academic"] = entries.filter(
+            parent_entry=None, entry="ACADEMIC"
+        ).first()
+        context["admission"] = entries.filter(
+            parent_entry=None, entry="ADMISSION"
+        ).first()
+        context["school_motto"] = entries.filter(
+            parent_entry=None, entry="PRINCIPLES"
+        ).first()
+        context["news"] = latest_news_4
         return context
 
 
@@ -94,22 +105,22 @@ class GalleryCategoryDetailView(DetailView):
 
 class AboutView(TemplateView):
     template_name = "home/about.html"
-    all_entries = QueryManager.get_all_entries()
-    staff_list = QueryManager.get_all_staff()
 
     def get_context_data(self, **kwargs):
+        entries = QueryManager.get_all_entries()
+        list_staff = QueryManager.get_all_staff()
+
         context = super().get_context_data(**kwargs)
         entry = self.kwargs.get("entry")
-        print(entry)
         context["title"] = "About"
         context["entry"] = entry
-        context["academics"] = self.all_entries.filter(entry="ACADEMIC")
-        context["admission"] = self.all_entries.filter(entry="ADMISSION")
-        context["administration"] = self.all_entries.filter(entry="ADMINISTRATION")
-        context["curricular"] = self.all_entries.filter(entry="CURRICULAR")
-        context["school_values"] = self.all_entries.filter(entry="PRINCIPLES")
-        context["school_history"] = self.all_entries.filter(entry="HISTORY")
-        context["staffs"] = self.staff_list
+        context["academics"] = entries.filter(entry="ACADEMIC")
+        context["admission"] = entries.filter(entry="ADMISSION")
+        context["administration"] = entries.filter(entry="ADMINISTRATION")
+        context["curricular"] = entries.filter(entry="CURRICULAR")
+        context["principle"] = entries.filter(entry="PRINCIPLES")
+        context["school_history"] = entries.filter(entry="HISTORY")
+        context["staffs"] = list_staff
         return context
 
 
@@ -118,12 +129,13 @@ class NewsView(ListView):
     template_name = "home/news.html"
     context_object_name = "news"
     paginate_by = 6
-    recommended_news_5 = QueryManager.get_random_news()
 
     def get_context_data(self, **kwargs):
+        recommended_news_5 = QueryManager.get_random_news()
+
         context = super().get_context_data(**kwargs)
         context["title"] = "Blog"
-        context["recommended"] = self.recommended_news_5
+        context["recommended"] = recommended_news_5
         return context
 
 
@@ -131,14 +143,15 @@ class SchoolNewsDetailView(DetailView):
     model = None  # model will be set in the url
     template_name = None  # template name will be set in the url
     context_object_name = None
-    latest_news_5 = QueryManager.get_news(5)
 
     def get_context_data(self, **kwargs):
+        latest_news_5 = QueryManager.get_news(5)
+
         context = super().get_context_data(**kwargs)
         news_item = context["news_item"]
         context["title"] = "Blog Detail"
         context["subtitle"] = news_item.headline
-        context["news"] = self.latest_news_5.exclude(id=self.object.id)
+        context["news"] = latest_news_5.exclude(id=self.object.id)
         context["template_name"] = self.template_name
         return context
 

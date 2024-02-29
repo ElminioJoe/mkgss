@@ -15,7 +15,7 @@ class QueryManager:
         """
         return models.Entry.objects.filter(
             Q(entry__in=["ACADEMIC", "ADMISSION", "ADMINISTRATION", "CURRICULAR"])
-            | Q(entry__in=["PRINCIPLES", "HISTORY"])
+            | Q(entry__in=["PRINCIPLES", "HISTORY", "EXTRA"])
         ).exclude(is_deleted=True)
 
     @staticmethod

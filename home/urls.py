@@ -17,12 +17,12 @@ urlpatterns = [
                     name="create_entry",
                 ),
                 path(
-                    "update/<str:entry>/<int:pk>/",
+                    "update/<str:entry>/<slug:slug>/",
                     views.UpdateEntryView.as_view(),
                     name="update_entry",
                 ),
                 path(
-                    "delete/<str:entry>/<int:pk>/",
+                    "delete/<str:entry>/<slug:slug>/",
                     views.DeleteEntryView.as_view(),
                     name="delete_entry",
                 ),

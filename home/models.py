@@ -20,15 +20,12 @@ class ImageAltTextField(models.CharField):
         super().__init__(*args, **kwargs)
 
     def pre_save(self, model_instance, add):
-        if not getattr(model_instance, self.attname):
-            # Generate image alt text using the image filename
-            image_field = [
-                f
-                for f in model_instance._meta.fields
-                if isinstance(f, models.ImageField) and f.name == self.image_field_name
-            ][0]
-            filename = os.path.basename(getattr(model_instance, image_field.name).name)
-            setattr(model_instance, self.attname, os.path.splitext(filename)[0])
+        image_field_value = getattr(model_instance, self.image_field_name)
+
+        if image_field_value:
+            filename = os.path.basename(image_field_value.name)
+            alt_text = os.path.splitext(filename)[0]
+            setattr(model_instance, self.attname, alt_text)
         return getattr(model_instance, self.attname)
 
 
@@ -130,7 +127,7 @@ class News(models.Model):
     )
     post_date = models.DateTimeField(null=True, blank=True, auto_now_add=True)
     modification_date = models.DateTimeField(blank=True, null=True, auto_now=True)
-    slug = models.SlugField(max_length=500, unique=True, blank=True, null=False)
+    slug = models.SlugField(max_length=500, unique=True, blank=True, editable=False)
     # authors = models.ManyToManyField(Author)
 
     objects = models.Manager()
@@ -197,7 +194,7 @@ class Category(models.Model):
         max_length=50, unique=True, blank=True, verbose_name="Category"
     )
     description = models.CharField(max_length=200, null=True, blank=True)
-    slug = models.SlugField(max_length=300, unique=True, blank=True, null=False)
+    slug = models.SlugField(max_length=300, unique=True, blank=True, editable=False)
     date_created = models.DateTimeField(blank=True, null=True, auto_now_add=True)
     date_modified = models.DateTimeField(blank=True, null=True, auto_now=True)
 
@@ -223,7 +220,7 @@ class BaseModel(models.Model):
     date_deleted = models.DateTimeField(
         verbose_name="Date Deleted", null=True, blank=True, editable=False
     )
-    slug = models.SlugField(max_length=500, unique=True, blank=True, null=False)
+    slug = models.SlugField(max_length=500, unique=True, blank=True, editable=False)
 
     class Meta:
         abstract = True
