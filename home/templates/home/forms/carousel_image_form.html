@@ -1,36 +1,38 @@
 {% load static %}
 
 {% block content %}
-    <div>
-        {% csrf_token %}
-        {% for hidden in form.hidden_fields %}
-            {{ hidden }}
-        {% endfor %}
+<div>
+    {% csrf_token %}
+    {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+    {% endfor %}
 
-        {% if form.non_field_errors %}
-            <div class="non-field-errors">
-              {% for err in form.non_field_errors %}
-                <p class="form-error">{{ err }}</p>
-              {% endfor %}
-            </div>
-        {% endif %}
-
-            {% for field in form %}
-            <div class="form-group" id="{{ field.id_for_label }}_group">
+    <div class="border border-secondary rounded p-2">
+        {{ form.non_field_errors }}
+        {% for field in form.visible_fields %}
+        <div class="form-group">
+            <div class="flex-container">
                 {{ field.label_tag }}
-                {{ field }}
-                {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                {% endif %}
                 {% if field.errors %}
-                    <div class="alert alert-danger">
-                        {% for error in field.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
+                <small class="error-feedback">
+                    {% for error in field.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </small>
+                {% endif %}
+
+                {% if field.widget_type == "clearablefile" %}
+                <p>{{ field }}</p>
+                {% else %}
+                {{ field }}
                 {% endif %}
             </div>
-            {% endfor %}
-        <input type="hidden" name="upload" value="Save">
+            {% if field.help_text %}
+            <small class="form-text text-muted">{{ field.help_text }}</small>
+            {% endif %}
+        </div>
+        {% endfor %}
     </div>
+    <input type="hidden" name="upload" value="Save">
+</div>
 {% endblock %}
