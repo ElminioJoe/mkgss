@@ -6,181 +6,394 @@
     <div class="row">
         <!-- sidebar links -->
         <div class="col-md-12 col-lg-3 side_bar">
-            <div class="list-group list-group-override" id="list-tab" role="tablist">
-                <a class="list-group-item list-group-item-override list-group-item-action active" id="list-academic-list" data-toggle="list" href="#list-academic" role="tab" aria-controls="academic">Academics</a>
-                <a class="list-group-item list-group-item-override list-group-item-action" id="list-admin-list" data-toggle="list" href="#list-admin" role="tab" aria-controls="admin">Administration</a>
-                <a class="list-group-item list-group-item-override list-group-item-action" id="list-admission-list" data-toggle="list" href="#list-admission" role="tab" aria-controls="admission">Admission</a>
-                <a class="list-group-item list-group-item-override list-group-item-action" id="list-curricular-list" data-toggle="list" href="#list-curricular" role="tab" aria-controls="curricular">Co-Curricular</a>
-                <a class="list-group-item list-group-item-override list-group-item-action" id="list-values-list" data-toggle="list" href="#list-values" role="tab" aria-controls="values">Our Values</a>
-                <a class="list-group-item list-group-item-override list-group-item-action" id="list-history-list" data-toggle="list" href="#list-history" role="tab" aria-controls="history">School History</a>
-                <a class="list-group-item list-group-item-override list-group-item-action" id="list-staff-list" data-toggle="list" href="#list-staff" role="tab" aria-controls="staff">Staff</a>
+            <div class="" style="position:sticky; top:12%">
+                <div class="list-group list-group-override" id="list-tab"
+                    role="tablist">
+                    <a class="list-group-item list-group-item-override list-group-item-action active"
+                        id="list-academic-list" data-toggle="list"
+                        href="#list-academic" role="tab"
+                        aria-controls="academic">Academics</a>
+                    <a class="list-group-item list-group-item-override list-group-item-action"
+                        id="list-administration-list" data-toggle="list"
+                        href="#list-administration" role="tab"
+                        aria-controls="administration">Administration</a>
+                    <a class="list-group-item list-group-item-override list-group-item-action"
+                        id="list-admission-list" data-toggle="list"
+                        href="#list-admission" role="tab"
+                        aria-controls="admission">Admission</a>
+                    <a class="list-group-item list-group-item-override list-group-item-action"
+                        id="list-curricular-list" data-toggle="list"
+                        href="#list-curricular" role="tab"
+                        aria-controls="curricular">Co-Curricular</a>
+                    <a class="list-group-item list-group-item-override list-group-item-action"
+                        id="list-principles-list" data-toggle="list"
+                        href="#list-principles" role="tab"
+                        aria-controls="principles">Our Values</a>
+                    <a class="list-group-item list-group-item-override list-group-item-action"
+                        id="list-history-list" data-toggle="list"
+                        href="#list-history" role="tab"
+                        aria-controls="history">School History</a>
+                    <a class="list-group-item list-group-item-override list-group-item-action"
+                        id="list-staff-list" data-toggle="list"
+                        href="#list-staff" role="tab"
+                        aria-controls="staff">Staff</a>
+                </div>
             </div>
         </div>
         <!-- end sidebar links -->
         <!-- content -->
         <div class="col-md-12 col-lg-9">
             <div class="tab-content bg-light_silver p-3" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="list-academic" role="tabpanel" aria-labelledby="list-academic-list">
+                <div class="tab-pane fade show active" id="list-academic"
+                    role="tabpanel" aria-labelledby="list-academic-list">
                     <div class="d-flex mb-3">
                         <h3 class="mr-auto">Academics</h3>
                         {% if user.is_authenticated %}
-                        <!-- Button trigger modal -->
-                        <!-- Edit Button -->
-                        <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal"
-                            data-target="#openPostModal" data-title="Edit Academic" data-url="{% url 'academic_update' academics.0.id %}"
-                            data-form="academicForm" data-placement="top" title="Edit">
-                            <i class="fa-sharp fa-solid fa-pen-to-square"></i>
-                        </button>
+                        <!-- Add Button -->
+                        <a href="{% url 'create_entry' 'academic' %}">
+                            <button type="button" title="Add"
+                                class="btn btn-sm btn-outline-success">
+                                <i class="fa fa-plus-square-o"
+                                    aria-hidden="true"></i>
+                            </button>
+                        </a>
                         {% endif %}
                     </div>
                     <hr>
                     {% if academics %}
-                    <div class="d-flex flex-column align-items-center">
-                        {% if academics.0.cover_image.url %}
-                        <div class="mb-3">
-                            <img src="{{ academics.0.cover_image.url }}" class="img-fluid" alt="{{ academics.0.image_alt_text }}">
+                    {% for entry in academics %}
+                    <div class="align-items-start p-2 border m-3 pt-3">
+                        {% if entry.cover_image %}
+                        <div class="p-2 text-justify">
+                            {% if forloop.counter|divisibleby:2 %}
+                            <img src="{{ entry.cover_image.url }}"
+                                class="img-fluid img-float-left"
+                                alt="{{ entry.image_alt_text }}">
+                            {% else %}
+                            <img src="{{ entry.cover_image.url }}"
+                                class="img-fluid img-float-right"
+                                alt="{{ entry.image_alt_text }}">
+                            {% endif %}
+                            <h3>{{entry.title|title}}</h3>
+                            <div>{{ entry.content|safe }}</div>
+                        </div>
+                        {% else %}
+                        <div class="p-2 text-justify">
+                            <h3>{{entry.title|title}}</h3>
+                            <div>{{ entry.content|safe }}</div>
                         </div>
                         {% endif %}
-                        <div class="px-2">
-                            {{ academics.0.academics_info|safe }}
+
+                        {% if user.is_authenticated %}
+                        <div class="card-footer p-0">
+                            <div class="p-2 d-flex justify-content-end">
+                                <!-- Edit Button -->
+                                <a class="mr-2"
+                                    href="{% url 'update_entry' entry.entry|lower entry.slug %}">
+                                    <button type="button" title="Edit"
+                                        class="btn btn-sm btn-outline-primary">
+                                        <i class="fa-sharp fa-solid fa-pen-to-square"
+                                            aria-hidden="true"></i>
+                                    </button>
+                                </a>
+                                <!-- Delete Button -->
+                                <a href="{% url 'delete_entry' entry.entry|lower entry.slug %}"
+                                    class="btn btn-sm btn-outline-danger"
+                                    title="Delete">
+                                    <i class="fa-solid fa-trash"
+                                        aria-hidden="true"></i>
+                                </a>
+                            </div>
                         </div>
+                        {% endif %}
                     </div>
+                    {% endfor %}
                     {% endif %}
                 </div>
 
                 <!--  -->
 
-                <div class="tab-pane fade show" id="list-admin" role="tabpanel" aria-labelledby="list-admin-list">
+                <div class="tab-pane fade show" id="list-administration"
+                    role="tabpanel" aria-labelledby="list-administration-list">
                     <div class="d-flex mb-3">
                         <h3 class="mr-auto">Administration</h3>
                         {% if user.is_authenticated %}
-                        <!-- Button trigger modal -->
-                        <!-- Edit Button -->
-                        <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#openPostModal"
-                            data-title="Edit Administration" data-url="{% url 'administration_update' administration.0.id %}"
-                            data-form="administrationForm" data-placement="top" title="Edit">
-                            <i class="fa-sharp fa-solid fa-pen-to-square"></i>
-                        </button>
+                        <!-- Add Button -->
+                        <a href="{% url 'create_entry' 'administration' %}">
+                            <button type="button" title="Add"
+                                class="btn btn-sm btn-outline-success">
+                                <i class="fa fa-plus-square-o"
+                                    aria-hidden="true"></i>
+                            </button>
+                        </a>
                         {% endif %}
                     </div>
                     <hr>
                     {% if administration %}
-                    <div class="d-flex flex-column align-items-center">
-                        {% if administration.0.cover_image.url %}
-                        <div class="mb-3">
-                            <img src="{{ administration.0.cover_image.url }}" class="img-fluid" alt="{{ administration.0.image_alt_text }}">
+                    {% for entry in administration %}
+                    <div class="align-items-start p-2 border m-3 pt-3">
+                        {% if entry.cover_image %}
+                        <div class="p-2 text-justify">
+                            {% if forloop.counter|divisibleby:2 %}
+                            <img src="{{ entry.cover_image.url }}"
+                                class="img-fluid img-float-left"
+                                alt="{{ entry.image_alt_text }}">
+                            {% else %}
+                            <img src="{{ entry.cover_image.url }}"
+                                class="img-fluid img-float-right"
+                                alt="{{ entry.image_alt_text }}">
+                            {% endif %}
+                            <h3>{{entry.title|title}}</h3>
+                            <div>{{ entry.content|safe }}</div>
+                        </div>
+                        {% else %}
+                        <div class="p-2 text-justify">
+                            <h3>{{entry.title|title}}</h3>
+                            <div>{{ entry.content|safe }}</div>
                         </div>
                         {% endif %}
-                        <div class="px-2">
-                            {{ administration.0.admin_info|safe }}
+
+                        {% if user.is_authenticated %}
+                        <div class="card-footer p-0">
+                            <div class="p-2 d-flex justify-content-end">
+                                <!-- Edit Button -->
+                                <a class="mr-2"
+                                    href="{% url 'update_entry' entry.entry|lower entry.slug %}">
+                                    <button type="button" title="Edit"
+                                        class="btn btn-sm btn-outline-primary">
+                                        <i class="fa-sharp fa-solid fa-pen-to-square"
+                                            aria-hidden="true"></i>
+                                    </button>
+                                </a>
+                                <!-- Delete Button -->
+                                <a href="{% url 'delete_entry' entry.entry|lower entry.slug %}"
+                                    class="btn btn-sm btn-outline-danger"
+                                    title="Delete">
+                                    <i class="fa-solid fa-trash"
+                                        aria-hidden="true"></i>
+                                </a>
+                            </div>
                         </div>
+                        {% endif %}
                     </div>
+                    {% endfor %}
                     {% endif %}
                 </div>
 
                 <!--  -->
 
-                <div class="tab-pane fade show" id="list-admission" role="tabpanel" aria-labelledby="list-admission-list">
+                <div class="tab-pane fade show" id="list-admission"
+                    role="tabpanel" aria-labelledby="list-admission-list">
                     <div class="d-flex mb-3">
                         <h3 class="mr-auto">Admission</h3>
                         {% if user.is_authenticated %}
-                        <!-- Button trigger modal -->
-                        <!-- Edit Button -->
-                        <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#openPostModal"
-                            data-title="Edit Admission" data-url="{% url 'admission_update' admission.0.id %}"
-                            data-form="admissionForm" data-placement="top" title="Edit">
-                            <i class="fa-sharp fa-solid fa-pen-to-square"></i>
-                        </button>
+                        <!-- Add Button -->
+                        <a href="{% url 'create_entry' 'admission' %}">
+                            <button type="button" title="Add"
+                                class="btn btn-sm btn-outline-success">
+                                <i class="fa fa-plus-square-o"
+                                    aria-hidden="true"></i>
+                            </button>
+                        </a>
                         {% endif %}
                     </div>
                     <hr>
                     {% if admission %}
-                    <!-- <h4>{{ admission.0.name }}</h4> -->
-                    <div class="d-flex flex-column align-items-center">
-                        {% if admission.0.cover_image %}
-                        <div class="mb-3">
-                            <img src="{{ admission.0.cover_image.url }}" class="img-fluid" alt="{{ admission.0.image_alt_text }}">
+                    {% for entry in admission %}
+                    <div class="align-items-start p-2 border m-3 pt-3">
+                        {% if entry.cover_image %}
+                        <div class="p-2 text-justify">
+                            {% if forloop.counter|divisibleby:2 %}
+                            <img src="{{ entry.cover_image.url }}"
+                                class="img-fluid img-float-left"
+                                alt="{{ entry.image_alt_text }}">
+                            {% else %}
+                            <img src="{{ entry.cover_image.url }}"
+                                class="img-fluid img-float-right"
+                                alt="{{ entry.image_alt_text }}">
+                            {% endif %}
+                            <h3>{{entry.title|title}}</h3>
+                            <div>{{ entry.content|safe }}</div>
+                        </div>
+                        {% else %}
+                        <div class="p-2 text-justify">
+                            <h3>{{entry.title|title}}</h3>
+                            <div>{{ entry.content|safe }}</div>
                         </div>
                         {% endif %}
-                        <div class="px-2">
-                            {{ admission.0.admission_info|safe }}
+
+                        {% if user.is_authenticated %}
+                        <div class="card-footer p-0">
+                            <div class="p-2 d-flex justify-content-end">
+                                <!-- Edit Button -->
+                                <a class="mr-2"
+                                    href="{% url 'update_entry' entry.entry|lower entry.slug %}">
+                                    <button type="button" title="Edit"
+                                        class="btn btn-sm btn-outline-primary">
+                                        <i class="fa-sharp fa-solid fa-pen-to-square"
+                                            aria-hidden="true"></i>
+                                    </button>
+                                </a>
+                                <!-- Delete Button -->
+                                <a href="{% url 'delete_entry' entry.entry|lower entry.slug %}"
+                                    class="btn btn-sm btn-outline-danger" title="Delete">
+                                    <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                                </a>
+                            </div>
                         </div>
+                        {% endif %}
                     </div>
+                    {% endfor %}
                     {% endif %}
                 </div>
 
                 <!--  -->
 
-                <div class="tab-pane fade show" id="list-curricular" role="tabpanel" aria-labelledby="list-carricular-list">
+                <div class="tab-pane fade show" id="list-curricular"
+                    role="tabpanel" aria-labelledby="list-carricular-list">
                     <div class="d-flex mb-3">
                         <h3 class="mr-auto">Co-Curricular</h3>
                         {% if user.is_authenticated %}
-                        <!-- Button trigger modal -->
-                        <!-- Edit Button -->
-                        <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#openPostModal"
-                            data-title="Edit Curricular" data-url="{% url 'curricular_update' curriculars.0.id %}" data-form="curricularForm"
-                            data-placement="top" title="Edit">
-                            <i class="fa-sharp fa-solid fa-pen-to-square"></i>
-                        </button>
+                        <!-- Add Button -->
+                        <a href="{% url 'create_entry' 'curricular' %}">
+                            <button type="button" title="Add" class="btn btn-sm btn-outline-success">
+                                <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                            </button>
+                        </a>
                         {% endif %}
                     </div>
                     <hr>
-                    {% if curriculars %}
-                    <div class="d-flex flex-column align-items-center">
-                        {% if curriculars.0.cover_image %}
-                        <div class="mb-4">
-                            <img src="{{ curriculars.0.cover_image.url }}" class="img-fluid" alt="{{ curriculars.0.image_alt_text }}">
+                    {% if curricular %}
+                    {% for entry in curricular %}
+                    <div class="align-items-start p-2 border m-3 pt-3">
+                        {% if entry.cover_image %}
+                        <div class="p-2 text-justify">
+                            {% if forloop.counter|divisibleby:2 %}
+                            <img src="{{ entry.cover_image.url }}" class="img-fluid img-float-left"
+                                alt="{{ entry.image_alt_text }}">
+                            {% else %}
+                            <img src="{{ entry.cover_image.url }}" class="img-fluid img-float-right"
+                                alt="{{ entry.image_alt_text }}">
+                            {% endif %}
+                            <h3>{{entry.title|title}}</h3>
+                            <div>{{ entry.content|safe }}</div>
+                        </div>
+                        {% else %}
+                        <div class="p-2 text-justify">
+                            <h3>{{entry.title|title}}</h3>
+                            <div>{{ entry.content|safe }}</div>
                         </div>
                         {% endif %}
-                        <div class="px-2">
-                            {{ curriculars.0.curricular_info|safe }}
+
+                        {% if user.is_authenticated %}
+                        <div class="card-footer p-0">
+                            <div class="p-2 d-flex justify-content-end">
+                                <!-- Edit Button -->
+                                <a class="mr-2"
+                                    href="{% url 'update_entry' entry.entry|lower entry.slug %}">
+                                    <button type="button" title="Edit"
+                                        class="btn btn-sm btn-outline-primary">
+                                        <i class="fa-sharp fa-solid fa-pen-to-square"
+                                            aria-hidden="true"></i>
+                                    </button>
+                                </a>
+                                <!-- Delete Button -->
+                                <a href="{% url 'delete_entry' entry.entry|lower entry.slug %}"
+                                    class="btn btn-sm btn-outline-danger" title="Delete">
+                                    <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                                </a>
+                            </div>
                         </div>
+                        {% endif %}
                     </div>
+                    {% endfor %}
                     {% endif %}
                 </div>
 
                 <!--  -->
 
-                <div class="tab-pane fade show" id="list-values" role="tabpanel" aria-labelledby="list-values-list">
+                <div class="tab-pane fade show" id="list-principles" role="tabpanel"
+                    aria-labelledby="list-principles-list">
                     <div class="d-flex mb-3">
-                        <h3 class="mr-auto">Our Values</h3>
-                        {% if user.is_authenticated %}
-                        <!-- Button trigger modal -->
-                        <!-- Add Button -->
-                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#openPostModal" data-title="Edit School Values" data-url="{% url 'school_value_update' school_values.0.id %}" data-form="schoolValueForm" data-placement="top" title="Edit">
-                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
-                        </button>
-                        {% endif %}
+                        <h3 class="mr-auto">Our Core Values</h3>
                     </div>
                     <hr>
                     <div class="row">
-                        {% if school_values %}
+                        {% if principle %}
                         <div class=" col-md-4 value-item d-flex flex-md-column">
                             <div class="icon">
-                                <img src="{% static 'icon/Motto.png' %}" alt="Motto">
+                                <img src="{% static 'icon/Motto.png' %}"
+                                    alt="Motto">
                             </div>
                             <div class="details">
                                 <h4>Motto</h4>
-                                <p>{{ school_values.0.motto }}</p>
+                                <p>{{ principle.0.content|safe }}</p>
                             </div>
+                            {% if user.is_authenticated %}
+                            <div class="card-footer p-0">
+                                <div class="p-2 d-flex justify-content-end">
+                                    <!-- Edit Button -->
+                                    <a class="mr-2"
+                                        href="{% url 'update_entry' principle.0.entry|lower principle.0.slug %}">
+                                        <button type="button" title="Edit"
+                                            class="btn btn-sm btn-outline-primary">
+                                            <i class="fa-sharp fa-solid fa-pen-to-square"
+                                                aria-hidden="true"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endif %}
                         </div>
                         <div class=" col-md-4 value-item d-flex flex-md-column">
                             <div class="icon">
-                                <img src="{% static 'icon/Mission.png' %}" alt="Mission">
+                                <img src="{% static 'icon/Mission.png' %}"
+                                    alt="Mission">
                             </div>
                             <div class="details">
                                 <h4>Mission</h4>
-                                <p>{{ school_values.0.mission }}</p>
+                                <p>{{ principle.1.content|safe }}</p>
                             </div>
+                            {% if user.is_authenticated %}
+                            <div class="card-footer p-0">
+                                <div class="p-2 d-flex justify-content-end">
+                                    <!-- Edit Button -->
+                                    <a class="mr-2"
+                                        href="{% url 'update_entry' principle.1.entry|lower principle.1.slug %}">
+                                        <button type="button" title="Edit"
+                                            class="btn btn-sm btn-outline-primary">
+                                            <i class="fa-sharp fa-solid fa-pen-to-square"
+                                                aria-hidden="true"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endif %}
                         </div>
                         <div class=" col-md-4 value-item d-flex flex-md-column">
                             <div class="icon">
-                                <img src="{% static 'icon/Vision.png' %}" alt="Vision">
+                                <img src="{% static 'icon/Vision.png' %}"
+                                    alt="Vision">
                             </div>
                             <div class="details">
                                 <h4>Vision</h4>
-                                <p>{{ school_values.0.vision }}</p>
+                                <p>{{ principle.2.content|safe }}</p>
                             </div>
+                            {% if user.is_authenticated %}
+                            <div class="card-footer p-0">
+                                <div class="p-2 d-flex justify-content-end">
+                                    <!-- Edit Button -->
+                                    <a class="mr-2"
+                                        href="{% url 'update_entry' principle.2.entry|lower principle.2.slug %}">
+                                        <button type="button" title="Edit"
+                                            class="btn btn-sm btn-outline-primary">
+                                            <i class="fa-sharp fa-solid fa-pen-to-square"
+                                                aria-hidden="true"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endif %}
                         </div>
                         {% endif %}
                     </div>
@@ -188,42 +401,89 @@
 
                 <!--  -->
 
-                <div class="tab-pane fade show" id="list-history" role="tabpanel" aria-labelledby="list-history-list">
+                <div class="tab-pane fade show" id="list-history"
+                    role="tabpanel" aria-labelledby="list-history-list">
                     <div class="d-flex mb-3">
                         <h3 class="mr-auto">School History</h3>
                         {% if user.is_authenticated %}
-                        <!-- Button trigger modal -->
-                        <!-- Edit Button -->
-                        <button type="button" id="editHistoryBtn" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#openPostModal" data-title="Edit School History" data-url="{% url 'school_history_update' school_history.0.id %}" data-form="schoolHistoryForm" data-placement="top" title="Edit">
-                            <i class="fa-sharp fa-solid fa-pen-to-square"></i>
-                        </button>
+                        <!-- Add Button -->
+                        <a href="{% url 'create_entry' 'history' %}">
+                            <button type="button" title="Add"
+                                class="btn btn-sm btn-outline-success">
+                                <i class="fa fa-plus-square-o"
+                                    aria-hidden="true"></i>
+                            </button>
+                        </a>
                         {% endif %}
                     </div>
                     <hr>
                     {% if school_history %}
-                    <div class="d-flex flex-column align-items-center">
-                        {% if school_history.0.cover_image %}
-                        <div class="mb-4">
-                            <img src="{{ school_history.0.cover_image.url }}" class="img-fluid" alt="{{ school_history.0.image_alt_text }}">
+                    {% for entry in school_history %}
+                    <div class="align-items-start p-2 border m-3 pt-3">
+                        {% if entry.cover_image %}
+                        <div class="p-2 text-justify">
+                            {% if forloop.counter|divisibleby:2 %}
+                            <img src="{{ entry.cover_image.url }}"
+                                class="img-fluid img-float-left"
+                                alt="{{ entry.image_alt_text }}">
+                            {% else %}
+                            <img src="{{ entry.cover_image.url }}"
+                                class="img-fluid img-float-right"
+                                alt="{{ entry.image_alt_text }}">
+                            {% endif %}
+                            <h3>{{entry.title|title}}</h3>
+                            <div>{{ entry.content|safe }}</div>
+                        </div>
+                        {% else %}
+                        <div class="p-2 text-justify">
+                            <h3>{{entry.title|title}}</h3>
+                            <div>{{ entry.content|safe }}</div>
                         </div>
                         {% endif %}
-                        <div class="px-2">
-                            {{ school_history.0.content|safe }}
+
+                        {% if user.is_authenticated %}
+                        <div class="card-footer p-0">
+                            <div class="p-2 d-flex justify-content-end">
+                                <!-- Edit Button -->
+                                <a class="mr-2"
+                                    href="{% url 'update_entry' entry.entry|lower entry.slug %}">
+                                    <button type="button" title="Edit"
+                                        class="btn btn-sm btn-outline-primary">
+                                        <i class="fa-sharp fa-solid fa-pen-to-square"
+                                            aria-hidden="true"></i>
+                                    </button>
+                                </a>
+                                <!-- Delete Button -->
+                                <a href="{% url 'delete_entry' entry.entry|lower entry.slug %}"
+                                    class="btn btn-sm btn-outline-danger" title="Delete">
+                                    <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                                </a>
+                            </div>
                         </div>
+                        {% endif %}
                     </div>
+                    {% endfor %}
                     {% endif %}
                 </div>
 
                 <!--  -->
 
-                <div class="tab-pane fade show" id="list-staff" role="tabpanel" aria-labelledby="list-staff-list">
+                <div class="tab-pane fade show" id="list-staff" role="tabpanel"
+                    aria-labelledby="list-staff-list">
                     <div class="d-flex mb-3">
                         <h3 class="mr-auto">Staff</h3>
                         {% if user.is_authenticated %}
                         <!-- Button trigger modal -->
                         <!-- Add Button -->
-                        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#openPostModal" data-title="Add Staff" data-url="{% url 'staff_create' %}" data-form="staffForm" data-placement="top" title="Add">
-                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                        <button type="button"
+                            class="btn btn-sm btn-outline-success"
+                            data-toggle="modal" data-target="#openPostModal"
+                            data-title="Add Staff"
+                            data-url="{% url 'staff_create' %}"
+                            data-form="staffForm" data-placement="top"
+                            title="Add">
+                            <i class="fa fa-plus-square-o"
+                                aria-hidden="true"></i>
                         </button>
                         {% endif %}
                     </div>
@@ -232,23 +492,45 @@
                         {% for staff in staffs %}
                         <div class="staff-item">
                             <div class="d-flex">
-                                <h4 class="mr-auto">{{ staff.title }}. {{ staff.staff_full_name }} | {{ staff.role }} {{ staff.department|default:'' }}</h4>
+                                <h4 class="mr-auto">{{ staff.title }}.
+                                    {{ staff.staff_full_name }} |
+                                    {{ staff.role }}
+                                    {{ staff.department|default:'' }}
+                                </h4>
                                 {% if user.is_authenticated %}
                                 <!-- Buttons Trigger Modal -->
                                 <!-- Edit Button -->
-                                <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#openPostModal" data-title="Edit Staff" data-url="{% url 'staff_update' staff.id %}" data-form="staffForm" data-placement="top" title="Edit">
-                                    <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+                                <button type="button"
+                                    class="btn btn-sm btn-outline-primary mx-1"
+                                    data-toggle="modal"
+                                    data-target="#openPostModal"
+                                    data-title="Edit Staff"
+                                    data-url="{% url 'staff_update' staff.id %}"
+                                    data-form="staffForm" data-placement="top"
+                                    title="Edit">
+                                    <i
+                                        class="fa-sharp fa-solid fa-pen-to-square"></i>
                                 </button>
                                 <!-- Delete Button -->
-                                <button type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#deleteModal" data-title="Delete {{ staff.first_name}} {{ staff.last_name }} " data-url="{% url 'staff_delete' staff.id %}" data-form="deleteForm" data-placement="top" title="Delete">
+                                <button type="button"
+                                    class="btn btn-sm btn-outline-danger"
+                                    data-toggle="modal"
+                                    data-target="#deleteModal"
+                                    data-title="Delete {{ staff.first_name}} {{ staff.last_name }} "
+                                    data-url="{% url 'staff_delete' staff.id %}"
+                                    data-form="deleteForm" data-placement="top"
+                                    title="Delete">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                                 {% endif %}
                             </div>
                             {% if staff.picture.url %}
-                            <img src="{{ staff.picture.url }}" class="img-fluid float-left pr-3 pt-2" alt="{{ staff.image_alt_text }}">
+                            <img src="{{ staff.picture.url }}"
+                                class="img-fluid float-left pr-3 pt-2"
+                                alt="{{ staff.image_alt_text }}">
                             {% endif %}
-                            <p class="mt-0 mb-4 para-br">{{ staff.message|safe }}</p>
+                            <p class="mt-0 mb-4 para-br">
+                                {{ staff.message|safe }}</p>
                         </div>
                         <hr>
                         {% endfor %}
@@ -263,36 +545,32 @@
 
 <!-- Modals Body only Section -->
 <form action="" class="myForm" method="POST" enctype="multipart/form-data">
-    <div class="modal fade" id="openPostModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+    <div class="modal fade" id="openPostModal" tabindex="-1" role="dialog"
+        aria-labelledby="ModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable"
+            role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-uppercase" id="ModalLongTitle">School Info</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title text-uppercase" id="ModalLongTitle">
+                        School Info
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <!-- All Forms -->
 
-                    <!-- Academic form -->
-                    <fieldset class="aligned d-none" id="academicForm"></fieldset>
-                    <!-- Administration form -->
-                    <fieldset class="aligned d-none" id="administrationForm"></fieldset>
-                    <!-- Admission form -->
-                    <fieldset class="aligned d-none" id="admissionForm"></fieldset>
-                    <!-- Curricular form -->
-                    <fieldset class="aligned d-none" id="curricularForm"></fieldset>
-                    <!-- School Values form -->
-                    <fieldset class="aligned d-none" id="schoolValueForm"></fieldset>
-                    <!-- School History form -->
-                    <fieldset class="aligned d-none" id="schoolHistoryForm"></fieldset>
                     <!-- Staff form -->
                     <fieldset class="aligned d-none" id="staffForm"></fieldset>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" class="btn btn-primary btn-md font-weight-bold" value="Save">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit"
+                        class="btn btn-primary btn-md font-weight-bold"
+                        value="Save">
+                    <button type="button" class="btn btn-secondary"
+                        data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -302,12 +580,16 @@
 
 <!-- Delete Modal -->
 <form action="" class="myForm" method="POST" enctype="multipart/form-data">
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+        aria-labelledby="ModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-uppercase" id="ModalLongTitle">School Info</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title text-uppercase" id="ModalLongTitle">
+                        School Info
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -318,8 +600,11 @@
 
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" class="btn btn-danger btn-md font-weight-bold" value="Delete">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit"
+                        class="btn btn-danger btn-md font-weight-bold"
+                        value="Delete">
+                    <button type="button" class="btn btn-secondary"
+                        data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
