@@ -52,6 +52,9 @@ class HomeView(TemplateView):
         context["curricular"] = entries.filter(
             parent_entry=None, entry="CURRICULAR"
         ).first()
+        context["message"] = entries.filter(
+            parent_entry=None, entry="MESSAGE"
+        ).first()
         context["school_history"] = entries.filter(
             parent_entry=None, entry="HISTORY"
         ).first()
@@ -203,7 +206,7 @@ class BaseEntryView(LoginRequiredMixin, SuccessMessageMixin):
         if self.request.POST.get("add_another"):
             return reverse_lazy("create_entry", args=[entry])
         elif self.request.POST.get("save_continue"):
-            return reverse_lazy("update_entry", args=[entry, self.object.id])
+            return reverse_lazy("update_entry", args=[entry, self.object.slug])
         else:
             # return reverse_lazy("about", kwargs={"entry": entry})
             return f"/about/#tab_list-{entry}"

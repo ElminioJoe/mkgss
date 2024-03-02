@@ -251,6 +251,7 @@ class Entry(BaseModel):
         ("CURRICULAR", "Co-Curricular"),
         ("HISTORY", "School History"),
         ("PRINCIPLES", "Principles"),
+        ("MESSAGE", "Principals Message"),
         ("EXTRA", "Extra"),
     ]
 
