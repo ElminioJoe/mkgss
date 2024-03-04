@@ -30,15 +30,18 @@
         <!-- responsive css -->
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
 
-
     {% endblock %}
 
-
-    {% if title %}
-    <title>School - {{title}}</title>
-    {% else %}
-    <title> School </title>
-    {% endif %}
+    <title class="text-capitalize">
+        {% block title %}
+        {% if title %} {{ title|title }}
+            {% if subtitle %} ·
+                {{ subtitle|capfirst|truncatewords:4 }}
+            {% endif %} |
+        {% endif %}
+            {{ site_title|default:_('Moi Kadzonzo Girls') }}
+        {% endblock %}
+    </title>
 </head>
 <body class="main-layout">
     <!-- loader  -->
@@ -63,6 +66,15 @@
             {% endif %}
         </div>
     {% block content %}
+        {% include "home/jumbotron.html" %}
+        {% comment %}
+        <div class="breadcrumb bg-light">
+            <div class="container-md">
+                {% include "breadcrumb.html" %}
+            </div>
+        </div>
+        {% endcomment %}
+
     {% endblock %}
     </main>
     {% include "footer.html" %}

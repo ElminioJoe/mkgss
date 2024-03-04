@@ -1,16 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% block content %}
-<div class="jumbotron py-5 mb-5">
-    <h2 class="text-uppercase text-center">Gallery</h2>
-</div>
-{% comment %}
-<div class="breadcrumb bg-light">
-    <div class="container-md">
-        {% include "breadcrumb.html" %}
-    </div>
-</div>
-{% endcomment %}
+{% block content %} {{ block.super }}
 
 <section class="gallery_pg">
     <div class="container-md">
@@ -19,7 +9,9 @@
             <div class="col-sm-12">
                 <!-- Button trigger modal -->
                 <!-- Add Button -->
-                <button type="button" class="btn btn-sm btn-outline-success mb-3" data-toggle="modal" data-target="#openPostModal" data-title="Add Images" data-url="{% url 'create_category' %}" data-form="galleryForm" data-placement="top" title="Add">
+                <button type="button" class="btn btn-sm btn-outline-success m-2" data-toggle="modal"
+                    data-target="#openPostModal" data-title="Add Images" data-url="{% url 'create_category' %}"
+                    data-form="galleryForm" data-placement="top" title="Add">
                     <i class="fa fa-plus-square-o mr-1" aria-hidden="true"></i>
                     Add Image Gallery
                 </button>
@@ -36,9 +28,9 @@
             <div class="col-12 gallery-actions mt-2">
                 <hr>
                 <!-- Delete Selected button -->
-                <button type="button" class="btn btn-sm btn-outline-danger" id="delete-selected-button" data-toggle="modal"
-                    data-target="#deleteModal" data-title="Delete Gallery Images" data-url="{% url 'category_delete' %}"
-                    data-form="deleteForm" title="Delete Selected Images">
+                <button type="button" class="btn btn-sm btn-outline-danger" id="delete-selected-button"
+                    data-toggle="modal" data-target="#deleteModal" data-title="Delete Gallery Images"
+                    data-url="{% url 'category_delete' %}" data-form="deleteForm" title="Delete Selected Images">
                     <i class="fa-solid fa-trash mr-2"></i>Delete Selected Images
                 </button>
                 <!-- Select All checkbox -->
@@ -55,9 +47,13 @@
             <div class="col-4 col-sm-4 col-md-3 col-lg-2 p-1">
                 <div class="card">
                     <div class="gallery-box">
-                        <img src="{{ category.random_image.thumbnail.url }}" class="img-fluid" loading="lazy" alt="{{ category.random_image.image_alt_text }}">
+                        <a href="{% url 'gallery-detail' category.slug %}">
+                            <img src="{{ category.random_image.thumbnail.url }}" class="img-fluid" loading="lazy"
+                            alt="{{ category.random_image.image_alt_text }}">
+                        </a>
                         <div class="checkbox-container mfp-delete d-none mt-1" style="z-index: 1;">
-                            <input class="selected-checkbox" type="checkbox" name="selected_images" value="{{ image.id }}">
+                            <input class="selected-checkbox" type="checkbox" name="selected_images"
+                                value="{{ category.id }}">
                         </div>
                         <a href="{% url 'gallery-detail' category.slug %}" class="card_content">
                             <span class="d-flex flex-row">
@@ -70,7 +66,9 @@
                 </div>
             </div>
             {% empty %}
-            <h2 class="text-center">OOPS! NOTHING'S HERE YET.</h2>
+            <div class="container-md">
+                <h2 class="text-center">OOPS! NOTHING'S HERE YET.</h2>
+            </div>
             {% endfor %}
         </div>
 
@@ -117,8 +115,11 @@
                 </div>
                 <div class="modal-body">
                     <!-- Form -->
-                    {% csrf_token %}                    <fieldset class="aligned" id="deleteForm"></fieldset>
-
+                    {% csrf_token %}
+                    <input type="hidden" name="action" id="action-input" value="">
+                    <input type="hidden" name="selected_images" id="selected-images-input" value="">
+                    <input type="hidden" name="category_slug" value="">
+                    <fieldset class="aligned" id="deleteForm"></fieldset>
                 </div>
                 <div class="modal-footer">
                     <input type="submit" class="btn btn-danger btn-md font-weight-bold" value="Delete">

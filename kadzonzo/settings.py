@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'user_auth.apps.UserAuthConfig',
     'home.apps.HomeConfig',
     'crispy_forms',
-    'ckeditor',
+    'django_ckeditor_5',
 ]
 
 AUTH_USER_MODEL = 'user_auth.CustomUser'
@@ -86,17 +86,25 @@ WSGI_APPLICATION = 'kadzonzo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('NAME'),
-        'USER': os.environ.get('USER'),
-        'PASSWORD': os.environ.get('PASSWORD'),
-        'HOST': os.environ.get('HOST'),
-        'PORT': os.environ.get('PORT')
+# Check if the environment variable is set to use PostgreSQL or default to SQLite
+if "USE_POSTGRES" in os.environ and os.environ["USE_POSTGRES"] == "True":
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('DB_NAME'),
+            'USER': os.environ.get('DB_USER'),
+            'PASSWORD': os.environ.get('DB_PASSWORD'),
+            'HOST': "db",  # set in docker-compose.yml
+            'PORT': os.environ.get('DB_PORT')
+        }
     }
-}
-
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -166,23 +174,7 @@ DJANGORESIZED_DEFAULT_QUALITY = 75
 DJANGORESIZED_DEFAULT_KEEP_META = True
 DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 
-# CKEDITOR
-# CKEDITOR_UPLOAD_PATH = 'uploads/'
-# CKEDITOR_IMAGE_BACKEND = 'pillow'
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'Custom',
-        'toolbar_Custom': [
-            {'name': 'tools', 'items': ['Maximize']},
-            {'name': 'clipboard', 'items': ['Undo', 'Redo', '-', 'SelectAll', 'Copy', 'Cut', 'Paste']},
-            {'name': 'paragraph', 'items': ['NumberedList', 'BulletedList', '-','JustifyLeft', 'JustifyCenter', 'JustifyRight', '-', 'Outdent', 'Indent', '-', 'Blockquote']},
-            '/', # next toolbar on new line
-            {'name': 'styles', 'items': ['Format']},
-            {'name': 'basicstyles', 'items': ['Bold', 'Italic', 'Underline', '-', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
-            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
-        ],
-        'height': 300,
-        # 'width': "125%",
-    },
+# CKEDITOR-5
+from .ckeditor_5_config import CKEDITOR_5_CONFIGS
 
-}
+# CKEDITOR_5_CONFIGS

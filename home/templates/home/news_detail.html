@@ -1,16 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% block content %}
-<div class="jumbotron py-5 mb-5">
-	<h2 class="text-uppercase text-center">Blog Detail</h2>
-</div>
-{% comment %}
-<div class="breadcrumb bg-light">
-	<div class="container-md">
-		{% include "breadcrumb.html" %}
-	</div>
-</div>
-{% endcomment %}
+{% block content %} {{ block.super }}
 
 <section class="news_detail">
     <div class="container-md">

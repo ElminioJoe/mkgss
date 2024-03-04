@@ -14,3 +14,11 @@ class LoginForm(AuthenticationForm):
         label="Username or Email",
     )
 
+    password = forms.CharField(
+        max_length=100,
+        widget=forms.PasswordInput(
+            attrs={'class': 'form-control'}
+        ),
+        label="Password"
+    )
+

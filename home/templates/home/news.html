@@ -1,16 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% block content %}
-<div class="jumbotron py-5 mb-5">
-	<h2 class="text-uppercase text-center">Blog</h2>
-</div>
-{% comment %}
-<div class="breadcrumb bg-light">
-    <div class="container-md">
-        {% include "breadcrumb.html" %}
-    </div>
-</div>
-{% endcomment %}
+{% block content %} {{ block.super }}
 
 <section class="news_pg">
     <div class="container-md">
@@ -69,10 +59,15 @@
                         </div>
 			    	</div>
 			    	{% empty %}
-			    	<div class="row">
+			    	<div class="container-md">
 			    		<h2 class="text-center">There are No Blog Items</h2>
 			    	</div>
 			    	{% endfor %}
+                    <div class="col-md-12 mt-4">
+                        <div class="d-flex justify-content-center">
+                            {% include "pagination.html" %}
+                        </div>
+                    </div>
                 </div>
 			</div>
 			<div class="col-lg-4">

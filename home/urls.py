@@ -1,179 +1,169 @@
-from django.urls import path
+from django.urls import include, path, re_path, reverse_lazy
+from django.views.generic import RedirectView
+
 from .forms import *
-from . import views
+from . import views, models
 
 urlpatterns = [
+    # ----------- Entry Urls -----------
+    # path("entry/")
+    path(
+        "entry/",
+        include(
+            [
+                path(
+                    "add/<str:entry>/",
+                    views.CreateEntryView.as_view(),
+                    name="create_entry",
+                ),
+                path(
+                    "update/<str:entry>/<slug:slug>/",
+                    views.UpdateEntryView.as_view(),
+                    name="update_entry",
+                ),
+                path(
+                    "delete/<str:entry>/<slug:slug>/",
+                    views.DeleteEntryView.as_view(),
+                    name="delete_entry",
+                ),
+            ]
+        ),
+    ),
+    # ----------- ---------- -----------
     path("", views.HomeView.as_view(), name="home"),
     path(
-        "features/update/<int:pk>/",
+        "update_carousel_image/<int:pk>/",
         views.SchoolInfoUpdateView.as_view(
-            model=HomeFeature,
-            form_class=HomeFeatureForm,
-            template_name="home/forms/home_features_form.html",
+            model=models.CarouselImage,
+            form_class=CarouselImageForm,
+            template_name="home/forms/carousel_image_form.html",
+            success_message="Carousel Image Updated!",
         ),
-        name="home_features_update",
+        name="update_carousel_image",
     ),
+
+    # ----------- Gallery Urls -----------
     path("gallery/", views.GalleryCategoryListView.as_view(), name="gallery"),
-    path("gallery/<slug:slug>/", views.GalleryCategoryDetailView.as_view(), name='gallery-detail'),
-    path("gallery/create/category/",views.CreateCategoryView.as_view(), name="create_category"),
-    path("gallery/add/images/<int:category_id>/",views.AddImageView.as_view(), name="add_images"),
-    path("gallery/delete/images/", views.images_delete, name="image_delete"),
-    path("gallery/delete/category/", views.category_delete, name="category_delete"),
-    path("about/", views.AboutView.as_view(), name="about"),
     path(
-        "about/create/administration/",
-        views.SchoolInfoCreateView.as_view(
-            model=Administration,
-            form_class=AdministrationForm,
-            template_name="home/forms/administration_form.html",
-        ),
-        name="administration_create",
+        "gallery/<slug:slug>/",
+        views.GalleryCategoryDetailView.as_view(),
+        name="gallery-detail",
     ),
     path(
-        "about/update/administration/<int:pk>/",
-        views.SchoolInfoUpdateView.as_view(
-            model=Administration,
-            form_class=AdministrationForm,
-            template_name="home/forms/administration_form.html",
-        ),
-        name="administration_update",
+        "gallery/create/category/",
+        views.CreateCategoryView.as_view(),
+        name="create_category",
     ),
     path(
-        "about/delete/administration/<int:pk>/",
-        views.SchoolInfoDeleteView.as_view(
-            model=Administration, success_url=reverse_lazy("about")
-        ),
-        name="administration_delete",
+        "gallery/add/images/<int:category_id>/",
+        views.AddImageView.as_view(),
+        name="add_images",
     ),
     path(
-        "about/update/admission/<int:pk>/",
-        views.SchoolInfoUpdateView.as_view(
-            model=Admission,
-            form_class=AdmissionForm,
-            template_name="home/forms/admission_form.html",
-        ),
-        name="admission_update",
+        "gallery/delete/images/",
+        views.images_delete,
+        {
+            "model": models.Gallery,
+            "success_message": "Selected images have been deleted.",
+        },
+        name="image_delete",
     ),
     path(
-        "about/create/academic/",
-        views.SchoolInfoCreateView.as_view(
-            model=Academic,
-            form_class=AcademicForm,
-            template_name="home/forms/academic_form.html",
-        ),
-        name="academic_create",
+        "gallery/delete/category/",
+        views.images_delete,
+        {
+            "model": models.Category,
+            "success_message": "Selected Categories have been deleted.",
+        },
+        name="category_delete",
     ),
+    # ----------- ---------- -----------
+    # ----------- About Urls -----------
     path(
-        "about/update/academic/<int:pk>/",
-        views.SchoolInfoUpdateView.as_view(
-            model=Academic,
-            form_class=AcademicForm,
-            template_name="home/forms/academic_form.html",
-        ),
-        name="academic_update",
+        "about/<str:entry>/",
+        RedirectView.as_view(pattern_name="about"),
+        name="about_redirect",
     ),
-    path(
-        "about/delete/academic/<int:pk>/",
-        views.SchoolInfoDeleteView.as_view(model=Academic, success_url=reverse_lazy("about")),
-        name="academic_delete",
-    ),
-    path(
-        "about/create/curricular/",
-        views.SchoolInfoCreateView.as_view(
-            model=Curricular,
-            form_class=CurricularForm,
-            template_name="home/forms/curricular_form.html",
-        ),
-        name="curricular_create",
-    ),
-    path(
-        "about/update/curricular/<int:pk>/",
-        views.SchoolInfoUpdateView.as_view(
-            model=Curricular,
-            form_class=CurricularForm,
-            template_name="home/forms/curricular_form.html",
-        ),
-        name="curricular_update",
+    re_path(
+        r"^about/(?:#tab_list-(?P<entry>)/)?$", views.AboutView.as_view(), name="about"
     ),
     path(
         "about/delete/curricular/<int:pk>/",
         views.SchoolInfoDeleteView.as_view(
-            model=Curricular, success_url=reverse_lazy("about")
+            # model=models.Curricular,
+            # success_url=reverse_lazy("about"),
+            success_message="Curricular Details Deleted",
         ),
         name="curricular_delete",
     ),
     path(
-        "about/update/school_history/<int:pk>/",
-        views.SchoolInfoUpdateView.as_view(
-            model=SchoolHistory,
-            form_class=SchoolHistoryForm,
-            template_name="home/forms/school_history_form.html",
-        ),
-        name="school_history_update",
-    ),
-    path(
-        "about/update/school_value/<int:pk>/",
-        views.SchoolInfoUpdateView.as_view(
-            model=SchoolValue,
-            form_class=SchoolValueForm,
-            template_name="home/forms/school_value_form.html",
-        ),
-        name="school_value_update",
-    ),
-    path(
         "about/create/staff/",
         views.SchoolInfoCreateView.as_view(
-            model=Staff,
+            model=models.Staff,
             form_class=StaffForm,
             template_name="home/forms/staff_form.html",
+            success_message="Staff Details Added",
         ),
         name="staff_create",
     ),
     path(
         "about/update/staff/<int:pk>/",
         views.SchoolInfoUpdateView.as_view(
-            model=Staff,
+            model=models.Staff,
             form_class=StaffForm,
             template_name="home/forms/staff_form.html",
+            success_message="Staff Details Updated",
         ),
         name="staff_update",
     ),
     path(
         "about/delete/staff/<int:pk>/",
-        views.SchoolInfoDeleteView.as_view(model=Staff, success_url=reverse_lazy("about")),
+        views.SchoolInfoDeleteView.as_view(
+            model=models.Staff,
+            # success_url=reverse_lazy("about"),
+            success_message="Staff Details Deleted",
+        ),
         name="staff_delete",
     ),
     path("news/", views.NewsView.as_view(), name="news"),
     path(
         "news/<slug:slug>/",
         views.SchoolNewsDetailView.as_view(
-            model=News,
+            model=models.News,
             template_name="home/news_detail.html",
-            context_object_name = "news_item"
+            context_object_name="news_item",
         ),
-        name="news-detail"),
+        name="news-detail",
+    ),
     path(
         "news/create/article",
         views.SchoolInfoCreateView.as_view(
-            model=News,
+            model=models.News,
             form_class=NewsForm,
             template_name="home/forms/news_form.html",
+            success_message="Blog Post Added",
         ),
         name="news_create",
     ),
     path(
         "news/update/article/<int:pk>/",
         views.SchoolInfoUpdateView.as_view(
-            model=News,
+            model=models.News,
             form_class=NewsForm,
             template_name="home/forms/news_form.html",
+            success_message="Blog Post Updated",
         ),
         name="news_update",
     ),
     path(
         "news/delete/article/<int:pk>/",
-        views.SchoolInfoDeleteView.as_view(model=News, success_url=reverse_lazy("news")),
+        views.SchoolInfoDeleteView.as_view(
+            model=models.News,
+            success_url=reverse_lazy("news"),
+            success_message="Blog Post Deleted",
+        ),
         name="news_delete",
     ),
     path("contact/", views.ContactFormView.as_view(), name="contact"),
+    # ----------- ---------- -----------
 ]

@@ -35,7 +35,7 @@ $(function () {
 		var formTitle = button.data("title");
 		// Show the selected form
 		var modal = $(this);
-		modal.find(".modal-title").text("School Info: " + formTitle); // Display the form title
+		modal.find(".modal-title").text(formTitle); // Display the form title
 		modal.find("fieldset.aligned").addClass("d-none");
 		modal.find(`#${form}`).removeClass("d-none");
 		$(`#${form}`).load(url, function () {
@@ -80,7 +80,7 @@ $(function () {
 				var galleryBox = $(this);
 				// Get the anchor tag and its href
 				var anchorTag = galleryBox.find("a");
-				var img = galleryBox.find("img")
+				var img = galleryBox.find("img");
 				var href = anchorTag.attr("href");
 				var elemClass = anchorTag.attr("class");
 
@@ -210,12 +210,52 @@ $(function () {
 		);
 	});
 
-	// convert newline('/n') to <br>
-	/*
-  $(".para-br").each(function() {
-    let text = $(this).text();
-    text = text.replace(/\n/g, "<br><br>");
-    $(this).html(text);
-  });
-*/
+	// Metrics Counter
+
+	// Function to start counter animation when element is in view
+	function startCounterAnimation(entries, observer) {
+		entries.forEach((entry) => {
+			if (entry.isIntersecting) {
+				$(entry.target)
+					.find(".counter")
+					.each(function () {
+						let target = parseInt($(this).data("digit"));
+						let speed = parseInt($(this).closest(".metric").data("speed"));
+						let count = parseInt($(this).text());
+						let inc = target / speed;
+
+						function updateCount() {
+							if (count < target) {
+								count = Math.ceil(count + inc);
+								$(this).text(count);
+								if (target - count <= 50) {
+									// Decrease speed when close to target
+									setTimeout(updateCount.bind(this), 40);
+								} else {
+									setTimeout(updateCount.bind(this), 3);
+								}
+							} else {
+								$(this).text(target);
+							}
+						}
+
+						updateCount.call(this);
+					});
+
+				// Stop observing once animation starts
+				observer.unobserve(entry.target);
+			}
+		});
+	}
+
+	// Create an intersection observer
+	let observer = new IntersectionObserver(startCounterAnimation, {
+		rootMargin: "0px",
+		threshold: 0.85,
+	});
+
+	// Observe each metric element
+	$(".metric").each(function () {
+		observer.observe(this);
+	});
 });

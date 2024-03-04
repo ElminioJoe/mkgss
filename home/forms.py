@@ -1,10 +1,6 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from ckeditor.widgets import CKEditorWidget
-
-
-from .models import *
-from .validators import validate_category
+from . import models
 
 
 class FormWidgets(forms.Form):
@@ -13,7 +9,9 @@ class FormWidgets(forms.Form):
         for name, field in self.fields.items():
             attrs = {}
             if isinstance(field.widget, forms.Textarea):
-                attrs.update({"class": "LargeTextField ckeditor", "rows": "3", "cols": "10"})
+                attrs.update(
+                    {"class": "LargeTextField ckeditor", "rows": "3", "cols": "10"}
+                )
             if isinstance(field.widget, forms.TextInput):
                 attrs.update({"class": "TextField"})
             if isinstance(field.widget, forms.ClearableFileInput):
@@ -25,12 +23,13 @@ class FormWidgets(forms.Form):
 
 class MultipleFileInput(forms.FileInput):
     def render(self, name, value, attrs=None, renderer=None):
-        attrs['multiple'] = 'multiple'
+        attrs["multiple"] = "multiple"
         return super().render(name, value, attrs)
+
 
 class StaffForm(FormWidgets, forms.ModelForm):
     class Meta:
-        model = Staff
+        model = models.Staff
         fields = [
             "title",
             "first_name",
@@ -44,77 +43,39 @@ class StaffForm(FormWidgets, forms.ModelForm):
         ]
 
 
-class HomeFeatureForm(FormWidgets, forms.ModelForm):
+class CarouselImageForm(FormWidgets, forms.ModelForm):
     class Meta:
-        model = HomeFeature
-        fields = [
-            "welcome_info",
-            "administration_info",
-            "administration_image",
-            "academics_info",
-            "academics_image",
-            "staff_info",
-            "staff_image",
-            "curricular_info",
-            "curricular_image",
-            "library_info",
-            "library_image",
-            "alumni_info",
-            "alumni_image",
-        ]
+        model = models.CarouselImage
+        fields = ["caption", "carousel_image"]
 
 
-class SchoolInfoForm(FormWidgets, forms.ModelForm):
-    class Meta:
-        model = SchoolInfo
-        fields = ["name", "image", "image_alt_text"]
+class EntryForm(FormWidgets, forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields["content"].required = False
+
+    class Meta:
+        model = models.Entry
+        fields = [
+            "title",
+            "cover_image",
+            "content",
+        ]
+
+    def clean_content(self):
+        data = self.cleaned_data["content"]
+        if not data:
+            raise forms.ValidationError("This field is required.")
+        return data
 
 
-class AdministrationForm(SchoolInfoForm):
-    info = forms.CharField(widget=CKEditorWidget())
-
-    class Meta(SchoolInfoForm.Meta):
-        model = Administration
-        fields = SchoolInfoForm.Meta.fields + ["info"]
-
-
-class AcademicForm(SchoolInfoForm):
-    class Meta(SchoolInfoForm.Meta):
-        model = Academic
-        fields = SchoolInfoForm.Meta.fields + ["subject", "info"]
-
-
-class AdmissionForm(SchoolInfoForm):
-    info = forms.CharField(widget=CKEditorWidget())
-    class Meta(SchoolInfoForm.Meta):
-        model = Admission
-        fields = SchoolInfoForm.Meta.fields + ["info"]
-
-
-class CurricularForm(SchoolInfoForm):
-    class Meta(SchoolInfoForm.Meta):
-        model = Curricular
-        fields = SchoolInfoForm.Meta.fields + ["info"]
-
-
-class SchoolHistoryForm(SchoolInfoForm):
-    class Meta(SchoolInfoForm.Meta):
-        model = SchoolHistory
-        fields = SchoolInfoForm.Meta.fields + ["content"]
-
-
-class SchoolValueForm(SchoolInfoForm):
-    class Meta(SchoolInfoForm.Meta):
-        model = SchoolValue
-        fields = SchoolInfoForm.Meta.fields + ["motto", "mission", "vision"]
-
+class EntryDeleteForm(forms.Form):
+    pass
 
 class NewsForm(FormWidgets, forms.ModelForm):
     class Meta:
-        model = News
+        model = models.News
         exclude = ["post_date", "modification_date", "slug"]
 
 
@@ -147,32 +108,35 @@ class AddImageForm(FormWidgets, forms.ModelForm):
     )
 
     class Meta:
-        model = Gallery
-        fields = ['gallery_image', 'image_alt_text']
+        model = models.Gallery
+        fields = ["gallery_image"]
         help_texts = {"gallery_image": _("upload images")}
 
     def clean(self):
         cleaned_data = super().clean()
-        rename_category = cleaned_data.get('rename_category')
-        new_category_name = cleaned_data.get('new_category_name')
-        rename_description = cleaned_data.get('rename_description')
-        new_description = cleaned_data.get('new_description')
+        rename_category = cleaned_data.get("rename_category")
+        new_category_name = cleaned_data.get("new_category_name")
+        rename_description = cleaned_data.get("rename_description")
+        new_description = cleaned_data.get("new_description")
 
-        if (new_category_name or new_description) and not (rename_category or rename_description):
+        if (new_category_name or new_description) and not (
+            rename_category or rename_description
+        ):
             self.add_error(None, "You must check the appropriate rename fields.")
 
-
         return cleaned_data
+
 
 class CreateGalleryForm(FormWidgets, forms.ModelForm):
     category_image = forms.ImageField(
         label="Category Image",
         widget=MultipleFileInput(attrs={"required": True}),
-        required=True)
+        required=True,
+    )
 
     class Meta:
-        model = Category
-        fields = ['name', 'description', 'category_image']
+        model = models.Category
+        fields = ["name", "description", "category_image"]
         help_texts = {"category_image": _("upload images")}
 
 
@@ -181,3 +145,10 @@ class ContactForm(forms.Form):
     email = forms.EmailField(required=True)
     subject = forms.CharField(max_length=100, required=True)
     message = forms.CharField(widget=forms.Textarea, required=True)
+
+
+def get_entry_object_manager(entry: str):
+    if entry:
+        entry = entry.lower()
+    manager_name = f"{entry}_entries"
+    return getattr(models.Entry, manager_name, None)

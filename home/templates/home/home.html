@@ -5,40 +5,47 @@
 <section class="slider_section">
     <div id="my-carousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-            <li data-target="#my-carousel" data-slide-to="0" class="active"></li>
-            <li data-target="#my-carousel" data-slide-to="1"></li>
-            <li data-target="#my-carousel" data-slide-to="2"></li>
+            {% for image in carousel_images %}
+            <li data-target="#my-carousel"
+                data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}
+                class="active" {% endif %}></li>
+            {% endfor %}
         </ol>
 
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="{% static 'images/IMG_3045.JPG' %}" class="d-block w-100" alt="kitten">
-                <!-- <div class="carousel-caption d-none d-md-block"> -->
-                    <!-- <h3>Lorem ipsum dolor sit.</h3> -->
-                    <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
-                <!-- </div> -->
+            {% for image in carousel_images %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}"
+                style="min-height: 20vh;">
+                {% if user.is_authenticated %}
+                <!-- Buttons Trigger Modal -->
+                <!-- Edit Button -->
+                <button type=" button"
+                    class="btn btn-md btn-outline-primary mx-1"
+                    data-toggle="modal" data-target="#openPostModal"
+                    data-title="Change Carousel Image {{ forloop.counter }}"
+                    data-url="{% url 'update_carousel_image' image.id %}"
+                    data-form="carouselForm" data-placement="top" title="Edit"
+                    style="position: absolute; z-index: 99; right: 5px; bottom: 10px; background-color: rgb(69, 7, 7);">
+                    <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+                </button>
+                {% endif %}
+                <div class="carousel-overlay"></div>
+                <img src="{{ image.carousel_image.url }}" class="d-block w-100"
+                    alt="{{ image.image_alt_text }}">
+                <div class="carousel-caption d-md-block">
+                    <h3>{{ image.caption }}</h3>
+                </div>
             </div>
-            <div class="carousel-item">
-                <img src="{% static 'images/IMG_3045.JPG' %}" class="d-block w-100" alt="kitten">
-                <!-- <div class="carousel-caption d-none d-md-block"> -->
-                    <!-- <h3>Lorem ipsum dolor sit.</h3> -->
-                    <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
-                <!-- </div> -->
-            </div>
-            <div class="carousel-item">
-                <img src="{% static 'images/IMG_3045.JPG' %}" class="d-block w-100" alt="kitten">
-                <!-- <div class="carousel-caption d-none d-md-block"> -->
-                    <!-- <h3>Lorem ipsum dolor sit.</h3> -->
-                    <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p> -->
-                <!-- </div> -->
-            </div>
+            {% endfor %}
         </div>
 
-        <a class="carousel-control-prev" href="#my-carousel" role="button" data-slide="prev">
+        <a class="carousel-control-prev" href="#my-carousel" role="button"
+            data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
-        <a class="carousel-control-next" href="#my-carousel" role="button" data-slide="next">
+        <a class="carousel-control-next" href="#my-carousel" role="button"
+            data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
@@ -46,89 +53,324 @@
 
 
 </section>
+
 <div class="relative">
-    <a class="bottom_arrow_scroll" href="#about"><img src="{% static 'icon/errow.png' %}" /></a>
+    <a class="bottom_arrow_scroll" href="#about"><img
+            src="{% static 'icon/errow.png' %}" /></a>
 </div>
-<div class="container-md mt-5 bg-light_silver">
+<div id="about" class="container-md mt-5 bg-light_silver">
     <div class="p-2 pb-4 text-center rounded">
+        {% if extras.0 %}
+        <h2>{{ extras.0.title|title }}</h2>
+        <!-- <h2>Welcome to Moi Kadzonzo Girls Secondary School</h2> -->
+        <p class="px-4">{{ extras.0.content|safe }}</p>
         {% if user.is_authenticated %}
-        <!-- Buttons Trigger Modal -->
-        <!-- Edit Button -->
-        <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal" data-target="#openPostModal" data-title="Edit HomePage" data-form="homeFeatureForm" data-url="{% url 'home_features_update' home_features.id %}" data-placement="top" title="Edit">
-            <i class="fa-sharp fa-solid fa-pen-to-square"></i>
-        </button>
+        <div class="d-flex justify-content-center">
+            <!-- Edit Button -->
+            <a class="mr-2"
+                href="{% url 'update_entry' extras.0.entry|lower extras.0.slug %}">
+                <button type="button" class="btn btn-sm btn-outline-primary"
+                    title="Edit">
+                    <i class="fa-sharp fa-solid fa-pen-to-square"
+                        aria-hidden="true"></i>
+                </button>
+            </a>
+        </div>
         {% endif %}
 
-        <h2>Welcome to Moi Kadzonzo Girls Secondary School</h2>
-        <p class="px-4">{{home_features.welcome_info}}</p>
+        {% endif %}
     </div>
+
     <div class="row my-4 info-cards">
         <div class="col-md-12 col-lg-3 p-4">
-            {% if school_values %}<h4>{{ school_values.0.motto }}</h4>{% endif %}
-            {% if school_history %}<p>{{ school_history.0.content|truncatewords:57 }}</p>{% endif %}
-            <a href="/about#">Read more </a>
-        </div>
-        <div class="col-md-4 col-lg-3 py-2 px-4">
-            <div class="mb-1 info_img">
-                <img src="{{home_features.administration_image.url}}" class='img-fluid rounded' alt="{{home_features.administration_image_alt_text}}"/>
+            {% if school_motto %}
+            <!-- School motto -->
+            <div class="font-weight-bold mb-3">{{ school_motto.content|safe }}
             </div>
-            <h4 class="mt-2">Administration</h4>
-            <p>{{ home_features.administration_info }}</p>
-            <a href="/about#">Read more </a>
+            {% endif %}
+
+            {% if school_history %}
+            <p>{{ school_history.content|safe|truncatewords:65 }}</p>
+            <div class="d-flex align-items-center">
+                <a href="/about/#tab_list-history" class="read-more">Read more
+                    <i class="fa fa-long-arrow-right"></i>
+                </a>
+                {% if user.is_authenticated %}
+                <!-- Edit Button -->
+                <a class="ml-auto mt-2 "
+                    href="{% url 'update_entry' school_history.entry|lower school_history.slug %}">
+                    <button type="button" class="btn btn-sm btn-outline-primary"
+                        title="Edit">
+                        <i class="fa-sharp fa-solid fa-pen-to-square"
+                            aria-hidden="true"></i>
+                    </button>
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="col-md-4 col-lg-3 py-2 px-4">
+            {% if admin %}
+            <div class="mb-1 info_img">
+                {% if admin.cover_image %}
+                <img src="{{ admin.cover_image.url }}" class='img-fluid rounded'
+                    alt="{{ admin.image_alt_text }}" />
+                {% else %}
+                <img src="" class='img-fluid rounded' alt="Image" />
+                {% endif %}
+            </div>
+            <h4 class="mt-2">{{ admin.title|title }}</h4>
+            <p>{{ admin.content|safe|truncatewords:60 }}</p>
+            <div class="d-flex align-items-center">
+                <a href="/about/#tab_list-administration" class="read-more">Read
+                    more
+                    <i class="fa fa-long-arrow-right"></i>
+                </a>
+                {% if user.is_authenticated %}
+                <!-- Edit Button -->
+                <a class="ml-auto mt-2 "
+                    href="{% url 'update_entry' admin.entry|lower admin.slug %}">
+                    <button type="button" class="btn btn-sm btn-outline-primary"
+                        title="Edit">
+                        <i class="fa-sharp fa-solid fa-pen-to-square"
+                            aria-hidden="true"></i>
+                    </button>
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
             <!-- <h4>Board Member</h4> -->
         </div>
+
         <div class="col-md-4 col-lg-3 py-2 px-4">
+            {% if academic %}
             <div class="mb-1 info_img">
-                <img src="{{home_features.academics_image.url}}" class='img-fluid rounded' alt="{{home_features.academics_image_alt_text}}"/>
+                {% if academic.cover_image %}
+                <img src="{{ academic.cover_image.url }}"
+                    class='img-fluid rounded'
+                    alt="{{ academic.image_alt_text }}" />
+                {% else %}
+                <img src="" class='img-fluid rounded' alt="Image" />
+                {% endif %}
             </div>
-            <h4 class="mt-2">Academics</h4>
-            <p>{{ home_features.academics_info }}</p>
-            <a href="/about#">Read more </a>
+            <h4 class="mt-2">{{ academic.title|title }}</h4>
+            <p>{{ academic.content|safe|truncatewords:60 }}</p>
+            <div class="d-flex align-items-center">
+                <a href="/about/#tab_list-academic" class="read-more">Read more
+                    <i class="fa fa-long-arrow-right"></i>
+                </a>
+                {% if user.is_authenticated %}
+                <!-- Edit Button -->
+                <a class="ml-auto mt-2 "
+                    href="{% url 'update_entry' academic.entry|lower academic.slug %}">
+                    <button type="button" class="btn btn-sm btn-outline-primary"
+                        title="Edit">
+                        <i class="fa-sharp fa-solid fa-pen-to-square"
+                            aria-hidden="true"></i>
+                    </button>
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
         </div>
+
         <div class="col-md-4 col-lg-3 py-2 px-4">
+            {% if extras.1 %}
             <div class="mb-1 info_img">
-                <img src="{{home_features.staff_image.url}}" class='img-fluid rounded' alt="{{home_features.staff_image_alt_text}}"/>
+                {% if extras.1.cover_image %}
+                <img src="{{ extras.1.cover_image.url }}"
+                    class='img-fluid rounded'
+                    alt="{{ extras.1.image_alt_text }}" />
+                {% else %}
+                <img src="" class='img-fluid rounded' alt="Image" />
+                {% endif %}
             </div>
-            <h4 class="mt-2">Staff</h4>
-            <p>{{ home_features.staff_info }}</p>
-            <a href="/about#">Read more </a>
+            <h4 class="mt-2">{{ extras.1.title|title }}</h4>
+            <p>{{ extras.1.content|safe|truncatewords:60 }}</p>
+            <div class="d-flex align-items-center">
+                <a href="/about#" class="read-more">Read more
+                    <i class="fa fa-long-arrow-right"></i>
+                </a>
+                {% if user.is_authenticated %}
+                <!-- Edit Button -->
+                <a class="ml-auto mt-2 "
+                    href="{% url 'update_entry' extras.1.entry|lower extras.1.slug %}">
+                    <button type="button" class="btn btn-sm btn-outline-primary"
+                        title="Edit">
+                        <i class="fa-sharp fa-solid fa-pen-to-square"
+                            aria-hidden="true"></i>
+                    </button>
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
         </div>
+
         <div class="col-md-4 col-lg-3 py-2 px-4">
+            {% if curricular %}
             <div class="mb-1 info_img">
-                <img src="{{home_features.curricular_image.url}}" class='img-fluid rounded' alt="{{home_features.curricular_image_alt_text}}"/>
+                {% if curricular.cover_image %}
+                <img src="{{ curricular.cover_image.url }}"
+                    class='img-fluid rounded'
+                    alt="{{ curricular.image_alt_text }}" />
+                {% else %}
+                <img src="" class='img-fluid rounded' alt="Image" />
+                {% endif %}
             </div>
-            <h4 class="mt-2">Sports & Co-Curricular</h4>
-            <p>{{ home_features.curricular_info }}</p>
-            <a href="/about#">Read more </a>
+            <h4 class="mt-2">{{ curricular.title|title }}</h4>
+            <p>{{ curricular.content|safe|truncatewords:60 }}</p>
+            <div class="d-flex align-items-center">
+                <a href="/about/#tab_list-curricular" class="read-more">Read
+                    more<i class="fa fa-long-arrow-right"></i> </a>
+                {% if user.is_authenticated %}
+                <!-- Edit Button -->
+                <a class="ml-auto mt-2 "
+                    href="{% url 'update_entry' curricular.entry|lower curricular.slug %}">
+                    <button type="button" class="btn btn-sm btn-outline-primary"
+                        title="Edit">
+                        <i class="fa-sharp fa-solid fa-pen-to-square"
+                            aria-hidden="true"></i>
+                    </button>
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
             <!-- <h4 class="mt-2">Sports & Co-Curricular</h4> -->
         </div>
+
         <div class="col-md-4 col-lg-3 py-2 px-4">
+            {% if extras.2 %}
             <div class="mb-1 info_img">
-                <img src="{{home_features.library_image.url}}" class='img-fluid rounded' alt="{{home_features.library_image_alt_text}}"/>
+                {% if extras.2.cover_image %}
+                <img src="{{ extras.2.cover_image.url }}"
+                    class='img-fluid rounded'
+                    alt="{{extras.2.image_alt_text }}" />
+                {% else %}
+                <img src="" class='img-fluid rounded' alt="Image" />
+                {% endif %}
             </div>
-            <h4 class="mt-2">Library</h4>
-            <p>{{ home_features.library_info }}</p>
-            <a href="/about#">Read more </a>
+            <h4 class="mt-2">{{ extras.2.title|title }}</h4>
+            <p>{{ extras.2.content|safe|truncatewords:60 }}</p>
+            <div class="d-flex align-items-center">
+                <a href="/about#" class="read-more">Read more
+                    <i class="fa fa-long-arrow-right"></i>
+                </a>
+                {% if user.is_authenticated %}
+                <!-- Edit Button -->
+                <a class="ml-auto mt-2"
+                    href="{% url 'update_entry' extras.2.entry|lower extras.2.slug %}">
+                    <button type="button" class="btn btn-sm btn-outline-primary"
+                        title="Edit">
+                        <i class="fa-sharp fa-solid fa-pen-to-square"
+                            aria-hidden="true"></i>
+                    </button>
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
             <!-- <h4 class="mt-2">Library</h4> -->
         </div>
+
         <div class="col-md-4 col-lg-3 py-2 px-4">
+            {% if extras.3 %}
             <div class="mb-1 info_img">
-                <img src="{{home_features.alumni_image.url}}" class='img-fluid rounded' alt="{{home_features.alumni_image_alt_text}}"/>
+                {% if extras.3.cover_image %}
+                <img src="{{ extras.3.cover_image.url }}"
+                    class='img-fluid rounded'
+                    alt="{{ extras.3.image_alt_text }}" />
+                {% else %}
+                <img src="" class='img-fluid rounded' alt="Image" />
+                {% endif %}
             </div>
-            <h4 class="mt-2">Alumni</h4>
-            <p>{{ home_features.alumni_info }}</p>
-            <a href="/about#">Read more </a>
+            <h4 class="mt-2">{{ extras.3.title|title }}</h4>
+            <p>{{ extras.3.content|safe|truncatewords:60 }}</p>
+            <div class="d-flex align-items-center">
+                <a href="/about#" class="read-more">Read more
+                    <i class="fa fa-long-arrow-right"></i>
+                </a>
+                {% if user.is_authenticated %}
+                <!-- Edit Button -->
+                <a class="ml-auto mt-2 "
+                    href="{% url 'update_entry' extras.3.entry|lower extras.3.slug %}">
+                    <button type="button" class="btn btn-sm btn-outline-primary"
+                        title="Edit">
+                        <i class="fa-sharp fa-solid fa-pen-to-square"
+                            aria-hidden="true"></i>
+                    </button>
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
             <!-- <h4 class="mt-2">Alumnis</h4> -->
         </div>
+
         <div class="col-md-12 col-lg-3 px-4 pb-4 pt-0">
-            <h4 class="">Admission</h4>
-            {% if admission %}<p>{{ admission.0.info|truncatewords:60 }}</p>{% endif %}
-            <a href="{% url 'about' %}">Read more </a>
+            {% if admission %}
+            <h4 class="mt-4">{{ admission.title|title }}</h4>
+            <p>{{ admission.content|safe|truncatewords:60 }}</p>
+            <div class="d-flex align-items-center">
+                <a href="/about/#tab_list-admission" class="read-more">Read more
+                    <i class="fa fa-long-arrow-right"></i>
+                </a>
+                {% if user.is_authenticated %}
+                <!-- Edit Button -->
+                <a class="ml-auto mt-2 "
+                    href="{% url 'update_entry' admission.entry|lower admission.slug %}">
+                    <button type="button" class="btn btn-sm btn-outline-primary"
+                        title="Edit">
+                        <i class="fa-sharp fa-solid fa-pen-to-square"
+                            aria-hidden="true"></i>
+                    </button>
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>
+{% if message %}
+<!-- Principal's Message -->
+<div id="principal" class="principal">
+    <div class="container-md">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="titlepage">
+                    <h2>Principal's Message</h2>
+                </div>
+                <div class="d-flex flex-column content">
+                    {% if message.cover_image %}
+                    <div class="mx-auto principal-image">
+                        <img src="{% static 'images/IMG_3046.JPG' %}"
+                            class='border rounded-circle' alt="img"
+                            height="250px">
+                    </div>
+                    {% endif %}
+                    <div class="p-4 text-center principal-message">
+                        <blockquote>{{ message.content|safe }}</blockquote>
+                    </div>
+                </div>
+                {% if user.is_authenticated %}
+                <div class="d-flex align-items-center">
+                    <!-- Edit Button -->
+                    <a class="mx-auto"
+                        href="{% url 'update_entry' message.entry|lower message.slug %}">
+                        <button type="button"
+                            class="btn btn-sm btn-outline-primary" title="Edit">
+                            <i class="fa-sharp fa-solid fa-pen-to-square"
+                                aria-hidden="true"></i>
+                        </button>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
 <!-- our blog -->
-<div id="blog" class="blog theme_bg ">
+<div id="blog" class="blog">
     <div class="container-md">
         <div class="row">
             <div class="col-md-12">
@@ -143,11 +385,15 @@
                 <div class="blog-box">
                     <figure>
                         {% if news_item.news_image %}
-                        <img src="{{news_item.news_image.url}}" class='img-fluid rounded' alt="{{news_item.image_alt_text}}">
+                        <img src="{{news_item.news_image.url}}"
+                            class='img-fluid rounded'
+                            alt="{{news_item.image_alt_text}}">
                         {% else %}
-                        <img src="{% static 'images/IMG_3046.JPG' %}" class='img-fluid rounded' alt="img">
+                        <img src="{% static 'images/IMG_3046.JPG' %}"
+                            class='img-fluid rounded' alt="img">
                         {% endif %}
-                        <span><i class="fa-solid fa-calendar-days mr-2"></i>{{ news_item.post_date|date:"d M Y" }}</span>
+                        <span><i
+                                class="fa-solid fa-calendar-days mr-2"></i>{{ news_item.post_date|date:"d M Y" }}</span>
                     </figure>
                     <div>
 
@@ -157,15 +403,22 @@
                         <p>
                             <!-- <span class="Comment"> <i>inb </i>{{news_item.post_date}} </span>
                             <span class="like"> <i class="fa-regular fa-thumbs-up"></i> 05 </span> -->
-                            <span> <i class="fa-sharp fa-solid fa-user mr-1"></i> {{news_item.publisher}}</span>
+                            <span> <i
+                                    class="fa-sharp fa-solid fa-user mr-1"></i>
+                                {{news_item.publisher}}</span>
                         </p>
                     </div>
-                    <p>{{ news_item.news|truncatechars:350}}</p>
-					<a href="{% url 'news-detail' news_item.slug %}" class="mt-2 more bg-light text-dark">Read More</a>
+                    <p>{{ news_item.news|truncatechars:350|safe }}</p>
+                    <div class="d-flex align-items-center">
+                        <a href="{% url 'news-detail' news_item.slug %}"
+                            class="mt-2 text-light read-more">Read More
+                            <i class="fa fa-long-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
             {% empty %}
-            <div class="row">
+            <div class="col-md-12">
                 <h2 class="text-center">There are No News Items</h2>
             </div>
             {% endfor %}
@@ -173,26 +426,76 @@
 
     </div>
 </div>
+<!-- At a Glance -->
+<div id="metrics" class="metrics bg-light">
+    <div class="container-md">
+        <div class="row">
+            <div class="col-md-12 my-4">
+                <div class="row mt-3">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="metric" data-speed="700">
+                            <div>
+                                <span class="counter" data-digit="1000">0</span>
+                                <span class="plus">+</span>
+                            </div>
+                            <h2>Students Enrolled</h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="metric" data-speed="500">
+                            <div>
+                                <span class="counter" data-digit="100">0</span>
+                                <span class="plus">+</span>
+                            </div>
+                            <h2>Qualified Teachers</h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="metric" data-speed="1200">
+                            <div>
+                                <span class="counter" data-digit="2000">0</span>
+                                <span class="plus">+</span>
+                            </div>
+                            <h2>Alumni</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <p></p>
 <!-- Modals Body only Section -->
-<form action="" id="SchoolInfoForm" class="myForm" method="POST" enctype="multipart/form-data">
-    <div class="modal fade" id="openPostModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+<form action="" id="SchoolInfoForm" class="myForm" method="POST"
+    enctype="multipart/form-data">
+    <div class="modal fade" id="openPostModal" tabindex="-1" role="dialog"
+        aria-labelledby="ModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable"
+            role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-uppercase" id="ModalLongTitle">School Info</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title text-uppercase" id="ModalLongTitle">
+                        School Info</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <!-- Form -->
-                    <fieldset class="aligned" id="homeFeatureForm"></fieldset>
-                        <!-- <input type="submit" class="btn btn-primary btn-md font-weight-bold" value="Save"> -->
+                    <fieldset class="aligned d-none" id="homeFeatureForm">
+                    </fieldset>
+                    <fieldset class="aligned d-none" id="carouselForm">
+                    </fieldset>
+                    <!-- <input type="submit" class="btn btn-primary btn-md font-weight-bold" value="Save"> -->
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" class="btn btn-primary btn-md font-weight-bold" value="Save">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit"
+                        class="btn btn-primary btn-md font-weight-bold"
+                        value="Save">
+                    <button type="button" class="btn btn-secondary"
+                        data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
