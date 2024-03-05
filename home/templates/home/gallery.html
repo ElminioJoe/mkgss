@@ -9,8 +9,10 @@
             <div class="col-sm-12">
                 <!-- Button trigger modal -->
                 <!-- Add Button -->
-                <button type="button" class="btn btn-sm btn-outline-success m-2" data-toggle="modal"
-                    data-target="#openPostModal" data-title="Add Images" data-url="{% url 'create_category' %}"
+                <button type="button" class="btn btn-sm btn-outline-success m-2"
+                    data-toggle="modal" data-target="#openPostModal"
+                    data-title="Add Images"
+                    data-url="{% url 'create_category' %}"
                     data-form="galleryForm" data-placement="top" title="Add">
                     <i class="fa fa-plus-square-o mr-1" aria-hidden="true"></i>
                     Add Image Gallery
@@ -18,7 +20,8 @@
 
                 <!-- Toggle switch between Delete and View modes -->
                 <div class="toggle-modes m-2 float-right">
-                    <label class="switch" for="toggleSwitch" title="Toggle between Delete and View modes">
+                    <label class="switch" for="toggleSwitch"
+                        title="Toggle between Delete and View modes">
                         <input type="checkbox" id="toggleSwitch">
                         <span class="slider"></span>
                     </label>
@@ -28,14 +31,18 @@
             <div class="col-12 gallery-actions mt-2">
                 <hr>
                 <!-- Delete Selected button -->
-                <button type="button" class="btn btn-sm btn-outline-danger" id="delete-selected-button"
-                    data-toggle="modal" data-target="#deleteModal" data-title="Delete Gallery Images"
-                    data-url="{% url 'category_delete' %}" data-form="deleteForm" title="Delete Selected Images">
+                <button type="button" class="btn btn-sm btn-outline-danger"
+                    id="delete-selected-button" data-toggle="modal"
+                    data-target="#deleteModal"
+                    data-title="Delete Gallery Images"
+                    data-url="{% url 'category_delete' %}"
+                    data-form="deleteForm" title="Delete Selected Images">
                     <i class="fa-solid fa-trash mr-2"></i>Delete Selected Images
                 </button>
                 <!-- Select All checkbox -->
                 <label class="select-all-checkbox-label mt-3">
-                    <input class="select-all-checkbox" type="checkbox" id="select-all-checkbox">
+                    <input class="select-all-checkbox" type="checkbox"
+                        id="select-all-checkbox">
                     Select all images
                 </label>
             </div>
@@ -45,23 +52,22 @@
         <div class="row bg-light_silver px-1">
             {% for category in category_list %}
             <div class="col-4 col-sm-4 col-md-3 col-lg-2 p-1">
-                <div class="card">
-                    <div class="gallery-box">
-                        <a href="{% url 'gallery-detail' category.slug %}">
-                            <img src="{{ category.random_image.thumbnail.url }}" class="img-fluid" loading="lazy"
+                <div class="gallery-box">
+                    <a href="{% url 'gallery-detail' category.slug %}">
+                        <img src="{{ category.random_image.thumbnail.url }}"
+                            class="img-fluid" loading="lazy"
                             alt="{{ category.random_image.image_alt_text }}">
-                        </a>
-                        <div class="checkbox-container mfp-delete d-none mt-1" style="z-index: 1;">
-                            <input class="selected-checkbox" type="checkbox" name="selected_images"
-                                value="{{ category.id }}">
+                        <div
+                            class="d-flex flex-column align-items-center pt-2 p-1 bg-light">
+                            <h5 class="">
+                                {{ category.name }}</h5>
+                            <div><i class="fa fa-arrow-right-long"></i></div>
                         </div>
-                        <a href="{% url 'gallery-detail' category.slug %}" class="card_content">
-                            <span class="d-flex flex-row">
-                                <h5 class="card_title mr-auto">{{ category.name }}</h5>
-                                <i class="fa-solid fa-arrow-right-long pt-1" style="color: #f5faff;"></i>
-                            </span>
-                            <p class="card_description">{{ category.description }}</p>
-                        </a>
+                    </a>
+                    <div class="checkbox-container mfp-delete d-none mt-2"
+                        style="z-index: 1;">
+                        <input class="selected-checkbox" type="checkbox"
+                            name="selected_images" value="{{ category.id }}">
                     </div>
                 </div>
             </div>
@@ -77,24 +83,32 @@
 
 <!-- Modals Body only Section -->
 <form action="" class="myForm" method="POST" enctype="multipart/form-data">
-    <div class="modal fade" id="openPostModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+    <div class="modal fade" id="openPostModal" tabindex="-1" role="dialog"
+        aria-labelledby="ModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable"
+            role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-uppercase" id="ModalLongTitle">School Info</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title text-uppercase" id="ModalLongTitle">
+                        School Info</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    {% csrf_token %}                    <!-- All Forms -->
+                    {% csrf_token %} <!-- All Forms -->
 
-                    <fieldset class="aligned d-none" id="galleryForm"></fieldset>
+                    <fieldset class="aligned d-none" id="galleryForm">
+                    </fieldset>
 
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" class="btn btn-primary btn-md font-weight-bold" value="Upload">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit"
+                        class="btn btn-primary btn-md font-weight-bold"
+                        value="Upload">
+                    <button type="button" class="btn btn-secondary"
+                        data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -104,26 +118,34 @@
 
 <!-- Delete Modal -->
 <form action="" class="myForm" method="POST" enctype="multipart/form-data">
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+        aria-labelledby="ModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-uppercase" id="ModalLongTitle">School Info</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title text-uppercase" id="ModalLongTitle">
+                        School Info</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <!-- Form -->
                     {% csrf_token %}
-                    <input type="hidden" name="action" id="action-input" value="">
-                    <input type="hidden" name="selected_images" id="selected-images-input" value="">
+                    <input type="hidden" name="action" id="action-input"
+                        value="">
+                    <input type="hidden" name="selected_images"
+                        id="selected-images-input" value="">
                     <input type="hidden" name="category_slug" value="">
                     <fieldset class="aligned" id="deleteForm"></fieldset>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" class="btn btn-danger btn-md font-weight-bold" value="Delete">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit"
+                        class="btn btn-danger btn-md font-weight-bold"
+                        value="Delete">
+                    <button type="button" class="btn btn-secondary"
+                        data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

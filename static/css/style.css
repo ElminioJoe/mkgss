@@ -129,6 +129,7 @@ main {
 button:focus {
 	outline: none;
 }
+
 button:disabled {
 	cursor: not-allowed;
 }
@@ -1023,87 +1024,18 @@ img.zoom {
 
 /*--------------- gallery page css ---------------*/
 
-.gallery_pg .card {
-	background: #6D3D14;
-	overflow: hidden;
-}
-
 .gallery_pg .gallery-box {
+	position: relative;
 	font-weight: bold;
-	/* font-size: 24px; */
-	padding: 5px 5px 31px;
+	padding: 5px 5px;
 	color: #f8f8f8;
 }
 
 .gallery_pg .gallery-box img {
 	cursor: pointer;
-	/* height: 160px; */
 	object-fit: cover;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
-}
-
-.gallery_pg .card_content {
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	padding: 0px 10px 5px;
-	background: #6D3D14;
-	/* border-top-left-radius: 15px; */
-	height: 60%;
-	-webkit-transform: translateY(65px);
-	-ms-transform: translateY(65px);
-	transform: translateY(65px);
-	-webkit-transition: -webkit-transform .25s;
-	transition: -webkit-transform .25s;
-	transition: transform .25s;
-	transition: transform .25s, -webkit-transform .25s;
-}
-
-/* .gallery_pg .card_content::before {
-	content: '';
-	position: absolute;
-	top: -39px;
-	right: -36px;
-	width: 100px;
-	height: 100px;
-	-webkit-transform: rotate(-165deg);
-	-ms-transform: rotate(-165deg);
-	transform: rotate(-165deg);
-	border-radius: 50%;
-	-webkit-box-shadow: inset 48px 48px #6D3D14;
-	box-shadow: inset 48px 48px #6D3D14;
-} */
-
-.gallery_pg .card_content span,
-.gallery_pg .card_content p.card_description {
-	position: relative;
-	color: #f8f8f8;
-	line-height: 1.24;
-	z-index: 10;
-}
-
-.gallery_pg .card_content span {
-	padding: 5px 2px 0px;
-}
-
-.gallery_pg .card_content .card_description {
-	font-size: 0.96em;
-	opacity: 0;
-	transition: opacity .5s;
-}
-
-.gallery_pg .card:hover .card_content {
-	-webkit-transform: translateY(0);
-	-ms-transform: translateY(0);
-	transform: translateY(0);
-}
-
-.gallery_pg .card:hover .card_description {
-	opacity: 1;
-	-webkit-transition-delay: .25s;
-	transition-delay: .25s;
 }
 
 .gallery_pg a[data-fancybox] img {
@@ -1117,6 +1049,26 @@ img.zoom {
 .gallery_detail_pg .gallery-box {
 	position: relative;
 	overflow: hidden;
+}
+
+.gallery-box .fa {
+	position: absolute;
+	left: 5%;
+	transition: all .8s;
+	color: transparent;
+}
+
+.gallery-box:hover .fa {
+	left: 80%;
+	color: inherit;
+}
+
+.gallery-box .selected-checkbox {
+	border-color: #ff0000;
+}
+
+.gallery-box .selected-checkbox::before {
+	background-color: #ff0000;
 }
 
 .gallery_detail_pg .gallery .gallery-box img {
