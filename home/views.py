@@ -148,13 +148,13 @@ class SchoolNewsDetailView(DetailView):
     context_object_name = None
 
     def get_context_data(self, **kwargs):
-        latest_news_5 = QueryManager.get_news(5)
+        latest_news = QueryManager.get_news()
 
         context = super().get_context_data(**kwargs)
         news_item = context["news_item"]
         context["title"] = "Blog Detail"
         context["subtitle"] = news_item.headline
-        context["news"] = latest_news_5.exclude(id=self.object.id)
+        context["news"] = latest_news.exclude(id=self.object.id)[:5]
         context["template_name"] = self.template_name
         return context
 

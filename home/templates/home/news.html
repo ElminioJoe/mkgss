@@ -41,7 +41,7 @@
                                 	</span>
 			    				</div>
                             </div>
-			    		    <p class="mb-2">{{ news_item.news|safe|truncatechars:200 }}</p>
+			    		    <p class="mb-2">{{ news_item.content|safe|truncatechars:200 }}</p>
 			    			<div class="d-flex">
 			    				<a href="{% url 'news-detail' news_item.slug %}" class="mr-auto more">Read More</a>
                                 {% if user.is_authenticated %}

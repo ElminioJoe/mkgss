@@ -408,7 +408,7 @@
                                 {{news_item.publisher}}</span>
                         </p>
                     </div>
-                    <p>{{ news_item.news|truncatechars:350|safe }}</p>
+                    <p>{{ news_item.content|truncatechars:350|safe }}</p>
                     <div class="d-flex align-items-center">
                         <a href="{% url 'news-detail' news_item.slug %}"
                             class="mt-2 text-light read-more">Read More

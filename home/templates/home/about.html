@@ -493,7 +493,7 @@
                         <div class="staff-item">
                             <div class="d-flex">
                                 <h4 class="mr-auto">{{ staff.title }}.
-                                    {{ staff.staff_full_name }} |
+                                    {{ staff.full_name }} |
                                     {{ staff.role }}
                                     {{ staff.department|default:'' }}
                                 </h4>
@@ -530,7 +530,7 @@
                                 alt="{{ staff.image_alt_text }}">
                             {% endif %}
                             <p class="mt-0 mb-4 para-br">
-                                {{ staff.message|safe }}</p>
+                                {{ staff.content|safe }}</p>
                         </div>
                         <hr>
                         {% endfor %}

@@ -1,5 +1,7 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
+from django_ckeditor_5.fields import CKEditor5Field
+from django_ckeditor_5.widgets import CKEditor5Widget
 from . import models
 
 
@@ -28,18 +30,21 @@ class MultipleFileInput(forms.FileInput):
 
 
 class StaffForm(FormWidgets, forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["content"].required = False
+
     class Meta:
         model = models.Staff
         fields = [
             "title",
-            "first_name",
-            "last_name",
+            "full_name",
             "role",
             "department",
             "email",
             "picture",
             "phone_number",
-            "message",
+            "content",
         ]
 
 
@@ -74,6 +79,10 @@ class EntryDeleteForm(forms.Form):
     pass
 
 class NewsForm(FormWidgets, forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["content"].required = False
+
     class Meta:
         model = models.News
         exclude = ["post_date", "modification_date", "slug"]

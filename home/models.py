@@ -63,39 +63,42 @@ class Publisher(models.Model):
 
 
 class Staff(models.Model):
+    class StaffRole(models.TextChoices):
+        NONE = "", _("---------")
+        PRINCIPAL = "PRINCIPAL", _("Principal")
+        DEPUTY = "DEPUTY", _("Deputy Principal")
+        BOARD_OF_MANAGEMENT = "BOM", _("Board of Management")
+        TEACHING_STAFF = "TEACHER", _("Teacher")
+        NONE_TEACHING_STAFF = "NTS", _("None Teaching Staff")
+
     title = models.CharField(
-        max_length=5,
-        help_text="Titles and other words associated with a person's name. Example: 'Mr', 'Mrs', 'Miss'",
+        max_length=5, blank=True, default="",
+        help_text="Optional: i.e 'Mr', 'Mrs', 'Miss'",
     )
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
+    full_name = models.CharField(max_length=100)
     email = models.EmailField(blank=True)
-    picture = ResizedImageField(
-        size=[600, 600], upload_to="staff/", blank=True, default=""
-    )
     phone_number = models.CharField(max_length=10, blank=True)
-    message = models.TextField(max_length=1000, blank=True, help_text="")
+
+    content = CKEditor5Field(config_name="minimal")
     role = models.CharField(
-        max_length=30,
-        blank=True,
-        help_text="Optional. The role of the staff member. Example: 'Principal', 'Deputy Principal', 'HOD'",
+        max_length=15, choices=StaffRole, default=StaffRole.NONE, blank=True
     )
     department = models.CharField(
         max_length=100,
         blank=True,
-        null=True,
+        default="",
         help_text="Optional. The department the staff member belongs to.",
+    )
+    picture = ResizedImageField(
+        size=[600, 600], upload_to="staff/", blank=True, default=""
     )
 
     # department = models.ForeignKey(
     #     "Department", on_delete=models.CASCADE, blank=True, null=True, help_text="Optional. The department the staff member belongs to."
     # )
 
-    def staff_full_name(self):
-        return f"{self.first_name} {self.last_name}"
-
     def __str__(self):
-        return f"{self.staff_full_name()} - {self.role}"
+        return f"{self.full_name} - {self.role}"
 
     def get_absolute_url(self):
         return reverse_lazy("about")
@@ -113,7 +116,7 @@ class Department(models.Model):
 
 class News(models.Model):
     headline = models.CharField(max_length=250)
-    news = CKEditor5Field(config_name="minimal")
+    content = CKEditor5Field(config_name="minimal")
     publisher = models.ForeignKey(Publisher, on_delete=models.SET(get_sentinel_user))
     news_image = ResizedImageField(
         size=[1920, 1300],
@@ -179,7 +182,6 @@ class Gallery(models.Model):
     def save(self, *args, **kwargs):
         create_thumbnail(self, self.gallery_image, self.thumbnail)
         super(Gallery, self).save(*args, **kwargs)
-
 
     def delete(self, *args, **kwargs):
         # Delete the image files from the file system
