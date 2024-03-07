@@ -41,7 +41,6 @@ urlpatterns = [
         ),
         name="update_carousel_image",
     ),
-
     # ----------- Gallery Urls -----------
     path("gallery/", views.GalleryCategoryListView.as_view(), name="gallery"),
     path(
@@ -166,4 +165,28 @@ urlpatterns = [
     ),
     path("contact/", views.ContactFormView.as_view(), name="contact"),
     # ----------- ---------- -----------
+    # ----- Staff & Management Urls ------
+    path(
+        "management/",
+        include(
+            [
+                path("", views.SchoolManagementView.as_view(), name="management"),
+                path(
+                    "add/<str:role>/",
+                    views.CreateStaffView.as_view(),
+                    name="create_staff",
+                ),
+                path(
+                    "update/<str:role>/<slug:slug>/",
+                    views.UpdateStaffView.as_view(),
+                    name="update_staff",
+                ),
+                path(
+                    "delete/<str:role>/<slug:slug>/",
+                    views.DeleteStaffView.as_view(),
+                    name="delete_staff",
+                ),
+            ]
+        ),
+    ),
 ]

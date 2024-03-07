@@ -52,9 +52,7 @@ class HomeView(TemplateView):
         context["curricular"] = entries.filter(
             parent_entry=None, entry="CURRICULAR"
         ).first()
-        context["message"] = entries.filter(
-            parent_entry=None, entry="MESSAGE"
-        ).first()
+        context["message"] = entries.filter(parent_entry=None, entry="MESSAGE").first()
         context["school_history"] = entries.filter(
             parent_entry=None, entry="HISTORY"
         ).first()
@@ -111,7 +109,7 @@ class AboutView(TemplateView):
 
     def get_context_data(self, **kwargs):
         entries = QueryManager.get_all_entries()
-        list_staff = QueryManager.get_all_staff()
+        list_staff = QueryManager.get_all_teaching_staff()
 
         context = super().get_context_data(**kwargs)
         entry = self.kwargs.get("entry")
@@ -237,6 +235,106 @@ class DeleteEntryView(BaseEntryView, DeleteView):
         return self.success_message % dict(
             self.get_object().__dict__,
             entry=self.kwargs.get("entry").capitalize(),
+        )
+
+
+class SchoolManagementView(TemplateView):
+    template_name = "home/management.html"
+
+    def get_context_data(self, **kwargs):
+        board_members = QueryManager.get_board_members()
+        principals = QueryManager.get_principals().all()
+
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Board of Management"
+        context["principals"] = principals
+        context["board_members"] = board_members
+
+        return context
+
+
+class BaseStaffView(LoginRequiredMixin, SuccessMessageMixin):
+    login_url = "/404/not-found/"
+    redirect_field_name = None
+    model = models.Staff
+    form_class = StaffForm
+    template_name = "home/forms/staff_form.html"
+    form_action = None
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        staff_role = self.kwargs.get("role")
+        context["role"] = staff_role
+        context["action"] = self.form_action
+        context["title"] = f"{self.form_action} {staff_role}"
+        return context
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message % dict(
+            cleaned_data,
+            role=self.kwargs.get("role").capitalize(),
+        )
+
+    def get_success_url(self):
+        role = self.kwargs.get("role")
+        if self.request.POST.get("add_another"):
+            return reverse_lazy("create_staff", args=[role])
+        elif self.request.POST.get("save_continue"):
+            return reverse_lazy("update_staff", args=[role, self.object.slug])
+        else:
+            return f"/about/#tab_list-staff"
+
+
+class CreateStaffView(BaseStaffView, CreateView):
+    success_message = "%(role)s Details for '%(full_name)s' was created successfully"
+    form_action = "add"
+    error_message = """
+        Action not Allowed!!
+        It's not possible to add multiple instances of Principal or Deputy Principal
+        """
+
+    def form_valid(self, form):
+        role = self.kwargs.get("role").upper()
+        if role in ["PRINCIPAL", "DEPUTY"]:
+            existing_roles = self.model.objects.filter(role__in=["PRINCIPAL", "DEPUTY"])
+            if existing_roles.exists():
+                messages.error(self.request, self.error_message)
+                return self.form_invalid(form)
+
+        form.instance.role = role
+        return super(CreateStaffView, self).form_valid(form)
+
+
+class UpdateStaffView(BaseStaffView, UpdateView):
+    success_message = "Details for %(role)s '%(full_name)s' was updated successfully"
+    form_action = "update"
+
+
+class DeleteStaffView(BaseStaffView, DeleteView):
+    template_name = "home/forms/confirm_staff_delete_form.html"
+    success_message = "%(role)s '%(full_name)s' was deleted successfully"
+    form_action = "delete"
+    form_class = EntryDeleteForm
+    error_message = """
+        Action Not Allowed!!
+        It's not possible to delete the Principal or Deputy Principal Objects.
+        """
+
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.role in ["PRINCIPAL", "DEPUTY"]:
+            print("HERE")
+            messages.error(request, self.error_message)
+            return self.render_to_response(self.get_context_data())
+        print("oops!!")
+        return super().delete(request, *args, **kwargs)
+
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message % dict(
+            self.get_object().__dict__,
+            role=self.kwargs.get("role").capitalize(),
         )
 
 

@@ -13,10 +13,7 @@ class QueryManager:
         """
         Fetch all non-deleted entries.
         """
-        return models.Entry.objects.filter(
-            Q(entry__in=["ACADEMIC", "ADMISSION", "ADMINISTRATION", "CURRICULAR"])
-            | Q(entry__in=["PRINCIPLES", "HISTORY", "MESSAGE", "EXTRA"])
-        ).exclude(is_deleted=True)
+        return models.Entry.objects.exclude(is_deleted=True)
 
     @staticmethod
     def get_carousel_images():
@@ -26,11 +23,13 @@ class QueryManager:
         return models.CarouselImage.objects.order_by("date_created")
 
     @staticmethod
-    def get_all_staff():
+    def get_all_teaching_staff():
         """
         Fetch all staff objects.
         """
-        return models.Staff.objects.all()
+        return models.Staff.objects.filter(
+            role=models.Staff.StaffRole.TEACHING_STAFF
+        )
 
     @staticmethod
     def get_news(count=None):
@@ -48,3 +47,23 @@ class QueryManager:
         Fetch random news objects with a specified count.
         """
         return models.News.random_data.all()[:count]
+
+    @staticmethod
+    def get_principals():
+        """
+        Fetch the Principal and Deputy principal objects
+        """
+        return models.Staff.objects.filter(
+            Q(role__in=[models.Staff.StaffRole.PRINCIPAL])
+            | Q(role__in=[models.Staff.StaffRole.DEPUTY])
+            | Q(role__in=[models.Staff.StaffRole.ADMINISTRATOR])
+        )
+
+    @staticmethod
+    def get_board_members():
+        """
+        Fetch all Board of Management objects.
+        """
+        return models.Staff.objects.filter(
+                role=models.Staff.StaffRole.DIRECTOR
+            )
