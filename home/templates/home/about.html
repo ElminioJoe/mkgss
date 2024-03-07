@@ -236,8 +236,10 @@
                                 </a>
                                 <!-- Delete Button -->
                                 <a href="{% url 'delete_entry' entry.entry|lower entry.slug %}"
-                                    class="btn btn-sm btn-outline-danger" title="Delete">
-                                    <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                                    class="btn btn-sm btn-outline-danger"
+                                    title="Delete">
+                                    <i class="fa-solid fa-trash"
+                                        aria-hidden="true"></i>
                                 </a>
                             </div>
                         </div>
@@ -256,8 +258,10 @@
                         {% if user.is_authenticated %}
                         <!-- Add Button -->
                         <a href="{% url 'create_entry' 'curricular' %}">
-                            <button type="button" title="Add" class="btn btn-sm btn-outline-success">
-                                <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                            <button type="button" title="Add"
+                                class="btn btn-sm btn-outline-success">
+                                <i class="fa fa-plus-square-o"
+                                    aria-hidden="true"></i>
                             </button>
                         </a>
                         {% endif %}
@@ -269,10 +273,12 @@
                         {% if entry.cover_image %}
                         <div class="p-2 text-justify">
                             {% if forloop.counter|divisibleby:2 %}
-                            <img src="{{ entry.cover_image.url }}" class="img-fluid img-float-left"
+                            <img src="{{ entry.cover_image.url }}"
+                                class="img-fluid img-float-left"
                                 alt="{{ entry.image_alt_text }}">
                             {% else %}
-                            <img src="{{ entry.cover_image.url }}" class="img-fluid img-float-right"
+                            <img src="{{ entry.cover_image.url }}"
+                                class="img-fluid img-float-right"
                                 alt="{{ entry.image_alt_text }}">
                             {% endif %}
                             <h3>{{entry.title|title}}</h3>
@@ -299,8 +305,10 @@
                                 </a>
                                 <!-- Delete Button -->
                                 <a href="{% url 'delete_entry' entry.entry|lower entry.slug %}"
-                                    class="btn btn-sm btn-outline-danger" title="Delete">
-                                    <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                                    class="btn btn-sm btn-outline-danger"
+                                    title="Delete">
+                                    <i class="fa-solid fa-trash"
+                                        aria-hidden="true"></i>
                                 </a>
                             </div>
                         </div>
@@ -312,8 +320,8 @@
 
                 <!--  -->
 
-                <div class="tab-pane fade show" id="list-principles" role="tabpanel"
-                    aria-labelledby="list-principles-list">
+                <div class="tab-pane fade show" id="list-principles"
+                    role="tabpanel" aria-labelledby="list-principles-list">
                     <div class="d-flex mb-3">
                         <h3 class="mr-auto">Our Core Values</h3>
                     </div>
@@ -455,8 +463,10 @@
                                 </a>
                                 <!-- Delete Button -->
                                 <a href="{% url 'delete_entry' entry.entry|lower entry.slug %}"
-                                    class="btn btn-sm btn-outline-danger" title="Delete">
-                                    <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                                    class="btn btn-sm btn-outline-danger"
+                                    title="Delete">
+                                    <i class="fa-solid fa-trash"
+                                        aria-hidden="true"></i>
                                 </a>
                             </div>
                         </div>
@@ -473,66 +483,63 @@
                     <div class="d-flex mb-3">
                         <h3 class="mr-auto">Staff</h3>
                         {% if user.is_authenticated %}
-                        <!-- Button trigger modal -->
                         <!-- Add Button -->
-                        <button type="button"
-                            class="btn btn-sm btn-outline-success"
-                            data-toggle="modal" data-target="#openPostModal"
-                            data-title="Add Staff"
-                            data-url="{% url 'staff_create' %}"
-                            data-form="staffForm" data-placement="top"
-                            title="Add">
-                            <i class="fa fa-plus-square-o"
-                                aria-hidden="true"></i>
-                        </button>
+                        <a href="{% url 'create_staff' 'teacher' %}">
+                            <button type="button" title="Add"
+                                class="btn btn-sm btn-outline-success">
+                                <i class="fa fa-plus-square-o"
+                                    aria-hidden="true"></i>
+                            </button>
+                        </a>
                         {% endif %}
                     </div>
                     <hr>
-                    <div class="text-justify align-items-center">
+                    <div class="row text-justify align-items-center p-3">
                         {% for staff in staffs %}
-                        <div class="staff-item">
-                            <div class="d-flex">
-                                <h4 class="mr-auto">{{ staff.title }}.
-                                    {{ staff.full_name }} |
-                                    {{ staff.role }}
-                                    {{ staff.department|default:'' }}
-                                </h4>
+                        <div class="col-lg-4 col-md-6 p-2">
+                            <div class="d-flex flex-column">
+                                {% if staff.picture %}
+                                <div class="staff-image">
+                                    <img src="{{ staff.picture.url }}"
+                                        class='img-fluid rounded'
+                                        alt="The school principal">
+                                </div>
+                                {% endif %}
+                                <div class="staff-content text-center pt-2">
+                                    <h4 class="pb-0">
+                                        <span>{{ staff.title|title }}.</span>&nbsp;
+                                        <span>{{ staff.full_name|upper }}</span>
+                                    </h4>
+                                    {% if staff.department %}
+                                    <span>{{ staff.department }}</span>&nbsp;
+                                    {% endif %}
+                                    <span>{{ staff.role|title }}</span>
+                                    <p class="pt-1">{{ staff.content|safe }}</p>
+                                </div>
                                 {% if user.is_authenticated %}
-                                <!-- Buttons Trigger Modal -->
-                                <!-- Edit Button -->
-                                <button type="button"
-                                    class="btn btn-sm btn-outline-primary mx-1"
-                                    data-toggle="modal"
-                                    data-target="#openPostModal"
-                                    data-title="Edit Staff"
-                                    data-url="{% url 'staff_update' staff.id %}"
-                                    data-form="staffForm" data-placement="top"
-                                    title="Edit">
-                                    <i
-                                        class="fa-sharp fa-solid fa-pen-to-square"></i>
-                                </button>
-                                <!-- Delete Button -->
-                                <button type="button"
-                                    class="btn btn-sm btn-outline-danger"
-                                    data-toggle="modal"
-                                    data-target="#deleteModal"
-                                    data-title="Delete {{ staff.first_name}} {{ staff.last_name }} "
-                                    data-url="{% url 'staff_delete' staff.id %}"
-                                    data-form="deleteForm" data-placement="top"
-                                    title="Delete">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
+                                <div class="card-footer p-0">
+                                    <div class="p-2 d-flex justify-content-end">
+                                        <!-- Edit Button -->
+                                        <a class="mr-2"
+                                            href="{% url 'update_staff' staff.role|lower staff.slug %}">
+                                            <button type="button" title="Edit"
+                                                class="btn btn-sm btn-outline-primary">
+                                                <i class="fa-sharp fa-solid fa-pen-to-square"
+                                                    aria-hidden="true"></i>
+                                            </button>
+                                        </a>
+                                        <!-- Delete Button -->
+                                        <a href="{% url 'delete_staff' staff.role|lower staff.slug %}"
+                                            class="btn btn-sm btn-outline-danger"
+                                            title="Delete">
+                                            <i class="fa-solid fa-trash"
+                                                aria-hidden="true"></i>
+                                        </a>
+                                    </div>
+                                </div>
                                 {% endif %}
                             </div>
-                            {% if staff.picture.url %}
-                            <img src="{{ staff.picture.url }}"
-                                class="img-fluid float-left pr-3 pt-2"
-                                alt="{{ staff.image_alt_text }}">
-                            {% endif %}
-                            <p class="mt-0 mb-4 para-br">
-                                {{ staff.content|safe }}</p>
                         </div>
-                        <hr>
                         {% endfor %}
                     </div>
                 </div>

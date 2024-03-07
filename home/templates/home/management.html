@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %} {{ block.super }}
+
+<section class="management_pg">
+    <div class="container-md">
+        <div class="bg-light_silver">
+            {% if principals %}
+            <div class="row principal pt-0">
+                <div class="col-md-12">
+                    <div class="d-flex mb-3">
+                        <h2 class="mr-auto">Management and Administration</h2>
+                        {% if user.is_authenticated %}
+                        <!-- Add Button -->
+                        <a
+                            href="{% url 'create_staff' 'administrator' %}">
+                            <button type="button" title="Add"
+                                class="btn btn-sm btn-outline-success">
+                                <i class="fa fa-plus-square-o"
+                                    aria-hidden="true"></i>
+                            </button>
+                        </a>
+                        {% endif %}
+                    </div>
+                    <hr>
+                </div>
+
+                <hr>
+                {% for staff in principals %}
+                <div class="col-lg-3 col-md-4 p-2">
+                    <div class="d-flex flex-column">
+                        <div class="staff-image">
+                            {% if staff.picture %}
+                            <img src="{{ staff.picture.url }}"
+                                class='img-fluid rounded'
+                                alt="The school principal">
+                            {% endif %}
+                        </div>
+                        <div class="staff-content text-center pt-2">
+                            <h4 class="pb-0">
+                                <span>{{ staff.title|title }}.</span>&nbsp;
+                                <span>{{ staff.full_name|upper }}</span>
+                            </h4>
+                            <span>{{ staff.role }}</span>
+                            {% if staff.department %}
+                            &nbsp;<span>{{ staff.department }}</span>
+                            {% endif %}
+                            <p class="pt-1">{{ staff.content|safe }}</p>
+                        </div>
+                        {% if user.is_authenticated %}
+                        <div class="card-footer p-0">
+                            <div class="p-2 d-flex justify-content-end">
+                                <!-- Edit Button -->
+                                <a class="mr-2"
+                                    href="{% url 'update_staff' staff.role|lower staff.slug %}">
+                                    <button type="button" title="Edit"
+                                        class="btn btn-sm btn-outline-primary">
+                                        <i class="fa-sharp fa-solid fa-pen-to-square"
+                                            aria-hidden="true"></i>
+                                    </button>
+                                </a>
+                                {% if staff.role != "PRINCIPAL" and staff.role != "DEPUTY" %}
+                                <!-- Delete Button -->
+                                <a href="{% url 'delete_staff' staff.role|lower staff.slug %}"
+                                    class="btn btn-sm btn-outline-danger"
+                                    title="Delete">
+                                    <i class="fa-solid fa-trash"
+                                        aria-hidden="true"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if board_members %}
+            <div class="row board">
+                <div class="col-md-12">
+                    <div class="d-flex mb-3">
+                        <h2 class="mr-auto">Board Directors</h2>
+                        {% if user.is_authenticated %}
+                        <!-- Add Button -->
+                        <a href="{% url 'create_staff' 'director' %}">
+                            <button type="button" title="Add"
+                                class="btn btn-sm btn-outline-success">
+                                <i class="fa fa-plus-square-o"
+                                    aria-hidden="true"></i>
+                            </button>
+                        </a>
+                        {% endif %}
+                    </div>
+                    <hr>
+                </div>
+                {% for member in board_members %}
+                <div class="col-lg-3 col-md-4 p-2 ">
+                    <div class="d-flex flex-column">
+                        <div class="staff-image">
+                            {% if member.picture %}
+                            <img src="{{ member.picture.url }}"
+                                class='img-fluid rounded'
+                                alt="The school principal">
+                            {% endif %}
+                        </div>
+                        <div class="staff-content text-center pt-2">
+                            <h4 class="pb-0">
+                                <span>{{ member.title|title }}.</span>&nbsp;
+                                <span>{{ member.full_name|upper }}</span>
+                            </h4>
+                            <span>{{ member.role }}</span>
+                            {% if member.department %}
+                            &nbsp;<span>{{ member.department }}</span>
+                            {% endif %}
+                            <p class="pt-1">{{ member.content|safe }}</p>
+                        </div>
+                        {% if user.is_authenticated %}
+                        <div class="card-footer p-0">
+                            <div class="p-2 d-flex justify-content-end">
+                                <!-- Edit Button -->
+                                <a class="mr-2"
+                                    href="{% url 'update_staff' member.role|lower member.slug %}">
+                                    <button type="button" title="Edit"
+                                        class="btn btn-sm btn-outline-primary">
+                                        <i class="fa-sharp fa-solid fa-pen-to-square"
+                                            aria-hidden="true"></i>
+                                    </button>
+                                </a>
+                                <!-- Delete Button -->
+                                <a href="{% url 'delete_staff' member.role|lower member.slug %}"
+                                    class="btn btn-sm btn-outline-danger"
+                                    title="Delete">
+                                    <i class="fa-solid fa-trash"
+                                        aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

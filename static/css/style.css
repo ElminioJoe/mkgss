@@ -496,7 +496,6 @@ a.read-more .fa {
 	top: 4.798px;
 	left: 0;
 	width: 100%;
-	/* height: 70%; */
 	transition: all .35s;
 	background: #f9f9f9;
 }
@@ -526,8 +525,9 @@ a.read-more:hover .fa {
 	box-shadow: 2px 3px #d4d4d4;
 }
 
-/** values section **/
-
+/*---------------------------------------------------------------------
+    values section
+---------------------------------------------------------------------*/
 
 .flexcss {
 	display: flex;
@@ -555,12 +555,8 @@ a.read-more:hover .fa {
 	border-top: none;
 	border-bottom: none;
 	border-radius: 100px;
-	/* display: none; */
 }
 
-/* .values .values-box:hover p {
-	display: inherit;
-} */
 
 .values .values-box figure img {
 	width: 100%;
@@ -644,7 +640,9 @@ img.zoom {
 	transform: scale(1.2);
 }
 
-/** end values section **/
+/*------------------------
+    end values section
+--------------------------*/
 
 .top_layer {
 	position: relative;
@@ -686,8 +684,11 @@ img.zoom {
 	transition: ease-in all 0.5s;
 }
 
-/** end about section **/
-/** principal section **/
+/*---------------------------------------------------------------------
+    end about section
+	-----------------
+	principal section
+---------------------------------------------------------------------*/
 
 .principal {
 	padding: 40px 0px;
@@ -723,8 +724,11 @@ img.zoom {
 	margin-inline: 30px;
 }
 
-/** end about section **/
-/** blog section **/
+/*---------------------------------------------------------------------
+    end about section
+	------------------
+	blog section
+---------------------------------------------------------------------*/
 
 .blog {
 	padding: 40px 0px;
@@ -829,10 +833,13 @@ img.zoom {
 	color: #fc4311;
 }
 
-/** end blog section **/
-/** metrics section **/
+/*---------------------------------------------------------------------
+    end blog section
+	-----------------
+	metrics section
+---------------------------------------------------------------------*/
+
 .metrics {
-	/* background-color: #1245FF !important; */
 	text-align: center;
 	padding-block: 1.5rem;
 	margin-top: -2px;
@@ -841,7 +848,6 @@ img.zoom {
 
 .metrics .titlepage h2 {
 	width: 210px;
-	/* color: #1245ff; */
 }
 
 
@@ -857,8 +863,11 @@ img.zoom {
 	color: #6D3D14;
 }
 
-/** end metrics section **/
-/** contact section **/
+/*---------------------------------------------------------------------
+    end metrics section
+	--------------------
+	contact section
+---------------------------------------------------------------------*/
 
 .contact .titlepage {
 	text-align: center;
@@ -955,7 +964,9 @@ img.zoom {
 	padding: 12px;
 }
 
-/*--------------- about page css ---------------*/
+/*---------------------------------------------------------------------
+    about page css
+---------------------------------------------------------------------*/
 
 .cst_pages .side_bar {
 	display: inline;
@@ -1020,9 +1031,9 @@ img.zoom {
 	height: max-content;
 }
 
-/*--------------- end about page css ---------------*/
-
-/*--------------- gallery page css ---------------*/
+/*---------------------------------------------------------------------
+    gallery page css
+---------------------------------------------------------------------*/
 
 .gallery_pg .gallery-box {
 	position: relative;
@@ -1083,7 +1094,9 @@ img.zoom {
 	transform: scale(1.1);
 }
 
-/*----------- Magnific Pop-up css -----------*/
+/*---------------------------------
+    Magnific Pop-up css
+-----------------------------------*/
 
 .image-source-link {
 	color: #98C3D1;
@@ -1118,15 +1131,13 @@ img.zoom {
 	position: absolute;
 	top: 5px;
 	right: 5px;
-	/* width: 20px;
-	height: 20px; */
 	border-radius: 50%;
 	cursor: pointer;
 }
 
-/*----------- end Magnific Pop-up css -----------*/
-
-/*----------- toggle view delete modes ----------*/
+/*----------------------------
+    toggle view delete modes
+------------------------------*/
 .toggle-modes {
 	max-height: 1.98rem;
 }
@@ -1198,7 +1209,9 @@ img.zoom {
 	padding: 0px 4px 0px;
 }
 
-/*------ ADDED CSS ---------*/
+/*-------------------
+    ADDED CSS
+---------------------*/
 .toggle-modes .switch .slider:after {
 	content: 'VIEW';
 	color: white;
@@ -1217,7 +1230,9 @@ img.zoom {
 	content: 'DELETE';
 }
 
-/*----------- end toggle-view-delete-modes -------*/
+/*--------------------------------
+    end toggle-view-delete-modes
+----------------------------------*/
 
 .select-all-checkbox,
 .selected-checkbox {
@@ -1264,9 +1279,9 @@ img.zoom {
 	align-items: center;
 }
 
-/*--------------- end gallery page css ---------------*/
-
-/*--------------- News/Blog page css ---------------*/
+/*---------------------------------------------------------------------
+    News/Blog page css
+---------------------------------------------------------------------*/
 .overlay-bg {
 	background: rgba(0, 0, 0, 0.4);
 	-webkit-transition: all 0.3s ease 0s;
@@ -1316,12 +1331,6 @@ img.zoom {
 	padding-left: 15px;
 }
 
-/* .news_detail .main-post .post-image img {
-	height: 330px;
-	width: 100%;
-	object-fit: cover;
-} */
-
 .news_detail .main-post .news_item {
 	padding-right: 45px;
 }
@@ -1337,4 +1346,9 @@ img.zoom {
 	font-style: italic;
 }
 
-/*--------------- end News/Blog page css ---------------*/
+/*---------------------------------------------------------------------
+    Management page css
+---------------------------------------------------------------------*/
+.management_pg .staff-image img {
+	object-fit: contain;
+}

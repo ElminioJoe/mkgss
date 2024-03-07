@@ -117,6 +117,7 @@ $(function () {
 				// Show the delete checkbox
 				var deleteCheckbox = galleryBox.find(".checkbox-container");
 				deleteCheckbox.removeClass("d-none");
+				galleryBox.find(".fa").addClass("d-none");
 				$(".gallery-actions").slideDown();
 			});
 		} else {
@@ -143,6 +144,7 @@ $(function () {
 				// Hide the delete checkbox
 				var deleteCheckbox = galleryBox.find(".checkbox-container ");
 				deleteCheckbox.addClass("d-none");
+				galleryBox.find(".fa").removeClass("d-none");
 			});
 
 			$(".gallery-actions").slideUp();

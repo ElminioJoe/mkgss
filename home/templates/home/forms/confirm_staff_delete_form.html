@@ -8,13 +8,13 @@
             style="color: #6D3D14; font-size: 2.6rem;"></i>
         <h3 class="title">Confirm</h3>
     </div>
-    <form action="{% url 'delete_entry' entry object.slug %}" method="post">
+    <form action="{% url 'delete_staff' role object.slug %}" method="post">
         {% csrf_token %}
         <div>
             <p class="description">Are you sure you
-                want
-                to delete :<br><b><span class="obj-name"></span>
-                    "{{ object }}"</b>?
+                want to delete :
+                <br>
+                <b><span class="obj-name"></span>"{{ object }}"</b>?
             </p>
             <p>This action cannot be undone!</p>
             <div class="actions">
@@ -24,4 +24,5 @@
         </div>
     </form>
 </div>
+
 {% endblock %}

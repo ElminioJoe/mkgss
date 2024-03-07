@@ -15,9 +15,11 @@
     .banner-main .carousel-caption {
         background: transparent;
     }
-    .meta{
-    	font-size: 0.638em;
+
+    .meta {
+        font-size: 0.638em;
     }
+
     .absolute {
         position: absolute;
         top: 44%;
@@ -25,27 +27,33 @@
         bottom: 0;
         padding: 0;
     }
+
     .footer .address h3 {
         font-size: 20px;
     }
+
     ul.contant_icon li {
         padding-right: 5px;
     }
+
     ul.socil_link li {
         padding-right: 20%;
     }
+
     ul.contant_icon li img {
         width: 26px;
         height: 26px;
     }
+
     .footer .newsletter .subscribe {
         padding: 21px 0;
         width: 145px;
     }
-    .contact .gmap_canvas iframe{
-	    width: 475px;
-	    height: 360px;
-	    margin-bottom: 5px;
+
+    .contact .gmap_canvas iframe {
+        width: 475px;
+        height: 360px;
+        margin-bottom: 5px;
     }
 }
 
@@ -60,7 +68,7 @@
     }
 
     .cst_pages .list-group-override .list-group-item-override {
-        padding-inline: 0.567rem ;
+        padding-inline: 0.567rem;
         border-radius: 10px 10px 0px 0px;
     }
 }
@@ -72,8 +80,9 @@
     }
 
     .side-bars .meta {
-    	font-size: 0.638em;
+        font-size: 0.638em;
     }
+
     .absolute {
         position: absolute;
         top: 42%;
@@ -82,6 +91,7 @@
         border: 0 aliceblue;
         bottom: 0;
     }
+
     .top_layer::before {
         display: none;
     }
@@ -89,6 +99,7 @@
     .blog .blog-box .travel span {
         font-size: 14px;
     }
+
     .blog .blog-box .travel p {
         padding-left: 12px;
         font-size: 13px;
@@ -98,29 +109,34 @@
     ul.socil_link li {
         padding-right: 15%;
     }
+
     .footer .newsletter .subscribe {
         padding: 21px 0;
         width: 113px;
     }
-    .contact .flexcont .p-override{
+
+    .contact .flexcont .p-override {
         padding-right: 1rem;
     }
-    .contact .gmap_canvas iframe{
-	    width: 342px;
-	    height: 360px;
-	    margin-bottom: 5px;
+
+    .contact .gmap_canvas iframe {
+        width: 342px;
+        height: 360px;
+        margin-bottom: 5px;
     }
-/*--------------- about page css ---------------*/
+
+    /*--------------- about page css ---------------*/
 
     .cst_pages .side_bar {
         margin-bottom: 1rem;
     }
-    .cst_pages .list-group-override .list-group-item-override:hover{
-    	border: #563309 solid 0.5px;
+
+    .cst_pages .list-group-override .list-group-item-override:hover {
+        border: #563309 solid 0.5px;
         border-bottom: none;
     }
 
-/*--------------- end about page css ---------------*/
+    /*--------------- end about page css ---------------*/
 }
 
 @media (min-width: 576px) and (max-width: 767px) {
@@ -128,6 +144,7 @@
         font-size: 31px;
         line-height: 39px;
     }
+
     .absolute {
         position: absolute;
         top: 39%;
@@ -145,6 +162,7 @@
     .slider_section .carousel-control-prev {
         left: -20px;
     }
+
     .slider_section .carousel-control-next {
         right: -20px;
     }
@@ -153,9 +171,11 @@
         width: 100%;
         height: auto;
     }
+
     .top_layer::before {
         display: none;
     }
+
     .info-cards .info_img img {
         transform: scale(1);
     }
@@ -167,31 +187,35 @@
     .address {
         margin-bottom: 30px;
     }
+
     ul.contant_icon {
         margin-bottom: 20px;
     }
 
-    .contact .flexcont .p-override{
-	    margin-top: 5px;
+    .contact .flexcont .p-override {
+        margin-top: 5px;
         padding: 0 1rem;
     }
-    .contact .gmap_canvas iframe{
-	    width: 509px;
-	    height: 250px;
-	    margin-bottom: 5px;
+
+    .contact .gmap_canvas iframe {
+        width: 509px;
+        height: 250px;
+        margin-bottom: 5px;
     }
-    .values .values-box{
+
+    .values .values-box {
         width: 313px;
         margin: auto;
     }
-/*--------------- about page css ---------------*/
+
+    /*--------------- about page css ---------------*/
 
     .cst_pages .side_bar {
         margin-bottom: 1rem;
     }
 
-    .cst_pages .list-group-override .list-group-item-override:hover{
-    	border: #563309 solid 0.5px;
+    .cst_pages .list-group-override .list-group-item-override:hover {
+        border: #563309 solid 0.5px;
         border-bottom: none;
     }
 
@@ -212,32 +236,49 @@
         margin-top: 0;
         margin-left: 0.972rem;
     }
-/*--------------- end about page css ---------------*/
+
+    /*--------------- end about page css ---------------*/
+
+    /*---------------  management page css ---------------*/
+    #list-staff .card-footer,
+    .management_pg .card-footer,
+    .management_pg .mg-header,
+    .staff-image,
+    .staff-content {
+        width: 65vw;
+        align-self: center;
+    }
 }
 
 @media (max-width: 575px) {
     .header {
         padding-bottom: 0px;
     }
+
     .logo {
         text-align: center !important;
         padding-bottom: 25px;
         float: inherit;
     }
+
     .slider_section .carousel-caption * {
         font-size: 1.515;
         letter-spacing: 7px;
     }
+
     .slider_section .carousel-control-prev {
         left: -20px;
     }
+
     .slider_section .carousel-control-next {
         right: -20px;
     }
+
     .slider_section .carousel-item img {
         width: 100%;
         height: auto;
     }
+
     .absolute {
         position: absolute;
         top: 37%;
@@ -246,16 +287,19 @@
         padding: 0;
         bottom: 0;
     }
+
     .carousel-item img {
         width: 100%;
         height: 250px;
 
     }
+
     .top_layer::before {
         display: none;
         background-size: none;
     }
-    .info-cards .info_img img{
+
+    .info-cards .info_img img {
         transform: scale(1);
     }
 
@@ -263,17 +307,21 @@
     .blog .blog-box .travel span {
         font-size: 12px;
     }
+
     .blog .blog-box .travel p {
         padding-left: 10px;
-       font-size: 12px;
+        font-size: 12px;
     }
+
     .download .titlepage h2 {
         font-size: 21px;
         line-height: 13px;
     }
+
     .read-more {
         margin-top: 30px;
     }
+
     .read-more a {
         width: 192px;
         padding: 12px 0px;
@@ -283,44 +331,53 @@
     .address {
         margin-bottom: 30px;
     }
+
     .copyright p {
         font-size: 16px;
         padding: 0 15px;
     }
+
     .footer .newsletter .subscribe {
         width: 120px;
         padding: 21px 0;
     }
+
     ul.contant_icon {
         margin-bottom: 20px;
     }
-    .contact .flexcont .p-override{
-	    margin-top: 5px;
+
+    .contact .flexcont .p-override {
+        margin-top: 5px;
         padding: 0 1rem;
     }
-    .contact .gmap_canvas iframe{
-	    width: calc(100vw - 32px);
-	    height: 250px;
-	    margin-bottom: 5px;
+
+    .contact .gmap_canvas iframe {
+        width: calc(100vw - 32px);
+        height: 250px;
+        margin-bottom: 5px;
     }
-    .values .values-box{
+
+    .values .values-box {
         width: 313px;
         margin: auto;
     }
+
     .page-link {
         padding-inline: 0.62rem;
     }
-/*--------------- about page css ---------------*/
+
+    /*--------------- about page css ---------------*/
 
     .cst_pages .side_bar {
         margin-bottom: 1rem;
     }
-    .cst_pages .list-group-override .list-group-item-override:hover{
-    	border: #563309 solid 0.5px;
+
+    .cst_pages .list-group-override .list-group-item-override:hover {
+        border: #563309 solid 0.5px;
         border-bottom: none;
     }
 
-    .cst_pages .list-group-override .list-group-item-override{
+    .cst_pages .list-group-override .list-group-item-override {
         text-align: center;
         font-size: calc(3.2vw - (40vw / 70));
         margin: 0.3px;
@@ -344,7 +401,7 @@
         padding-bottom: 0.75rem;
     }
 
-/*--------------- end about page css ---------------*/
+    /*--------------- end about page css ---------------*/
 
     .meta {
         font-size: 0.699rem;
