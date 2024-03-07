@@ -39,11 +39,8 @@ class StaffForm(FormWidgets, forms.ModelForm):
         fields = [
             "title",
             "full_name",
-            "role",
             "department",
-            "email",
             "picture",
-            "phone_number",
             "content",
         ]
 

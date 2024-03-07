@@ -67,7 +67,8 @@ class Staff(models.Model):
         NONE = "", _("---------")
         PRINCIPAL = "PRINCIPAL", _("Principal")
         DEPUTY = "DEPUTY", _("Deputy Principal")
-        BOARD_OF_MANAGEMENT = "BOM", _("Board of Management")
+        ADMINISTRATOR = "ADMINISTRATOR", _("Administrator")
+        DIRECTOR = "DIRECTOR", _("Board Director")
         TEACHING_STAFF = "TEACHER", _("Teacher")
         NONE_TEACHING_STAFF = "NTS", _("None Teaching Staff")
 
@@ -92,6 +93,7 @@ class Staff(models.Model):
     picture = ResizedImageField(
         size=[600, 600], upload_to="staff/", blank=True, default=""
     )
+    slug = models.SlugField(max_length=500, unique=True, blank=True, editable=False)
 
     # department = models.ForeignKey(
     #     "Department", on_delete=models.CASCADE, blank=True, null=True, help_text="Optional. The department the staff member belongs to."
@@ -102,6 +104,11 @@ class Staff(models.Model):
 
     def get_absolute_url(self):
         return reverse_lazy("about")
+
+    def save(self, *args, **kwargs):
+        self.slug = generate_unique_slug(self.__class__.objects, self.full_name)
+        super(Staff, self).save(*args, **kwargs)
+
 
 
 class Department(models.Model):
