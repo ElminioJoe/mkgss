@@ -45,8 +45,8 @@ def set_parent_entry(instance):
 
 def create_thumbnail(instance, image_field_name, thumbnail_field_name):
     """Create and save a thumbnail for the specified image field."""
-    image_field = getattr(instance, image_field_name)
-    thumbnail_field = getattr(instance, thumbnail_field_name)
+    image_field = image_field_name
+    thumbnail_field = thumbnail_field_name
 
     # If there is no image associated with this object, return
     if not image_field:
@@ -61,7 +61,7 @@ def create_thumbnail(instance, image_field_name, thumbnail_field_name):
     thumbnail_size = calculate_thumbnail_size(original_size, max_thumbnail_size)
 
     # Create thumbnail
-    image.thumbnail(thumbnail_size, Image.ANTIALIAS)
+    image.thumbnail(thumbnail_size, Image.LANCZOS)
 
     # Save thumbnail to a BytesIO object
     temp_handle = BytesIO()
