@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}{{block.super}}
+
+<div class="card delete_card mx-auto text-center">
+    <div>
+        <i class="fa-solid fa-triangle-exclamation"
+            style="color: #6D3D14; font-size: 2.6rem;"></i>
+        <h3 class="title">Confirm</h3>
+    </div>
+    <form action="{% url 'news_delete' object.slug %}" method="post">
+        {% csrf_token %}
+        <div>
+            <p class="description">Are you sure you
+                want
+                to delete :<br><b><span class="obj-name"></span>
+                    "{{ object }}"</b>?
+            </p>
+            <p>This action cannot be undone!</p>
+            <div class="actions">
+                <input type="submit" class="delete btn btn-sm" value="Delete">
+                <a href="{% url 'news-detail' object.slug %}" class="cancel">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

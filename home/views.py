@@ -178,7 +178,7 @@ class SchoolInfoCreateView(CreateView):
 
 
 class BaseEntryView(LoginRequiredMixin, SuccessMessageMixin):
-    login_url = "/404/not-found/"
+    login_url = "/404/page-not-found/"
     redirect_field_name = None
     model = models.Entry
     form_class = EntryForm
@@ -238,6 +238,68 @@ class DeleteEntryView(BaseEntryView, DeleteView):
         )
 
 
+class BaseNewsView(LoginRequiredMixin, SuccessMessageMixin):
+    login_url = "/404/page-not-found/"
+    redirect_field_name = None
+    model = models.News
+    form_class = NewsForm
+    template_name = "home/forms/news_form.html"
+    form_action = None
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        news_type = "news"
+        context["news"] = news_type
+        context["action"] = self.form_action
+        context["title"] = f"{self.form_action} {news_type}"
+        return context
+
+    def get_success_url(self):
+        if self.request.POST.get("add_another"):
+            return reverse_lazy("news_create", )
+        elif self.request.POST.get("save_continue"):
+            return reverse_lazy("news_update", args=[self.object.slug])
+        else:
+            return reverse_lazy("news")
+
+
+
+class CreateNewsView(BaseNewsView, CreateView):
+    model = models.News
+    template_name="home/forms/news_form.html"
+    success_message = "'%(headline)s' was created successfully"
+    form_class = NewsForm
+    form_action = "add"
+
+    def form_valid(self, form):
+        form.instance.publisher = models.Publisher.objects.get_or_create(
+            pk=1, full_name="Admin", email="admin@mkghs.sc"
+        )[0]
+        return super(CreateNewsView, self).form_valid(form)
+
+
+class UpdateNewsView(BaseNewsView, UpdateView):
+    model = models.News
+    success_message = "'%(headline)s' was updated successfully"
+    form_class = NewsForm
+    template_name="home/forms/news_form.html"
+    form_action = "update"
+
+
+class DeleteNewsView(BaseNewsView, DeleteView):
+    model = models.News
+    template_name = "home/forms/confirm_news_delete_form.html"
+    success_message = "'%(headline)s' was deleted successfully"
+    form_action = "delete"
+    form_class = EntryDeleteForm
+    success_url = reverse_lazy("news")
+
+    def get_success_message(self, cleaned_data):
+        return self.success_message % dict(
+            self.get_object().__dict__,
+        )
+
+
 class SchoolManagementView(TemplateView):
     template_name = "home/management.html"
 
@@ -254,7 +316,7 @@ class SchoolManagementView(TemplateView):
 
 
 class BaseStaffView(LoginRequiredMixin, SuccessMessageMixin):
-    login_url = "/404/not-found/"
+    login_url = "/404/page-not-found/"
     redirect_field_name = None
     model = models.Staff
     form_class = StaffForm

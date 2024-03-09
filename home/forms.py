@@ -82,8 +82,10 @@ class NewsForm(FormWidgets, forms.ModelForm):
 
     class Meta:
         model = models.News
-        exclude = ["post_date", "modification_date", "slug"]
-
+        fields = [
+            "headline", "news_image", "content"
+        ]
+        
 
 class AddImageForm(FormWidgets, forms.ModelForm):
     gallery_image = forms.ImageField(

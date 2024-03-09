@@ -124,44 +124,37 @@ urlpatterns = [
         ),
         name="staff_delete",
     ),
-    path("news/", views.NewsView.as_view(), name="news"),
     path(
-        "news/<slug:slug>/",
-        views.SchoolNewsDetailView.as_view(
-            model=models.News,
-            template_name="home/news_detail.html",
-            context_object_name="news_item",
-        ),
-        name="news-detail",
-    ),
-    path(
-        "news/create/article",
-        views.SchoolInfoCreateView.as_view(
-            model=models.News,
-            form_class=NewsForm,
-            template_name="home/forms/news_form.html",
-            success_message="Blog Post Added",
-        ),
-        name="news_create",
-    ),
-    path(
-        "news/update/article/<int:pk>/",
-        views.SchoolInfoUpdateView.as_view(
-            model=models.News,
-            form_class=NewsForm,
-            template_name="home/forms/news_form.html",
-            success_message="Blog Post Updated",
-        ),
-        name="news_update",
-    ),
-    path(
-        "news/delete/article/<int:pk>/",
-        views.SchoolInfoDeleteView.as_view(
-            model=models.News,
-            success_url=reverse_lazy("news"),
-            success_message="Blog Post Deleted",
-        ),
-        name="news_delete",
+        "news/",
+        include(
+            [
+                path("", views.NewsView.as_view(), name="news"),
+                path(
+                    "<slug:slug>/",
+                    views.SchoolNewsDetailView.as_view(
+                        model=models.News,
+                        template_name="home/news_detail.html",
+                        context_object_name="news_item",
+                    ),
+                    name="news-detail",
+                ),
+                path(
+                    "create/article",
+                    views.CreateNewsView.as_view(),
+                    name="news_create",
+                ),
+                path(
+                    "update/article/<slug:slug>/",
+                    views.UpdateNewsView.as_view(),
+                    name="news_update",
+                ),
+                path(
+                    "delete/article/<slug:slug>/",
+                    views.DeleteNewsView.as_view(),
+                    name="news_delete",
+                ),
+            ]
+        )
     ),
     path("contact/", views.ContactFormView.as_view(), name="contact"),
     # ----------- ---------- -----------

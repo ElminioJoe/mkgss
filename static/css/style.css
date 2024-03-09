@@ -505,6 +505,12 @@ a.read-more:hover .fa {
 	background: none;
 }
 
+.info-cards>*:hover a.read-more .fa,
+.blog-box:hover a.read-more .fa {
+	left: 100%;
+	background: none;
+}
+
 .info-cards .info_img img {
 	transform: scale(1.1);
 	margin-bottom: 10px;
@@ -759,6 +765,7 @@ img.zoom {
 	margin-bottom: 30px;
 	padding: 0.8rem;
 	border: 1px groove #d4d4d4;
+	height: 100%;
 }
 
 .blog-box a.read-more .fa {

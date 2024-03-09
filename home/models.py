@@ -50,16 +50,12 @@ class CarouselImage(models.Model):
 
 
 class Publisher(models.Model):
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
+    full_name = models.CharField(max_length=30)
     email = models.EmailField()
-    phone_number = models.CharField(max_length=10, blank=True)
-
-    def full_name(self):
-        return f"{self.first_name} {self.last_name}"
+    phone_number = models.CharField(max_length=10, blank=True, default="")
 
     def __str__(self):
-        return self.full_name()
+        return self.full_name
 
 
 class Staff(models.Model):
@@ -110,7 +106,6 @@ class Staff(models.Model):
         super(Staff, self).save(*args, **kwargs)
 
 
-
 class Department(models.Model):
     name = models.CharField(
         max_length=30,
@@ -147,7 +142,7 @@ class News(models.Model):
         ordering = ["-post_date"]
 
     def __str__(self):
-        return f"{self.headline} - {self.publisher.full_name()}"
+        return f"{self.headline} - {self.publisher.full_name}"
 
     def get_absolute_url(self):
         # return reverse("news-detail", args=[str(self.id)])
