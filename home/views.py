@@ -206,7 +206,6 @@ class BaseEntryView(LoginRequiredMixin, SuccessMessageMixin):
         elif self.request.POST.get("save_continue"):
             return reverse_lazy("update_entry", args=[entry, self.object.slug])
         else:
-            # return reverse_lazy("about", kwargs={"entry": entry})
             return f"/about/#tab_list-{entry}"
 
 
@@ -256,17 +255,16 @@ class BaseNewsView(LoginRequiredMixin, SuccessMessageMixin):
 
     def get_success_url(self):
         if self.request.POST.get("add_another"):
-            return reverse_lazy("news_create", )
+            return reverse_lazy( "news_create")
         elif self.request.POST.get("save_continue"):
             return reverse_lazy("news_update", args=[self.object.slug])
         else:
             return reverse_lazy("news")
 
 
-
 class CreateNewsView(BaseNewsView, CreateView):
     model = models.News
-    template_name="home/forms/news_form.html"
+    template_name = "home/forms/news_form.html"
     success_message = "'%(headline)s' was created successfully"
     form_class = NewsForm
     form_action = "add"
@@ -282,7 +280,7 @@ class UpdateNewsView(BaseNewsView, UpdateView):
     model = models.News
     success_message = "'%(headline)s' was updated successfully"
     form_class = NewsForm
-    template_name="home/forms/news_form.html"
+    template_name = "home/forms/news_form.html"
     form_action = "update"
 
 
@@ -382,16 +380,12 @@ class DeleteStaffView(BaseStaffView, DeleteView):
         It's not possible to delete the Principal or Deputy Principal Objects.
         """
 
-
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         if self.object.role in ["PRINCIPAL", "DEPUTY"]:
-            print("HERE")
             messages.error(request, self.error_message)
             return self.render_to_response(self.get_context_data())
-        print("oops!!")
         return super().delete(request, *args, **kwargs)
-
 
     def get_success_message(self, cleaned_data):
         return self.success_message % dict(

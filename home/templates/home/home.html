@@ -67,13 +67,9 @@
         {% if user.is_authenticated %}
         <div class="d-flex justify-content-center">
             <!-- Edit Button -->
-            <a class="mr-2"
-                href="{% url 'update_entry' extras.0.entry|lower extras.0.slug %}">
-                <button type="button" class="btn btn-sm btn-outline-primary"
-                    title="Edit">
-                    <i class="fa-sharp fa-solid fa-pen-to-square"
-                        aria-hidden="true"></i>
-                </button>
+            <a href="{% url 'update_entry' extras.0.entry|lower extras.0.slug %}"
+                class="btn btn-sm btn-outline-primary mr-2" title="Edit">
+                <i class="fa-sharp fa-solid fa-pen-to-square" aria-hidden="true"></i>
             </a>
         </div>
         {% endif %}
@@ -97,13 +93,9 @@
                 </a>
                 {% if user.is_authenticated %}
                 <!-- Edit Button -->
-                <a class="ml-auto mt-2 "
-                    href="{% url 'update_entry' school_history.entry|lower school_history.slug %}">
-                    <button type="button" class="btn btn-sm btn-outline-primary"
-                        title="Edit">
-                        <i class="fa-sharp fa-solid fa-pen-to-square"
-                            aria-hidden="true"></i>
-                    </button>
+                <a href="{% url 'update_entry' school_history.entry|lower school_history.slug %}"
+                    class="btn btn-sm btn-outline-primary ml-auto mt-2" title="Edit">
+                    <i class="fa-sharp fa-solid fa-pen-to-square" aria-hidden="true"></i>
                 </a>
                 {% endif %}
             </div>
@@ -129,13 +121,9 @@
                 </a>
                 {% if user.is_authenticated %}
                 <!-- Edit Button -->
-                <a class="ml-auto mt-2 "
-                    href="{% url 'update_entry' admin.entry|lower admin.slug %}">
-                    <button type="button" class="btn btn-sm btn-outline-primary"
-                        title="Edit">
-                        <i class="fa-sharp fa-solid fa-pen-to-square"
-                            aria-hidden="true"></i>
-                    </button>
+                <a href="{% url 'update_entry' admin.entry|lower admin.slug %}"
+                    class="btn btn-sm btn-outline-primary ml-auto mt-2" title="Edit">
+                    <i class="fa-sharp fa-solid fa-pen-to-square" aria-hidden="true"></i>
                 </a>
                 {% endif %}
             </div>
@@ -162,13 +150,9 @@
                 </a>
                 {% if user.is_authenticated %}
                 <!-- Edit Button -->
-                <a class="ml-auto mt-2 "
-                    href="{% url 'update_entry' academic.entry|lower academic.slug %}">
-                    <button type="button" class="btn btn-sm btn-outline-primary"
-                        title="Edit">
-                        <i class="fa-sharp fa-solid fa-pen-to-square"
-                            aria-hidden="true"></i>
-                    </button>
+                <a href="{% url 'update_entry' academic.entry|lower academic.slug %}"
+                    class="btn btn-sm btn-outline-primary ml-auto mt-2" title="Edit">
+                    <i class="fa-sharp fa-solid fa-pen-to-square" aria-hidden="true"></i>
                 </a>
                 {% endif %}
             </div>
@@ -194,13 +178,9 @@
                 </a>
                 {% if user.is_authenticated %}
                 <!-- Edit Button -->
-                <a class="ml-auto mt-2 "
-                    href="{% url 'update_entry' extras.1.entry|lower extras.1.slug %}">
-                    <button type="button" class="btn btn-sm btn-outline-primary"
-                        title="Edit">
-                        <i class="fa-sharp fa-solid fa-pen-to-square"
-                            aria-hidden="true"></i>
-                    </button>
+                <a href="{% url 'update_entry' extras.1.entry|lower extras.1.slug %}"
+                    class="btn btn-sm btn-outline-primary ml-auto mt-2" title="Edit">
+                    <i class="fa-sharp fa-solid fa-pen-to-square" aria-hidden="true"></i>
                 </a>
                 {% endif %}
             </div>
@@ -225,13 +205,9 @@
                     more<i class="fa fa-long-arrow-right"></i> </a>
                 {% if user.is_authenticated %}
                 <!-- Edit Button -->
-                <a class="ml-auto mt-2 "
-                    href="{% url 'update_entry' curricular.entry|lower curricular.slug %}">
-                    <button type="button" class="btn btn-sm btn-outline-primary"
-                        title="Edit">
-                        <i class="fa-sharp fa-solid fa-pen-to-square"
-                            aria-hidden="true"></i>
-                    </button>
+                <a href="{% url 'update_entry' curricular.entry|lower curricular.slug %}"
+                    class="btn btn-sm btn-outline-primary ml-auto mt-2" title="Edit">
+                    <i class="fa-sharp fa-solid fa-pen-to-square" aria-hidden="true"></i>
                 </a>
                 {% endif %}
             </div>
@@ -258,13 +234,9 @@
                 </a>
                 {% if user.is_authenticated %}
                 <!-- Edit Button -->
-                <a class="ml-auto mt-2"
-                    href="{% url 'update_entry' extras.2.entry|lower extras.2.slug %}">
-                    <button type="button" class="btn btn-sm btn-outline-primary"
-                        title="Edit">
-                        <i class="fa-sharp fa-solid fa-pen-to-square"
-                            aria-hidden="true"></i>
-                    </button>
+                <a href="{% url 'update_entry' extras.2.entry|lower extras.2.slug %}"
+                    class="btn btn-sm btn-outline-primary ml-auto mt-2" title="Edit">
+                    <i class="fa-sharp fa-solid fa-pen-to-square" aria-hidden="true"></i>
                 </a>
                 {% endif %}
             </div>
@@ -291,13 +263,9 @@
                 </a>
                 {% if user.is_authenticated %}
                 <!-- Edit Button -->
-                <a class="ml-auto mt-2 "
-                    href="{% url 'update_entry' extras.3.entry|lower extras.3.slug %}">
-                    <button type="button" class="btn btn-sm btn-outline-primary"
-                        title="Edit">
-                        <i class="fa-sharp fa-solid fa-pen-to-square"
-                            aria-hidden="true"></i>
-                    </button>
+                <a href="{% url 'update_entry' extras.3.entry|lower extras.3.slug %}"
+                    class="btn btn-sm btn-outline-primary ml-auto mt-2" title="Edit">
+                    <i class="fa-sharp fa-solid fa-pen-to-square" aria-hidden="true"></i>
                 </a>
                 {% endif %}
             </div>
@@ -315,13 +283,9 @@
                 </a>
                 {% if user.is_authenticated %}
                 <!-- Edit Button -->
-                <a class="ml-auto mt-2 "
-                    href="{% url 'update_entry' admission.entry|lower admission.slug %}">
-                    <button type="button" class="btn btn-sm btn-outline-primary"
-                        title="Edit">
-                        <i class="fa-sharp fa-solid fa-pen-to-square"
-                            aria-hidden="true"></i>
-                    </button>
+                <a href="{% url 'update_entry' admission.entry|lower admission.slug %}"
+                    class="btn btn-sm btn-outline-primary ml-auto mt-2" title="Edit">
+                    <i class="fa-sharp fa-solid fa-pen-to-square" aria-hidden="true"></i>
                 </a>
                 {% endif %}
             </div>
@@ -353,13 +317,9 @@
                 {% if user.is_authenticated %}
                 <div class="d-flex align-items-center">
                     <!-- Edit Button -->
-                    <a class="mx-auto"
-                        href="{% url 'update_entry' message.entry|lower message.slug %}">
-                        <button type="button"
-                            class="btn btn-sm btn-outline-primary" title="Edit">
-                            <i class="fa-sharp fa-solid fa-pen-to-square"
-                                aria-hidden="true"></i>
-                        </button>
+                    <a href="{% url 'update_entry' message.entry|lower message.slug %}"
+                        class="btn btn-sm btn-outline-primary mx-auto" title="Edit">
+                        <i class="fa-sharp fa-solid fa-pen-to-square" aria-hidden="true"></i>
                     </a>
                 </div>
                 {% endif %}
@@ -484,8 +444,6 @@
                 </div>
                 <div class="modal-body">
                     <!-- Form -->
-                    <fieldset class="aligned d-none" id="homeFeatureForm">
-                    </fieldset>
                     <fieldset class="aligned d-none" id="carouselForm">
                     </fieldset>
                     <!-- <input type="submit" class="btn btn-primary btn-md font-weight-bold" value="Save"> -->
