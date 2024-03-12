@@ -87,7 +87,8 @@
                             <div class="p-2 d-flex justify-content-end">
                                 <!-- Edit Button -->
                                 <a href="{% url 'update_entry' entry.entry|lower entry.slug %}"
-                                    class="btn btn-sm btn-outline-primary mr-2" title="Edit">
+                                    class="btn btn-sm btn-outline-primary mr-2"
+                                    title="Edit">
                                     <i class="fa-sharp fa-solid fa-pen-to-square"
                                         aria-hidden="true"></i>
                                 </a>
@@ -151,7 +152,8 @@
                             <div class="p-2 d-flex justify-content-end">
                                 <!-- Edit Button -->
                                 <a href="{% url 'update_entry' entry.entry|lower entry.slug %}"
-                                    class="btn btn-sm btn-outline-primary mr-2" title="Edit">
+                                    class="btn btn-sm btn-outline-primary mr-2"
+                                    title="Edit">
                                     <i class="fa-sharp fa-solid fa-pen-to-square"
                                         aria-hidden="true"></i>
                                 </a>
@@ -217,7 +219,8 @@
                             <div class="p-2 d-flex justify-content-end">
                                 <!-- Edit Button -->
                                 <a href="{% url 'update_entry' entry.entry|lower entry.slug %}"
-                                    class="btn btn-sm btn-outline-primary mr-2" title="Edit">
+                                    class="btn btn-sm btn-outline-primary mr-2"
+                                    title="Edit">
                                     <i class="fa-sharp fa-solid fa-pen-to-square"
                                         aria-hidden="true"></i>
                                 </a>
@@ -246,7 +249,8 @@
                         <!-- Add Button -->
                         <a href="{% url 'create_entry' 'curricular' %}"
                             class="btn btn-sm btn-outline-success" title="Add">
-                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                            <i class="fa fa-plus-square-o"
+                                aria-hidden="true"></i>
                         </a>
                         {% endif %}
                     </div>
@@ -280,9 +284,10 @@
                             <div class="p-2 d-flex justify-content-end">
                                 <!-- Edit Button -->
                                 <a href="{% url 'update_entry' entry.entry|lower entry.slug %}"
-                                    class="btn btn-sm btn-outline-primary mr-2" title="Edit">
+                                    class="btn btn-sm btn-outline-primary mr-2"
+                                    title="Edit">
                                     <i class="fa-sharp fa-solid fa-pen-to-square"
-                                            aria-hidden="true"></i>
+                                        aria-hidden="true"></i>
                                 </a>
                                 <!-- Delete Button -->
                                 <a href="{% url 'delete_entry' entry.entry|lower entry.slug %}"
@@ -323,7 +328,8 @@
                                 <div class="p-2 d-flex justify-content-end">
                                     <!-- Edit Button -->
                                     <a href="{% url 'update_entry' principle.0.entry|lower principle.0.slug %}"
-                                        class="btn btn-sm btn-outline-primary mr-2" title="Edit">
+                                        class="btn btn-sm btn-outline-primary mr-2"
+                                        title="Edit">
                                         <i class="fa-sharp fa-solid fa-pen-to-square"
                                             aria-hidden="true"></i>
                                     </a>
@@ -345,7 +351,8 @@
                                 <div class="p-2 d-flex justify-content-end">
                                     <!-- Edit Button -->
                                     <a href="{% url 'update_entry' principle.1.entry|lower principle.1.slug %}"
-                                        class="btn btn-sm btn-outline-primary mr-2" title="Edit"                                            >
+                                        class="btn btn-sm btn-outline-primary mr-2"
+                                        title="Edit">
                                         <i class="fa-sharp fa-solid fa-pen-to-square"
                                             aria-hidden="true"></i>
                                     </a>
@@ -367,7 +374,8 @@
                                 <div class="p-2 d-flex justify-content-end">
                                     <!-- Edit Button -->
                                     <a href="{% url 'update_entry' principle.2.entry|lower principle.2.slug %}"
-                                        class="btn btn-sm btn-outline-primary mr-2" title="Edit">
+                                        class="btn btn-sm btn-outline-primary mr-2"
+                                        title="Edit">
                                         <i class="fa-sharp fa-solid fa-pen-to-square"
                                             aria-hidden="true"></i>
                                     </a>
@@ -389,7 +397,8 @@
                         <!-- Add Button -->
                         <a href="{% url 'create_entry' 'history' %}"
                             class="btn btn-sm btn-outline-success" title="Add">
-                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                            <i class="fa fa-plus-square-o"
+                                aria-hidden="true"></i>
                         </a>
                         {% endif %}
                     </div>
@@ -423,7 +432,8 @@
                             <div class="p-2 d-flex justify-content-end">
                                 <!-- Edit Button -->
                                 <a href="{% url 'update_entry' entry.entry|lower entry.slug %}"
-                                    class="btn btn-sm btn-outline-primary mr-2" title="Edit">
+                                    class="btn btn-sm btn-outline-primary mr-2"
+                                    title="Edit">
                                     <i class="fa-sharp fa-solid fa-pen-to-square"
                                         aria-hidden="true"></i>
                                 </a>
@@ -452,7 +462,8 @@
                         <!-- Add Button -->
                         <a href="{% url 'create_staff' 'teacher' %}"
                             class="btn btn-sm btn-outline-success">
-                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                            <i class="fa fa-plus-square-o"
+                                aria-hidden="true"></i>
                         </a>
                         {% endif %}
                     </div>
@@ -476,7 +487,7 @@
                                     {% if staff.department %}
                                     <span>{{ staff.department }}</span>&nbsp;
                                     {% endif %}
-                                    <span>{{ staff.role|title }}</span>
+                                    <span>{{ staff.get_role_display|title }}</span>
                                     <p class="pt-1">{{ staff.content|safe }}</p>
                                 </div>
                                 {% if user.is_authenticated %}
@@ -484,7 +495,8 @@
                                     <div class="p-2 d-flex justify-content-end">
                                         <!-- Edit Button -->
                                         <a href="{% url 'update_staff' staff.role|lower staff.slug %}"
-                                            class="btn btn-sm btn-outline-primary mr-2" title="Edit">
+                                            class="btn btn-sm btn-outline-primary mr-2"
+                                            title="Edit">
                                             <i class="fa-sharp fa-solid fa-pen-to-square"
                                                 aria-hidden="true"></i>
                                         </a>

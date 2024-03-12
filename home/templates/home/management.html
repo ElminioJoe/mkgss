@@ -12,8 +12,7 @@
                         <h2 class="mr-auto">Management and Administration</h2>
                         {% if user.is_authenticated %}
                         <!-- Add Button -->
-                        <a
-                            href="{% url 'create_staff' 'administrator' %}">
+                        <a href="{% url 'create_staff' 'administrator' %}">
                             <button type="button" title="Add"
                                 class="btn btn-sm btn-outline-success">
                                 <i class="fa fa-plus-square-o"
@@ -41,7 +40,7 @@
                                 <span>{{ staff.title|title }}.</span>&nbsp;
                                 <span>{{ staff.full_name|upper }}</span>
                             </h4>
-                            <span>{{ staff.role }}</span>
+                            <span>{{ staff.get_role_display }}</span>
                             {% if staff.department %}
                             &nbsp;<span>{{ staff.department }}</span>
                             {% endif %}
@@ -110,7 +109,7 @@
                                 <span>{{ member.title|title }}.</span>&nbsp;
                                 <span>{{ member.full_name|upper }}</span>
                             </h4>
-                            <span>{{ member.role }}</span>
+                            <span>{{ member.get_role_display }}</span>
                             {% if member.department %}
                             &nbsp;<span>{{ member.department }}</span>
                             {% endif %}
