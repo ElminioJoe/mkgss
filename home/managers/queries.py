@@ -28,7 +28,7 @@ class QueryManager:
         Fetch all staff objects.
         """
         return models.Staff.objects.filter(
-            role=models.Staff.StaffRole.TEACHING_STAFF
+            role=models.Staff.TEACHING_STAFF
         )
 
     @staticmethod
@@ -54,9 +54,9 @@ class QueryManager:
         Fetch the Principal and Deputy principal objects
         """
         return models.Staff.objects.filter(
-            Q(role__in=[models.Staff.StaffRole.PRINCIPAL])
-            | Q(role__in=[models.Staff.StaffRole.DEPUTY])
-            | Q(role__in=[models.Staff.StaffRole.ADMINISTRATOR])
+            Q(role__in=[models.Staff.PRINCIPAL])
+            | Q(role__in=[models.Staff.DEPUTY])
+            | Q(role__in=[models.Staff.ADMINISTRATOR])
         )
 
     @staticmethod
@@ -65,5 +65,5 @@ class QueryManager:
         Fetch all Board of Management objects.
         """
         return models.Staff.objects.filter(
-                role=models.Staff.StaffRole.DIRECTOR
+                role=models.Staff.DIRECTOR
             )

@@ -355,8 +355,10 @@ class CreateStaffView(BaseStaffView, CreateView):
 
     def form_valid(self, form):
         role = self.kwargs.get("role").upper()
-        if role in ["PRINCIPAL", "DEPUTY"]:
-            existing_roles = self.model.objects.filter(role__in=["PRINCIPAL", "DEPUTY"])
+        if role in [models.Staff.PRINCIPAL, models.Staff.DEPUTY]:
+            existing_roles = self.model.objects.filter(
+                role__in=[models.Staff.PRINCIPAL, models.Staff.DEPUTY]
+            )
             if existing_roles.exists():
                 messages.error(self.request, self.error_message)
                 return self.form_invalid(form)
@@ -382,7 +384,7 @@ class DeleteStaffView(BaseStaffView, DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
-        if self.object.role in ["PRINCIPAL", "DEPUTY"]:
+        if self.object.role in [models.Staff.PRINCIPAL, models.Staff.DEPUTY]:
             messages.error(request, self.error_message)
             return self.render_to_response(self.get_context_data())
         return super().delete(request, *args, **kwargs)

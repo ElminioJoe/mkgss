@@ -491,6 +491,10 @@ a.read-more {
 	letter-spacing: 0.1em;
 }
 
+a.read-more:hover {
+	color: #8a6443;
+}
+
 a.read-more .fa {
 	position: absolute;
 	top: 4.798px;

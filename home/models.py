@@ -34,7 +34,7 @@ def get_sentinel_user():
 
 
 class CarouselImage(models.Model):
-    carousel_image = models.ImageField(upload_to="carousel_images/", blank=False)
+    carousel_image = models.ImageField(upload_to="carousel_images/")
     image_alt_text = ImageAltTextField(
         image_field_name="carousel_image",
         help_text="Optional: short description of what the image entails.",
@@ -59,17 +59,27 @@ class Publisher(models.Model):
 
 
 class Staff(models.Model):
-    class StaffRole(models.TextChoices):
-        NONE = "", _("---------")
-        PRINCIPAL = "PRINCIPAL", _("Principal")
-        DEPUTY = "DEPUTY", _("Deputy Principal")
-        ADMINISTRATOR = "ADMINISTRATOR", _("Administrator")
-        DIRECTOR = "DIRECTOR", _("Board Director")
-        TEACHING_STAFF = "TEACHER", _("Teacher")
-        NONE_TEACHING_STAFF = "NTS", _("None Teaching Staff")
+    NONE = ""
+    PRINCIPAL = "PRINCIPAL"
+    DEPUTY = "DEPUTY"
+    ADMINISTRATOR = "ADMINISTRATOR"
+    DIRECTOR = "DIRECTOR"
+    TEACHING_STAFF = "TEACHER"
+    NONE_TEACHING_STAFF = "NTS"
+    STAFF_ROLE_CHOICES = {
+        NONE: "---------",
+        PRINCIPAL: "Principal",
+        DEPUTY: "Deputy Principal",
+        ADMINISTRATOR: "Administrator",
+        DIRECTOR: "Board Director",
+        TEACHING_STAFF: "Teacher",
+        NONE_TEACHING_STAFF: "None Teaching Staff",
+    }
 
     title = models.CharField(
-        max_length=5, blank=True, default="",
+        max_length=5,
+        blank=True,
+        default="",
         help_text="Optional: i.e 'Mr', 'Mrs', 'Miss'",
     )
     full_name = models.CharField(max_length=100)
@@ -78,7 +88,7 @@ class Staff(models.Model):
 
     content = CKEditor5Field(config_name="minimal")
     role = models.CharField(
-        max_length=15, choices=StaffRole, default=StaffRole.NONE, blank=True
+        max_length=15, choices=STAFF_ROLE_CHOICES, default=NONE, blank=True
     )
     department = models.CharField(
         max_length=100,
@@ -87,7 +97,10 @@ class Staff(models.Model):
         help_text="Optional. The department the staff member belongs to.",
     )
     picture = ResizedImageField(
-        size=[600, 600], upload_to="staff/", blank=True, default=""
+        size=[600, 600],
+        upload_to="staff/",
+        blank=True,
+        default="defaults/default-no-user-image.jpg",
     )
     slug = models.SlugField(max_length=500, unique=True, blank=True, editable=False)
 
@@ -124,7 +137,7 @@ class News(models.Model):
         size=[1920, 1300],
         crop=["middle", "center"],
         upload_to="news/",
-        default="",
+        default="defaults/default-no-image.jpg",
     )
     image_alt_text = ImageAltTextField(
         image_field_name="news_image",
@@ -145,8 +158,7 @@ class News(models.Model):
         return f"{self.headline} - {self.publisher.full_name}"
 
     def get_absolute_url(self):
-        # return reverse("news-detail", args=[str(self.id)])
-        return reverse_lazy("news")
+        return reverse("news-detail", args=[str(self.slug)])
 
     def save(self, *args, **kwargs):
         self.slug = generate_unique_slug(self.__class__.objects, self.headline)
@@ -164,7 +176,7 @@ class Gallery(models.Model):
     category = models.ForeignKey(
         "Category", on_delete=models.CASCADE, blank=True, related_name="images"
     )
-    gallery_image = models.ImageField(upload_to="gallery/", blank=False)
+    gallery_image = models.ImageField(upload_to="gallery/")
     image_alt_text = ImageAltTextField(
         image_field_name="gallery_image",
         help_text="Optional: short description of what the image entails.",
@@ -276,7 +288,7 @@ class Entry(BaseModel):
         size=[1920, 1300],
         crop=["middle", "center"],
         upload_to="entries/",
-        default="",
+        default="defaults/default-no-image.jpg",
         blank=True,
     )
     image_alt_text = ImageAltTextField(
