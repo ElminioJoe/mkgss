@@ -1,0 +1,415 @@
+[
+	{
+		"model": "home.carouselimage",
+		"pk": 1,
+		"fields": {
+			"carousel_image": "defaults/default-no-image.jpg",
+			"image_alt_text": "",
+			"caption": "",
+			"date_created": "2024-03-11T16:36:41.005Z"
+		}
+	},
+	{
+		"model": "home.carouselimage",
+		"pk": 2,
+		"fields": {
+			"carousel_image": "defaults/default-no-image.jpg",
+			"image_alt_text": "",
+			"caption": "",
+			"date_created": "2024-03-11T16:37:09.839Z"
+		}
+	},
+	{
+		"model": "home.carouselimage",
+		"pk": 3,
+		"fields": {
+			"carousel_image": "defaults/default-no-image.jpg",
+			"image_alt_text": "",
+			"caption": "",
+			"date_created": "2024-03-11T16:37:20.788Z"
+		}
+	},
+	{
+		"model": "home.carouselimage",
+		"pk": 4,
+		"fields": {
+			"carousel_image": "defaults/default-no-image.jpg",
+			"image_alt_text": "",
+			"caption": "",
+			"date_created": "2024-03-11T16:37:46.569Z"
+		}
+	},
+	{
+		"model": "home.carouselimage",
+		"pk": 5,
+		"fields": {
+			"carousel_image": "defaults/default-no-image.jpg",
+			"image_alt_text": "",
+			"caption": "",
+			"date_created": "2024-03-11T16:38:05.967Z"
+		}
+	},
+	{
+		"model": "home.publisher",
+		"pk": 1,
+		"fields": {
+			"full_name": "Admin",
+			"email": "admin@mkghs.sc",
+			"phone_number": ""
+		}
+	},
+	{
+		"model": "home.staff",
+		"pk": 1,
+		"fields": {
+			"title": "Mr",
+			"full_name": "John Doe",
+			"email": "",
+			"phone_number": "",
+			"content": "<p>All questions asked by five watch experts amazed the judge. Jack quietly moved up front and seized the big ball of wax. The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Charged fop blew my junk TV quiz.</p>",
+			"role": "PRINCIPAL",
+			"department": "Management",
+			"picture": "defaults/default-no-user-image.jpg",
+			"slug": "john-doe-16odcu-g2a7ii"
+		}
+	},
+	{
+		"model": "home.staff",
+		"pk": 2,
+		"fields": {
+			"title": "Ms",
+			"full_name": "Jane Doe",
+			"email": "",
+			"phone_number": "",
+			"content": "<p>All questions asked by five watch experts amazed the judge. Jack quietly moved up front and seized the big ball of wax. The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Charged fop blew my junk TV quiz.</p>",
+			"role": "DEPUTY",
+			"department": "Management",
+			"picture": "defaults/default-no-user-image.jpg",
+			"slug": "jane-doe-y25ly4-5ee5sw"
+		}
+	},
+	{
+		"model": "home.staff",
+		"pk": 3,
+		"fields": {
+			"title": "Mr",
+			"full_name": "Aretha Hansen",
+			"email": "",
+			"phone_number": "",
+			"content": "<p>All questions asked by five watch experts amazed the judge. Jack quietly moved up front and seized the big ball of wax. The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Charged fop blew my junk TV quiz.</p>",
+			"role": "ADMINISTRATOR",
+			"department": "Administration",
+			"picture": "defaults/default-no-user-image.jpg",
+			"slug": "aretha-hansen-hvxgfl-65y5sw"
+		}
+	},
+	{
+		"model": "home.staff",
+		"pk": 4,
+		"fields": {
+			"title": "Miss",
+			"full_name": "Ivy Frost",
+			"email": "",
+			"phone_number": "",
+			"content": "<p>All questions asked by five watch experts amazed the judge. Jack quietly moved up front and seized the big ball of wax. The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Charged fop blew my junk TV quiz.</p>",
+			"role": "DIRECTOR",
+			"department": "Board",
+			"picture": "defaults/default-no-user-image.jpg",
+			"slug": "ivy-frost-mon8r7-agt1jv"
+		}
+	},
+	{
+		"model": "home.staff",
+		"pk": 5,
+		"fields": {
+			"title": "Dr",
+			"full_name": "Kennan Garcia",
+			"email": "",
+			"phone_number": "",
+			"content": "<p>All questions asked by five watch experts amazed the judge. Jack quietly moved up front and seized the big ball of wax. The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Charged fop blew my junk TV quiz.</p>",
+			"role": "DIRECTOR",
+			"department": "Director",
+			"picture": "defaults/default-no-user-image.jpg",
+			"slug": "kennan-garcia-wvtrns-huq6i2"
+		}
+	},
+	{
+		"model": "home.staff",
+		"pk": 6,
+		"fields": {
+			"title": "Mr",
+			"full_name": "Griffin Alvarez",
+			"email": "",
+			"phone_number": "",
+			"content": "<p>All questions asked by five watch experts amazed the judge. Jack quietly moved up front and seized the big ball of wax. The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Charged fop blew my junk TV quiz.</p>",
+			"role": "DIRECTOR",
+			"department": "Director",
+			"picture": "defaults/default-no-user-image.jpg",
+			"slug": "griffin-alvarez-nybgtb-q1jxa1"
+		}
+	},
+	{
+		"model": "home.staff",
+		"pk": 7,
+		"fields": {
+			"title": "Mr",
+			"full_name": "Bree Riggs",
+			"email": "",
+			"phone_number": "",
+			"content": "<p>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. \"What's happened to me? \" he thought. It wasn't a dream.</p>",
+			"role": "TEACHER",
+			"department": "Mathematics",
+			"picture": "defaults/default-no-user-image.jpg",
+			"slug": "bree-riggs-5hbr88-7l6g8z"
+		}
+	},
+	{
+		"model": "home.news",
+		"pk": 1,
+		"fields": {
+			"headline": "Instantiated to Glory",
+			"content": "<p>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. \"What's happened to me? \" he thought. It wasn't a dream.</p><p>His room, a proper human room although a little too small, lay peacefully between its four familiar walls. A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame. It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather.</p><p>Drops of rain could be heard hitting the pane, which made him feel quite sad. \"How about if I sleep a little bit longer and forget all this nonsense\", he thought, but that was something he was unable to do because he was used to sleeping on his right, and in his present state couldn't get into that position. However hard he threw himself onto his right, he always rolled back to where he was. He must have tried it a hundred times, shut his eyes so that he wouldn't have to look at the floundering legs, and only stopped when he began to feel a mild, dull pain there that he had never felt before.</p><p>\"Oh, God\", he thought, \"what a strenuous career it is that I've chosen! Travelling day in and day out. Doing business like this takes much more effort than doing your own business at home, and on top of that there's the curse of travelling, worries about making train connections, bad and irregular food, contact with different people all the time so that you can never get to know anyone or become friendly with them. It can all go to Hell! \" He felt a slight itch up on his belly; pushed himself slowly up on his back towards the headboard so that he could lift his head better; found where the itch was, and saw that it was covered with lots of little white spots which he didn't know what to make of; and when he tried to feel the place with one of his legs he drew it quickly back because as soon as he touched it he was overcome by a cold shudder. He slid back into his former position. \"Getting up early all the time\", he thought, \"it makes you stupid. You've got</p>",
+			"publisher": 1,
+			"news_image": "defaults/default-no-image.jpg",
+			"image_alt_text": "",
+			"post_date": "2024-03-12T11:47:45.700Z",
+			"modification_date": "2024-03-12T11:47:45.700Z",
+			"slug": "instantiated-to-glory-jwfvli-ot53vw"
+		}
+	},
+	{
+		"model": "home.news",
+		"pk": 2,
+		"fields": {
+			"headline": "Where Does it come from",
+			"content": "<p>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. \"What's happened to me? \" he thought. It wasn't a dream.</p><p>His room, a proper human room although a little too small, lay peacefully between its four familiar walls. A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame. It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather.</p><p>Drops of rain could be heard hitting the pane, which made him feel quite sad. \"How about if I sleep a little bit longer and forget all this nonsense\", he thought, but that was something he was unable to do because he was used to sleeping on his right, and in his present state couldn't get into that position. However hard he threw himself onto his right, he always rolled back to where he was. He must have tried it a hundred times, shut his eyes so that he wouldn't have to look at the floundering legs, and only stopped when he began to feel a mild, dull pain there that he had never felt before.</p><p>\"Oh, God\", he thought, \"what a strenuous career it is that I've chosen! Travelling day in and day out. Doing business like this takes much more effort than doing your own business at home, and on top of that there's the curse of travelling, worries about making train connections, bad and irregular food, contact with different people all the time so that you can never get to know anyone or become friendly with them. It can all go to Hell! \" He felt a slight itch up on his belly; pushed himself slowly up on his back towards the headboard so that he could lift his head better; found where the itch was, and saw that it was covered with lots of little white spots which he didn't know what to make of; and when he tried to feel the place with one of his legs he drew it quickly back because as soon as he touched it he was overcome by a cold shudder. He slid back into his former position. \"Getting up early all the time\", he thought, \"it makes you stupid.</p>",
+			"publisher": 1,
+			"news_image": "defaults/default-no-image.jpg",
+			"image_alt_text": "",
+			"post_date": "2024-03-12T11:50:04.315Z",
+			"modification_date": "2024-03-12T11:50:04.315Z",
+			"slug": "where-does-it-come-from-sdqtpz-jrgxmu"
+		}
+	},
+	{
+		"model": "home.entry",
+		"pk": 1,
+		"fields": {
+			"date_created": "2024-03-11T16:41:31.116Z",
+			"date_modified": "2024-03-11T16:41:31.116Z",
+			"is_deleted": false,
+			"date_deleted": null,
+			"slug": "history-s76quf-7ndzqw",
+			"parent_entry": null,
+			"entry": "HISTORY",
+			"title": "BRIEF HISTORY OF THE SCHOOL",
+			"content": "<p>Moi Kadzonzo Girls Secondary School is situated 4km from Mariakani town along the Mariakani - Kaloleni Road. It is in Mariakani Location, Mariakani Division of Kaloleni sub-county, Kilifi County. Established in 1991 as single Stream, the school has since grown to Seven streams in 2021 awaiting the County Boards Certification. For the last 27 years the school has been in operation, it has been guided by a School Motto, Vision and Mission. Activities undertaken are also governed by a set of values that help guide the students, staff and General Management of the School.&nbsp;<br>From the school gate, you come to the first building put up when the school started that now serves as the Biology/Chemistry and Physics laboratory. The Classes and administration block have been constructed in a U shape and one of them is used as an administration block. There are 25 Physical Classes which are not enough but the school is working towards putting up more classes. &nbsp;We also expect to get sponsors and CDF office to help us build more classes. &nbsp;<br>There are 7 Dormitories built beyond the classes with a new one is to be put up. There are 3 staff houses and a modern kitchen. The school does not have a modern administration Block, Dining Hall, A Book Store And Home Science Complex.&nbsp;<br>KCSE performance in the 8-4-4- system started with a mean score of 3.14 in 1994 and currently at 4.186. There is a shortage of teaching staff as a result of the gradual expansion of the School.&nbsp;<br>&nbsp;</p>",
+			"cover_image": "defaults/default-no-image.jpg",
+			"image_alt_text": ""
+		}
+	},
+	{
+		"model": "home.entry",
+		"pk": 2,
+		"fields": {
+			"date_created": "2024-03-11T17:11:12.060Z",
+			"date_modified": "2024-03-11T17:17:58.803Z",
+			"is_deleted": false,
+			"date_deleted": null,
+			"slug": "academic-zvqjnf-ljumgd",
+			"parent_entry": null,
+			"entry": "ACADEMIC",
+			"title": "Our Academics",
+			"content": "<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p><p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn�t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a copy.</p><p>The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word \"and\" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn�t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their projects again and again. And if she hasn�t been rewritten, then they are still using her.</p><p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn�t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline</p>",
+			"cover_image": "defaults/default-no-image.jpg",
+			"image_alt_text": ""
+		}
+	},
+	{
+		"model": "home.entry",
+		"pk": 3,
+		"fields": {
+			"date_created": "2024-03-11T17:18:40.535Z",
+			"date_modified": "2024-03-11T17:18:40.535Z",
+			"is_deleted": false,
+			"date_deleted": null,
+			"slug": "administration-0bbsaz-977zts",
+			"parent_entry": null,
+			"entry": "ADMINISTRATION",
+			"title": "Administration",
+			"content": "<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p><p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn�t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a copy.</p><p>The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word \"and\" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn�t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their projects again and again. And if she hasn�t been rewritten, then they are still using her.</p><p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn�t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline</p>",
+			"cover_image": "defaults/default-no-image.jpg",
+			"image_alt_text": ""
+		}
+	},
+	{
+		"model": "home.entry",
+		"pk": 4,
+		"fields": {
+			"date_created": "2024-03-11T17:20:01.633Z",
+			"date_modified": "2024-03-11T17:20:01.634Z",
+			"is_deleted": false,
+			"date_deleted": null,
+			"slug": "admission-ycukvh-ov55wk",
+			"parent_entry": null,
+			"entry": "ADMISSION",
+			"title": "ADMISSION",
+			"content": "<p>The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages.</p><p>The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators.</p><p>To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence is a myth.</p><p>For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation and more common</p>",
+			"cover_image": "defaults/default-no-image.jpg",
+			"image_alt_text": ""
+		}
+	},
+	{
+		"model": "home.entry",
+		"pk": 5,
+		"fields": {
+			"date_created": "2024-03-11T17:20:33.800Z",
+			"date_modified": "2024-03-11T17:20:33.800Z",
+			"is_deleted": false,
+			"date_deleted": null,
+			"slug": "curricular-c9yi9z-0zcetu",
+			"parent_entry": null,
+			"entry": "CURRICULAR",
+			"title": "Curricular",
+			"content": "<p>The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages.</p><p>The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators.</p><p>To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence is a myth.</p><p>For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation and more common</p>",
+			"cover_image": "defaults/default-no-image.jpg",
+			"image_alt_text": ""
+		}
+	},
+	{
+		"model": "home.entry",
+		"pk": 6,
+		"fields": {
+			"date_created": "2024-03-11T17:20:33.800Z",
+			"date_modified": "2024-03-11T17:20:33.800Z",
+			"is_deleted": false,
+			"date_deleted": null,
+			"slug": "message-c9yi9z-0zcetu",
+			"parent_entry": null,
+			"entry": "MESSAGE",
+			"title": "Principal's Message",
+			"content": "<p>The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages.</p><p>The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators.</p><p>To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence is a myth.</p><p>For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation and more common</p>",
+			"cover_image": "defaults/default-no-user-image.jpg",
+			"image_alt_text": ""
+		}
+	},
+	{
+		"model": "home.entry",
+		"pk": 7,
+		"fields": {
+			"date_created": "2024-03-11T17:28:11.201Z",
+			"date_modified": "2024-03-11T17:28:11.201Z",
+			"is_deleted": false,
+			"date_deleted": null,
+			"slug": "principles-nq2q6u-xw0etm",
+			"parent_entry": null,
+			"entry": "PRINCIPLES",
+			"title": "Motto",
+			"content": "<p>The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle.</p>",
+			"cover_image": "defaults/default-no-image.jpg",
+			"image_alt_text": ""
+		}
+	},
+	{
+		"model": "home.entry",
+		"pk": 8,
+		"fields": {
+			"date_created": "2024-03-11T17:32:01.585Z",
+			"date_modified": "2024-03-11T17:32:01.585Z",
+			"is_deleted": false,
+			"date_deleted": null,
+			"slug": "principles-5iwm0y-b7x0v0",
+			"parent_entry": null,
+			"entry": "PRINCIPLES",
+			"title": "Mission",
+			"content": "<p>In the symphony of life, resilience is the melody that carries us through the crescendos and decrescendos with grace and strength.</p>",
+			"cover_image": "defaults/default-no-image.jpg",
+			"image_alt_text": ""
+		}
+	},
+	{
+		"model": "home.entry",
+		"pk": 9,
+		"fields": {
+			"date_created": "2024-03-11T17:44:12.917Z",
+			"date_modified": "2024-03-11T17:44:44.913Z",
+			"is_deleted": false,
+			"date_deleted": null,
+			"slug": "principles-rz77vm-5zbom0",
+			"parent_entry": null,
+			"entry": "PRINCIPLES",
+			"title": "Vision",
+			"content": "<p>Dedication, hard work, and an unremitting devotion to the things you want to see happen, are the hallmark of professional success.</p>",
+			"cover_image": "defaults/default-no-image.jpg",
+			"image_alt_text": ""
+		}
+	},
+	{
+		"model": "home.entry",
+		"pk": 10,
+		"fields": {
+			"date_created": "2024-03-11T17:44:12.917Z",
+			"date_modified": "2024-03-11T17:44:44.913Z",
+			"is_deleted": false,
+			"date_deleted": null,
+			"slug": "extra-rz77vm-5zbom0",
+			"parent_entry": null,
+			"entry": "EXTRA",
+			"title": "Welcome To Moi Kadzonzo Girls Secondary School",
+			"content": "<p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages.</p>",
+			"cover_image": "defaults/default-no-image.jpg",
+			"image_alt_text": ""
+		}
+	},
+	{
+		"model": "home.entry",
+		"pk": 11,
+		"fields": {
+			"date_created": "2024-03-11T17:11:12.060Z",
+			"date_modified": "2024-03-11T17:17:58.803Z",
+			"is_deleted": false,
+			"date_deleted": null,
+			"slug": "Extra-zvqjnf-ljumgd",
+			"parent_entry": null,
+			"entry": "EXTRA",
+			"title": "Any Extra",
+			"content": "<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p><p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn�t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a copy.</p><p>The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word \"and\" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn�t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their projects again and again. And if she hasn�t been rewritten, then they are still using her.</p><p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn�t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline</p>",
+			"cover_image": "defaults/default-no-image.jpg",
+			"image_alt_text": ""
+		}
+	},
+	{
+		"model": "home.entry",
+		"pk": 12,
+		"fields": {
+			"date_created": "2024-03-11T17:18:40.535Z",
+			"date_modified": "2024-03-11T17:18:40.535Z",
+			"is_deleted": false,
+			"date_deleted": null,
+			"slug": "extra-0bbsaz-977zts",
+			"parent_entry": null,
+			"entry": "EXTRA",
+			"title": "Any Extra",
+			"content": "<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p><p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn�t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a copy.</p><p>The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word \"and\" and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn�t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their projects again and again. And if she hasn�t been rewritten, then they are still using her.</p><p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn�t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline</p>",
+			"cover_image": "defaults/default-no-image.jpg",
+			"image_alt_text": ""
+		}
+	},
+	{
+		"model": "home.entry",
+		"pk": 13,
+		"fields": {
+			"date_created": "2024-03-11T17:20:01.633Z",
+			"date_modified": "2024-03-11T17:20:01.634Z",
+			"is_deleted": false,
+			"date_deleted": null,
+			"slug": "extra-ycukvh-ov55wk",
+			"parent_entry": null,
+			"entry": "EXTRA",
+			"title": "Any Extra",
+			"content": "<p>The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages.</p><p>The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators.</p><p>To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence is a myth.</p><p>For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages. The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is. The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators. To achieve this, it would be necessary to have uniform grammar, pronunciation and more common</p>",
+			"cover_image": "defaults/default-no-image.jpg",
+			"image_alt_text": ""
+		}
+	}
+]
