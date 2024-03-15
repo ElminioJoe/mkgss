@@ -26,7 +26,7 @@ load_dotenv(find_dotenv())
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG')
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', 'moikadzonzogirls.sc.ke', 'mkgss.onrender.com']
 
