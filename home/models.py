@@ -182,6 +182,8 @@ class Category(models.Model):
     date_created = models.DateTimeField(blank=True, null=True, auto_now_add=True)
     date_modified = models.DateTimeField(blank=True, null=True, auto_now=True)
 
+    class Meta:
+        ordering = ["-date_created"]
     def __str__(self):
         return self.name
 
