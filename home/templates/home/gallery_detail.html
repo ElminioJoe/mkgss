@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load cloudinary %}
 {% block content %} {{ block.super }}
 
 <section class="gallery_detail_pg">
@@ -9,16 +10,19 @@
             <div class="col-sm-12">
                 <!-- Button trigger modal -->
                 <!-- Add Button -->
-                <button type="button" class="btn btn-sm btn-outline-success m-2" data-toggle="modal" data-target="#openPostModal"
-                    data-title="Add Images" data-url="{% url 'add_images' category.id %}" data-form="imageForm" data-placement="top"
-                    title="Add">
+                <button type="button" class="btn btn-sm btn-outline-success m-2"
+                    data-toggle="modal" data-target="#openPostModal"
+                    data-title="Add Images"
+                    data-url="{% url 'add_images' category.id %}"
+                    data-form="imageForm" data-placement="top" title="Add">
                     <i class="fa fa-plus-square-o mr-1" aria-hidden="true"></i>
                     Add Images
                 </button>
 
                 <!-- Toggle switch between Delete and View modes -->
                 <div class="toggle-modes m-2 float-right">
-                    <label class="switch" for="toggleSwitch" title="Toggle between Delete and View modes">
+                    <label class="switch" for="toggleSwitch"
+                        title="Toggle between Delete and View modes">
                         <input type="checkbox" id="toggleSwitch">
                         <span class="slider"></span>
                     </label>
@@ -28,14 +32,18 @@
             <div class="col-12 gallery-actions mt-2">
                 <hr>
                 <!-- Delete Selected button -->
-                <button type="button" class="btn btn-sm btn-outline-danger" id="delete-selected-button" data-toggle="modal"
-                    data-target="#deleteModal" data-title="Delete Gallery Images" data-url="{% url 'image_delete' %}"
-                    data-form="deleteForm" title="Delete Selected Images">
+                <button type="button" class="btn btn-sm btn-outline-danger"
+                    id="delete-selected-button" data-toggle="modal"
+                    data-target="#deleteModal"
+                    data-title="Delete Gallery Images"
+                    data-url="{% url 'image_delete' %}" data-form="deleteForm"
+                    title="Delete Selected Images">
                     <i class="fa-solid fa-trash mr-2"></i>Delete Selected Images
                 </button>
                 <!-- Select All checkbox -->
                 <label class="select-all-checkbox-label mt-3">
-                    <input class="select-all-checkbox" type="checkbox" id="select-all-checkbox">
+                    <input class="select-all-checkbox" type="checkbox"
+                        id="select-all-checkbox">
                     Select all images
                 </label>
             </div>
@@ -54,11 +62,13 @@
                 <div class="card">
                     <div class="gallery-box">
                         <!-- <div class="overlay overlay-bg"></div> -->
-                        <div class="checkbox-container mfp-delete d-none" style="z-index: 1;">
-                            <input class="selected-checkbox" type="checkbox" name="selected_images" value="{{ image.id }}">
+                        <div class="checkbox-container mfp-delete d-none"
+                            style="z-index: 1;">
+                            <input class="selected-checkbox" type="checkbox"
+                                name="selected_images" value="{{ image.id }}">
                         </div>
                         <a href="{{ image.gallery_image.url }}">
-                            <img src="{{ image.thumbnail.url }}" class="img-fluid" loading="lazy" alt="{{ image.image_alt_text }}">
+                            {% cloudinary image.gallery_image.url width=100 height=100 gravity="auto" crop="thumb" alt=image.gallery_image.name %}
                         </a>
                     </div>
                 </div>
@@ -73,12 +83,16 @@
 
 <!-- Modals Body only Section -->
 <form action="" class="myForm" method="POST" enctype="multipart/form-data">
-    <div class="modal fade" id="openPostModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+    <div class="modal fade" id="openPostModal" tabindex="-1" role="dialog"
+        aria-labelledby="ModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable"
+            role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-uppercase" id="ModalLongTitle">School Info</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-title text-uppercase" id="ModalLongTitle">
+                        School Info</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -90,8 +104,11 @@
 
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" class="btn btn-primary btn-md font-weight-bold" value="Upload">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit"
+                        class="btn btn-primary btn-md font-weight-bold"
+                        value="Upload">
+                    <button type="button" class="btn btn-secondary"
+                        data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -101,12 +118,15 @@
 
 <!-- Delete Modal -->
 <form action="" class="myForm" method="POST" enctype="multipart/form-data">
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+        aria-labelledby="ModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-titl text-uppercase" id="ModalLongTitle">Gallery: Confirm Deletion</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <h5 class="modal-titl text-uppercase" id="ModalLongTitle">
+                        Gallery: Confirm Deletion</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -114,15 +134,21 @@
                     <!-- Form -->
                     <p>Are you sure you want to delete the selected images?</p>
                     {% csrf_token %}
-                    <input type="hidden" name="action" id="action-input" value="">
-                    <input type="hidden" name="selected_images" id="selected-images-input" value="">
-                    <input type="hidden" name="category_slug" value="{{ category.slug }}">
+                    <input type="hidden" name="action" id="action-input"
+                        value="">
+                    <input type="hidden" name="selected_images"
+                        id="selected-images-input" value="">
+                    <input type="hidden" name="category_slug"
+                        value="{{ category.slug }}">
                     <fieldset class="aligned" id="deleteForm"></fieldset>
 
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" class="btn btn-danger btn-md font-weight-bold" value="Delete">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit"
+                        class="btn btn-danger btn-md font-weight-bold"
+                        value="Delete">
+                    <button type="button" class="btn btn-secondary"
+                        data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

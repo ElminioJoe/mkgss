@@ -66,11 +66,11 @@
                             {% if forloop.counter|divisibleby:2 %}
                             <img src="{{ entry.cover_image.url }}"
                                 class="img-fluid img-float-left"
-                                alt="{{ entry.image_alt_text }}">
+                                alt="{{ entry.cover_image.name }}">
                             {% else %}
                             <img src="{{ entry.cover_image.url }}"
                                 class="img-fluid img-float-right"
-                                alt="{{ entry.image_alt_text }}">
+                                alt="{{ entry.cover_image.name }}">
                             {% endif %}
                             <h3>{{entry.title|title}}</h3>
                             <div>{{ entry.content|safe }}</div>
@@ -131,11 +131,11 @@
                             {% if forloop.counter|divisibleby:2 %}
                             <img src="{{ entry.cover_image.url }}"
                                 class="img-fluid img-float-left"
-                                alt="{{ entry.image_alt_text }}">
+                                alt="{{ entry.cover_image.name }}">
                             {% else %}
                             <img src="{{ entry.cover_image.url }}"
                                 class="img-fluid img-float-right"
-                                alt="{{ entry.image_alt_text }}">
+                                alt="{{ entry.cover_image.name }}">
                             {% endif %}
                             <h3>{{entry.title|title}}</h3>
                             <div>{{ entry.content|safe }}</div>
@@ -198,11 +198,11 @@
                             {% if forloop.counter|divisibleby:2 %}
                             <img src="{{ entry.cover_image.url }}"
                                 class="img-fluid img-float-left"
-                                alt="{{ entry.image_alt_text }}">
+                                alt="{{ entry.cover_image.name }}">
                             {% else %}
                             <img src="{{ entry.cover_image.url }}"
                                 class="img-fluid img-float-right"
-                                alt="{{ entry.image_alt_text }}">
+                                alt="{{ entry.cover_image.name }}">
                             {% endif %}
                             <h3>{{entry.title|title}}</h3>
                             <div>{{ entry.content|safe }}</div>
@@ -263,11 +263,11 @@
                             {% if forloop.counter|divisibleby:2 %}
                             <img src="{{ entry.cover_image.url }}"
                                 class="img-fluid img-float-left"
-                                alt="{{ entry.image_alt_text }}">
+                                alt="{{ entry.cover_image.name }}">
                             {% else %}
                             <img src="{{ entry.cover_image.url }}"
                                 class="img-fluid img-float-right"
-                                alt="{{ entry.image_alt_text }}">
+                                alt="{{ entry.cover_image.name }}">
                             {% endif %}
                             <h3>{{entry.title|title}}</h3>
                             <div>{{ entry.content|safe }}</div>
@@ -411,11 +411,11 @@
                             {% if forloop.counter|divisibleby:2 %}
                             <img src="{{ entry.cover_image.url }}"
                                 class="img-fluid img-float-left"
-                                alt="{{ entry.image_alt_text }}">
+                                alt="{{ entry.cover_image.name }}">
                             {% else %}
                             <img src="{{ entry.cover_image.url }}"
                                 class="img-fluid img-float-right"
-                                alt="{{ entry.image_alt_text }}">
+                                alt="{{ entry.cover_image.name }}">
                             {% endif %}
                             <h3>{{entry.title|title}}</h3>
                             <div>{{ entry.content|safe }}</div>
@@ -476,7 +476,7 @@
                                 <div class="staff-image">
                                     <img src="{{ staff.picture.url }}"
                                         class='img-fluid rounded'
-                                        alt="The school principal">
+                                        alt="Image of {{ staff.get_role_display}} {{ staff.full_name }}">
                                 </div>
                                 {% endif %}
                                 <div class="staff-content text-center pt-2">

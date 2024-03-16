@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
+{% load cloudinary %}
+
 {% block content %}
 
 <section class="slider_section">
@@ -31,7 +33,7 @@
                 {% endif %}
                 <div class="carousel-overlay"></div>
                 <img src="{{ image.carousel_image.url }}" class="d-block w-100"
-                    alt="{{ image.image_alt_text }}">
+                    alt="{{ image.carousel_image.name }}">
                 <div class="carousel-caption d-md-block">
                     <h3>{{ image.caption }}</h3>
                 </div>
@@ -110,7 +112,7 @@
             <div class="mb-1 info_img">
                 {% if admin.cover_image %}
                 <img src="{{ admin.cover_image.url }}" class='img-fluid rounded'
-                    alt="{{ admin.image_alt_text }}" />
+                    alt="{{ admin.cover_image.name }}" />
                 {% else %}
                 <img src="" class='img-fluid rounded' alt="Image" />
                 {% endif %}
@@ -142,7 +144,7 @@
                 {% if academic.cover_image %}
                 <img src="{{ academic.cover_image.url }}"
                     class='img-fluid rounded'
-                    alt="{{ academic.image_alt_text }}" />
+                    alt="{{ academic.cover_image.name }}" />
                 {% else %}
                 <img src="" class='img-fluid rounded' alt="Image" />
                 {% endif %}
@@ -172,7 +174,7 @@
                 {% if extras.1.cover_image %}
                 <img src="{{ extras.1.cover_image.url }}"
                     class='img-fluid rounded'
-                    alt="{{ extras.1.image_alt_text }}" />
+                    alt="{{ extras.1.cover_image.name }}" />
                 {% else %}
                 <img src="" class='img-fluid rounded' alt="Image" />
                 {% endif %}
@@ -202,7 +204,7 @@
                 {% if curricular.cover_image %}
                 <img src="{{ curricular.cover_image.url }}"
                     class='img-fluid rounded'
-                    alt="{{ curricular.image_alt_text }}" />
+                    alt="{{ curricular.cover_image.name }}" />
                 {% else %}
                 <img src="" class='img-fluid rounded' alt="Image" />
                 {% endif %}
@@ -232,7 +234,7 @@
                 {% if extras.2.cover_image %}
                 <img src="{{ extras.2.cover_image.url }}"
                     class='img-fluid rounded'
-                    alt="{{extras.2.image_alt_text }}" />
+                    alt="{{extras.2.cover_image.name }}" />
                 {% else %}
                 <img src="" class='img-fluid rounded' alt="Image" />
                 {% endif %}
@@ -263,7 +265,7 @@
                 {% if extras.3.cover_image %}
                 <img src="{{ extras.3.cover_image.url }}"
                     class='img-fluid rounded'
-                    alt="{{ extras.3.image_alt_text }}" />
+                    alt="{{ extras.3.cover_image.name }}" />
                 {% else %}
                 <img src="" class='img-fluid rounded' alt="Image" />
                 {% endif %}
@@ -324,7 +326,7 @@
                     <div class="mx-auto principal-image">
                         <img src="{{ message.cover_image.url }}"
                             class='border rounded-circle'
-                            alt="{{ message.image_alt_text }}" height="250px">
+                            alt="{{ message.cover_image.name }}" height="250px">
                     </div>
                     {% endif %}
                     <div class="p-4 text-center principal-message">
@@ -366,7 +368,7 @@
                         {% if news_item.news_image %}
                         <img src="{{news_item.news_image.url}}"
                             class='img-fluid rounded'
-                            alt="{{news_item.image_alt_text}}">
+                            alt="{{news_item.news_image.name}}">
                         {% else %}
                         <img src="{% static 'images/IMG_3046.JPG' %}"
                             class='img-fluid rounded' alt="img">
