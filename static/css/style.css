@@ -436,8 +436,7 @@ button {
 
 .slider_section .carousel-overlay {
 	position: absolute;
-	background-color: rgb(89, 80, 76);
-	opacity: 0.5;
+	background-color: rgb(0, 0, 0, 0.35);
 	top: 0;
 	bottom: 0;
 	left: 0;
@@ -1077,6 +1076,11 @@ img.zoom {
 	left: 5%;
 	transition: all .8s;
 	color: transparent;
+}
+
+.gallery-box img {
+	height: revert-layer;
+	object-fit: cover;
 }
 
 .gallery-box:hover .fa {

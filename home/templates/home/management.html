@@ -32,7 +32,7 @@
                             {% if staff.picture %}
                             <img src="{{ staff.picture.url }}"
                                 class='img-fluid rounded'
-                                alt="The school principal">
+                                alt="The school {{ member.get_role_display }} {{ member_full_name}}">
                             {% endif %}
                         </div>
                         <div class="staff-content text-center pt-2">
@@ -101,7 +101,7 @@
                             {% if member.picture %}
                             <img src="{{ member.picture.url }}"
                                 class='img-fluid rounded'
-                                alt="The school principal">
+                                alt="The school {{ member.get_role_display }} {{ member_full_name}}">
                             {% endif %}
                         </div>
                         <div class="staff-content text-center pt-2">

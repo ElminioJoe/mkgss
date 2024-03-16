@@ -183,6 +183,10 @@ form.authentication input[type=submit] {
      width: 100%;
 }
 
+form.authentication .aligned label {
+     width: 100%;
+}
+
 .delete_card {
      max-width: 350px;
      /* background: white; */

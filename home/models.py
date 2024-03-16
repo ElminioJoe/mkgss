@@ -1,3 +1,4 @@
+from email.policy import default
 import os
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -12,22 +13,6 @@ from .utils import create_thumbnail, generate_unique_slug, set_parent_entry
 
 
 # Create your models here.
-class ImageAltTextField(models.CharField):
-    def __init__(self, *args, **kwargs):
-        self.image_field_name = kwargs.pop("image_field_name", None)
-        kwargs["max_length"] = kwargs.get("max_length", 255)
-        kwargs["blank"] = True
-        super().__init__(*args, **kwargs)
-
-    def pre_save(self, model_instance, add):
-        image_field_value = getattr(model_instance, self.image_field_name)
-
-        if image_field_value:
-            filename = os.path.basename(image_field_value.name)
-            alt_text = os.path.splitext(filename)[0]
-            setattr(model_instance, self.attname, alt_text)
-        return getattr(model_instance, self.attname)
-
 
 def get_sentinel_user():
     return get_user_model().objects.get_or_create(username="MGKSC")[0]
@@ -35,15 +20,11 @@ def get_sentinel_user():
 
 class CarouselImage(models.Model):
     carousel_image = models.ImageField(upload_to="carousel_images/")
-    image_alt_text = ImageAltTextField(
-        image_field_name="carousel_image",
-        help_text="Optional: short description of what the image entails.",
-    )
-    caption = models.CharField(max_length=200, blank=True)
+    caption = models.CharField(max_length=200, blank=True, default="")
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.image_alt_text} - {self.caption}"
+        return f"{self.carousel_image.name} - {self.caption}"
 
     def get_absolute_url(self):
         return reverse_lazy("home")
@@ -96,8 +77,7 @@ class Staff(models.Model):
         default="",
         help_text="Optional. The department the staff member belongs to.",
     )
-    picture = ResizedImageField(
-        size=[600, 600],
+    picture = models.ImageField(
         upload_to="staff/",
         blank=True,
         default="defaults/default-no-user-image.jpg",
@@ -133,15 +113,9 @@ class News(models.Model):
     headline = models.CharField(max_length=250)
     content = CKEditor5Field(config_name="minimal")
     publisher = models.ForeignKey(Publisher, on_delete=models.SET(get_sentinel_user))
-    news_image = ResizedImageField(
-        size=[1920, 1300],
-        crop=["middle", "center"],
+    news_image = models.ImageField(
         upload_to="news/",
         default="defaults/default-no-image.jpg",
-    )
-    image_alt_text = ImageAltTextField(
-        image_field_name="news_image",
-        help_text="Optional: short description of what the image entails.",
     )
     post_date = models.DateTimeField(null=True, blank=True, auto_now_add=True)
     modification_date = models.DateTimeField(blank=True, null=True, auto_now=True)
@@ -177,32 +151,26 @@ class Gallery(models.Model):
         "Category", on_delete=models.CASCADE, blank=True, related_name="images"
     )
     gallery_image = models.ImageField(upload_to="gallery/")
-    image_alt_text = ImageAltTextField(
-        image_field_name="gallery_image",
-        help_text="Optional: short description of what the image entails.",
-    )
-    thumbnail = ResizedImageField(
-        crop=["middle", "center"],
-        upload_to="gallery/thumbnails/",
-        blank=True,
-        null=True,
-        editable=False,
-    )
+    # thumbnail = models.ImageField(
+    #     upload_to="gallery/thumbnails/",
+    #     blank=True,
+    #     null=True,
+    #     editable=False,
+    # )
     post_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.category.name} - {self.image_alt_text}"
+        return f"{self.category.name} - {self.gallery_image.name}"
 
     def save(self, *args, **kwargs):
-        create_thumbnail(self, self.gallery_image, self.thumbnail)
         super(Gallery, self).save(*args, **kwargs)
 
-    def delete(self, *args, **kwargs):
-        # Delete the image files from the file system
-        self.gallery_image.delete()
-        self.thumbnail.delete()
+    # def delete(self, *args, **kwargs):
+    #     # Delete the image files from the file system
+    #     self.gallery_image.delete()
+    #     self.thumbnail.delete()
 
-        super().delete(*args, **kwargs)
+    #     super().delete(*args, **kwargs)
 
 
 class Category(models.Model):
@@ -284,16 +252,10 @@ class Entry(BaseModel):
     )
     title = models.CharField(max_length=150, blank=True, default="")
     content = CKEditor5Field(config_name="minimal")
-    cover_image = ResizedImageField(
-        size=[1920, 1300],
-        crop=["middle", "center"],
+    cover_image = models.ImageField(
         upload_to="entries/",
         default="defaults/default-no-image.jpg",
         blank=True,
-    )
-    image_alt_text = ImageAltTextField(
-        image_field_name="cover_image",
-        help_text="Optional: short description of what the image entails.",
     )
 
     def __str__(self):

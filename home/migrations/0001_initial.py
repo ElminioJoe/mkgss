@@ -27,14 +27,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("carousel_image", models.ImageField(upload_to="carousel_images/")),
-                (
-                    "image_alt_text",
-                    home.models.ImageAltTextField(
-                        blank=True,
-                        help_text="Optional: short description of what the image entails.",
-                        max_length=255,
-                    ),
-                ),
                 ("caption", models.CharField(blank=True, max_length=200)),
                 ("date_created", models.DateTimeField(auto_now_add=True)),
             ],
@@ -262,14 +254,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "image_alt_text",
-                    home.models.ImageAltTextField(
-                        blank=True,
-                        help_text="Optional: short description of what the image entails.",
-                        max_length=255,
-                    ),
-                ),
-                (
                     "parent_entry",
                     models.ForeignKey(
                         blank=True,
@@ -299,14 +283,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("gallery_image", models.ImageField(upload_to="gallery/")),
-                (
-                    "image_alt_text",
-                    home.models.ImageAltTextField(
-                        blank=True,
-                        help_text="Optional: short description of what the image entails.",
-                        max_length=255,
-                    ),
-                ),
                 (
                     "thumbnail",
                     django_resized.forms.ResizedImageField(
@@ -359,14 +335,6 @@ class Migration(migrations.Migration):
                         scale=None,
                         size=[1920, 1300],
                         upload_to="news/",
-                    ),
-                ),
-                (
-                    "image_alt_text",
-                    home.models.ImageAltTextField(
-                        blank=True,
-                        help_text="Optional: short description of what the image entails.",
-                        max_length=255,
                     ),
                 ),
                 ("post_date", models.DateTimeField(auto_now_add=True, null=True)),
