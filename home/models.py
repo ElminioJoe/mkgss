@@ -19,7 +19,11 @@ def get_sentinel_user():
 
 
 class CarouselImage(models.Model):
-    carousel_image = models.ImageField(upload_to="carousel_images/")
+    carousel_image = ResizedImageField(
+        size=[1920, 1080],
+        crop=["middle", "center"],
+        upload_to="carousel_images/",
+    )
     caption = models.CharField(max_length=200, blank=True, default="")
     date_created = models.DateTimeField(auto_now_add=True)
 
@@ -77,7 +81,8 @@ class Staff(models.Model):
         default="",
         help_text="Optional. The department the staff member belongs to.",
     )
-    picture = models.ImageField(
+    picture = ResizedImageField(
+        size=[600, 600],
         upload_to="staff/",
         blank=True,
         default="defaults/default-no-user-image.jpg",
@@ -113,7 +118,9 @@ class News(models.Model):
     headline = models.CharField(max_length=250)
     content = CKEditor5Field(config_name="minimal")
     publisher = models.ForeignKey(Publisher, on_delete=models.SET(get_sentinel_user))
-    news_image = models.ImageField(
+    news_image = ResizedImageField(
+        size=[1920, 1300],
+        crop=["middle", "center"],
         upload_to="news/",
         default="defaults/default-no-image.jpg",
     )
@@ -254,7 +261,9 @@ class Entry(BaseModel):
     )
     title = models.CharField(max_length=150, blank=True, default="")
     content = CKEditor5Field(config_name="minimal")
-    cover_image = models.ImageField(
+    cover_image = ResizedImageField(
+        size=[1920, 1300],
+        crop=["middle", "center"],
         upload_to="entries/",
         default="defaults/default-no-image.jpg",
         blank=True,
