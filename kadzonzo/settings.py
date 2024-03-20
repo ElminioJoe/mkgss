@@ -26,10 +26,12 @@ load_dotenv(find_dotenv())
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
+DEBUG = os.environ.get("DEBUG")
 
-ALLOWED_HOSTS = ['localhost', 'moikadzonzogirls.sc.ke', 'mkgss.onrender.com']
-
+ALLOWED_HOSTS = []
+ALLOWED_HOSTS_ENV = os.environ.get("ALLOWED_HOSTS")
+if ALLOWED_HOSTS_ENV:
+    ALLOWED_HOSTS.extend(ALLOWED_HOSTS_ENV.split(","))
 
 # Application definition
 
@@ -170,7 +172,7 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 DJANGORESIZED_DEFAULT_SIZE = [500, 500]
 # DJANGORESIZED_DEFAULT_SCALE = 0.3
-DJANGORESIZED_DEFAULT_QUALITY = 75
+DJANGORESIZED_DEFAULT_QUALITY = 90
 DJANGORESIZED_DEFAULT_KEEP_META = True
 DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 
@@ -178,3 +180,11 @@ DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 from .ckeditor_5_config import CKEDITOR_5_CONFIGS
 
 # CKEDITOR_5_CONFIGS
+
+SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+CSRF_COOKIE_SECURE = True
+
+SECURE_HSTS_SECONDS = 3600 # (1H) / # 31536000 # (1 year)
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
