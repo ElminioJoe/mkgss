@@ -85,7 +85,7 @@ class Staff(models.Model):
         size=[600, 600],
         upload_to="staff/",
         blank=True,
-        default="defaults/default-no-user-image.jpg",
+        default="defaults/default-no-user-image_sgwzqp.jpg",
     )
     slug = models.SlugField(max_length=500, unique=True, blank=True, editable=False)
 
@@ -122,7 +122,7 @@ class News(models.Model):
         size=[1920, 1300],
         crop=["middle", "center"],
         upload_to="news/",
-        default="defaults/default-no-image.jpg",
+        default="defaults/default-no-image_vkmrpf.jpg",
     )
     post_date = models.DateTimeField(null=True, blank=True, auto_now_add=True)
     modification_date = models.DateTimeField(blank=True, null=True, auto_now=True)
@@ -265,7 +265,7 @@ class Entry(BaseModel):
         size=[1920, 1300],
         crop=["middle", "center"],
         upload_to="entries/",
-        default="defaults/default-no-image.jpg",
+        default="defaults/default-no-image_vkmrpf.jpg",
         blank=True,
     )
 

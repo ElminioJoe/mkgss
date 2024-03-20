@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
             field=django_resized.forms.ResizedImageField(
                 blank=True,
                 crop=["middle", "center"],
-                default="defaults/default-no-image.jpg",
+                default="defaults/default-no-image_vkmrpf.jpg",
                 force_format=None,
                 keep_meta=True,
                 quality=90,
@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
             name="news_image",
             field=django_resized.forms.ResizedImageField(
                 crop=["middle", "center"],
-                default="defaults/default-no-image.jpg",
+                default="defaults/default-no-image_vkmrpf.jpg",
                 force_format=None,
                 keep_meta=True,
                 quality=90,
@@ -59,7 +59,7 @@ class Migration(migrations.Migration):
             field=django_resized.forms.ResizedImageField(
                 blank=True,
                 crop=None,
-                default="defaults/default-no-user-image.jpg",
+                default="defaults/default-no-user-image_sgwzqp.jpg",
                 force_format=None,
                 keep_meta=True,
                 quality=90,
