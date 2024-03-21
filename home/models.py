@@ -269,6 +269,9 @@ class Entry(BaseModel):
         blank=True,
     )
 
+    class Meta:
+        ordering = ['pk']
+        
     def __str__(self):
         return f"{self.entry} - {self.title}".upper()
 

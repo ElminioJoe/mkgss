@@ -118,7 +118,7 @@
                 {% endif %}
             </div>
             <h4 class="mt-2">{{ admin.title|title }}</h4>
-            <p>{{ admin.content|safe|truncatewords:60 }}</p>
+            <p>{{ admin.content|safe|truncatewords:70 }}</p>
             <div class="d-flex align-items-center">
                 <a href="/about/#tab_list-administration" class="read-more">Read
                     more
@@ -150,7 +150,7 @@
                 {% endif %}
             </div>
             <h4 class="mt-2">{{ academic.title|title }}</h4>
-            <p>{{ academic.content|safe|truncatewords:60 }}</p>
+            <p>{{ academic.content|safe|truncatewords:70 }}</p>
             <div class="d-flex align-items-center">
                 <a href="/about/#tab_list-academic" class="read-more">Read more
                     <i class="fa fa-long-arrow-right"></i>
@@ -180,9 +180,9 @@
                 {% endif %}
             </div>
             <h4 class="mt-2">{{ extras.1.title|title }}</h4>
-            <p>{{ extras.1.content|safe|truncatewords:60 }}</p>
+            <p>{{ extras.1.content|safe|truncatewords:70 }}</p>
             <div class="d-flex align-items-center">
-                <a href="/about#" class="read-more">Read more
+                <a href="/about#tab_list-academic" class="read-more">Read more
                     <i class="fa fa-long-arrow-right"></i>
                 </a>
                 {% if user.is_authenticated %}
@@ -210,7 +210,7 @@
                 {% endif %}
             </div>
             <h4 class="mt-2">{{ curricular.title|title }}</h4>
-            <p>{{ curricular.content|safe|truncatewords:60 }}</p>
+            <p>{{ curricular.content|safe|truncatewords:70 }}</p>
             <div class="d-flex align-items-center">
                 <a href="/about/#tab_list-curricular" class="read-more">Read
                     more<i class="fa fa-long-arrow-right"></i> </a>
@@ -240,9 +240,9 @@
                 {% endif %}
             </div>
             <h4 class="mt-2">{{ extras.2.title|title }}</h4>
-            <p>{{ extras.2.content|safe|truncatewords:60 }}</p>
+            <p>{{ extras.2.content|safe|truncatewords:70 }}</p>
             <div class="d-flex align-items-center">
-                <a href="/about#" class="read-more">Read more
+                <a href="/about#tab_list-principles" class="read-more">Read more
                     <i class="fa fa-long-arrow-right"></i>
                 </a>
                 {% if user.is_authenticated %}
@@ -271,9 +271,9 @@
                 {% endif %}
             </div>
             <h4 class="mt-2">{{ extras.3.title|title }}</h4>
-            <p>{{ extras.3.content|safe|truncatewords:60 }}</p>
+            <p>{{ extras.3.content|safe|truncatewords:70 }}</p>
             <div class="d-flex align-items-center">
-                <a href="/about#" class="read-more">Read more
+                <a href="{% url 'news' %}" class="read-more">Read more
                     <i class="fa fa-long-arrow-right"></i>
                 </a>
                 {% if user.is_authenticated %}
