@@ -29,7 +29,7 @@ python3 -m venv $VENV_DIR || error_exit "Failed to create a virtual environment.
 source $VENV_DIR/bin/activate || error_exit "Failed to activate virtual environment."
 
 # Install project requirements
-pip install -r $PROJECT_DIR/requirements.txt uswgi || error_exit "Failed to install project requirements."
+pip install -r $PROJECT_DIR/requirements.txt uwsgi || error_exit "Failed to install project requirements."
 
 # Convert static asset files
 python3 $PROJECT_DIR/manage.py collectstatic --no-input || error_exit "Failed to collect statics assets."
