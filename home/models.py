@@ -235,6 +235,7 @@ class Entry(BaseModel):
     class Meta:
         verbose_name = "School Info Entry"
         verbose_name_plural = "School Info Entries"
+        ordering = ['pk']
 
     ENTRY_CHOICES = [
         (None, "---------"),
@@ -269,9 +270,6 @@ class Entry(BaseModel):
         blank=True,
     )
 
-    class Meta:
-        ordering = ['pk']
-        
     def __str__(self):
         return f"{self.entry} - {self.title}".upper()
 
