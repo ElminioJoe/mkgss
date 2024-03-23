@@ -20,7 +20,6 @@ packaging==23.2
 pathspec==0.12.1
 pillow==10.2.0
 platformdirs==4.2.0
-psycopg2==2.9.9
 psycopg2-binary==2.9.9
 python-dotenv==1.0.1
 requests==2.31.0
@@ -35,3 +34,5 @@ whitenoise==6.6.0
 
 gunicorn==21.2.0
 uvicorn==0.28.0
+Brotli==1.1.0
+h11==0.14.0
