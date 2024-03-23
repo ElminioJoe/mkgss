@@ -26,7 +26,7 @@ load_dotenv(find_dotenv())
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG")
+DEBUG = "RENDER" not in os.environ
 
 ALLOWED_HOSTS = []
 ALLOWED_HOSTS_ENV = os.environ.get("ALLOWED_HOSTS")
@@ -181,10 +181,10 @@ from .ckeditor_5_config import CKEDITOR_5_CONFIGS
 
 # CKEDITOR_5_CONFIGS
 
-SESSION_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
+# CSRF_COOKIE_SECURE = True
 
-SECURE_HSTS_SECONDS = 3600 # (1H) / # 31536000 # (1 year)
-SECURE_HSTS_PRELOAD = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_SECONDS = 3600 # (1H) / # 31536000 # (1 year)
+# SECURE_HSTS_PRELOAD = True
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
