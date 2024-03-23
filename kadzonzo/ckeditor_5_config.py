@@ -42,11 +42,23 @@ CKEDITOR_5_CONFIGS = {
         ],
         'toolbar': [
             'heading', '|', 'fontSize', 'fontFamily', 'fontColor',
-            'fontBackgroundColor', 'removeFormat', '|', 'outdent', 'indent',
-            '|', 'bold', 'italic', 'underline', 'strikethrough', 'blockQuote', '|', 'link',
-            'subscript', 'superscript', 'highlight', '|', 'bulletedList',
+            'fontBackgroundColor', 'removeFormat', 'insertTable', '|', 'outdent', 'indent',
+            '|', 'bold', 'italic', 'underline', 'strikethrough', 'blockQuote', '|',
+            'subscript', 'superscript', 'link', 'highlight', '|', 'bulletedList',
             'numberedList', 'todoList', '|', 'sourceEditing',
         ],
+        'table': {
+            'contentToolbar': [ 'tableColumn', 'tableRow', 'mergeTableCells',
+            'tableProperties', 'tableCellProperties' ],
+            'tableProperties': {
+                'borderColors': customColorPalette,
+                'backgroundColors': customColorPalette
+            },
+            'tableCellProperties': {
+                'borderColors': customColorPalette,
+                'backgroundColors': customColorPalette
+            }
+        },
         'heading' : {
             'options': [
                 { 'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph' },

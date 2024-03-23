@@ -28,7 +28,8 @@ class QueryManager:
         Fetch all staff objects.
         """
         return models.Staff.objects.filter(
-            role=models.Staff.TEACHING_STAFF
+            Q(role__in=[models.Staff.HEAD_OF_DEPARTMENT])
+            | Q(role__in=[models.Staff.TEACHING_STAFF])
         )
 
     @staticmethod
