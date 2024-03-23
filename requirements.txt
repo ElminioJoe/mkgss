@@ -32,3 +32,6 @@ tzdata==2023.4
 urllib3==2.2.1
 webencodings==0.5.1
 whitenoise==6.6.0
+
+gunicorn==21.2.0
+uvicorn==0.28.0
