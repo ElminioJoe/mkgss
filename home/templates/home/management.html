@@ -38,11 +38,12 @@
                         <div class="staff-content text-center pt-2">
                             <h4 class="pb-0">
                                 <span>{{ staff.title|title }}.</span>&nbsp;
-                                <span>{{ staff.full_name|upper }}</span>
+                                <span>{{ staff.full_name|title }}</span>
                             </h4>
                             <span>{{ staff.get_role_display }}</span>
                             {% if staff.department %}
-                            &nbsp;<span>{{ staff.department }}</span>
+                            <br>
+                            <span>{{ staff.department }}</span>
                             {% endif %}
                             <p class="pt-1">{{ staff.content|safe }}</p>
                         </div>

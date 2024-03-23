@@ -456,66 +456,81 @@
 
                 <div class="tab-pane fade show" id="list-staff" role="tabpanel"
                     aria-labelledby="list-staff-list">
-                    <div class="d-flex mb-3">
+                    <div class="d-flex mb-1">
                         <h3 class="mr-auto p-0">Staff</h3>
-                        {% if user.is_authenticated %}
-                        <!-- Add Button -->
-                        <a href="{% url 'create_staff' 'teacher' %}"
-                            class="btn btn-sm btn-outline-success">
-                            <i class="fa fa-plus-square-o"
-                                aria-hidden="true"></i>
-                        </a>
-                        {% endif %}
                     </div>
                     <hr>
-                    <div class="row text-justify align-items-center p-3">
-                        {% for staff in staffs %}
-                        <div class="col-lg-4 col-md-6 p-2">
-                            <div class="d-flex flex-column">
-                                {% if staff.picture %}
-                                <div class="staff-image">
-                                    <img src="{{ staff.picture.url }}"
-                                        class='img-fluid rounded'
-                                        alt="Image of {{ staff.get_role_display}} {{ staff.full_name }}">
-                                </div>
+                    {% regroup staffs|dictsort:"role" by role as staff_list %}
+                    <div class="text-justify align-items-center p-3 pt-1">
+                        {% for role, staffs in staff_list %}
+                        <div class="d-flex my-3">
+                            <h3 class="mr-auto p-0">
+                                {% if role == "HOD" %}
+                                Head Of Department
+                                {% else %}
+                                {{ role|title }}
                                 {% endif %}
-                                <div class="staff-content text-center pt-2">
-                                    <h4 class="pb-0">
-                                        <span>{{ staff.title|title }}.</span>&nbsp;
-                                        <span>{{ staff.full_name|upper }}</span>
-                                    </h4>
-                                    {% if staff.department %}
-                                    <span>{{ staff.department }}</span>&nbsp;
-                                    {% endif %}
-                                    <span>{{ staff.get_role_display|title }}</span>
-                                    <p class="pt-1">{{ staff.content|safe }}</p>
-                                </div>
-                                {% if user.is_authenticated %}
-                                <div class="card-footer p-0">
-                                    <div class="p-2 d-flex justify-content-end">
-                                        <!-- Edit Button -->
-                                        <a href="{% url 'update_staff' staff.role|lower staff.slug %}"
-                                            class="btn btn-sm btn-outline-primary mr-2"
-                                            title="Edit">
-                                            <i class="fa-sharp fa-solid fa-pen-to-square"
-                                                aria-hidden="true"></i>
-                                        </a>
-                                        <!-- Delete Button -->
-                                        <a href="{% url 'delete_staff' staff.role|lower staff.slug %}"
-                                            class="btn btn-sm btn-outline-danger"
-                                            title="Delete">
-                                            <i class="fa-solid fa-trash"
-                                                aria-hidden="true"></i>
-                                        </a>
+                            </h3>
+                            {% if user.is_authenticated %}
+                            <!-- Add Button -->
+                            <a href="{% url 'create_staff' role|lower %}"
+                                class="btn btn-sm btn-outline-success">
+                                <i class="fa fa-plus-square-o"
+                                    aria-hidden="true"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                        <div class="row">
+                            {% for staff in staffs %}
+                            <div class="col-lg-4 col-md-6 p-2">
+                                <div class="d-flex flex-column">
+                                    {% if staff.picture %}
+                                    <div class="staff-image">
+                                        <img src="{{ staff.picture.url }}"
+                                            class='img-fluid rounded'
+                                            alt="Image of {{ staff.get_role_display}} {{ staff.full_name }}">
                                     </div>
+                                    {% endif %}
+                                    <div class="staff-content text-center pt-2">
+                                        <h4 class="pb-0">
+                                            <span>{{ staff.title|title }}.</span>&nbsp;
+                                            <span>{{ staff.full_name|title }}</span>
+                                        </h4>
+                                        <span>{{ staff.role }}</span>
+                                        {% if staff.department %}
+                                        <span>-&nbsp;{{ staff.department }}</span>
+                                        {% endif %}
+                                        <p class="pt-1">{{ staff.content|safe }}
+                                        </p>
+                                    </div>
+                                    {% if user.is_authenticated %}
+                                    <div class="card-footer p-0">
+                                        <div
+                                            class="p-2 d-flex justify-content-end">
+                                            <!-- Edit Button -->
+                                            <a href="{% url 'update_staff' staff.role|lower staff.slug %}"
+                                                class="btn btn-sm btn-outline-primary mr-2"
+                                                title="Edit">
+                                                <i class="fa-sharp fa-solid fa-pen-to-square"
+                                                    aria-hidden="true"></i>
+                                            </a>
+                                            <!-- Delete Button -->
+                                            <a href="{% url 'delete_staff' staff.role|lower staff.slug %}"
+                                                class="btn btn-sm btn-outline-danger"
+                                                title="Delete">
+                                                <i class="fa-solid fa-trash"
+                                                    aria-hidden="true"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% endif %}
                                 </div>
-                                {% endif %}
                             </div>
+                            {% endfor %}
                         </div>
                         {% endfor %}
                     </div>
                 </div>
-
             </div>
         </div>
         <!-- content end -->

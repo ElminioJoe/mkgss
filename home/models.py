@@ -51,12 +51,14 @@ class Staff(models.Model):
     DIRECTOR = "DIRECTOR"
     TEACHING_STAFF = "TEACHER"
     NONE_TEACHING_STAFF = "NTS"
+    HEAD_OF_DEPARTMENT = "HOD"
     STAFF_ROLE_CHOICES = {
         NONE: "---------",
         PRINCIPAL: "Principal",
         DEPUTY: "Deputy Principal",
         ADMINISTRATOR: "Administrator",
         DIRECTOR: "Board Director",
+        HEAD_OF_DEPARTMENT: "Head of Department",
         TEACHING_STAFF: "Teacher",
         NONE_TEACHING_STAFF: "None Teaching Staff",
     }
@@ -92,6 +94,9 @@ class Staff(models.Model):
     # department = models.ForeignKey(
     #     "Department", on_delete=models.CASCADE, blank=True, null=True, help_text="Optional. The department the staff member belongs to."
     # )
+
+    class Meta:
+        ordering = ["pk", "role"]
 
     def __str__(self):
         return f"{self.full_name} - {self.role}"
