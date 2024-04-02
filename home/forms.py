@@ -20,6 +20,8 @@ class FormWidgets(forms.Form):
                 attrs.update({"class": "form-control-file"})
             if isinstance(field.widget, forms.BooleanField):
                 attrs.update({"class": "form-check-input"})
+            if isinstance(field.widget, forms.DateInput):
+                attrs.update({"class": "DateField"})
             self.fields[name].widget.attrs.update(attrs)
 
 
@@ -85,7 +87,13 @@ class NewsForm(FormWidgets, forms.ModelForm):
         fields = [
             "headline", "news_image", "content"
         ]
-        
+
+    def clean_content(self):
+        data = self.cleaned_data["content"]
+        if not data:
+            raise forms.ValidationError("This field is required.")
+        return data
+
 
 class AddImageForm(FormWidgets, forms.ModelForm):
     gallery_image = forms.ImageField(
@@ -155,8 +163,28 @@ class ContactForm(forms.Form):
     message = forms.CharField(widget=forms.Textarea, required=True)
 
 
-def get_entry_object_manager(entry: str):
-    if entry:
-        entry = entry.lower()
-    manager_name = f"{entry}_entries"
-    return getattr(models.Entry, manager_name, None)
+class JobListingForm(FormWidgets, forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["description"].required = False
+
+    class Meta:
+        model = models.JobListing
+        fields = [
+            "title", "experience", "type", "description", "application_deadline",
+        ]
+        widgets = {
+            "application_deadline": forms.DateInput(attrs={"type": "date"}),  # Use HTML5 date input
+        }
+        help_texts = {
+            "description": "Information partaining the job listed. i.e. Job Description, Job Requirements, e.t.c",
+            "status": 'Set status to "Open" to list the job on the page. Status "Closed" won\'t be listed.',
+            "experience": "Experience of the candidate. i.e. 3 Years, Entry level, e.t.c.",
+            "type": "e.g. Fulltime, Parttime, Internship, e.t.c",
+        }
+
+    def clean_content(self):
+        data = self.cleaned_data["description"]
+        if not data:
+            raise forms.ValidationError("This field is required.")
+        return data

@@ -287,15 +287,16 @@ class UpdateNewsView(BaseNewsView, UpdateView):
 class DeleteNewsView(BaseNewsView, DeleteView):
     model = models.News
     template_name = "home/forms/confirm_news_delete_form.html"
-    success_message = "'%(headline)s' was deleted successfully"
+    # success_message = "'%(headline)s' was deleted successfully"
+    success_message = "News Item deleted successfully"
     form_action = "delete"
     form_class = EntryDeleteForm
     success_url = reverse_lazy("news")
 
-    def get_success_message(self, cleaned_data):
-        return self.success_message % dict(
-            self.get_object().__dict__,
-        )
+    # def get_success_message(self, cleaned_data):
+    #     return self.success_message % dict(
+    #         self.get_object().__dict__,
+    #     )
 
 
 class SchoolManagementView(TemplateView):
@@ -574,3 +575,91 @@ def images_delete(request, model, success_message):
         return redirect("gallery-detail", slug=category_slug)
     else:
         return redirect("gallery")
+
+
+class JobListingListPageView(ListView):
+    model = models.JobListing
+    template_name = "home/job-listing.html"
+    context_object_name = "job_listing"
+    queryset = QueryManager.get_open_job_listing()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Careers"
+        return context
+
+class JobListingDetailPageView(DetailView):
+    model = models.JobListing
+    template_name = "home/job-listing-detail.html"
+    context_object_name = "job_listing"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Job Details"
+        return context
+
+
+class BaseJobListingView(LoginRequiredMixin):
+    model = models.JobListing
+    template_name = "home/forms/job_listing_form.html"
+    redirect_field_name = None
+    login_url = "/404/page-not-found/"
+    form_action = None
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["action"] = self.form_action
+        context["title"] = f"{self.form_action} Job Listing"
+        return context
+
+
+class AddJobListingView(BaseJobListingView, CreateView):
+    form_class = JobListingForm
+    success_message = "Job listing for '%(title)s' was created successfully"
+    form_action = "add"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["action"] = self.form_action
+        context["title"] = f"{self.form_action} Job Listing"
+        return context
+
+    def get_success_url(self):
+        if self.request.POST.get("add_another"):
+            return reverse_lazy("add-job-listing")
+        elif self.request.POST.get("save_continue"):
+            return reverse_lazy("update-job-listing", args=[self.object.slug])
+        else:
+            return reverse_lazy("job-listing")
+
+
+class UpdateJobListingView(BaseJobListingView, UpdateView):
+    form_class = JobListingForm
+    success_message = "Job listing for '%(title)s' was Updated successfully"
+    form_action = "update"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["action"] = self.form_action
+        context["title"] = f"{self.form_action} Job Listing"
+        return context
+
+    def get_success_url(self):
+        if self.request.POST.get("add_another"):
+            return reverse_lazy("add-job-listing")
+        elif self.request.POST.get("save_continue"):
+            return reverse_lazy("update-job-listing", args=[self.object.slug])
+        else:
+            return reverse_lazy("job-listing")
+
+
+class DeleteJobListingView(BaseJobListingView, DeleteView):
+    template_name = "home/forms/confirm_job_listing_delete_form.html"
+    success_message = "Job Listing was deleted successfully"
+    form_action = "delete"
+    success_url = reverse_lazy("job-listing")
+
+    # def get_success_message(self, cleaned_data):
+    #     return self.success_message % dict(
+    #         self.get_object().__dict__,
+    #     )

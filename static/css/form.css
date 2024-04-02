@@ -176,6 +176,7 @@ form.authentication {
 form.authentication input {
      padding: 10px;
      margin-bottom: 10px;
+     width: 100%;
 }
 
 form.authentication input[type=submit] {

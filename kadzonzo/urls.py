@@ -18,7 +18,7 @@ from django.urls import include, path, re_path
 from django.views.static import serve
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("admin-panel/", admin.site.urls),
     path("", include("home.urls")),
     path("authentication/", include("user_auth.urls")),
     path(
@@ -26,6 +26,10 @@ urlpatterns = [
         name="ck_editor_5_upload_file"
     ),
 ]
+
+admin.site.site_header = "Moi Kadzonzo Girls Secondary School "
+admin.site.site_title = f"{admin.site.site_header}"
+# admin.site.index_title = ""
 
 # Use static() to add url mapping to serve static files during development (only)
 from django.conf import settings

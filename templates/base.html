@@ -5,7 +5,18 @@
     <!-- basic -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title class="text-capitalize">
+    {% block title %}
+        {% if title %} {{ title|title }}
+            {% if subtitle %} ·
+                {{ subtitle|capfirst|truncatewords:4 }}
+            {% endif %} |
+        {% endif %}
+            {{ site_title|default:_('Moi Kadzonzo Girls Secondary School') }}
+    {% endblock %}
+    </title>
     <!-- mobile metas -->
+    <meta name="description" content="The official school website for Moi Kadzonzo Girls Secondary School">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
@@ -19,7 +30,7 @@
     <!--Bootstrap CSS only -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <!-- favicon -->
-    <link rel="icon" href="{% static 'images/Moi-Kadzonzo.png' %}" type="image/gif" />
+    <link rel="icon" href="{% static 'images/Moi-Kadzonzo.png' %}" type="image/x-icon" />
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/jquery.mCustomScrollbar.min.css' %}">
     <!-- Tweaks for older IEs-->
@@ -29,19 +40,7 @@
     <link rel="stylesheet" href="{% static 'css/form.css' %}">
         <!-- responsive css -->
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-
     {% endblock %}
-
-    <title class="text-capitalize">
-        {% block title %}
-        {% if title %} {{ title|title }}
-            {% if subtitle %} ·
-                {{ subtitle|capfirst|truncatewords:4 }}
-            {% endif %} |
-        {% endif %}
-            {{ site_title|default:_('Moi Kadzonzo Girls') }}
-        {% endblock %}
-    </title>
 </head>
 <body class="main-layout">
     <!-- loader  -->
