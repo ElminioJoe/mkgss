@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %} {{ block.super }}
+
+<section class="careers_detail_pg">
+    <div class="container-md">
+        <div class="bg-light_silver">
+            <div class="row job_listing-list">
+                <div class="col-12">
+                    <div class="job-header">
+                        <div class="p-2 d-flex">
+                            <div class="d-flex align-items-center pb-0 mr-auto">
+                                <h2 class="p-0">{{ job_listing.title|title }}
+                                </h2>
+                            </div>
+                            <!-- Edit Button -->
+                            <a href="{% url 'update-job-listing' job_listing.slug %}"
+                                class="btn btn-sm btn-outline-primary mr-2"
+                                title="Edit">
+                                <i class="fa-sharp fa-solid fa-pen-to-square"
+                                    aria-hidden="true"></i>
+                                Edit
+                            </a>
+                            <!-- Delete Button -->
+                            <a href="{% url 'delete-job-listing' job_listing.slug %}"
+                                class="btn btn-sm btn-outline-danger"
+                                title="Delete">
+                                <i class="fa-solid fa-trash"
+                                    aria-hidden="true"></i>
+                                Delete
+                            </a>
+                        </div>
+
+                        <div class="list-inline">
+                            <span class="my-2">
+                                <i class="fa-regular fa-clock"
+                                    style="color: #6D3D14;"></i>
+                                {{ job_listing.type|default:"Fulltime" }}
+                            </span>
+                            <!-- <span class="my-2">
+                                Posted on:
+                                {{ job_listing.date_listed|timesince }}
+                            </span> -->
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-8 order-2 job-description">
+                            <span class="d-flex align-items-center">
+                                <i
+                                    class="fa-solid fa-list-check fa-2xl mr-3"></i>
+                                <h3 class="p-0">Job Description/Requirements
+                                </h3>
+                            </span>
+                            <div class="mt-2 px-2">
+                                {{ job_listing.description|safe }}
+                            </div>
+                        </div>
+
+                        <div
+                            class="col-md-4 order-lg-2 order-sm-1 order-md-2 mb-4 mb-md-0 px-2">
+                            <span class="d-flex align-items-center">
+                                <i
+                                    class="fa-solid fa-caret-right fa-2xl mr-3"></i>
+                                <h3 class="p-0">Details</h3>
+                            </span>
+                            <div class="mt-2 px-1 list-block">
+                                <p>
+                                    <b>Application Deadline:</b>&nbsp;
+                                    {{ job_listing.application_deadline|date:"D, M jS Y" }}
+                                </p>
+                                <p>
+                                    <b>Type:</b>&nbsp;
+                                    {{ job_listing.type|default:"Fulltime" }}
+                                </p>
+                                <p>
+                                    <b>Experience:</b>&nbsp;
+                                    {{ job_listing.experience|default:"None" }}
+                                </p>
+                                <p>
+                                    <b>Published:</b>&nbsp;
+                                    {{ job_listing.date_listed|date:"M jS Y" }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

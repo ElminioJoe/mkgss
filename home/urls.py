@@ -154,7 +154,39 @@ urlpatterns = [
                     name="news_delete",
                 ),
             ]
-        )
+        ),
+    ),
+    path(
+        "careers/job-listing/",
+        include(
+            [
+                path(
+                    "",
+                    views.JobListingListPageView.as_view(),
+                    name="job-listing",
+                ),
+                path(
+                    "<slug:slug>/",
+                    views.JobListingDetailPageView.as_view(),
+                    name="job-listing-detail",
+                ),
+                path(
+                    "new/job-listing/",
+                    views.AddJobListingView.as_view(),
+                    name="add-job-listing",
+                ),
+                path(
+                    "update/job-listing/<slug:slug>/",
+                    views.UpdateJobListingView.as_view(),
+                    name="update-job-listing",
+                ),
+                path(
+                    "delete/job-listing/<slug:slug>/",
+                    views.DeleteJobListingView.as_view(),
+                    name="delete-job-listing",
+                ),
+            ]
+        ),
     ),
     path("contact/", views.ContactFormView.as_view(), name="contact"),
     # ----------- ---------- -----------

@@ -1367,3 +1367,27 @@ img.zoom {
 .management_pg .staff-image img {
 	object-fit: contain;
 }
+
+/*---------------------------------------------------------------------
+    Careers page css
+---------------------------------------------------------------------*/
+.job-list .job-list-item {
+	position: relative;
+	padding: .75rem 1.25rem;
+	border: 1px solid #FFF0;
+	border-radius: .25rem;
+}
+
+.job-list a:hover .job-list-item {
+	border: 1px solid #00000020;
+	color: initial;
+}
+
+.job-list a:hover .job-title {
+	text-decoration: underline !important;
+	color: #007BFF;
+}
+
+.job-description li {
+	list-style: inside square;
+}

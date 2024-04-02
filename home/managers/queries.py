@@ -68,3 +68,13 @@ class QueryManager:
         return models.Staff.objects.filter(
                 role=models.Staff.DIRECTOR
             )
+
+
+    @staticmethod
+    def get_open_job_listing():
+        """
+        Fetch all job listing objects that are open.
+        """
+        return models.JobListing.objects.filter(
+                status=models.JobListing.OPEN
+            )

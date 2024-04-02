@@ -1,4 +1,3 @@
-from email.policy import default
 import os
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -196,6 +195,7 @@ class Category(models.Model):
 
     class Meta:
         ordering = ["-date_created"]
+
     def __str__(self):
         return self.name
 
@@ -293,3 +293,44 @@ class Entry(BaseModel):
 
     def has_children(self):
         return Entry.objects.filter(extra_entry=self).exists()
+
+
+class JobListing(models.Model):
+    CLOSED = 0
+    OPEN = 1
+    STATUS_CHOICES = {
+        OPEN: "Ongoing",
+        CLOSED: "Closed",
+    }
+
+    title = models.CharField(max_length=155, verbose_name="Job Title")
+    experience = models.CharField(
+        max_length=50, verbose_name="Experience Level", default=""
+    )
+    type = models.CharField(max_length=100, verbose_name="Employment Type")
+    description = CKEditor5Field(
+        config_name="minimal", verbose_name="Job Description",
+    )
+    # responsibilities = CKEditor5Field(
+    #     config_name="minimal",
+    #     verbose_name="Responsibilities",
+    # )
+    status = models.IntegerField(choices=STATUS_CHOICES, default=OPEN)
+    application_deadline = models.DateField(verbose_name="Application Deadline")
+    date_listed = models.DateTimeField(verbose_name="Date Listed", auto_now_add=True)
+    slug = models.SlugField(max_length=500, unique=True, blank=True, editable=False)
+
+    class Meta:
+        ordering = [
+            "-date_listed",
+        ]
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse("job-listing-detail", args=[str(self.slug)])
+
+    def save(self, *args, **kwargs):
+        self.slug = generate_unique_slug(self.__class__.objects, self.title)
+        super(JobListing, self).save(*args, **kwargs)

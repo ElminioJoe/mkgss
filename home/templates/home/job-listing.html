@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %} {{ block.super }}
+
+<section class="careers_pg">
+    <div class="container-md">
+        <div class="bg-light_silver">
+            <div class="d-flex mb-3">
+                <h2 class="mr-auto p-0 page-title">Current Job Openings</h2>
+                {% if user.is_authenticated %}
+                <!-- Add Button -->
+                <a href="{% url 'add-job-listing' %}"
+                    class="btn btn-sm btn-outline-success" title="Add">
+                    <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                    &nbsp;Post Job Opening
+                </a>
+                {% endif %}
+            </div>
+
+            <div class="row job-list">
+                {% for job in job_listing %}
+                <div class="col-12">
+                    <a href="{{ job.get_absolute_url }}">
+                        <div class="job-list-item">
+                            <div class="d-flex align-items-center pb-2">
+                                <h4 class="p-0 job-title">
+                                    {{ job.title|title }}
+                                </h4>
+                                <div class="ml-3">
+                                    <i class="fa-regular fa-clock"
+                                        style="color: #6D3D14;"></i>
+                                    <span class="mr-3">
+                                        {{ job.type }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="list-inline">
+                                <span class="mr-3 btn-sm{% if job.status == 0 %} btn-danger
+                                    {% else %} btn-success{% endif %}">
+                                    {{ job.get_status_display }}
+                                </span>
+                                {% if job.status == 1 %}
+                                <span>
+                                    Deadline:
+                                    {{ job.application_deadline|date:"D, M jS Y" }}
+                                </span>
+                                {% endif %}
+                            </div>
+                            <p class="my-2">
+                                Posted {{ job.date_listed|timesince }} ago
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                {% empty %}
+                <div class="col-12">
+                    <p>New Job Openings!<br>Check back later for any updates.
+                    </p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

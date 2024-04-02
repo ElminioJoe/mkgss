@@ -11,6 +11,7 @@ admin.site.register(models.Department)
 admin.site.register(models.Gallery)
 admin.site.register(models.Category)
 admin.site.register(models.News)
+admin.site.register(models.JobListing)
 
 
 class EntryAdmin(admin.ModelAdmin):
