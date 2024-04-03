@@ -17,6 +17,7 @@
                                 class="btn btn-sm btn-outline-success">
                                 <i class="fa fa-plus-square-o"
                                     aria-hidden="true"></i>
+                                    &nbsp;Add
                             </button>
                         </a>
                         {% endif %}
@@ -89,6 +90,7 @@
                                 class="btn btn-sm btn-outline-success">
                                 <i class="fa fa-plus-square-o"
                                     aria-hidden="true"></i>
+                                    &nbsp;Add
                             </button>
                         </a>
                         {% endif %}
@@ -141,6 +143,31 @@
                     </div>
                 </div>
                 {% endfor %}
+            </div>
+            {% elif not board_members and user.is_authenticated %}
+            <div class="col-md-12 my-5">
+                <div class="d-flex mb-3">
+                    <h2 class="mr-auto">Board Directors</h2>
+                    <!-- Add Button -->
+                    <a href="{% url 'create_staff' 'director' %}">
+                        <button type="button" title="Add"
+                            class="btn btn-sm btn-outline-success">
+                            <i class="fa fa-plus-square-o"
+                                aria-hidden="true"></i>
+                                &nbsp;Add
+                        </button>
+                    </a>
+                </div>
+                <hr>
+            </div>
+            <div>
+                <h2 class="text-center">
+                    No Board of Directors Found!! <br>
+                    <a href="{% url 'create_staff' 'director' %}"
+                        class="badge badge-primary">
+                        Add Member
+                    </a>
+                </h2>
             </div>
             {% endif %}
         </div>
