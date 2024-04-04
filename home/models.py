@@ -200,7 +200,7 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("category-detail", args=[str(self.id)])
+        return reverse("category-detail", args=[str(self.slug)])
 
     def save(self, *args, **kwargs):
         self.slug = generate_unique_slug(self.__class__.objects, self.name)
@@ -279,7 +279,7 @@ class Entry(BaseModel):
         return f"{self.entry} - {self.title}".upper()
 
     def get_absolute_url(self):
-        return reverse("entry-detail", kwargs={"pk": self.pk})
+        return reverse("entry-detail", kwargs={"pk": self.slug})
 
     def save(self, *args, **kwargs):
         if not self.slug:

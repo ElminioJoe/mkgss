@@ -54,7 +54,7 @@
             {% for category in category_list %}
             <div class="col-4 col-sm-4 col-md-3 col-lg-2 p-1">
                 <div class="gallery-box">
-                    <a href="{% url 'gallery-detail' category.slug %}">
+                    <a href="{{ category.get_absolute_url }}">
                         {% cloudinary category.random_image.gallery_image.url width=250 height=150 gravity="auto" crop="fill" alt=category.random_image.gallery_image.name %}
                         <div
                             class="d-flex flex-column align-items-center pt-2 p-1 bg-light">
