@@ -19,7 +19,7 @@
             <p>This action cannot be undone!</p>
             <div class="actions">
                 <input type="submit" class="delete btn btn-sm" value="Delete">
-                <a href="{% url 'news-detail' object.slug %}" class="cancel">Cancel</a>
+                <a href="{{request.META.HTTP_REFERER}}" class="cancel">Cancel</a>
             </div>
         </div>
     </form>
