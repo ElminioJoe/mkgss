@@ -1,3 +1,4 @@
+from datetime import date
 from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
 
@@ -22,6 +23,9 @@ class StaticViewSitemap(Sitemap):
 
     def location(self, item):
         return reverse(item)
+
+    def lastmod(self, item):
+        return date(2024,4,5)
 
 
 class AboutSiteMap(Sitemap):
@@ -59,7 +63,7 @@ class BlogsSiteMap(Sitemap):
         """
         Return the last modification date for the given object.
         """
-        return getattr(item, "last_modified", None)
+        return item.modification_date
 
 
 class JoblistingsSiteMap(Sitemap):
@@ -78,7 +82,7 @@ class JoblistingsSiteMap(Sitemap):
         """
         Return the last modification date for the given object.
         """
-        return getattr(item, "date_listed", None)
+        return item.date_listed
 
 
 class GallerySiteMap(Sitemap):
@@ -97,4 +101,4 @@ class GallerySiteMap(Sitemap):
         """
         Return the last modification date for the given object.
         """
-        return getattr(item, "date_modified", None)
+        return item.date_modified
