@@ -1,8 +1,17 @@
 from django.urls import include, path, re_path, reverse_lazy
 from django.views.generic import RedirectView
+from django.contrib.sitemaps.views import sitemap
 
 from .forms import *
-from . import views, models
+from . import views, models, sitemaps
+
+site_maps = {
+    "static": sitemaps.StaticViewSitemap,
+    "blogs": sitemaps.BlogsSiteMap,
+    "jobs": sitemaps.JoblistingsSiteMap,
+    "gallery": sitemaps.GallerySiteMap,
+    "about": sitemaps.AboutSiteMap,
+}
 
 urlpatterns = [
     # ----------- Entry Urls -----------
@@ -46,7 +55,7 @@ urlpatterns = [
     path(
         "gallery/<slug:slug>/",
         views.GalleryCategoryDetailView.as_view(),
-        name="gallery-detail",
+        name="category-detail",
     ),
     path(
         "gallery/create/category/",
@@ -213,5 +222,11 @@ urlpatterns = [
                 ),
             ]
         ),
+    ),
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": site_maps},
+        name="django.contrib.sitemaps.views.sitemap",
     ),
 ]
